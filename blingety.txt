@@ -56,11 +56,11 @@ var bass1 = n(`<
 var arps = arrange( 
    [1*4, stack(
      nArp1.sound("piano").scale("c3:major").release(2).room(5), 
-     accent1.sound("gm_piccolo").scale("c4:major").release(1.2).gain(1.2)
+     accent1.sound("gm_sitar").scale("c3:major").release(1.2).gain(1.2)
    )], 
    [2*4, stack(
      nArp11.sound("piano").scale("c3:major").release(2).room(5), 
-     accent2.sound("gm_piccolo").scale("c4:major").release(1.2).gain(1.2)
+     accent2.sound("gm_sitar").scale("c3:major").release(1.2).gain(1.2)
    )], 
    [1*8, nArp2.sound("piano").scale("c3:major").release(2).room(5)], 
    [2*4, nArp3.sound("piano").scale("c3:major").release(2).room(5)] 
@@ -72,8 +72,8 @@ var arps = arrange(
 // ).color("green") 
   
 var drums = stack( 
-sound("[bd  cp] ").release(3).gain(1).room(2).color("red"),  
-sound("hh").ply("<2 4 8 16>").color("blue")    
+sound("[bd  clap] ").release(3).gain(1).room(2).color("red"),  
+sound("hh").ply("<2 4 8 4>").color("blue")    
 ) 
   
 // -------- MAIN 
