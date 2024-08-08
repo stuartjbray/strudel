@@ -1,0 +1,48 @@
+// Nice sample selection 
+samples({ 
+  'waft': 'ade/003_abt.wav', 
+  'synth1': 'arp/000_arp2.wav', 
+  'synth2': 'arp/001_arp.wav', 
+  'bass': 'bass/001_bass2.wav', 
+  'pluck': 'pluck/BS C3 PI.wav', 
+  'sp': '/space/007_16.wav', 
+}, 'github:tidalcycles/Dirt-Samples/master/'); 
+samples({ 
+  'bass': 'sonic-pi/bass_thick_c.wav', 
+  'bass_c': 'sonic-pi/bass_woodsy_c.wav' 
+},'github:adafruit/adafruit-sound-samples/master/'); 
+samples({ 
+  'n': '/b1/c4.wav' 
+},'github:vasilymilovidov/samples') 
+  
+var n1 = n(`< 
+[1 5 7 10 7 3 5 3 ] 
+[0 5 7 11 7 5 3 5] 
+[-2 0 5 10 7 3 5 3] 
+[0 5 7 11 7 5 3 5] 
+  
+  >`); 
+var n2 = n(`< 
+[1 5 7 10 7 3 5 3 ] 
+[0 5 7 3 7 8 10 8] 
+  >`); 
+var n3 = n(`< 
+[7 - 5 3] 
+[8 - 5 1] 
+  >`); 
+  
+$: cat(n1).s("n").scale("c2:major")._punchcard() 
+  
+// $: n("<1 3 5 ->").s("pluck").ply(2).scale("c3:major").room(2) 
+// $: n("1 3 5 -").s("bass").scale("c3:major").room(2) 
+  
+  
+  
+  
+  
+// var drums = stack(  sound("[bd!2] cp!2").lpf(500),  sound("hh!2")  ) 
+// var intro =  note("c") 
+// var verse =  note("a") 
+// var chorus = note("[f] [g] [f] [g]") 
+ 
+ 
