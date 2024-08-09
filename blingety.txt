@@ -62,42 +62,41 @@ var bass1 = n(`<
   [3 - - -]
 >`)
 var bass2 = n(`<
-  [9 - - -]
-  [7 - - -]
+  9 5 10 7
 >`)
 
 
 var harp1 = n(`<
-   - [[7,9] - [10,8] -]
+   - [[7,9] - [<10 7>,<8 5>] -]
 >`)
 var harp2 = n(`<
-   - [[14,10] - [13,9] -]
+   - [[12,10] - [13,9] -]
 >`)
 
 var arps = arrange( 
-   [2, stack( // ---- Windup
-     nArp1_windup.sound("piano").scale("c3:major")
-   )],
-   [2*4, stack( // ---- Intro
-     harp1.sound("gm_orchestral_harp").scale("c3:major").color("white"),
-     nArp1.sound("piano").scale("c3:major").room(2).gain(2), 
-     accent1.sound("gm_dulcimer").scale("c4:major").release(2).gain(1.5),
-     bass1.sound("gm_alto_sax").scale("c2:major").room(5).release(5).gain(.5)
-   )], 
+   // [2, stack( // ---- Windup
+   //   nArp1_windup.sound("piano").scale("c3:major")
+   // )],
+   // [2*4, stack( // ---- Intro
+   //   harp1.sound("gm_orchestral_harp").scale("c3:major").release(2).gain(1).color("white"),
+   //   nArp1.sound("piano").scale("c3:major").room(2).gain(2), 
+   //   accent1.sound("gm_dulcimer").scale("c4:major").release(2).gain(1.5),
+   //   bass1.sound("gm_alto_sax").scale("c2:major").room(5).release(5).gain(.5)
+   // )], 
    [2*4, stack(
-     harp2.sound("gm_orchestral_harp").scale("c3:major").color("white"),
+     harp2.sound("gm_orchestral_harp").scale("c3:major").release(2).gain(1).color("white"),
      nArp11.sound("piano").scale("c3:major").phaser("<8 16 4 8>"), 
-     accent2.sound("gm_sitar").scale("c3:major").release(2).gain(1),
-     bass2.sound("gm_alto_sax").scale("c2:major").room(5).release(2).gain(.5)
+     accent2.sound("gm_koto").scale("c3:major").gain(1.5),
+     bass2.sound("gm_alto_sax").scale("c2:major").room(3).release(2).gain(.5)
    )], 
    [2*4, stack( // ---- Warbly 
      nArp1.sound("piano").scale("c3:major").clip(".5").ply(2), 
      accent1.sound("gm_sitar").scale("c3:major").release(2).gain(1),
      warblyTan.sound("z_tan").scale("c1:major").delay(1) 
    )], 
-   [1*8, // ----  Drumless
+   [1*8, stack( // ----  Drumless
      nArp2.vib("<0 3>").sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2)
-   ], 
+   )], 
    [2*4, stack(
      nArp2.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2).ply("<1 2>"),
      nArp3.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2).ply("<2 1>")
