@@ -1,0 +1,13 @@
+
+// Chords
+var chords1 = `<
+  G G [D Dm] G
+  Am Am7 [C Cm] D
+>`;
+
+$: arrange(
+  [1, stack(
+    n("0,1,2 3").sound("sine").chord(chords1).voicing().fm("<[0 1 2 3 2 1 0 1]!4>").fmattack(0).ply(8)
+    // .lpf("<500 1000 1500 2000>")
+  )]
+)

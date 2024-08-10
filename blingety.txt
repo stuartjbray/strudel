@@ -1,4 +1,8 @@
-//"Blingety" @by Stuart Bray 
+/*
+@title Blingety
+@by Stuart Bray
+@url https://soundcloud.com/stuart-j-bray
+*/
   
 var n1 = n(`<  
   [8 - <7 9> -]  
@@ -126,13 +130,12 @@ var arps = arrange(
      nArpChords1.sound("gm_acoustic_guitar_steel").scale("c4:major").room(5)     
    )],
   [1,stack( // Outro
-    n("[7 5 3 1] 1,3,7").sound("piano").scale("c4:major").release(10),
-    n("1,3").sound("gm_bagpipe").scale("c3:major").release(2),
-    n("1,3,5,7").sound("gm_acoustic_guitar_steel").scale("c3:major").release(10),
+    n("[7 5 3 1] 1,3,7,10").sound("piano").scale("c4:major"),
+    n("[1 3 5 7] 1,3,7,10").sound("piano").scale("c3:major"),
   )],
   [4,silence]
   
-  )._punchcard();
+  ).punchcard();
   
   
   
@@ -154,7 +157,7 @@ var drums = arrange(
     sound("AkaiLinn_mt").struct(   "- - - - - - - - - - - - 1 - - -").delay("0 1 .5").color("red"),  
     sound("[- KorgMinipops_hh - KorgMinipops_hh]").gain(".2 1").color("blue")    
   )],
-  [1*4,stack( // Outro
+  [1*4,stack( // Outro // CHANGE TO 1*4
     sound("clap").struct(          "- - 1 - - - - - - - - 1 - 1 - 1 -").room(2).color("red"),  
     sound("AJKPercusyn_bd").struct("1 - - 1 - - 1 - - 1 1 1 - 1 1 1").color("red"),  
     sound("AkaiLinn_mt").struct(   "- - - - - - - - - - 1 - 1 - 1 -").delay("0 1 .5").color("red"),  
@@ -167,7 +170,7 @@ var drums = arrange(
     sound("KorgMinipops_hh").delay("4 1 1"),
   )],
   [4, silence]
-)._punchcard()
+).punchcard()
 
 $: stack(
   arps,
