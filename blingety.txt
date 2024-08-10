@@ -35,13 +35,26 @@ var nArp2 = n(`<
   [11 7 2 7] 
   [11 7 11 7] 
 >`).color("pink");  
+var nArpChords1 = n(`<
+  -@3
+  [-@4 5 7 - 5]
+  9
+  -@3 
+>`)
 var nArp3 = n(`< 
   [3 5 7 5] 
   [9 10 7 5] 
   [4 7 8 7] 
   [9 11 7 4] 
 >`).color("orange");   
-  
+var nArp22 = n(`<
+  -@8
+  [5 7 9 7]
+  -
+  [9 10 12 10]
+  -
+>`)
+
 // Accents 
 var accent1 = n(`<  
   [- - [11 12][11 8]]  
@@ -74,15 +87,15 @@ var harp2 = n(`<
 >`)
 
 var arps = arrange( 
-   // [2, stack( // ---- Windup
-   //   nArp1_windup.sound("piano").scale("c3:major")
-   // )],
-   // [2*4, stack( // ---- Intro
-   //   harp1.sound("gm_orchestral_harp").scale("c3:major").release(2).gain(1).color("white"),
-   //   nArp1.sound("piano").scale("c3:major").room(2).gain(2), 
-   //   accent1.sound("gm_dulcimer").scale("c4:major").release(2).gain(1.5),
-   //   bass1.sound("gm_alto_sax").scale("c2:major").room(5).release(5).gain(.5)
-   // )], 
+   [2, stack( // ---- Windup
+     nArp1_windup.sound("piano").scale("c3:major")
+   )],
+   [2*4, stack( // ---- Intro
+     harp1.sound("gm_orchestral_harp").scale("c3:major").release(2).gain(1).color("white"),
+     nArp1.sound("piano").scale("c3:major").room(2).gain(2), 
+     accent1.sound("gm_dulcimer").scale("c4:major").release(2).gain(1.5),
+     bass1.sound("gm_alto_sax").scale("c2:major").room(5).release(5).gain(.5)
+   )], 
    [2*4, stack(
      harp2.sound("gm_orchestral_harp").scale("c3:major").release(2).gain(1).color("white"),
      nArp11.sound("piano").scale("c3:major").phaser("<8 16 4 8>"), 
@@ -95,29 +108,65 @@ var arps = arrange(
      warblyTan.sound("z_tan").scale("c1:major").delay(1) 
    )], 
    [1*8, stack( // ----  Drumless
-     nArp2.vib("<0 3>").sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2)
+     nArp2.vib("<0 3>").sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2),
+     nArp22.sound("piano").scale("c4:major").ply(2).clip(".5").fast(2),
+     nArpChords1.sound("gm_acoustic_guitar_steel").scale("c3:major").room(5)
+     
    )], 
    [2*4, stack(
      nArp2.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2).ply("<1 2>"),
-     nArp3.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2).ply("<2 1>")
+     nArp3.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2).ply("<2 1>"),
+     nArpChords1.sound("gm_acoustic_guitar_steel").scale("c3:major").room(5)
    )],
    [2*4, stack(
      nArp2.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(4),
      nArp3.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2),
-     nArp3.rev().sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2)
-   )] 
+     nArp3.rev().sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2),
+     harp1.sound("gm_bagpipe").scale("c1:major").release(5),
+     nArpChords1.sound("gm_acoustic_guitar_steel").scale("c4:major").room(5)     
+   )],
+  [1,stack( // Outro
+    n("[7 5 3 1] 1,3,7").sound("piano").scale("c4:major").release(10),
+    n("1,3").sound("gm_bagpipe").scale("c3:major").release(2),
+    n("1,3,5,7").sound("gm_acoustic_guitar_steel").scale("c3:major").release(10),
+  )],
+  [4,silence]
   
   )._punchcard();
   
   
   
 var drums = arrange( 
-  [2, silence  ],
-  [6*4,stack(
-    sound("[bd  <clap wind>] ").room(2).lpf("<1000 1500 2000 2500>").color("red"),  
-    sound("[- KorgMinipops_hh - KorgMinipops_hh]").gain(".5 1").color("blue")    
+  [2, // Windup
+    sound("AJKPercusyn_bd").struct("- - - - - - - - 1 1 - 1 - 1 - 1 ").color("red"),     
+   ],
+  [6*4,stack( // Arps
+    // sound("[bd  <clap wind>] ").room(2).lpf("<1000 1500 2000 2500>").color("red"),  
+    // sound("[- KorgMinipops_hh - KorgMinipops_hh]").gain(".5 1").color("blue"),    
+    sound("AJKPercusyn_bd").struct("1 - - 1 - - 1 - - - - - - - - -").color("red"),  
+    sound("AkaiLinn_mt").struct(   "- - - - - - - - - - 1 - - - - -").delay("0 1 .5").color("red"),  
+    sound("[- KorgMinipops_hh - KorgMinipops_hh]").gain(".2 1").color("blue")    
   )],
-  [4*4, silence  ],
+  [1*4, silence  ], // Piano solo
+  [4*4,stack( // With Claps
+    sound("clap").struct(          "- - - - - - - - - - 1 - - - 1 -").room(2).gain(.5).color("red"),  
+    sound("AJKPercusyn_bd").struct("1 - - 1 - - 1 - - - - - - - - -").color("red"),  
+    sound("AkaiLinn_mt").struct(   "- - - - - - - - - - - - 1 - - -").delay("0 1 .5").color("red"),  
+    sound("[- KorgMinipops_hh - KorgMinipops_hh]").gain(".2 1").color("blue")    
+  )],
+  [1*4,stack( // Outro
+    sound("clap").struct(          "- - 1 - - - - - - - - 1 - 1 - 1 -").room(2).color("red"),  
+    sound("AJKPercusyn_bd").struct("1 - - 1 - - 1 - - 1 1 1 - 1 1 1").color("red"),  
+    sound("AkaiLinn_mt").struct(   "- - - - - - - - - - 1 - 1 - 1 -").delay("0 1 .5").color("red"),  
+    sound("KorgMinipops_hh!16").gain("<.2 .5 .2 .5>").color("blue")    
+  )],
+  [1,stack(
+    sound("clap").delay("4 1 1"),
+    sound("AJKPercusyn_bd").delay("4 1 1"),
+    sound("AkaiLinn_mt").delay("4 1 1"),
+    sound("KorgMinipops_hh").delay("4 1 1"),
+  )],
+  [4, silence]
 )._punchcard()
 
 $: stack(
