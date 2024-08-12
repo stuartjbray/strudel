@@ -1,13 +1,29 @@
 
 // Chords
+/*
+More than anything ish.
+https://tabs.ultimate-guitar.com/tab/misc-cartoons/hazbin-hotel-more-than-anything-chords-5122474
+*/
 var chords1 = `<
-  G G [D Dm] G
-  Am Am7 [C Cm] D
+ F# G# A#m C# 
+ F# G# A#m C# 
+ E B F# F#
+ E B F# G#m
+ E G#m A B
+ E G#m A B
+ A E B B
+ A E B B
+ G#m A B C#m 
+ B A F# C#
+ F# G# A#m
 >`;
 
 $: arrange(
   [1, stack(
-    n("0,1,2 3").sound("sine").chord(chords1).voicing().fm("<[0 1 2 3 2 1 0 1]!4>").fmattack(0).ply(8)
-    // .lpf("<500 1000 1500 2000>")
+    n(`<
+      [1 [- 2] - - 3 4 -],
+      [5 6 - 7 8 - [- 1]]
+      >`).chord(chords1).voicing().sound("piano").room(2)
+    // .vowel("[a e i o]") .fm("<[1 2]!4>")
   )]
 )
