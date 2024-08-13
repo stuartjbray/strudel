@@ -114,5 +114,19 @@ stack(
   
   
  
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+//@title 
+//@by 
+
+let ch = (`<
+ [C Am G G]@4
+ [D F C G]@4
+ [F Am C Dm7]@8
+          >`);
+let _ch = n("[1 2 3 - 5 7 - <4 2>]!2").chord(ch).voicing().sound("fmpiano");  // .fm("<1 2 3 4>"); // .lpf("<1000 2000>")
+
+
+$: _ch.fast(.8);
 
  
