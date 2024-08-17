@@ -1,0 +1,99 @@
+/*
+@title In Trenches
+@by Stuart Bray
+@url https://soundcloud.com/stuart-j-bray
+*/
+
+
+// -------------- Drums
+var d1 = sound("AkaiLinn_mt").struct(   "1 0     1 1 0 1 0     0").room(1).lpf(500)
+var d2 = sound("AkaiXR10_sd").struct(   "0 [- 1] 0 0 0 0 1     0")
+var d3 = sound("AkaiLinn_sh").struct(   "0 [1 -] 0 0 0 0 0     1").room(2)
+var d4 = sound("AkaiMPC60_rd").struct(  "0 0     0 0 0 0 <0 1> 0")
+var d5 = sound("gm_timpani"  ).struct(  "0 0     0 0 [1 1 1 1] 0 0 0 ")
+var d5_2 = sound("gm_timpani"  ).struct(  "0 0     0 0 [1 1 1 1] 0 [1 1 1 1] 0 ")
+var d6 = sound("AkaiMPC60_rim").struct( "0 0     1 0 0 0 0     1").room(2)
+var d6_2 = sound("AkaiMPC60_rim").struct( "0 0     1 0 1 0 [1 1][1 1]").room(2)
+var d7_2 = sound("AlesisSR16_cr").struct("0 0 0 0 0 0 1 [1 1]")
+
+var drums_pre = stack( d1, d5, d6 ).slow(2)
+var drums = stack(  d1,  d2,  d3,  d4, d5, d6).slow(2)
+var drums_2 = stack(  d1,  d2,  d3,  d4, d5_2, d6_2, d7_2).slow(2) // high energy versions.
+
+$: arrange(
+  [4,drums_pre],
+  [4,drums],
+  [4,drums_2]
+).color("white")
+
+// -------------- Chords
+var ch1 = n(`<
+  <0 3>
+  -
+  <[1 2 - 0] [2 1 - 0]>
+  -
+>`)
+var _ch1 = ch1.sound("gm_overdriven_guitar").scale("c2:minor").release(1.1).room(2).gain(.4).color("red")
+// -------------- Trills
+var tr1 = n(`<
+  -
+  [- [0 3] 7 -]
+  -
+  -
+>`)
+var _tr1 = tr1.sound("gm_koto").scale("c4:minor").room(2).color("orange")
+// -------------- Swipes
+var sw1 = n (`<
+ [- 5 - 5 - - 4 -]
+ [- 2 2 2 - - 3 -]
+>`)
+var sw2 = n (`<
+ [- 5 - 5 - - 4 -]
+ [- 7 7 7 - <5 -> <4 -> -]
+>`)
+var _sw1 = sw1.sound("gm_slap_bass_1").scale("c2:minor").room(2).gain(2).color("yellow")
+var _sw2 = sw2.sound("gm_slap_bass_1").scale("c2:minor").room(2).gain(2).color("yellow")
+// ------------- Peeks
+var pk1 = n(`<
+ -
+ [- - [0,2,4] -] 
+ [0,2,5]
+ -
+>`)
+var pk2 = n(`<
+ -
+ [- - [0,2,5] -] 
+ [0,2,4]
+ -
+>`)
+var _pk1 = pk1.sound("gm_guitar_harmonics").scale("c3:minor").phaser(2).release(2).color("green")
+var _pk2 = pk2.sound("gm_guitar_harmonics").scale("c3:minor").phaser(2).release(2).color("green")
+
+$: arrange(
+  [4,stack(
+    _ch1,
+    _tr1
+  )],
+  [4,stack(
+    _ch1,
+    _tr1,
+    _sw1,
+  )],
+  [4,stack(
+    _ch1,
+    _tr1,
+    _sw2,
+  )],
+  [4,stack(
+    _ch1,
+    _tr1,
+    _sw2,
+    _pk1
+  )],
+  [4,stack(
+    _ch1,
+    _tr1,
+    _sw2,
+    _pk2
+  )],
+).punchcard()
