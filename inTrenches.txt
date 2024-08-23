@@ -27,7 +27,7 @@ var _drums_3 = stack(    d2,  d3,  d4, d5_2,  d7_2, d8).slow(2).color("white") /
 var ch1 = n(`<
   <0 3>
   -
-  <[1 2 - 0] [2 1 - 0]>
+  <[1 2 - -] [2 1 - -]>
   -
 >`)
 var _ch1 = ch1.sound("gm_overdriven_guitar").scale("c2:minor").release(1.1).room(2).gain(.4).color("red")
@@ -87,6 +87,8 @@ _$: arrange(
 // --------------- chills
 var chills1 = n("<[7 <6 8> - [<4.5 9>,5]] - [<4 3> <3 4> - [0,4]] ->")
 var _chills1 = chills1.sound("gm_pad_new_age").scale("c3:minor").gain(2).release(3)
+
+
 
 /*
 */
