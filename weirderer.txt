@@ -10,13 +10,11 @@
 // - Fade in lpf
 //.lpf(sine.range(500,2000).slow(2))
 
-// - Pan - cross fade
-var drums = "[hh - oh -] [- hh*2 oh -]";
-
-$: stack(
-  sound(drums).pan(sine.slow(4)),
-  sound(drums).pan(cosine.slow(4))
-).gain(.1)
+var d = stack( "[hh - AlesisSR16_rim -] [- hh*2 AlesisSR16_rim <hh ->]",  "bd - - [- <bd AlesisHR16_oh>]" )
+var _d = stack(
+  sound(d).pan(sine.slow(4)),
+  sound(d).pan(cosine.slow(4))
+).gain(.6).color("white");
 
 
 var lowChords1 = n(`<
@@ -32,17 +30,17 @@ var lowChords2 = n(`<
  [5 - 1 - - - - -]
 >`)
 var _lowChords1 = lowChords1.sound("gm_fx_brightness").scale("c2:major")
-  .distort("<1 2>").gain("<1.5 1.2>").ply("2 3").lpf("<500 2000>").clip(".1").release(.2).delay(.5,.5,.1)
+  .distort("<1 2>").gain("<1.5 1.2>").ply("2 3").lpf("<500 2000>").clip(".1").release(.2).delay(.5,.5,.1).color("red")
 var _lowChords2 = lowChords2.sound("gm_fx_brightness").scale("c2:major")
-  .distort("<1 2>").gain("<1.5 1.2>").ply("2 3").lpf("<500 2000>").clip(".1").release(.2).delay(.5,.5,.1)
+  .distort("<1 2>").gain("<1.5 1.2>").ply("2 3").lpf("<500 2000>").clip(".1").release(.2).delay(.5,.5,.1).color("red")
 
 var bass1 = n(`<  0  0  0  2>`); var bass2 = n(`<  3  3  4  4>`)
-var _bass1 = bass1.sound("gm_synth_strings_1").scale("c2:major").clip("<.75 .5>").ply(8).gain(2);
-var _bass2 = bass2.sound("gm_synth_strings_1").scale("c2:major").clip("<.75 .5>").ply(8).gain(2);
+var _bass1 = bass1.sound("gm_synth_strings_1").scale("c2:major").clip("<.75 .5>").ply(8).gain(2).color("orange");
+var _bass2 = bass2.sound("gm_synth_strings_1").scale("c2:major").clip("<.75 .5>").ply(8).gain(2).color("orange");
 
 // ------------ strums
-var strum1 = n(`<[0,4,6]@3*3 [0,5,7]>`).detune("<0 .5 1 1.5>")
-var _strum1 = strum1.sound("gm_acoustic_guitar_steel").scale("c4:major").ply("<[8 0]!4>").gain(1.5)
+var strum1 = n(`<[0,4,6]@3*3 [0,5,7]>`)
+var _strum1 = strum1.sound("gm_acoustic_guitar_steel").scale("c4:major").ply("<[8 0]!4>").gain(3).color("yellow");
 
 // ----------- swoops
 var swoop1 = n(`<
@@ -54,27 +52,35 @@ var swoop2 = n(`<
   [<8 9> 7 - 6 7 - - -]
 >`)
 var _swoop1 = swoop1.sound("gm_orchestral_harp").scale("c4:major").distort("<1 2 3 4>")
-       .gain("<1 .6 .3 .1>").crush("<4@2 6@2 8@2 10@2>").ply("<1 1 1 2>");
+       .gain("<1 .6 .3 .1>").crush("<4@2 6@2 8@2 10@2>").ply("<1 2 1 2>").color("green").room(2);
 var _swoop2 = swoop2.sound("gm_orchestral_harp").scale("c4:major").distort("<1 2 3 4>")
-       .gain("<1 .6 .3 .1>").crush("<4@2 6@2 8@2 10@2>").ply("<1 1 1 2>");
+       .gain("<1 .6 .3 .1>").crush("<4@2 6@2 8@2 10@2>").ply("<1 2 1 2>").color("green").room(2);
 
 // ----------- bells
-var _bell1 = n("< [- - - 4] >").sound("gm_vibraphone").scale("c2:major").gain(2).release(2)
-var _bell2 = n("< [- - - 5] >").sound("gm_vibraphone").scale("c2:major").gain(2).release(2)
+var _bell1 = n("< [- - - 4] >").sound("gm_vibraphone").scale("c2:major").gain(2).release(2).color("blue");
+var _bell2 = n("< [- - - 5] >").sound("gm_vibraphone").scale("c2:major").gain(2).release(2).color("blue");
+// ----------- sweeps
+var _sweep1 = n("<[0 2 4 - - 7][4 - - 2 0 -]>").transpose("<0 1>").sound("gm_pad_metallic").scale("<c3,c2>:major").jux(rev).gain(2).color("#FFAAAA");
+var _sweep2 = n("<[2 0 - 7 - -][0 - 4 -]>").sound("gm_pad_metallic").scale("c3:major").jux(rev).gain(2).color("#FFAAAA");
 
+_$: _sweep1.lpf(tri.range(0, 1000).fast(40))
 
 
 var M = 1; // Mute indicator - to quickly skip to area of interest
 $: arrange(
-  [M*4, stack( _lowChords1, _bass1  )],
-  [M*4, stack( _lowChords2, _bass2  )],
-  [M*4, stack( _lowChords1, _bass1, _swoop1,  )],
-  [M*4, stack( _lowChords2, _bass2, _swoop1,  )],
-  [M*4, stack( _lowChords1, _bass1, _swoop2,  )],
-  [M*4, stack( _lowChords2, _bass2, _swoop2,  )],
-  [M*4, stack( _lowChords1, _bass1, _swoop1, _strum1  )],
-  [M*4, stack( _lowChords2, _bass2, _swoop1, _strum1  )],
-  [  4, stack( _lowChords1, _bass1, _swoop1, _strum1, _bell1 )],
-  [  4, stack( _lowChords2, _bass2, _swoop1, _strum1, _bell2  )],
-).cpm(30)
+  [M*4, stack( _d, _lowChords1, _bass1  )],
+  [M*4, stack( _d, _lowChords2, _bass2  )],
+  [M*4, stack( _d, _lowChords1, _bass1, _swoop1,  )],
+  [M*4, stack( _d, _lowChords2, _bass2, _swoop1,  )],
+  [M*4, stack( _d, _lowChords1, _bass1, _swoop2,  )],
+  [M*4, stack( _d, _lowChords2, _bass2, _swoop2,  )],
+  [M*4, stack( _d, _lowChords1, _bass1, _swoop1, _strum1  )],
+  [M*4, stack( _d, _lowChords2, _bass2, _swoop1, _strum1  )],
+  [M*4, stack( _d, _lowChords1, _bass1, _swoop1, _strum1, _bell1 )],
+  [M*4, stack( _d, _lowChords2, _bass2, _swoop1, _strum1, _bell2  )],
+  [M*4, stack( _d, _lowChords1, _bass1, _swoop1, _strum1, _bell1 )],
+  [M*4, stack( _d, _lowChords2, _bass2, _swoop1, _strum1, _bell2  )],
+  [1*4, stack( _strum1, _bell1, _sweep1, _sweep2 )],
+  [1*4, stack( _strum1, _bell2, _sweep1.fast(2), _sweep2.fast(2)  )],
+).cpm(30).punchcard()
 
