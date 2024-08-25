@@ -1,0 +1,114 @@
+/*
+@title Growly-Ups
+@by Stuart Bray
+@url https://soundcloud.com/stuart-j-bray
+*/
+
+
+var ch1 = `<
+ [C Am F G]@4
+>`
+var _ch1 = n(`<[0 1 [0,2] <3 -> ]*2>`).chord(ch1).voicing().sound("piano").color("red")
+
+var el1 = n(`<
+ [0 [0,7]]*4
+>`)
+var _el1 = el1.sound("supersaw triangle").scale("c3:major").distort("<1 2 3 2>").lpf("<300 400@3 200>")
+  .gain("<.4 .3 .2 .1>").clip("<.4 .8 .2 1>").room("<3 1 2>").color("orange")
+
+var dug1 = n(`<
+ [2 - -  3     - <4 2> - - ]
+ [0 - <-1 -> <0 -> - - - -]
+>`)
+var _dug1 = dug1.sound("gm_electric_guitar_clean").scale("c3:major").gain(2).room(2).color("yellow")
+
+
+var sw1 = n(`<
+ [- - - [4,7]]
+ [  [6,8] -]
+ [- - - [5,7]]
+ [ [8,10] -]
+ [- - - [9,7]]
+ [  [8,7] -]
+ [- - - [9,7]]
+ [ [8,10] -]
+>`)
+var sw2 = n(`<
+ [- - - [7,9]]
+ [  [6,10] -]
+ [- - - [5,9]]
+ [ [4,11] -]
+ [- - - [9,11]]
+ [  [6,12] -]
+ [- - - [5,9]]
+ [ [11,13] -]
+>`)
+var _sw1 = sw1.sound("gm_oboe").scale("c3:major").gain(2).room(1.5).color("green")
+var _sw2 = sw2.sound("gm_oboe").scale("c3:major").gain(2).room(1.5).color("green")
+
+var wug1 = n(`<
+ [0 - - 2]
+ [1 - - 0]
+ [3 - - -]
+ [1 - - -]
+>`)
+var _wug1 = wug1.sound("gm_electric_guitar_jazz").scale("c2:major").gain(1.5).room(1.5).color("blue")
+
+var trill1 = n(`<
+ [7 6 5 6 5 4 2 4]
+ -
+ [2 3 2 3 4 6 5 -]
+ -
+>`)
+var _trill1 = trill1.sound("gm_whistle").scale("c4:major").gain(1.5).room(1.5).color("white")
+
+
+
+
+
+
+var M = 1
+$: arrange(
+  [M*4, stack(
+   _el1,
+   _ch1
+  )],
+  [M*4, stack(
+   _el1,
+   _ch1.brak()
+  )],
+  [M*8, stack(
+   _el1,
+   _ch1.brak(),
+   _dug1,
+   _sw1,
+    _wug1
+  )],
+  [M*8, stack(
+   _el1,
+   _ch1.brak(),
+   _dug1,
+   _sw2,
+    _wug1
+  )],
+  [M*8, stack(
+   _el1,
+   _dug1,
+   _sw2,
+   _wug1,
+   _trill1
+  )],
+  [M*8, stack(
+   _wug1.delay(2,.5,.5).lpf(200),
+   _trill1.off(0, x=> x.transpose("<-7 -9>")).gain(.4),
+   _trill1.off(0, x=> x.rev()).gain(.6)
+  )],  
+  [1*8, stack(
+   _el1,
+   _ch1.jux(rev),
+   _dug1,
+   _wug1
+  )],
+).punchcard()
+
+
