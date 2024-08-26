@@ -14,7 +14,7 @@ var chords2 = n(`<
   [-4 -2 [- 0] [- 3]]
   [-4 -2 [- 0] [- 3]]
   [-3 -1 [- 1] [- 4]]
-  [-3 0  [- 1] [- 2]]
+  [-3 -1 [- 1] [- 2]]
 >`).color("red")
 var _chords1 =chords1.sound("piano"        ).scale("c3:major").release(1.2).gain(.5)
 var _chords2 =chords2.sound("piano"        ).scale("c3:major").release(1.2).gain(.5)
@@ -40,8 +40,8 @@ var mel2 = n(`<
   [-3,1]
   [-3,2]
 >`).color("green")
-var _mel1 =    mel1.sound("gm_fretless_bass").scale("c3:major").gain(.3)
-var _mel2 =    mel2.sound("gm_fretless_bass").scale("c3:major").gain(.3)
+var _mel1 =    mel1.sound("gm_fretless_bass").scale("c3:major").gain(.7)
+var _mel2 =    mel2.sound("gm_fretless_bass").scale("c3:major").gain(.7)
 
 var trill1 = n(`<
  -
@@ -52,8 +52,31 @@ var trill1 = n(`<
 var trill2 = n(`<
  -
 >`).color("orange")
-var _trill1 = trill1.sound("supersaw").scale("c3:major").room(5).release(2).gain(.2)
-var _trill2 = trill2.sound("supersaw").scale("c3:major").room(5).release(2).gain(.2)
+var _trill1 = trill1.sound("supersaw").scale("c3:major").room(5).release(1.3).gain(.1)
+var _trill2 = trill2.sound("supersaw").scale("c3:major").room(5).release(1.3).gain(.1)
+
+var lead1 = n(`<
+ [- 2 - - 2 2 - - ] 
+ [- 2 - 2 - 1 2 - ]
+ [- - 5 - 4 4 - - ]
+ [- - 5 - 1 - - 1 ]
+>`)
+var lead2 = n(`<
+ [- 3 - 3 - 3  - - ] 
+ [- 2 - 2 - 5 4 - ]
+ [- - 5 - 4 4 - - ]
+ [- - 5 - 5 4 - - ]
+>`)
+var _lead1 = lead1.sound("gm_fx_sci_fi").scale("c4:major").color("yellow").coarse("0, 6").room(1.5)
+var _lead2 = lead2.sound("gm_fx_sci_fi").scale("c4:major").color("yellow").coarse("0, 6").room(1.5)
+
+var bip1 = n(`<
+ [- - - [0,<7 5>]*2 ]
+ [- - - [0,<6 4>]*2 ]
+ [- - - [2,<7 5>]*2 ]
+ [- - - [2,<6 4>]*2 ]
+>`)
+var _bip1 = bip1.sound("square ").scale("c3:major").clip(.3).color("#ff8888").delay(2,.9,.9).gain(.8)
 
 /* .delay(1, .5, .5) */
 var M = 0;
@@ -68,7 +91,7 @@ $: arrange(
     _tune2,
     _mel2,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _chords1, 
     _tune1, 
     _mel1,
@@ -80,5 +103,20 @@ $: arrange(
     _mel2,
     _trill2,
   )],
+  [1*4, stack(
+    _chords1.fast("0,2"),
+    _mel1.fast("2"),
+    _trill1.fast(-2),
+    _lead1,
+    _bip1,
+  )],
+  [1*4, stack(
+    _chords2.fast("0,2"),
+    _mel2.fast("2"),
+    _trill2.fast(-2),
+    _lead2,
+    _bip1,
+  )],
+  
   ).punchcard()
   

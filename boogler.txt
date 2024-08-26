@@ -6,13 +6,19 @@
 */
 var cpm = 60;
 
+var d1_pre = sound("BossDR110_bd").struct(  "0 1 0 1")
+var d2_pre = sound("BossDR220_cp").struct(  "1 0 1 0")
+var _drums_pre = stack( d1_pre, d2_pre).color("#333")
 
-var d1 = sound("BossDR110_bd").struct(   "1 0 0 0 0 1 0 0")
-var d2 = sound("BossDR220_cp").struct(  "0 0 1 0 0 0 1 0")
-var d3 = sound("AkaiXR10_rim").struct(  "0 1 0 1 0 1 0 1")
-var d4 = sound("AkaiXR10_rd").struct(  "0 0 0 0 0 0 0 <0 1>")
+var d1 = sound("BossDR110_bd").struct(  "1 0 0 0 0 1 0 0").fast(.5)
+var d2 = sound("BossDR220_cp").struct(  "0 0 1 0 0 0 1 0").fast(.5)
+var d3 = sound("AkaiXR10_rim").struct(  "0 1 0 1 0 1 0 1").fast(.5)
+var d4 = sound("AkaiXR10_rd").struct(   "0 0 0 0 0 0 0 <0 1>").fast(.5)
+var _drums = stack(d1, d2, d3, d4).color("#333")
 
-$: stack(d1, d2, d3, d4).cpm(cpm/2).color("#333")
+var d1_off = sound("BossDR110_bd").struct(  "<[1 0 0 1 0 0 1 0 0] ->")
+var d2_off = sound("BossDR220_cp").struct(  "<- [1 0 0 1 0 0 1 0 0]>")
+var _drums_off = stack(d1_off, d2_off).color("#333")
 
 
 var dug1 = n(`<
@@ -52,8 +58,8 @@ var accent2 = n(`<
 [- 1 1 0]
 [2b 0 - -]
 >`)
-var _accent1 = accent1.sound("piano,gm_synth_bass_2").scale("c4:major").color("orange")
-var _accent2 = accent2.sound("piano,gm_synth_bass_2").scale("c4:major").color("orange")
+var _accent1 = accent1.sound("piano,gm_music_box").scale("c4:major").gain(2).color("orange")
+var _accent2 = accent2.sound("piano,gm_music_box").scale("c4:major").gain(2).color("orange")
 
 var lead1 = n(`<
 - [- 0] [2 ] -
@@ -63,31 +69,92 @@ var lead2 = n(`<
 - [- 0] [2 ] -
 - [- 0] [2b ] -
 >`)
-var _lead1 = lead1.sound("gm_reed_organ ").scale("c3:major").release(1.1).gain(3).color("yellow")
-var _lead2 = lead2.sound("gm_reed_organ ").scale("c3:major").release(1.1).gain(3).color("yellow")
+var _lead1 = lead1.sound("gm_pad_poly ").scale("c2:major").release(1.0).gain(3).color("yellow")
+var _lead2 = lead2.sound("gm_pad_poly ").scale("c2:major").release(1.0).gain(3).color("yellow")
 
+// var lead3 = n(`<
+// - [- 0] [2 ] -
+// - [- 0] [2b ] -
+// >`)
+// var lead4 = n(`<
+// - [- 0] [2 ] -
+// - [- 0] [2b ] -
+// >`)
+// var _lead3 = lead3.sound("gm_flute ").scale("c2:major").release(1.0).distort(2).gain(1).color("yellow")
+// var _lead4 = lead4.sound("gm_flute ").scale("c2:major").release(1.0).distort(2).gain(1).color("yellow")
+
+var hig1 = n(`<
+ 5 4 3 2
+ 0@2 - -
+>`)
+var hig2 = n(`<
+ 0 2b 3 2
+ 0@2 - [2b -]*4
+>`)
+var hig3 = n(`<
+ 5 6 7 9
+ 10@2 - [11 -]*4
+>`)
+var hig4 = n(`<
+ 8 7 8 6
+ 4@2 - [4 -]*4
+>`)
+var _hig1 = hig1.sound("gm_guitar_harmonics").distort(2).scale("c3:major").color("#FF0055")
+var _hig2 = hig2.sound("gm_guitar_harmonics").distort(2).scale("c3:major").color("#FF0055")
+var _hig3 = hig3.sound("gm_guitar_harmonics").distort(2).scale("c2:major").color("#FF00FF")
+var _hig4 = hig4.sound("gm_guitar_harmonics").distort(2).scale("c2:major").color("#FF00FF")
 
 var M = 1;
 $: arrange(
-  [1*8, stack(    
+  [M*2, _drums_pre],
+  [M*8, stack(    
+    _drums,
     _dug1, 
     _accent1,
     _lead1,
   )],
-  [1*8, stack(
+  [M*8, stack(
+    _drums,
     _dug2,
     _accent2,
     _lead2,
   )],
   [M*8, stack(    
+    _drums,
     _dug3, 
     _accent1,
     _lead1,
   )],
   [M*8, stack(
+    _drums,
     _dug4,
     _accent2,
     _lead2,
   )],
-  ).cpm(cpm).punchcard()
+  [M*8, stack(    
+    _drums_off,
+    _dug3, 
+    _lead1,
+    _hig1, // --- dirty whistly
+  )],
+  [M*8, stack(
+    _drums_off,
+    _dug4,
+    _lead2,
+    _hig2,
+  )],
+  [1*8, stack(    
+    _drums,
+    _dug3, 
+    _lead1,
+    _hig1, _hig3,
+  )],
+  [1*8, stack(
+    _drums,
+    _dug4,
+    _lead2,
+    _hig2, _hig4,
+  )],
+  
+).cpm(cpm).punchcard()
   
