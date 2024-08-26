@@ -1,0 +1,24 @@
+
+ To run strudel locally with no online dependancies.
+
+ 1) clone this locally:
+ https://github.com/tidalcycles/strudel#readme
+
+ 2) install pnpm globally
+
+ 3) 
+ pnpm i
+ pnpm dev
+
+ 4) To serve samples locally go to strudel/samples and run npx @strudel/sampler
+
+    PLAN
+ Currently all tunes saved in bitbucket.
+ Find the repo with all the default sounds in. Save that locally.
+
+ Might work crudely - but many samples are multi-files - eg piano played at different pitches.
+
+ samples({
+  chirp: 'chirp.mp3'
+  },'http://192.168.1.23:5432/')
+// $: sound("chirp")
