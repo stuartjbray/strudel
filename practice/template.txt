@@ -1,0 +1,56 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+/*
+*/
+var chords1 = n(`<
+-
+>`)
+var chords2 = n(`<
+-
+>`)
+var _chords1 = chords1.sound("piano").scale("c3:major").color("red")
+var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
+
+var base1 = n(`<
+-
+>`)
+var base2 = n(`<
+-
+>`)
+var _base1 = base1.sound("piano").scale("c3:major").color("orange")
+var _base2 = base2.sound("piano").scale("c3:major").color("orange")
+
+var lead1 = n(`<
+-
+>`)
+var lead2 = n(`<
+-
+>`)
+var _lead1 = lead1.sound("piano").scale("c3:major").color("yellow")
+var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
+
+
+var M = 0;
+$: arrange(
+  [M*4, stack(    
+    _chords1, 
+    _base1,
+  )],
+  [M*4, stack(
+    _chords2,
+    _base2,
+  )],
+  [1*4, stack(    
+    _chords1, 
+    _base1,
+    _lead1,
+  )],
+  [1*4, stack(
+    _chords2,
+    _base2,
+    _lead2,
+  )],
+  ).punchcard()
+  

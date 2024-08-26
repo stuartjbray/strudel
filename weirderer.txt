@@ -1,7 +1,6 @@
 //@title Weirderer
 //@by Stuart Bray
 
-// https://recursivearts.com/virtual-piano/
 
 // - Cross fade two tunes.
 // $: n("1 3 5 7").scale("c3:major").sound("piano").gain(sine.slow(2))
