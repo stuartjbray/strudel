@@ -49,8 +49,8 @@ var _bass4_2 = bass4_2.sound("gm_synth_strings_1").scale("c2:major").clip(.5).pl
 // ------------ strums
 var strum1 = n(`<[0,4,6]@3*3 [0,5,7]>`)
 var strum3 = n(`<[4,6,8]@2*2 [5,7,9]@2*2>`) // [3,5,7] [5,7,9] 
-var _strum1 = strum1.sound("gm_acoustic_guitar_steel").scale("c4:major").clip(.2).delay(1/2, .1, .1).gain(3).color("yellow");
-var _strum3 = strum3.sound("gm_acoustic_guitar_steel").scale("c4:major").clip(.2).delay(1/2, .1, .1).gain(3).color("yellow");
+var _strum1 = strum1.sound("gm_acoustic_guitar_steel").scale("c4:major").room(5).color("yellow");
+var _strum3 = strum3.sound("gm_acoustic_guitar_steel").scale("c4:major").room(5).color("yellow");
 
 
 // ----------- swoops
@@ -71,7 +71,7 @@ var swoop_b2 = n(`<
   [- - - - - - - -]
 >`)
 var _swoop_a1 = swoop_a1.sound("gm_orchestral_harp").scale("c4:major").distort("<1 2 3 4>")
-       .gain("<1 .6 .3 .1>").crush("<4@2 6@2 8@2 10@2>").ply("<1 2 1 2>").color("green").room(2);
+       .gain("<1 .6 .3 .1>").crush("<4@2 6@2 8@2 10@2>").ply("<1 2 1 2>").color("green").room(1);
 var _swoop_b1 = swoop_b1.sound("gm_orchestral_harp").scale("c4:major").distort("<1 2 3 4>")
        .gain("<1 .6 .3 .1>").crush("<4@2 6@2 8@2 10@2>").ply("<1 2 1 2>").color("green").room(2);
 var _swoop_b2 = swoop_b2.sound("gm_orchestral_harp").scale("c4:major").distort("<1 2 3 4>")
@@ -97,14 +97,20 @@ var _sweep1 = n(`<
 var _sweep2 = n(`<
  [3 - - -]
  [2 - - -]
- [6 - - -]
+ [-1 - - -]
  [0 - - -]
  >`).sound("gm_pad_metallic").scale("c5:major").gain(2).color("darkgray").room(5);
 
-_$: _sweep1.lpf(tri.range(0, 1000).fast(40))
+var steep1 = n(`<
+ [- - [[3,5] - ][[1,4] -]]
+ [2 - [- 2][1 0]]
+ [1 - [- 1][0 -1]]
+ [0 -@3]
+>`)
+var _steep1 = silence; //steep1.sound("gm_epiano2 ").scale("c3:major").gain(3).distort(1.2).room(1.5).color("midgrey");
 
-
-var M = 1; // Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
+// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
+var M = 0;
 $: arrange(
   [M*4, stack( _d, _lowChords1, _bass1  )],
   [M*4, stack( _d, _lowChords2, _bass2  )],
@@ -114,9 +120,9 @@ $: arrange(
   [M*4, stack( _d, _lowChords2, _bass2, _swoop_b2, _dug2 )],
   [M*4, stack( _d, _lowChords1, _bass1, _swoop_a1, _strum1, _bell1 )],
   [M*4, stack( _d, _lowChords2, _bass2, _swoop_a1, _strum1, _bell2  )],
-  [M*4, stack(     _strum1, _bell3, _sweep1, _dug1    )],
-  [M*4, stack(     _strum1, _bell4, _sweep2, _dug1    )],
-  [1*4, stack( _d,  _bass3, _bass3_2,  _strum3)],
-  [1*4, stack( _d,  _bass4, _bass4_2,  _strum3)],
+  [1*4, stack(     _strum1, _bell3, _sweep1.gain(.6), _steep1    )], // ----------------------- Drumless
+  [1*4, stack(     _strum1, _bell4, _sweep2.gain(.6), _steep1    )],
+  [M*4, stack( _d,  _bass3, _bass3_2,  _strum3)],
+  [M*4, stack( _d,  _bass4, _bass4_2,  _strum3)],
 ).cpm(30).punchcard()
 
