@@ -81,8 +81,8 @@ var mid2 = n(`<
  [ [- 11] [- 9] -  -]
  -
 >`)
-var _mid1 = mid1.sound("gm_acoustic_guitar_steel").scale("c3:major").release(3).color("green")
-var _mid2 = mid2.sound("gm_acoustic_guitar_steel").scale("c3:major").release(3).color("green")
+var _mid1 = mid1.sound("gm_acoustic_guitar_steel").scale("c3:major").release(3).gain(1.5).color("green")
+var _mid2 = mid2.sound("gm_acoustic_guitar_steel").scale("c3:major").release(3).gain(1.5).color("green")
 
 var sweep1 = n(`<
  -
@@ -95,7 +95,7 @@ var sweep2 = n(`<
  3
  1
  2
->`.add("<[0,2] [0,4] [0,5] [0,5]>"))
+>`.add("<[0,2] [0,4] [0,<5 7>] [0,5]>"))
 var _sweep1 = sweep1.sound("gm_fx_brightness").scale("c4:major").ply("<1 1 2 2>").lpf("<[1500 500]*4>").release(2).gain(.8).color("cyan")
 var _sweep2 = stack(
   sweep2.sound("gm_fx_brightness").scale("c2:major").color("cyan").attack(1 ),
@@ -160,7 +160,7 @@ $: arrange(
   [M*8, stack( // chorus
     _drums_2,
     _base_ch,
-    _mid1,    _mid2,
+    _mid1.gain(2), _mid2.gain(2),
     // _lead2,
     _sweep2
   )],  
@@ -171,14 +171,14 @@ $: arrange(
     _mid1,
     _lead1,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums_1,
     _base1,
     _piano2, _tink2,
     _mid1,
     _lead1,
   )],
-  [1*8, stack( // Empty
+  [M*8, stack( // Empty
     _drums_tick,
     _piano1.room(2).cutoff(500), 
     // _lead2,
@@ -187,9 +187,9 @@ $: arrange(
   [1*8, stack( // chorus
     _drums_1,
     _base_ch,
-    _mid1,    _mid2,
+    _mid1.gain(2), _mid2.gain(2),
     _sweep2
   )],
-  [1,silence]
+  [M,silence]
 ).punchcard()
 
