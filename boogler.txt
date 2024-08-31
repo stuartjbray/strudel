@@ -72,16 +72,21 @@ var lead2 = n(`<
 var _lead1 = lead1.sound("gm_pad_poly ").scale("c2:major").release(1.0).gain(3).color("yellow")
 var _lead2 = lead2.sound("gm_pad_poly ").scale("c2:major").release(1.0).gain(3).color("yellow")
 
-// var lead3 = n(`<
-// - [- 0] [2 ] -
-// - [- 0] [2b ] -
-// >`)
-// var lead4 = n(`<
-// - [- 0] [2 ] -
-// - [- 0] [2b ] -
-// >`)
-// var _lead3 = lead3.sound("gm_flute ").scale("c2:major").release(1.0).distort(2).gain(1).color("yellow")
-// var _lead4 = lead4.sound("gm_flute ").scale("c2:major").release(1.0).distort(2).gain(1).color("yellow")
+
+var wip1 = n(`<
+ - 
+ [- 3 3 2 ] 
+ -
+ <[- 5 5 3 ] [- 7 7 5 ]>
+>`)
+var wip2 = n(`<
+ -
+ [- 0 1 0 ]
+ <[2b 0 1 0] [2b - - -]>
+ <[- - [2b,7] -] [- - [2b,7] [3,7]]>
+>`)
+var _wip1 = wip1.sound("psaltery_pluck ").scale("c2:major").distort(2).color("lavender")
+var _wip2 = wip2.sound("psaltery_pluck ").scale("c2:major").distort(2).color("lavender")
 
 var hig1 = n(`<
  5 4 3 2
@@ -103,6 +108,11 @@ var _hig1 = hig1.sound("gm_guitar_harmonics").distort(2).scale("c3:major").color
 var _hig2 = hig2.sound("gm_guitar_harmonics").distort(2).scale("c3:major").color("#FF0055")
 var _hig3 = hig3.sound("gm_guitar_harmonics").distort(2).scale("c2:major").color("#FF00FF")
 var _hig4 = hig4.sound("gm_guitar_harmonics").distort(2).scale("c2:major").color("#FF00FF")
+
+var soft1 = n(`<
+ 5 0 <7 2b> <0 ->
+>`)
+var _soft1 = soft1.sound("gm_pad_halo").scale("c3:major").color("#00FF00").distort(2)
 
 var M = 1;
 $: arrange(
@@ -143,18 +153,44 @@ $: arrange(
     _lead2,
     _hig2,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums,
     _dug3, 
     _lead1,
     _hig1, _hig3,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums,
     _dug4,
     _lead2,
     _hig2, _hig4,
   )],
-  
+  [M*8, stack(    
+    _drums,
+    _dug3, 
+    _wip1,
+    _hig1.gain(.2), _hig3.gain(.2),
+  )],
+  [M*8, stack(
+    _drums,
+    _dug4,
+    _wip2,
+    _hig2.gain(.2), _hig4.gain(.2),
+  )],  
+  [1*8, stack(    
+    // _drums,
+    _accent1.clip(.2),
+    _wip1,
+    _hig1.gain(.2), _hig3.gain(.2),
+    _soft1,
+  )],
+  [1*8, stack(
+    // _drums,
+    _accent2.clip(.3),
+    _wip2,
+    _hig2.gain(.2), _hig4.gain(.2),
+    _soft1,
+  )],  
+  [1,silence]
 ).cpm(cpm).punchcard()
   

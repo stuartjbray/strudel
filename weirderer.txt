@@ -110,7 +110,7 @@ var steep1 = n(`<
 var _steep1 = silence; //steep1.sound("gm_epiano2 ").scale("c3:major").gain(3).distort(1.2).room(1.5).color("midgrey");
 
 // Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4, stack( _d, _lowChords1, _bass1  )],
   [M*4, stack( _d, _lowChords2, _bass2  )],
