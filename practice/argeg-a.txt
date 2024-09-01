@@ -1,10 +1,11 @@
-//@title Template
+//@title arpeg-a
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
 /*
 */
 
+setcpm(30)
 
 // -------------- Drums
 var d1 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 0 0")
@@ -17,24 +18,43 @@ var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
 var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
 
+let { x, y } = createParams('x', 'y');
+x = tri.range(0, .4).slow(4);
+y = cosine.range(0, .4).slow(4);
 
 var chords1 = n(`<
--
->`)
+ 2
+ 1
+ 0
+ 0
+>`.ply(4).add("<7 <4 9> - 0>*4"))
 var chords2 = n(`<
--
->`)
-var _chords1 = chords1.sound("piano").scale("c3:major").color("red")
-var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
+ 2
+ 1
+ 0
+ 0
+>`.ply(16).add("<0 <5 2> 4 <7 2>>*16"))
+
+var _chords1 = stack(
+  chords1.sound("gm_fx_brightness").gain(.2).pan(x)
+   .scale("c4:major").color("red"),
+  chords1.sound("gm_fx_brightness").gain(.2).pan(y)
+   .scale("c2:major").color("orange"),
+  ).decay(1)
+
+var _chords2 = chords2.sound("gm_fx_brightness").scale("<c3,c4>:major").color("red").gain(.2).decay("<.1 .5>*4")
 
 var base1 = n(`<
--
+ [0 2]
+ [5 3]
+ -
+ -
 >`)
 var base2 = n(`<
 -
 >`)
-var _base1 = base1.sound("piano").scale("c3:major").color("orange")
-var _base2 = base2.sound("piano").scale("c3:major").color("orange")
+var _base1 = base1.sound("z_square,triangle ").ply(8).fm("<0 .1 5 .1>*8").scale("c3:major").color("green").gain(.4)
+var _base2 = base2.sound("z_sine ").scale("c3:major").color("green")
 
 var lead1 = n(`<
 -
@@ -48,12 +68,13 @@ var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
 
 var M = 0;
 $: arrange(
-  [1*4, stack(    
+  [1*16, stack(    
     _drums_intro,
     _chords1, 
+    _chords2, 
     _base1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums1,
     _chords2,
     _base2,
