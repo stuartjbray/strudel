@@ -69,8 +69,8 @@ var lead2 = n(`<
 - [- 0] [2 ] -
 - [- 0] [2b ] -
 >`)
-var _lead1 = lead1.sound("gm_pad_poly ").scale("c2:major").release(1.0).gain(3).color("yellow")
-var _lead2 = lead2.sound("gm_pad_poly ").scale("c2:major").release(1.0).gain(3).color("yellow")
+var _lead1 = lead1.sound("gm_synth_brass_1, gm_synth_brass_2 ").scale("c2:major").release(1.0).gain(3).color("yellow")
+var _lead2 = lead2.sound("gm_synth_brass_1, gm_synth_brass_2 ").scale("c2:major").release(1.0).gain(3).color("yellow")
 
 
 var wip1 = n(`<
@@ -110,9 +110,13 @@ var _hig3 = hig3.sound("gm_guitar_harmonics").distort(2).scale("c2:major").color
 var _hig4 = hig4.sound("gm_guitar_harmonics").distort(2).scale("c2:major").color("#FF00FF")
 
 var soft1 = n(`<
- 5 0 <7 2b> <0 ->
+ [5 4 5 9 5 4 0 -]@8
 >`)
-var _soft1 = soft1.sound("gm_pad_halo").scale("c3:major").color("#00FF00").distort(2)
+var soft2 = n(`<
+ [5 4 9 7 5 - - -]@8
+>`)
+var _soft1 = soft1.sound("gm_pad_halo").scale("<c3, c5>:major").color("#00FF00").distort(2).attack(.2)
+var _soft2 = soft2.sound("gm_pad_halo").scale("<c3, c5>:major").color("#00FF00").distort(2).attack(.2)
 
 var M = 1;
 $: arrange(
@@ -141,19 +145,19 @@ $: arrange(
     _accent2,
     _lead2,
   )],
-  [M*8, stack(    
+  [1*8, stack(    
     _drums_off,
     _dug3, 
-    _lead1,
+    // _lead1,
     _hig1, // --- dirty whistly
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums_off,
     _dug4,
-    _lead2,
+    // _lead2,
     _hig2,
   )],
-  [M*8, stack(    
+  [1*8, stack(    
     _drums,
     _dug3, 
     _lead1,
@@ -177,19 +181,19 @@ $: arrange(
     _wip2,
     _hig2.gain(.2), _hig4.gain(.2),
   )],  
-  [1*8, stack(    
+  [M*8, stack(    
     // _drums,
     _accent1.clip(.2),
     _wip1,
     _hig1.gain(.2), _hig3.gain(.2),
     _soft1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     // _drums,
     _accent2.clip(.3),
     _wip2,
     _hig2.gain(.2), _hig4.gain(.2),
-    _soft1,
+    _soft2,
   )],  
   [1,silence]
 ).cpm(cpm).punchcard()
