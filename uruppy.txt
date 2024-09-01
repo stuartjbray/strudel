@@ -31,8 +31,8 @@ var chords1 = n(`<
 var chords2 = n(`<
 -
 >`)
-var _chords1 = chords1.sound("gm_tremolo_strings, gm_overdriven_guitar").scale("<c3,c4>:major").color("green").attack(.5)
-var _chords2 = chords2.sound("gm_tremolo_strings, gm_acoustic_bass").scale("<c3,c4>:major").color("green").attack(.5)
+var _chords1 = chords1.sound("gm_tremolo_strings, gm_overdriven_guitar").scale("<c3,c4>:major").color("green").attack(.7)
+var _chords2 = chords2.sound("gm_tremolo_strings, gm_acoustic_bass").scale("<c3,c4>:major").color("green").attack(.7)
 
 var base1 = n(`<
  [[6 5 6 -] - - -]
@@ -69,8 +69,8 @@ var lead1 = n(`<
 var lead2 = n(`<
 -
 >`)
-var _lead1 = lead1.sound("gm_shamisen").scale("c3:major").color("yellow").distort(1.5).echo(4,.06125,.5)
-var _lead2 = lead2.sound("gm_shamisen").scale("c3:major").color("yellow").distort(1.5).echo(4,.06125,.5)
+var _lead1 = lead1.sound("gm_shamisen").scale("c3:major").color("yellow").distort(2).echo(4,.06125,.5)
+var _lead2 = lead2.sound("gm_shamisen").scale("c3:major").color("yellow").distort(2).echo(4,.06125,.5)
 
 var uppy1 = n(`<
   [0 2 0 -5 0 4 0 -5]
@@ -78,13 +78,13 @@ var uppy1 = n(`<
 >`.fast(2).add("<0@2 2@2 4@2 7 0>"))
   
 var _uppy1 = uppy1.sound("sine square").fm(sine.range(1,50)).vib("<1 10 30>").fmattack("<.5 1 .8 1.2>")
-  .jux(rev).room("<0 1>").clip("<.5 1 .8>").crush("<4 5 6 7>").gain(.3).color("white")
+  .jux(rev).room("<0 1>").clip("<.5 1 .8>").crush("<4 5 6 7>").gain(.6).color("white")
 
 var uppy2 =n(`<
  [7 0 0 7 7 - 0 7]
 >`.fast(2))
 var _uppy2 = uppy2.sound("sine square").fm(sine.range(1,50)).vib("<1 10 30>").fmattack("<.5 1 .8 1.2>")
-  .jux(rev).room("<0 1>").clip("<.5 1 .8>").crush("<4 5 6 7>").gain(.3).color("white")
+  .jux(rev).room("<0 1>").clip("<.5 1 .8>").crush("<4 5 6 7>").gain(.5).color("white")
 
 var M = 1;
 // M=0;
@@ -119,9 +119,10 @@ $: arrange(
   [1*8, stack(    // Full Intro
     _uppy1.scale("<c5>:major").degradeBy(.5),
     _drums1,
-    _chords1.gain(.6), 
+    _chords1.gain(1), 
     _lead1.jux(rev), 
     _base2.jux(rev),
   )],
+  [1,silence],
   ).punchcard()
   

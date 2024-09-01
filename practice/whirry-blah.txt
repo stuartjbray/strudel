@@ -1,11 +1,11 @@
-//@title Template
+//@title whirry-blah
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
 /*
 */
 
-setcpm(30)
+setcpm(45)
 // -------------- Drums
 var d1 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 0 0")
 var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 0 0")
@@ -82,12 +82,12 @@ var lead3 = n(`<
  [4@3 2]
  1
 >`)
-var _lead1 = lead1.sound("gm_slap_bass_2").scale("c2:major").color("yellow")
-var _lead2 = lead2.sound("gm_slap_bass_2").scale("c3:major").color("yellow")
-var _lead3 = lead3.sound("gm_slap_bass_2").scale("c3:major").color("yellow")
+var _lead1 = lead1.sound("gm_slap_bass_2, gm_harpsichord").scale("c2:major").color("yellow")
+var _lead2 = lead2.sound("gm_slap_bass_2, gm_harpsichord").scale("c3:major").color("yellow")
+var _lead3 = lead3.sound("gm_slap_bass_2, gm_harpsichord").scale("c3:major").color("yellow")
 
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*8, stack(    
     _drums_intro,

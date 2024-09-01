@@ -66,7 +66,7 @@ var _lead1 = lead1.sound("piano").scale("c3:major").color("yellow")
 var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
 
 
-var M = 0;
+var M = 1;
 $: arrange(
   [1*16, stack(    
     _drums_intro,
