@@ -100,29 +100,29 @@ $: arrange(
     _chords1, 
     _base1,
   )],
-  [M*8, stack(    // Full Intro
-    _uppy1.scale("<c5>:major").degradeBy(.1),
+  [1*8, stack(    // Full Intro
+    _uppy1.scale("<c5>:major").degradeBy(.1).gain(.4),
     _drums1,
     _chords1, 
     _lead1, _base2
   )],
   [M*4, stack( // Breakout
     _drums1,
-    _uppy2.gain(5),
+    _uppy2.gain(3),
     _descend1.gain(1),
   )],
   [M*4, stack( // Breakout
     _drums1,
     _uppy2.gain(1),
-    _descend1.jux(rev).gain(2),
+    _descend1.jux(rev).gain(1.5),
   )],
-  [1*8, stack(    // Full Intro
+  [M*8, stack(    // Full Intro
     _uppy1.scale("<c5>:major").degradeBy(.5),
     _drums1,
     _chords1.gain(1), 
-    _lead1.jux(rev), 
+    _lead1.jux(rev).gain(1.1), 
     _base2.jux(rev),
   )],
-  [1,silence],
+  [M,silence],
   ).punchcard()
   

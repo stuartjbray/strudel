@@ -13,8 +13,8 @@ var _ch1 = n(`<[0 1 [0,2] <3 -> ]*2>`).chord(ch1).voicing().sound("piano").color
 var el1 = n(`<
  [0 [0,7]]*4
 >`)
-var _el1 = el1.sound("supersaw triangle").scale("c3:major").distort("<1 2 3 2>").lpf("<300 400@3 200>")
-  .gain("<.4 .3 .2 .1>").clip("<.4 .8 .2 1>").room("<3 1 2>").color("orange")
+var _el1 = el1.sound("supersaw triangle").scale("<c4 c3 c4>:major").distort("<1 2 3 2>").lpf("<600 800@3 400>") //.hpf(200)
+  .gain("<.4 .3 .1 .2>").clip("<.4 .8 .1 .8>").room("<3 1 2>").color("orange")
 
 var dug1 = n(`<
  [2 - -  3     - <4 2> - - ]
@@ -112,7 +112,7 @@ var _wum4 = wum4.sound("piano").scale("c5:major").gain(1.5).room(1.5).color("cya
 
 var M = 1
 $: arrange(
-  [M*2, stack(
+  [M*4, stack(
    _el1,
    _ch1.brak()
   )],
