@@ -12,7 +12,7 @@ var d2 = sound("AkaiMPC60_rim").struct(   "0 0 0 0 0 0 1 0")
 var d3 = sound("AlesisSR16_hh").struct(     "0 1 0 1 0 1 0 1").room(2).gain(.1)
 var d6 = sound("AlesisSR16_cr").struct( "0 0 0 <0 1>").phaser(5).gain(.2)
 
-var d4 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 1 1")
+var d4 = sound("AkaiLinn_bd").struct(  "1 0 0 0 0 0 0 0").echo(4,.125,.3)
 var d7 = sound("BossDR110_hh").struct(  "1 1 1 1 1 1 1 1").gain("<[.05 .01]*4>")
 
 var d1_a = sound("AkaiLinn_bd").struct( "1 0 0 0 0 0 0 0").echo(4,.125,.5)
@@ -178,18 +178,17 @@ $: arrange(
     _mid1,
     _lead1,
   )],
-  [M*8, stack( // Empty
+  [1*8, stack( // Empty
     _drums_tick,
-    _piano1.room(2).cutoff(500), 
-    // _lead2,
-    _tink1.room(1.5),
+    _piano1.room(2).lpf(350), 
+    _tink1.room(1.5).jux(rev),
   )],
-  [1*8, stack( // chorus
+  [M*8, stack( // chorus
     _drums_1,
     _base_ch,
     _mid1.gain(2), _mid2.gain(2),
     _sweep2
   )],
   [M,silence]
-).punchcard()
+)._punchcard()
 
