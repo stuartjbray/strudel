@@ -31,11 +31,8 @@ var chords1 = n(`<
  4
  [2,7]
 >`)
-var chords2 = n(`<
--
->`)
-var _chords1 = chords1.sound("gm_tremolo_strings, gm_overdriven_guitar").scale("<c3,c4>:major").color("green").attack(.7)
-var _chords2 = chords2.sound("gm_tremolo_strings, gm_acoustic_bass").scale("<c3,c4>:major").color("green").attack(.7)
+// gm_tremolo_strings gm_overdriven_guitar gm_acoustic_bass
+var _chords1 = chords1.sound("gm_tremolo_strings").scale("<c3,c4>:major").color("green").attack(.5)
 
 var base1 = n(`<
  [[6 5 6 -] - - -]
@@ -105,7 +102,7 @@ $: arrange(
     _base1,
   )],
   [M*8, stack(
-    _uppy1.scale("<c2,c3>:major").degradeBy(.1),
+    _uppy1.scale("<c2,c3>:major").degradeBy(.6),
     _drums1,
     _chords1, 
     _base1,
@@ -118,7 +115,7 @@ $: arrange(
   )],
   [M*4, stack( // Breakout
     _drums1,
-    _uppy2.gain(3),
+    _uppy2.gain(2.5),
     _descend1.gain(1),
   )],
   [M*4, stack( // Breakout
@@ -131,7 +128,7 @@ $: arrange(
     _drums1,
     _chords1.gain(1), 
     _lead2, 
-    _base2.jux(rev),
+    _base2,
   )],
   [1*8, stack(    
     _uppy1.scale("<c4 c6>:major"), //.degradeBy(.5),
