@@ -83,6 +83,7 @@ var mid2 = n(`<
 >`)
 var _mid1 = mid1.sound("gm_acoustic_guitar_steel").scale("c3:major").release(3).gain(1.5).color("green")
 var _mid2 = mid2.sound("gm_acoustic_guitar_steel").scale("c3:major").release(3).gain(1.5).color("green")
+var _mid3 = mid2.sound("gm_acoustic_guitar_steel").scale("<c3,c4>:major").release(3).gain(1.5).color("green")
 
 var sweep1 = n(`<
  -
@@ -101,7 +102,7 @@ var _sweep2 = stack(
   sweep2.sound("gm_fx_brightness").scale("c2:major").color("cyan").attack(1 ),
   sweep2.sound("gm_english_horn").scale("c4:major").color("cyan").ply(2).gain(.4)
   )
-
+var _sweep3 = sweep2.sound("gm_fx_brightness").scale("<c3 c4>:major").color("cyan")
 
 
 
@@ -136,6 +137,13 @@ var tink2 = n(`<
 var _tink1 = tink1.sound("piano").scale("c5:major").color("pink")
 var _tink2 = tink2.sound("piano").scale("c5:major").color("pink")
 
+var dug1 = n(`<
+ [- - - - 2 3 4 5 ]
+ [- - - - 5 6 7 8]
+ [4 5 6 4@5]
+ [5 6 7 8@5]
+>`)
+var _dug1 = dug1.sound("gm_fx_crystal").scale("c2:major").color("red").distort(2).lpf("<500 1000 1500 2000>*4")
 
 var M = 1;
 $: arrange(
@@ -178,7 +186,7 @@ $: arrange(
     _mid1,
     _lead1,
   )],
-  [1*8, stack( // Empty
+  [M*8, stack( // Empty
     _drums_tick,
     _piano1.room(2).lpf(350), 
     _tink1.room(1.5).jux(rev),
@@ -189,6 +197,22 @@ $: arrange(
     _mid1.gain(2), _mid2.gain(2),
     _sweep2
   )],
-  [M,silence]
-)._punchcard()
+  [M*8, stack( 
+    _drums_1,
+    _base_ch,
+    _mid1.gain(1), _mid2.gain(1), _mid3.gain(3),
+    _sweep3.gain(.5),
+    _dug1,
+  )],
+  [1*8, stack( // chorus
+    _drums_1,
+    _base_ch,
+    _mid1.gain(2), _mid2.gain(2),
+    _sweep2
+  )],
+  [1*4,stack( // finale
+    n("<[0,4,14] -@3>").sound("gm_fx_brightness").scale("c2:major").room(3).gain(.8).release(3)
+  )],
+  [1,silence]
+).punchcard()
 
