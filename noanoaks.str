@@ -2,10 +2,6 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-/*
-*/
-
-
 // -------------- Drums
 var d1 = sound("AkaiLinn_bd").struct( "1 0 0 0 1 0 0 0").echo(2,.2,.2)
 var d2 = sound("AkaiMPC60_rim").struct(   "0 0 0 0 0 0 1 0")
@@ -23,17 +19,6 @@ var _drums_1 =     stack(  d1,  d2,  d3,  d4, d6).color("white") // normal
 var _drums_2 =     stack(  d1_a, d5_a  ).color("white") // echoey
 var _drums_tick =     stack( d4, d7 ).color("white") // ticky
 
-
-
-var chords1 = n(`<
--
->`)
-var chords2 = n(`<
--
->`)
-var _chords1 = chords1.sound("piano").scale("c3:major").color("red")
-var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
-
 var base1 = n(`< 
  [0 - 0 -1 0 - 0 -1]
  [3 - 3 - 3 - 3 2]
@@ -45,11 +30,9 @@ var base_ch = n(`<
  [2 - 2 1 2 - 5 -]
  [4 - 4 - 4 - 4 -]
  [3 - 3 - 3 - 3 -]
-
 >`)
 var _base1 = base1.sound("supersaw").scale("c2:major").clip("<1.8 .5>").color("orange")
 var _base_ch = base_ch.sound("supersaw").scale("c2:major").clip("<2 .7>").color("orange")
-
 var lead1 = n(`<
  [0 - 0 - ]
  [3 - 3 - ]
@@ -57,45 +40,30 @@ var lead1 = n(`<
  [1 - 1 - ]
 >`)
 var lead2 = n(`<
- -
- [3 2 1 -]
- -
- [-3 -2 -1 -]
+ - [3 2 1 -]
+ - [-3 -2 -1 -]
 >`)
 var _lead1 = lead1.sound("gm_electric_bass_finger").scale("c3:major").distort(1.2).room(4).gain(.06).color("yellow")
 var _lead2 = lead2.sound("gm_electric_bass_finger").scale("c3:major").distort(1.2).room(4).gain(.06).color("yellow")
-
 var mid1 = n(`<
- [ [- 3] [3 2] -  -]
- -
- [ [- 1] [1 2] -  -]
- -
+ [ [- 3] [3 2] -  -] -
+ [ [- 1] [1 2] -  -] -
 >`)
 var mid2 = n(`<
- [ [- 7] [- 9] -  -]
- -
- [ [- 7] [- 11] -  -]
- -
- [ [- 12] [- 11] -  -]
- -
- [ [- 11] [- 9] -  -]
- -
+ [ [- 7] [- 9] -  -] -
+ [ [- 7] [- 11] -  -] -
+ [ [- 12] [- 11] -  -] -
+ [ [- 11] [- 9] -  -] -
 >`)
 var _mid1 = mid1.sound("gm_acoustic_guitar_steel").scale("c3:major").release(3).gain(1.5).color("green")
 var _mid2 = mid2.sound("gm_acoustic_guitar_steel").scale("c3:major").release(3).gain(1.5).color("green")
 var _mid3 = mid2.sound("gm_acoustic_guitar_steel").scale("<c3,c4>:major").release(3).gain(1.5).color("green")
-
 var sweep1 = n(`<
- -
- [ 3  2 -  -]
- -
- [ 1 2 -  -]
+ - [ 3  2 -  -]
+ - [ 1 2 -  -]
 >`)
 var sweep2 = n(`<
- 2
- 3
- 1
- 2
+ 2 3 1 2
 >`.add("<[0,2] [0,4] [0,<5 7>] [0,5]>"))
 var _sweep1 = sweep1.sound("gm_fx_brightness").scale("c4:major").ply("<1 1 2 2>").lpf("<[1500 500]*4>").release(2).gain(.8).color("cyan")
 var _sweep2 = stack(
@@ -103,9 +71,6 @@ var _sweep2 = stack(
   sweep2.sound("gm_english_horn").scale("c4:major").color("cyan").ply(2).gain(.4)
   )
 var _sweep3 = sweep2.sound("gm_fx_brightness").scale("<c3 c4>:major").color("cyan")
-
-
-
 var piano1 = n(`<
  [0 - 7 -]
  [- [4 5] 6 7]

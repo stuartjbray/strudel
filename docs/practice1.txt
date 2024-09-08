@@ -1,5 +1,13 @@
 Strudel Practice 1 
  
+
+
+Music coded with Strudel.
+More here: https://soundcloud.com/stuart-j-bray
+#electronica #blippy #upbeat
+https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu4fOB0hZu
+
+
 // Save 2 sequences as variables – one is sped up and slowed down. Then play each at different scales.  
   
 // $: note("[c e f] d e f").sound("piano") 

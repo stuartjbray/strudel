@@ -3,26 +3,19 @@
 @by Stuart Bray
 @url https://soundcloud.com/stuart-j-bray
 */
-
-
 var ch1 = `<
  [C Am F G]@4
 >`
 var _ch1 = n(`<[0 1 [0,2] <3 -> ]*2>`).chord(ch1).voicing().sound("piano").color("red")
-
 var el1 = n(`<
  [0 [0,7]]*4
 >`)
 var _el1 = el1.sound("supersaw triangle").scale("<c4 c3 c4>:major").distort("<1 2 3 2>").lpf("<600 800@3 400>") //.hpf(200)
   .gain("<.4 .3 .1 .2>").clip("<.4 .8 .1 .8>").room("<3 1 2>").color("orange")
-
 var dug1 = n(`<
- [2 - -  3     - <4 2> - - ]
- -
+ [2 - -  3     - <4 2> - - ] -
 >`)
 var _dug1 = dug1.sound("gm_electric_guitar_clean").scale("c3:major").gain(2).room(2).color("yellow")
-
-
 var sw1 = n(`<
  [- - - [4,7]]
  [  [6,8] -]
@@ -45,12 +38,10 @@ var sw2 = n(`<
 >`)
 var _sw1 = sw1.sound("gm_oboe").scale("c3:major").gain(2).room(1.5).color("green")
 var _sw2 = sw2.sound("gm_oboe").scale("c3:major").gain(2).room(1.5).color("green")
-
 var swe1 = n(`<- - - [2 1] - - - [0 1]>`)
 var _swe1 = swe1.sound("gm_oboe").scale("c4:major").gain(2).room(1.5).color("green")
 var swe2 = n(`<- - - [2 4] - - - [0 1]>`)
 var _swe2 = swe2.sound("gm_oboe").scale("c4:major").gain(2).room(1.5).color("green")
-
 var wug1 = n(`<
  [0 - - 2]
  [1 - - 0]

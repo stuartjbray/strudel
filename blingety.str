@@ -3,20 +3,17 @@
 @by Stuart Bray
 @url https://soundcloud.com/stuart-j-bray
 */
-  
 var n1 = n(`<  
   [8 - <7 9> -]  
   [5 [- 4] 5 -]  
   [1 <3 5> 4 <5 3> ]  
   [5 - 6 -]  
 >`);  
-  
 // Slow arpeggio 
 var nArp1_windup = n(`<  
   [1 - 3 - ]
   [12 10 7 5 [3 8] [5 7] [5 7] [8 3]]
 >`).color("pink");  
-
 var nArp1 = n(`<  
   [1 3 7 8]  
   [12 8 7 3]  
@@ -40,11 +37,7 @@ var nArp2 = n(`<
   [11 7 11 7] 
 >`).color("pink");  
 var nArpChords1 = n(`<
-  -@3
-  [-@4 5 7 - 5]
-  9
-  -@3 
->`)
+  -@3  [-@4 5 7 - 5]  9  -@3 >`)
 var nArp3 = n(`< 
   [3 5 7 5] 
   [9 10 7 5] 
@@ -52,11 +45,7 @@ var nArp3 = n(`<
   [9 11 7 4] 
 >`).color("orange");   
 var nArp22 = n(`<
-  -@8
-  [5 7 9 7]
-  -
-  [9 10 12 10]
-  -
+  -@8  [5 7 9 7]  -  [9 10 12 10]  -
 >`)
 
 // Accents 
