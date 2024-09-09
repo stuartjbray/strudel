@@ -80,32 +80,36 @@ var _sweep2 = sweep2.sound("gm_english_horn").room(2).scale("c2:major").color("y
 
 
 // Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 0; // change to M=1 to unmute all stacks with an M.
+var M = 1; // change to M=1 to unmute all stacks with an M.
 $: arrange(
   // Change 1 to be M to conditionally mute this stack.
   [1*8, stack(    
     _drums_intro,
-    _chords1, 
     _base1,
-    _lead1,
+    _chords1, 
     _sweep1,
   )],
   [1*8, stack(
     _drums1,
-    _chords2,
-    _base1,
-    _lead2,
+    _base2,
+    _chords2, 
     _sweep2,
   )],
   [M*4, stack(    
+    _lead1,
+    _base1,
     _drums1,
     _chords1, 
     _base1,
+    _sweep1,
   )],
   [M*4, stack(
+    _lead2,
+    _base2,
     _drums1,
     _chords2,
     _base2,
+    _sweep2,
   )],
   ).punchcard()
   

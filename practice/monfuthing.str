@@ -1,4 +1,4 @@
-//@title arpeg-a
+//@title monfuthing
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -42,18 +42,18 @@ var base1 = n(`<
  -
  [ - [2 4] 5 4]
  -
- [ - [2 4] 5 4]
+ [ - [2 4] 5 -]
 >`)
 var base2 = n(`<
  -
- [ - [5 4] 5 4]
+ [ - [6b 4] 7 -]
  -
  [ - [5 4] 2 -]
 >`)
 var _base1 = base1.sound("gm_overdriven_guitar").lpf("1500")
-  .scale("c2:major").color("green").gain(.8).room(2)
+  .scale("c4:major").color("green").gain(.8).room(2)
 var _base2 = base2.sound("gm_overdriven_guitar").lpf(1500)
-  .scale("c2:major").color("green").gain(.8).room(2)
+  .scale("c4:major").color("green").gain(.8).room(2)
 
 
 var ooh1 = n(`<
@@ -95,13 +95,13 @@ $: arrange(
     _chords2,
     _base2,
   )],
-  [0*4, stack(    
+  [M*4, stack(    
     _drums1,
     _chords3, 
     _base1,
     _lead1,
   )],
-  [0*4, stack(
+  [M*4, stack(
     _drums1,
     _chords2,
     _base2,
