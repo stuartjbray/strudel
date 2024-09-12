@@ -70,7 +70,7 @@ var _sweep2 = stack(
   sweep2.sound("gm_fx_brightness").scale("c2:major").color("cyan").attack(1 ),
   sweep2.sound("gm_english_horn").scale("c4:major").color("cyan").ply(2).gain(.4)
   )
-var _sweep3 = sweep2.sound("gm_fx_brightness").scale("<c3 c4>:major").color("cyan")
+var _sweep3 = sweep2.sound("gm_fx_brightness").scale("<c3 c2>:major").color("cyan")
 var piano1 = n(`<
  [0 - 7 -]
  [- [4 5] 6 7]
@@ -108,7 +108,16 @@ var dug1 = n(`<
  [4 5 6 4@5]
  [5 6 7 8@5]
 >`)
-var _dug1 = dug1.sound("gm_fx_crystal").scale("c2:major").color("red").gain(2) //.distort(2).lpf("<500 1000 1500 2000>*4")
+var _dug1 = dug1.sound("gm_fx_crystal").scale("c2:major").color("red").gain(10).vowel("<a e i o >*4")
+
+var soft1 = n(`<
+ 5 4 3 2
+>`)
+var softEnd = n("<[0,7] -@3>")
+
+var _soft1 = soft1.sound(" gm_fx_brightness").scale("<c3,c4>:major").vibrato(4).color("red").attack(.9).sustain(.2).gain(1).room(3)
+var _softEnd = softEnd.sound(" gm_fx_brightness").scale("<c2,c3>:major").vibrato(4).color("red").attack(.9).sustain(.5).gain(1).room(2)
+
 
 var M = 1;
 $: arrange(
@@ -173,11 +182,12 @@ $: arrange(
     _drums_1,
     _base_ch,
     _mid1.gain(2), _mid2.gain(2),
-    _sweep2
+    _sweep2,
+    _soft1,
   )],
   [1*4,stack( // finale
-    n("<[0,4,14] -@3>").sound("gm_fx_brightness").scale("c2:major").room(3).gain(.8).release(3)
+    _softEnd
   )],
   [1,silence]
-)._punchcard()
+).punchcard()
 
