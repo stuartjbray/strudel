@@ -58,7 +58,7 @@ var _lead2 = lead2.sound("gm_guitar_harmonics").scale("c3:major").color("yellow"
 
 $: n(`<1@4 0@4>`).sound("gm_reed_organ").scale("<c2,c3>:major").color("green").punchcard().gain(2)
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4, stack(    
     _drums_intro,

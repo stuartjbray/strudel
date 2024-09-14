@@ -108,15 +108,16 @@ var dug1 = n(`<
  [4 5 6 4@5]
  [5 6 7 8@5]
 >`)
-var _dug1 = dug1.sound("gm_fx_crystal").scale("c2:major").color("red").gain(10).vowel("<a e i o >*4")
+var _dug1 = dug1.sound("gm_fx_crystal").scale("c2:major").color("red").gain(3).crush("6").lpf(500)
 
 var soft1 = n(`<
- 5 4 3 2
+ [5 4 3 2]@2,
+ <[12 11 10 9]@2 [12 13 14 15]@2>
 >`)
 var softEnd = n("<[0,7] -@3>")
 
-var _soft1 = soft1.sound(" gm_fx_brightness").scale("<c3,c4>:major").vibrato(4).color("red").attack(.9).sustain(.2).gain(1).room(3)
-var _softEnd = softEnd.sound(" gm_fx_brightness").scale("<c2,c3>:major").vibrato(4).color("red").attack(.9).sustain(.5).gain(1).room(2)
+var _soft1 = soft1.sound(" gm_fx_brightness").scale("c3:major").vibrato(8).color("red").attack(.2).sustain(.3).gain(.5).room(3)
+var _softEnd = softEnd.sound(" gm_fx_brightness").scale("<c2,c3>:major").vibrato(4).color("red").attack(1).sustain(.5).gain(1).room(2)
 
 
 var M = 1;
