@@ -13,7 +13,7 @@ var d3 = sound("AlesisSR16_hh").struct("0 0 0 0 1 0 0 0")
 var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
 
 var _drums_intro = stack( d1, d2  ).color("white") // build up
-var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
+var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white").gain(.2) // normal
 var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
 
@@ -21,21 +21,21 @@ var _drums2 =     stack(  d1, d2  ).color("white") // break down
 var chords1 = n(`<
  [0,4]
  -
- [0,4]
+ [0,4,7]
  -
  [0,5]
  -
- [0,5]
+ [0,5,7]
  -
 >`)
 var chords2 = n(`<
  [0,7]
  -
- [0,7]
+ [0,7,9]
  -
  [2,5]
  -
- [2,5]
+ [2,5,9]
  -
 >`)
 var _chords1 = chords1.sound("piano").scale("c3:major").color("red")
@@ -63,7 +63,24 @@ var _base1 = base1.sound("gm_acoustic_bass").scale("c2:major").color("orange")
 var _base2 = base2.sound("gm_acoustic_bass").scale("c2:major").color("orange")
   .distort(1.2).attack(.2).release(1.1)
 
-  
+
+var acc1 = n(`<
+ [- -3]
+ [- -2]
+ [- -1]
+ [- 0]
+>`)
+var acc2 = n(`<
+ [- -3]
+ [- -2]
+ [- -1]
+ [- 0]
+>`)
+var _acc1 = acc1.sound("gm_cello").scale("c3:major").color("blue").room(2)
+ .phaser(4).distort(.7)
+var _acc2 = acc2.sound("gm_cello").scale("c3:major").color("blue").room(2)
+ .phaser(4).distort(.7)
+
 var lead1 = n(`<
 -
 >`)
@@ -78,18 +95,20 @@ var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
 var M = 0; 
 $: arrange(
   [M*1, stack(    
-    _drums_intro,
-    _base_intro,
+    _drums_intro,    _base_intro,
   )],
+  
   [1*8, stack(
     _drums1,
     _chords1,
     _base1,
+    _acc1,
   )],
   [1*8, stack(    
     _drums1,
     _chords2, 
     _base2,
+    _acc2,
   )],
   [M*4, stack(
     _drums1,
