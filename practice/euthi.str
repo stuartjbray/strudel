@@ -1,0 +1,9 @@
+var aaa = n(`<[0 2 0 4]>`.add("<0 2 4 7 7 4 2 0>")).fast("<2 4 8 16>")
+
+var _aaa = aaa.sound("z_sawtooth ").scale("c3:major")
+
+
+$: arrange(
+  [1,_aaa],
+  [1,_aaa],
+).punchcard()

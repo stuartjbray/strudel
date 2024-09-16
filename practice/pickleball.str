@@ -1,0 +1,65 @@
+//@title pickleball
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+var aaa = n(`<[0 2 0 4] <[7 4 - 0] [4 0 - 2]>>`.fast("<2 4>").add("<0 4 5 2 3 0 3 4>"))
+
+var _aaa = aaa.sound("z_sawtooth ").scale("<c3,c4>:major").color("red")
+  .phaser("<2 4 8>").lpf("<1500 1000 2000>*16").clip("<1 .5 .1>*4").distort(2)
+
+var bbb = n(`<
+ 7
+ [4@3 5b]
+ 5
+ [2@3 -]
+ 3
+ [0@3 4]
+ 3
+ [4 -]
+ >`)
+var _bbb = bbb.scale("<c2,c3>:major").sound("gm_english_horn").color("yellow").distort(2).attack(1).release(.3).gain(.4)
+
+var ccc = n(`< 7 6 5 4 3 2 3 4 >`)
+var ccc2 = n(`< 7 8 9 11 8 9 10 11>`)
+var _ccc = ccc.scale("<c3>:major").sound("gm_distortion_guitar").color("orange").phaser(2).distort(2).attack(.3)
+var _ccc2 = ccc2.scale("<c2>:major").sound("gm_distortion_guitar").color("orange").phaser(4).distort(2).attack(.6)
+
+
+
+
+var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 0 0 1 0 0")
+var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0 ")
+
+var d3 = sound("AlesisSR16_hh").struct("0 1 0 1*2 0 1 0 1*4").gain("[2 .5 1]*2")
+var d4 = sound("AkaiLinn_mt").struct(  "0 0 0 0 0 1 0 0")
+var d5 = sound("AlesisHR16_sh").struct("<1 0> 0 0 0 0 0 0 0").room(3).gain(.3)
+
+var _drums_intro = stack( d1, d2  ).color("white") // build up
+var _drums1 =     stack(  d1,  d2,  d3,  d4, d5).color("white") // normal
+var _drums2 =     stack(  d1, d2  ).color("white") // break down
+
+var M = 0;
+$: arrange(
+  [M*8,stack(
+   _aaa,
+   _drums_intro 
+  )],
+  [M*8,stack(
+    _aaa,
+    _bbb,
+    _drums1
+  )],
+  [1*8,stack(
+    _aaa,
+    _bbb,
+    _ccc,
+    _drums1
+  )],
+  [1*8,stack(
+    _aaa.crush(3),
+    _bbb,
+    _ccc,
+    _ccc2,
+    _drums1
+  )],
+).punchcard()
