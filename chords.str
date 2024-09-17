@@ -3,8 +3,6 @@
 /*
 More than anything ish.
 https://tabs.ultimate-guitar.com/tab/misc-cartoons/hazbin-hotel-more-than-anything-chords-5122474
-*/
-var chords1 = `<
  F# G# A#m C# 
  F# G# A#m C# 
  E B F# F#
@@ -16,14 +14,35 @@ var chords1 = `<
  G#m A B C#m 
  B A F# C#
  F# G# A#m
->`;
+*/
+var chords1 = `< C  D  Em G  C  D  Em G  >`;
+var chords2 = `< A# F  C  C  A# F  C  Dm >`;
+var chords3 = `< A# Dm D# F  A# Dm D# F  >`;
+var chords4 = `< D# A# F  F  D# A# F  F  >`;
+var chords5 = `< Dm D# F  Gm F  D# C  G  >`;
+var chords6 = `< C  D  Em -  C  D  Em -  >`;
 
+var arp1 = `< [1 [- 2] - - 3 4 - -], [5 6 - 7 8 - - [- 1]] >`;
+var arp2 = `< [4 [- 3] - - 2 1 - -], [5 - 6 7 - - 8 -] >`;
+
+var M = 1;
 $: arrange(
-  [1, stack(
-    n(`<
-      [1 [- 2] - - 3 4 -],
-      [5 6 - 7 8 - [- 1]]
-      >`).chord(chords1).voicing().sound("piano").room(2)
-    // .vowel("[a e i o]") .fm("<[1 2]!4>")
-  )]
-)
+  [M*8, stack(
+    n(arp1.add("<[-7 0]@8>")).chord(chords1).voicing().sound("piano")
+  )],
+  [1*8, stack(
+    n(arp2).chord(chords2).voicing().sound("piano")
+  )],
+  [M*8, stack(
+    n(arp1).chord(chords3).voicing().sound("piano")
+  )],
+  [M*8, stack(
+    n(arp1).chord(chords4).voicing().sound("piano")
+  )],
+  [M*8, stack(
+    n(arp1).chord(chords5).voicing().sound("piano")
+  )],
+  [M*8, stack(
+    n(arp1).chord(chords6).voicing().sound("piano")
+  )],
+)._punchcard({labels:1});
