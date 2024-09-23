@@ -1,0 +1,97 @@
+//@title whisterly
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+
+
+var d1 = sound("AkaiLinn_bd ").struct(   "1 0 0 1 0 0")
+var d2 = sound("AkaiMPC60_rim").struct(  "0 0 0 1 0 0 ")
+var d5 = sound("gm_melodic_tom").struct( "1 0 1 0 0 0 ").gain(2).room(1)
+var d3 = sound("AlesisSR16_hh").struct(  "0 [1 1] 0 0 [1 1] 0").gain(.2)
+
+var d4 = sound("AkaiLinn_cr").struct(    "0 0 0 0 0 0").gain(.03).room(5)
+var d1_down = sound("AkaiLinn_bd").struct("0 0 0").phaser(sine.range(500,1500))
+
+var _drums_intro =     stack(  d1,  d2,  d3,  d4).color("white")
+var _drums1 = stack( d1, d2, d3, d5  ).color("white") // d1_down
+var _drums2 =     stack(  d1, d2  ).color("white") // break down
+
+
+
+var bass1 = n(`<
+ -
+ [4 5 4 3 2 1]
+ -
+ [4 5 4 2 3 4]
+ -
+ [1 2 3 4 5 4]
+ -
+ [5 4 3 1 2 3]
+>`)
+var _bass1 = bass1.scale("c3:major").sound("piano").color("red")
+
+var xbass1 = n(`<
+ [5 1] - 
+ [4 0] -
+ [3 1] -
+ [2 -2] -
+>`).add('0,7')
+var _xbass1 = xbass1.scale("c2:major").sound("piano").color("orange")
+
+
+var _ybass1 = xbass1.scale("c2:major").sound("gm_synth_brass_2").color("orange").phaser(4).distort(2).release(1.1)
+
+
+
+var mel1 = n(`<
+ [- [7 8] [7 - ]  - - - ]
+ -
+ [- [6 7] [6 - ]  - - - ]
+ -
+>`)
+var _mel1 = mel1.scale("c4:major").sound("piano").color("yellow")
+
+var plink1 = n(`<
+ [- - - 5 - - ]
+ -
+ [- - - 4 - - ]
+ -
+ [- - - 3 - - ]
+ -
+ [- - - 2 - - ]
+ -
+>`)
+var plink2 = n(`<
+ [- [5,7] [5,7 ]  - - - ]
+ -
+ [- [7,9] [7,9]  - - - ]
+ -
+ [- [3,7] [3,7]  - - - ]
+ -
+ [- [2,5] [2,5]  - - - ]
+ -
+>`)
+var _plink1 = plink1.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).release(2)
+var _plink2 = plink2.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).room(2)
+
+
+
+
+
+var M = 0;
+$: arrange(
+  [1*8, stack(
+    _drums1,
+    _mel1,
+    _bass1,
+    _xbass1, _ybass1,
+    _plink1
+  )],
+  [M*8, stack(
+    _drums1,
+    _mel1,
+    // _bass1, 
+    _xbass1,
+    _plink1
+  )],
+).punchcard()
