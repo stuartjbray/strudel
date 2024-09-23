@@ -12,9 +12,14 @@ var d3 = sound("AlesisSR16_hh").struct(  "0 [1 1] 0 0 [1 1] 0").gain(.2)
 var d4 = sound("AkaiLinn_cr").struct(    "0 0 0 0 0 0").gain(.03).room(5)
 var d1_down = sound("AkaiLinn_bd").struct("0 0 0").phaser(sine.range(500,1500))
 
-var _drums_intro =     stack(  d1,  d2,  d3,  d4).color("white")
-var _drums1 = stack( d1, d2, d3, d5  ).color("white") // d1_down
-var _drums2 =     stack(  d1, d2  ).color("white") // break down
+var _drums_intro = stack(
+ sound("AkaiLinn_bd ").struct(   "1 0 0 1 0 0"),
+ sound("gm_melodic_tom").struct( "1 0 0 1 0 0 ").gain(2).room(1),
+ sound("AkaiMPC60_rim").struct(  "0  <[1 0 0][1 1 1 1 1 1]>"),
+).color("white")
+
+var _drums1 =      stack( d1, d2, d3, d5  ).color("white") // d1_down
+var _drums2 =      stack(  d1, d2  ).color("white") // break down
 
 
 
@@ -76,14 +81,23 @@ var _plink2 = plink2.scale("c4:major").sound("dantranh_vibrato").color("cyan").d
 
 
 
+var _bells_Intro = n("<[-7 0][7 14]>").sound("flexatone").scale("c2:major").distort(2) 
 
 
 var M = 0;
 $: arrange(
+  [1*2, stack(
+    _drums_intro,
+    _bells_Intro,
+    // _mel1,
+    // _bass1,
+    // _xbass1, _ybass1,
+    _plink1
+  )],
   [1*8, stack(
     _drums1,
     _mel1,
-    _bass1,
+    // _bass1,
     _xbass1, _ybass1,
     _plink1
   )],
