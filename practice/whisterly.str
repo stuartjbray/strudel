@@ -54,7 +54,14 @@ var mel1 = n(`<
  [- [6 7] [6 - ]  - - - ]
  -
 >`)
+var mel2 = n(`<
+ -
+ [- - [7 8] 7 - - ]
+ -
+ [- - [7 8] 7 - - ]
+>`)
 var _mel1 = mel1.scale("c4:major").sound("piano").color("yellow")
+var _mel2 = mel2.scale("c4:major").sound("piano").color("yellow")
 
 var plink1 = n(`<
  [- - - 5 - - ]
@@ -67,34 +74,35 @@ var plink1 = n(`<
  -
 >`)
 var plink2 = n(`<
- [- [5,7] [5,7 ]  - - - ]
+ [- [5,7] - - - - ]
+ [- [2,5] - - [0,5] - ]
+ [- [7,9] - - - - ]
  -
- [- [7,9] [7,9]  - - - ]
- -
- [- [3,7] [3,7]  - - - ]
- -
- [- [2,5] [2,5]  - - - ]
+ [- [3,7] - - - - ]
+ [- [2,3] - - [0,3] - ]
+ [- [2,5] - - - - ]
  -
 >`)
-var _plink1 = plink1.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).release(2)
-var _plink2 = plink2.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).room(2)
+var _plink1 = plink1.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).release(3)
+var _plink2 = plink2.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).release(3).echo(6,1/12,.8)
 
 var dug1 = n(`<
- [3 3 -  3 - 3   3 - 3   - 3 -]@2*2
- [2 2 -  2 - 2   2 - 2   - 2 -]@2*2
- [1 1 -  1 - 1   1 - 1   - 1 -]@2*2
- [0 0 -  0 - 0   0 - 0   - 0 -]@2*2
+ [3 3 -  3 - 3   3 - 3   - 3 -]!2
+ [2 2 -  2 - 2   2 - 2   - 2 -]!2
+ [1 1 -  1 - 1   1 - 1   - 1 -]!2
+ [0 0 -  0 - 0   0 - 0   - 0 -]!2
 >`)
 var _dug1 = dug1.scale("c2:major").sound("psaltery_pluck").color("blue").distort(2).release(2).gain(.2)
 
-var _bells_Intro = n("<[-7 0][7 14]>").sound("flexatone").scale("c2:major").distort(2) 
+var _bells_Intro = n("<[-7 0][7 14]>").sound("flexatone").scale("c2:major").distort(2).crush(6)
 
 
-var M = 1;
+var M = 0;
 $: arrange(
   [M*2, stack(
     _drums_intro,
     _bells_Intro,
+    _dug1,
     // _mel1,
     // _bass1,
     // _xbass1, _ybass1,
@@ -107,12 +115,20 @@ $: arrange(
     _xbass1, _ybass1,
     _plink1
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
-    _mel1,
     _bass1, 
     _dug1,
     _xbass1,
+    _mel1,
     _plink1
+  )],
+  [1*8, stack(
+    _drums1,
+    _bass1, 
+    _dug1,
+    _xbass1,
+    _mel2,
+    _plink2
   )],
 ).punchcard()
