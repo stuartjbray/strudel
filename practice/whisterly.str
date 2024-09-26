@@ -23,17 +23,21 @@ var _drums2 =      stack(  d1, d2  ).color("white") // break down
 
 
 
-var bass1 = n(`<
- -
- [4 5 - 3 2 1]
- -
- [4 5 - 2 3 4]
- -
- [1 2 - 4 5 4]
- -
- [5 4 - 1 2 3]
+var follow1 = n(`<
+ - [4 5 - 3 2 1]
+ - [4 5 - 2 3 4]
+ - [1 2 - 4 5 4]
+ - [5 4 - 1 2 3]
 >`)
-var _bass1 = bass1.scale("c3:major").sound("piano").color("red")
+var follow2 = n(`<
+ - [4 5 4 3 4 3 4 3 2 3 2 3]
+ - [4 5 - 2 3 4]
+ - [0 1 0 1 0 1 2 3 2 3 2 3]
+ - [5 4 - 1 2 3]
+>`)
+var _follow1 = follow1.scale("c3:major").sound("piano").color("magenta").distort(1.2)
+var _follow2 = follow2.scale("<c3,c4>:major").sound("piano").color("magenta").distort(1.2).clip(1.4)
+
 
 var xbass1 = n(`<
  [5 1] - 
@@ -42,26 +46,24 @@ var xbass1 = n(`<
  [2 -2] -
 >`)
 var _xbass1 = xbass1.scale("<c2,c3>:major").sound("piano").color("orange").distort(1.2)
-
-
 var _ybass1 = xbass1.scale("c2:major").sound("gm_synth_brass_2").color("orange").phaser(4).distort(2).release(1.1)
 
 
 
-var mel1 = n(`<
+var trill1 = n(`<
  [- [7 8] [7 - ]  - - - ]
  -
  [- [6 7] [6 - ]  - - - ]
  -
 >`)
-var mel2 = n(`<
+var trill2 = n(`<
  -
  [- - [7 8] 7 - - ]
  -
  [- - [7 8] 7 - - ]
 >`)
-var _mel1 = mel1.scale("c4:major").sound("piano").color("yellow")
-var _mel2 = mel2.scale("c4:major").sound("piano").color("yellow")
+var _trill1 = trill1.scale("c4:major").sound("piano").color("yellow")
+var _trill2 = trill2.scale("c4:major").sound("piano").color("yellow")
 
 var plink1 = n(`<
  [- - - 5 - - ]
@@ -84,7 +86,7 @@ var plink2 = n(`<
  -
 >`)
 var _plink1 = plink1.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).release(3)
-var _plink2 = plink2.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).release(3).echo(6,1/12,.8)
+var _plink2 = plink2.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).release(3) //.echo(6,1/12,.8)
 
 var dug1 = n(`<
  [3 3 -  3 - 3   3 - 3   - 3 -]!2
@@ -94,7 +96,7 @@ var dug1 = n(`<
 >`)
 var _dug1 = dug1.scale("c2:major").sound("psaltery_pluck").color("blue").distort(2).release(2).gain(.2)
 
-var _bells_Intro = n("<[-7 0][7 14]>").sound("flexatone").scale("c2:major").distort(2).crush(6)
+var _bells_Intro = n("<[-7 0][7 14]>").sound("flexatone").scale("c2:major").crush(6)
 
 
 var M = 0;
@@ -103,32 +105,41 @@ $: arrange(
     _drums_intro,
     _bells_Intro,
     _dug1,
-    // _mel1,
-    // _bass1,
-    // _xbass1, _ybass1,
     _plink1
   )],
   [M*8, stack(
     _drums1,
-    _mel1,
-    // _bass1,
+    _trill1,
     _xbass1, _ybass1,
     _plink1
   )],
   [M*8, stack(
     _drums1,
-    _bass1, 
+    _follow1, 
     _dug1,
     _xbass1,
-    _mel1,
+    _trill1,
     _plink1
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
-    _bass1, 
+    _follow1, 
     _dug1,
     _xbass1,
-    _mel2,
+    _trill2,
     _plink2
   )],
+ [1*8, stack(
+    _drums1,
+    _follow2, 
+    _dug1,
+    _xbass1,
+  )],
+ [1*8, stack(
+    _drums1,
+    _follow2.scale("c4:major"), 
+    _dug1,
+    _xbass1,
+  )],
+
 ).punchcard()
