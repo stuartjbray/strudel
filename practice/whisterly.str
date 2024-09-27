@@ -9,7 +9,8 @@ var d2 = sound("AkaiMPC60_rim").struct(  "0 0 0 1 0 0 ")
 var d5 = sound("gm_melodic_tom").struct( "1 0 1 0 0 0 ").gain(2).room(1)
 var d3 = sound("AlesisSR16_hh").struct(  "0 [1 1] 0 0 [1 1] 0").gain(.2)
 
-var d4 = sound("AkaiLinn_cr").struct(    "0 0 0 0 0 0").gain(.03).room(5)
+var d4 = sound("tambourine2").struct(    "0 0 [1 1] 0 0 [1 1]").gain(5)
+
 var d1_down = sound("AkaiLinn_bd").struct("0 0 0").phaser(sine.range(500,1500))
 
 var _drums_intro = stack(
@@ -18,8 +19,9 @@ var _drums_intro = stack(
  sound("AkaiMPC60_rim").struct(  "0  <[1 0 0][1 1 1 1 1 1]>"),
 ).color("white")
 
-var _drums1 =      stack( d1, d2, d3, d5  ).color("white") // d1_down
-var _drums2 =      stack(  d1, d2  ).color("white") // break down
+var _drums1 =      stack( d1, d2, d3, d4, d5  ).color("white") 
+var _drums2 =      stack( d2, d4, d3  ).color("white") // break down
+
 
 
 
@@ -35,8 +37,15 @@ var follow2 = n(`<
  - [0 1 0 1 0 1 2 3 2 3 2 3]
  - [5 4 - 1 2 3]
 >`)
-var _follow1 = follow1.scale("c3:major").sound("piano").color("magenta").distort(1.2)
-var _follow2 = follow2.scale("<c3,c4>:major").sound("piano").color("magenta").distort(1.2).clip(1.4)
+var follow3 = n(`<
+ - [8 9 8 9 6 7 6 7 4 5 4 5]
+ - [4 5 - 2 3 4]
+ - [7 8 7 8 6 7 6 7 5 6 5 6]
+ - [5 4 - 1 2 3]
+>`)
+var _follow1 = follow1.scale("c3:major").sound("piano").color("magenta").gain(2)
+var _follow2 = follow2.scale("<c3,c4>:major").sound("piano").color("magenta").gain(1.2)
+var _follow3 = follow3.scale("<c4>:major").sound("piano").color("magenta").gain(1.2)
 
 
 var xbass1 = n(`<
@@ -45,7 +54,7 @@ var xbass1 = n(`<
  [3 1] -
  [2 -2] -
 >`)
-var _xbass1 = xbass1.scale("<c2,c3>:major").sound("piano").color("orange").distort(1.2)
+var _xbass1 = xbass1.scale("<c2,c3>:major").sound("piano").color("orange").gain(1.5)
 var _ybass1 = xbass1.scale("c2:major").sound("gm_synth_brass_2").color("orange").phaser(4).distort(2).release(1.1)
 
 
@@ -62,18 +71,14 @@ var trill2 = n(`<
  -
  [- - [7 8] 7 - - ]
 >`)
-var _trill1 = trill1.scale("c4:major").sound("piano").color("yellow")
-var _trill2 = trill2.scale("c4:major").sound("piano").color("yellow")
+var _trill1 = trill1.scale("c4:major").sound("piano").color("yellow").distort(1.2)
+var _trill2 = trill2.scale("c4:major").sound("piano").color("yellow").distort(1.2)
 
 var plink1 = n(`<
- [- - - 5 - - ]
- -
- [- - - 4 - - ]
- -
- [- - - 3 - - ]
- -
- [- - - 2 - - ]
- -
+ [- - - 5 - - ] -
+ [- - - 4 - - ] -
+ [- - - 3 - - ] -
+ [- - - 2 - - ] -
 >`)
 var plink2 = n(`<
  [- [5,7] - - - - ]
@@ -88,15 +93,18 @@ var plink2 = n(`<
 var _plink1 = plink1.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).release(3)
 var _plink2 = plink2.scale("c4:major").sound("dantranh_vibrato").color("cyan").distort(2).release(3) //.echo(6,1/12,.8)
 
-var dug1 = n(`<
- [3 3 -  3 - 3   3 - 3   - 3 -]!2
- [2 2 -  2 - 2   2 - 2   - 2 -]!2
- [1 1 -  1 - 1   1 - 1   - 1 -]!2
- [0 0 -  0 - 0   0 - 0   - 0 -]!2
->`)
-var _dug1 = dug1.scale("c2:major").sound("psaltery_pluck").color("blue").distort(2).release(2).gain(.2)
+var dug = "< [0 0 -  0 - 0  0 - 0  - 0 -] >";
+var dugx = "0 2 -  2 - 0   0 - 2   - 0 -";
 
-var _bells_Intro = n("<[-7 0][7 14]>").sound("flexatone").scale("c2:major").crush(6)
+var dug_intro = n(dug.add("0,5"))
+var dug1 = n(dug.add("< 3@2 2@2 1@2 0@2 >"))
+var dug2 = n(dugx.add("< 3@2 2@2 1@2 0@2 >"))
+
+var _dug_intro = dug_intro.scale("c2:major").sound("psaltery_pluck").color("blue").distort(2).release(2).gain(.2)
+var _dug1 = dug1.scale("c2:major").sound("psaltery_pluck").color("blue").distort(2).release(2).gain(.4)
+var _dug2 = dug2.scale("<c2,c3>:major").sound("psaltery_pluck").color("blue").distort(2).release(2).gain(.4)
+
+var _bells_Intro = n("<[-7 0][7 14]>").sound("flexatone").scale("c2:major").distort(2)
 
 
 var M = 0;
@@ -104,42 +112,48 @@ $: arrange(
   [M*2, stack(
     _drums_intro,
     _bells_Intro,
-    _dug1,
-    _plink1
+    _dug_intro,
   )],
   [M*8, stack(
     _drums1,
     _trill1,
     _xbass1, _ybass1,
-    _plink1
   )],
   [M*8, stack(
     _drums1,
     _follow1, 
     _dug1,
     _xbass1,
-    _trill1,
-    _plink1
+    _trill1, _plink1
   )],
   [M*8, stack(
     _drums1,
-    _follow1, 
     _dug1,
     _xbass1,
-    _trill2,
-    _plink2
+    _trill2, _plink2
+  )],
+ [M*8, stack(
+    _drums1,
+    _follow2, // fast piano
+    _dug1,
+    _xbass1,
+  )],
+ [M*8, stack(
+    _drums1,
+    _follow3, 
+    _dug1,
+    _xbass1,
   )],
  [1*8, stack(
-    _drums1,
-    _follow2, 
-    _dug1,
-    _xbass1,
+    _drums2,
+    _follow3, 
+    _dug2,
   )],
  [1*8, stack(
-    _drums1,
-    _follow2.scale("c4:major"), 
-    _dug1,
+    _drums2,
     _xbass1,
-  )],
+    _trill1, _plink1
+ )],
+  
 
 ).punchcard()
