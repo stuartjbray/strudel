@@ -22,17 +22,12 @@ let { x, y } = createParams('x', 'y');
 x = tri.range(0, .4).slow(4);
 y = cosine.range(0, .4).slow(4);
 
+
 var chords1 = n(`<
- 2
- 1
- 0
- 0
+ 2 1 0 0
 >`.ply(4).add("<7 <4 9> - 0>*4"))
 var chords2 = n(`<
- 2
- 1
- 0
- 0
+ 2 1 0 0
 >`.ply(16).add("<0 <5 2> 4 <7 2>>*16"))
 
 var _chords1 = stack(
@@ -45,15 +40,15 @@ var _chords1 = stack(
 var _chords2 = chords2.sound("gm_fx_brightness").scale("<c3,c4>:major").color("red").gain(.2).decay("<.1 .5>*4")
 
 var base1 = n(`<
- [0 2]
- [5 3]
+ [2 3]
+ [2 0]
  -
  -
 >`)
 var base2 = n(`<
 -
 >`)
-var _base1 = base1.sound("z_square,triangle ").ply(8).fm("<0 .1 5 .1>*8").scale("c3:major").color("green").gain(.4)
+var _base1 = base1.sound("z_square,triangle ").ply(8).fm("<0 .1 10 .1 20>*8").scale("c2:major").color("green").gain(.3)
 var _base2 = base2.sound("z_sine ").scale("c3:major").color("green")
 
 var lead1 = n(`<
@@ -69,24 +64,20 @@ var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
 var M = 1;
 $: arrange(
   [1*16, stack(    
-    _drums_intro,
     _chords1, 
-    _chords2, 
+    // _chords2, 
     _base1,
   )],
   [M*4, stack(
-    _drums1,
     _chords2,
     _base2,
   )],
   [M*4, stack(    
-    _drums1,
     _chords1, 
     _base1,
     _lead1,
   )],
   [M*4, stack(
-    _drums1,
     _chords2,
     _base2,
     _lead2,
