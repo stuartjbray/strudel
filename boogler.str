@@ -1,18 +1,23 @@
 //@title Boogler
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
+
+// TODO - rerecord
+
 var cpm = 60;
 var d1_pre = sound("BossDR110_bd").struct(  "0 1 0 1")
-var d2_pre = sound("BossDR220_cp").struct(  "1 0 1 0")
+var d2_pre = sound("BossDR220_cp").struct(  "1 0 1 0").lpf("<[500 1000 1500 2000 ]@2>")
 var _drums_pre = stack( d1_pre, d2_pre).color("#333")
 var d1 = sound("BossDR110_bd").struct(  "1 0 0 0 0 1 0 0").fast(.5)
-var d2 = sound("BossDR220_cp").struct(  "0 0 1 0 0 0 1 0").fast(.5)
+var d2 = sound("BossDR220_cp").struct(  "0 0 1 0 0 0 1 0").fast(.5).lpf("<1500 3000>")
 var d3 = sound("AkaiXR10_rim").struct(  "0 1 0 1 0 1 0 1").fast(.5)
 var d4 = sound("AkaiXR10_rd").struct(   "0 0 0 0 0 0 0 <0 1>").fast(.5)
 var _drums = stack(d1, d2, d3, d4).color("#333")
-var d1_off = sound("BossDR110_bd").struct(  "<[1 0 0 1 0 0 1 0 0] ->")
-var d2_off = sound("BossDR220_cp").struct(  "<- [1 0 0 1 0 0 1 0 0]>")
+
+var d1_off = sound("BossDR110_bd, MFB512_bd").struct(  "<[1 0 0 1 0 0 1 0 0] ->").distort(4)
+var d2_off = sound("BossDR220_cp").struct(  "<- [1 0 0 1 0 0 1 0 0]>").gain(.2)
 var _drums_off = stack(d1_off, d2_off).color("#333")
+
 var dug1 = n(`<
  [0@3 [ 1]]  [2 - - -]  -  -
  [1@3 [ 0]] [-1b - - -]  -  -
@@ -52,8 +57,8 @@ var lead2 = n(`<
 - [- 0] [2 ] -
 - [- 0] [2b ] -
 >`)
-var _lead1 = lead1.sound("gm_synth_brass_1, gm_synth_brass_2 ").scale("c2:major").release(1.0).gain(3).color("yellow")
-var _lead2 = lead2.sound("gm_synth_brass_1, gm_synth_brass_2 ").scale("c2:major").release(1.0).gain(3).color("yellow")
+var _lead1 = lead1.sound("gm_synth_brass_1, gm_synth_brass_2 ").scale("c2:major").release(.3).gain(3).color("yellow")
+var _lead2 = lead2.sound("gm_synth_brass_1, gm_synth_brass_2 ").scale("c2:major").release(.3).gain(3).color("yellow")
 var wip1 = n(`<
  -  [- 3 3 2 ] 
  - <[- 5 5 3 ] [- 7 7 5 ]>
@@ -92,10 +97,21 @@ var soft1 = n(`<
  [5 4 5 9 5 4 0 -]@8
 >`)
 var soft2 = n(`<
- [5 4 9 7 5 - - -]@8
+ [5 4 3 2 3@3 - ]@8
 >`)
+var soft_x1 = n(`<
+ 8 7 <6 4> <5 ->
+>`)
+var soft_x2 = n(`<
+ 5 6 7 <8 ->
+>`)
+
+
 var _soft1 = soft1.sound("gm_pad_halo").scale("<c3, c5>:major").color("#00FF00").distort(2).attack(.2)
 var _soft2 = soft2.sound("gm_pad_halo").scale("<c3, c5>:major").color("#00FF00").distort(2).attack(.2)
+var _soft_x1 = soft_x1.sound("gm_pad_halo").scale("c4:major").color("#00FF00").gain(3)
+var _soft_x2 = soft_x2.sound("gm_pad_halo").scale("c4:major").color("#00FF00").gain(3)
+
 
 var M = 1;
 $: arrange(
@@ -112,31 +128,33 @@ $: arrange(
     _accent2,
     _lead2,
   )],
-  [M*8, stack(    
+  [1*8, stack(    
     _drums,
     _dug3, 
     _accent1,
     _lead1,
+    _soft_x1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums,
     _dug4,
     _accent2,
     _lead2,
+    _soft_x2,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums_off,
     _dug3, 
     // _lead1,
     _hig1, // --- dirty whistly
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums_off,
     _dug4,
     // _lead2,
     _hig2,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums,
     _dug3, 
     _lead1,
@@ -160,14 +178,14 @@ $: arrange(
     _wip2,
     _hig2.gain(.2), _hig4.gain(.2),
   )],  
-  [M*8, stack(    
+  [1*8, stack(    
     // _drums,
     _accent1.clip(.2),
     _wip1,
     _hig1.gain(.2), _hig3.gain(.2),
     _soft1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     // _drums,
     _accent2.clip(.3),
     _wip2,

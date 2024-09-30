@@ -103,6 +103,10 @@ var swoop2 = n(`<
 var _swoop1 = swoop1.sound("gm_synth_brass_1").scale("c3:major").color("green").distort(1).attack(.8)
 var _swoop2 = swoop2.sound("gm_synth_brass_1").scale("c3:major").color("green").distort(1).attack(.8)
 
+var sprinkle1 = "<0 - - -1 - 0 - [- 0] >".fast(8)
+var _sprinkle1 = n(sprinkle1.add("<3 2 4 1>")).sound("gm_harpsichord").scale("c5:major").color("blue").gain(.5).room(1.2)
+
+
 var M = 1;
 $: arrange(
   [M*8, stack(    
@@ -111,7 +115,7 @@ $: arrange(
     _base1,
     _lead1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _chords2, _chords2a,
     _base2,
@@ -124,6 +128,14 @@ $: arrange(
     _base3,
     _lead3,
     _swoop2,
+    _sprinkle1,
   )],
-  ).punchcard()
+  [1*8, stack(
+    _drums1,
+    _chords3,
+    _base3,
+    _lead3,
+    _swoop2,
+  )],
+).punchcard()
   
