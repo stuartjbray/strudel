@@ -15,9 +15,13 @@
 
  Wall of sound is good. Clutter is bad. Keep adding things and removing things until it feels right.
 
- Too clean vs too dirty.
- Too simple vs too complex.
- Too melodic vs too dischordant.
+    Balance between:
+ Clean vs dirty
+ Simple vs complex
+ Melodic vs dischordant
+ Controlled vs emergent
+ Gentle vs Frantic. (not governed by speed)
+
 
  You have to listen to the same loop over and over, to work out what is wrong and what to add. But in that time you become desensitised to it, it makes you sick with it's familiarity and you forget why it is beautiful. At the same time, it's flaws become smoothed over because your brain predicts that pattern is about to come up. Only when you listen back with fresh ears after time has passed do you hear the real good and bad of it.
 
@@ -29,4 +33,4 @@
 
  Alternate between lilting and punctuated, frantic and calm. Don't pursue a melody over too many beats, break it up into different instruments.
 
- You could learn to create by independantly recreating every known trick in modern musical history, or... or... you could learn by copying. Take your fave song, or a song that you think you could make using this tool, or a song that you think you couldn't make using this tool, and start recreating it. No doubt half way through you'll get your own ideas about which direction the song should go in. And then once you feel you have something that can stand by itself, go back and remove or mutate or shrink the bits that came from someone else.
+ You could learn to create by independantly recreating every known trick in modern musical history, or... or... you could learn by copying. Take your fave song, or a song that you think you could make using this tool, or a song that you think you couldn't make using this tool, and start recreating it. No doubt half way through you'll get your own ideas about which direction the song should go in. And then once you feel you have something that can stand by itself, go back and remove or mutate or shrink the bits that came from someone else.z
