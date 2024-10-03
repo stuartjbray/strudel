@@ -12,13 +12,15 @@ var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0")
 var d3 = sound("AlesisSR16_hh").struct("0 1 0 <1 1*2> 0 1 0 1").lpf("<[3000 5000]*2>")
 var d4 = sound("BossDR110_rd").struct(  "0 0 0 0 0 0 0 <0 1>")
 
-var d1x = sound("AkaiLinn_bd").struct(  "1*2 0 0 0 1*2 0 0").lpf("<1000 4000>*2")
-var d2x = sound("AkaiMPC60_rim").struct("0 0 1*2 1*2 0 0 <1 0> 0").lpf("<4000 1000>*8")
+var d5 = sound("AkaiMPC60_cp").struct(  "0 <1 0> 0 0 0 0 0 <0 1>").hpf("<2000 1000>").gain(.6)
+
+var d1x = sound("AkaiLinn_bd").struct(  "1*4 0 0 0 1 0 0").lpf("<1000 4000>*2")
+var d2x = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 <1*3 0> 0").lpf("<4000 1000>*8")
 var d4x = sound("EmuDrumulator_cr").struct(  "0 0 0 0 0 0 1 0").room(2)
 
 
 var _drums_intro = stack( d1, d2, d3, d4  ).color("white") // build up
-var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
+var _drums1 =     stack(  d1,  d2,  d3,  d4, d5).color("white") // normal
 var _drums2 =     stack(  d1x, d2x, d4x  ).color("white") // break down
 
 
@@ -93,12 +95,29 @@ var lead4 = n(`<
  [- [5 5*2] - 3 ]
  [[0,4] - - [0,5]]
  [- [7 [5,7]*2] - [5,9] ]
- [[0,2] - - [0,4]]
+ [[0,2] - - -]
 >`)
-var _lead1 = lead1.sound("steinway").scale("c4:major").color("green").gain(1.2)
-var _lead2 = lead2.sound("steinway").scale("c4:major").color("green").gain(1.2)
-var _lead3 = lead3.sound("steinway").scale("c4:major").color("green").gain(1.2)
-var _lead4 = lead4.sound("steinway").scale("c4:major").color("green").gain(1.2)
+var _lead1 = lead1.sound("steinway").scale("<c4,c5>:major").color("green").gain(1.2)
+var _lead2 = lead2.sound("steinway").scale("<c4,c5>:major").color("green").gain(1.2)
+var _lead3 = lead3.sound("steinway").scale("<c4,c5>:major").color("green").gain(1.2)
+var _lead4 = lead4.sound("steinway").scale("<c4,c5>:major").color("green").gain(1.2)
+
+var lead5 = n(`<
+ [[4,8] [3 2 - [0,5]]] 
+ -
+ [[3,5] - - 2 3 4 - [2,4]]
+ -
+>`)
+var lead6 = n(`<
+ [[4,9] [3 4 - [7,9]]] 
+ -
+ [5@2 - [4,6] - [5,7] - [7,9]]
+ -
+>`)
+var _lead5 = lead5.sound("steinway").scale("<c4,c5>:major").color("green").gain(1.2)
+var _lead6 = lead6.sound("steinway").scale("<c4,c5>:major").color("green").gain(1.2)
+
+
 
 var sweep1 = n(`<
  0 2 3 2
@@ -109,7 +128,34 @@ var sweep2 = n(`<
 var _sweep1 = sweep1.sound("gm_slap_bass_2").scale("<c2,c3>:major").color("yellow").attack(.5).gain(4).phaser(8)
 var _sweep2 = sweep2.sound("gm_slap_bass_2").scale("<c2,c3>:major").color("yellow").attack(.5).gain(4).phaser(8)
 
-var M = 1;
+// ----------------------------- BRIDGE
+var bridgeA1 = n(`<
+ [[4,6]@2 - [3 2]]
+ 4
+ [[3,5]@2 - [4 5]]
+ 3
+>`)
+var bridgeA2 = n(`<
+ [[2,7]@2 - [1 0]]
+ 2
+ [[1#, 0]@2 - [1 0]]
+ 1#
+>`)
+var _bridgeA1 = bridgeA1.sound("gm_electric_bass_pick").scale("c3:major").clip(.2).echo(4,1/8,.5).distort(2)
+var _bridgeA2 = bridgeA2.sound("gm_electric_bass_pick").scale("c3:major").clip(.2).echo(4,1/8,.5).distort(2)
+
+var bridgeChords1 = n(`<
+ [4,6] [5,7]*2 [7,10] [8,10]*4
+>`)
+var bridgeChords2 = n(`<
+ [7,9] [8,10] [8#, 11] [10, 12]*4
+>`)
+var _bridgeChords1 = bridgeChords1.sound("piano, gm_synth_bass_2").attack(.08).vibrato("<0 8>").gain(1).scale("c2:major").color("red")
+var _bridgeChords2 = bridgeChords2.sound("piano, gm_synth_bass_2").attack(.08).vibrato("<0 8>").gain(1).scale("c2:major").color("red")
+
+
+
+var M = 0;
 $: arrange(
   // [1,silence],
   [M*8, stack(    
@@ -144,12 +190,27 @@ $: arrange(
     _base2,    _chords2,
     _lead4,    _sweep2,
   )],  
-  [1*4, stack(
+  [M*4, stack(
     _drums2,
     _chords1_x,
-    _sweep1,
+    _lead5,    _sweep1,
+  )],  
+  [M*4, stack(
+    _drums2,
+    _chords1_x,
+    _lead6,    _sweep1,
+  )],  
+  [1*4, stack(
+    _drums1,
+    _base1,
+    _bridgeA1,    _bridgeChords1,
+  )],  
+  [1*4, stack(
+    _drums1,
+    _base2,
+    _bridgeA2,    _bridgeChords2,
   )],  
 
   
-  )._punchcard()
+  ).punchcard()
   
