@@ -23,7 +23,13 @@ var _drums_intro = stack(
 var _drums1 =      stack( d1, d2, d3, d4, d5  ).color("white") 
 var _drums2 =      stack( d2, d4, d3  ).color("white") // break down
 var _drums3 =      stack( d1_x, d2, d3_x ).color("white") 
-
+var _drumsOut = stack(
+ sound("AkaiLinn_bd ").struct(   "<[1 0 0 1 0 1*2]!2 [1 0 0 1 0 1*4]>"),
+ sound("AlesisSR16_hh").struct(  "<[0 1*2 0 0 1*2 0]!2  [0 1*<4 8> 0 0 1*<4 8> 0]!2>"),
+ sound("AlesisSR16_cr").struct(  "<- - - [- - [1*2 -] -]>").lpf(2000),
+ sound("AlesisSR16_cr").struct(  "<- - - [- - - 1]>"),
+ sound("gm_melodic_tom").struct( "1 0 1*4 0 0 0 ").gain(2)
+)
 
 
 var follow1 = n(`<
@@ -45,8 +51,8 @@ var follow3 = n(`<
  - [5 4 - 1 2 3]
 >`)
 var _follow1 = follow1.scale("c3:major").sound("piano").color("magenta").gain(2)
-var _follow2 = follow2.scale("<c3,c4>:major").sound("piano").color("magenta").gain(1.2)
-var _follow3 = follow3.scale("<c4>:major").sound("piano").color("magenta").gain(1.2)
+var _follow2 = follow2.scale("c4:major").sound("piano").color("magenta").gain(2)
+var _follow3 = follow3.scale("c4:major").sound("piano").color("magenta").gain(3)
 
 
 var xbass1 = n(`<
@@ -55,8 +61,8 @@ var xbass1 = n(`<
  [3 1] -
  [2 -2] -
 >`)
-var _xbass1 = xbass1.scale("<c2,c3>:major").sound("piano").color("orange").gain(1.5)
-var _ybass1 = xbass1.scale("c2:major").sound("gm_synth_brass_2").color("orange").phaser(4).distort(2).release(1.1)
+var _xbass1 = xbass1.scale("<c2,c3>:major").sound("piano").color("orange").gain(1.1)
+var _ybass1 = xbass1.scale("c2:major").sound("gm_synth_brass_2").color("orange").phaser(4).distort(1.5).release(1.1)
 
 
 
@@ -70,10 +76,10 @@ var trill2 = n(`<
  -
  [- - [7 8] 7 - - ]
  -
- [- - [7 8] 7 - - ]
+ [- - [7 6] 7 - - ]
 >`)
-var _trill1 = trill1.scale("c4:major").sound("piano").color("yellow").distort(1.2)
-var _trill2 = trill2.scale("c4:major").sound("piano").color("yellow").distort(1.2)
+var _trill1 = trill1.scale("c4:major").sound("piano").color("yellow").distort(1.8)
+var _trill2 = trill2.scale("c4:major").sound("piano").color("yellow").distort(1.8)
 
 var plink1 = n(`<
  [- - - 5 - - ] -
@@ -121,7 +127,7 @@ var _arp1 = arp1.sound("piano").scale("c3:major").vibrato(8)
 
 
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*2, stack(
     _drums_intro,
@@ -165,11 +171,12 @@ $: arrange(
     _dug2,
   )],
  [1*8, stack(
-    _drums3,
+    _drumsOut,
     _xbass1, _ybass1,
     _trill1, _plink1,
    _arp1
  )],
+ [1,silence]
   
 
-).punchcard()
+)//.punchcard()
