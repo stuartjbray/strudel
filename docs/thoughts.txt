@@ -41,7 +41,7 @@
   * use Slowcat to merge 2x4 loops in a 8 sized sequence.
   * Use transpose to vary a _aaa inside the final arrange, for variety.
   * Set volume in mininotation for individual notes- eg "bd:1:4" is a loud drum.
-
+  * Bite - chop up a pattern into x pieces and play in this order.
 
 
 

@@ -4,31 +4,37 @@
 
 /*
 */
-setcpm(40)
+setcpm(30)
 
 // -------------- Drums
-var d1 = sound("AkaiLinn_bd").struct(  "1 1*<2 4> 0 0 1     1 0 0").fast(.5)
-var d2 = sound("AkaiLinn_lt").struct("0 0 1 1 [0 1] 0 1 1*<1 2>").fast(.5)
-var d3 = sound("AlesisSR16_hh").struct("0 0 0 0 0 1*<1@3 2> 0 1")
-var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
+var d1 = sound("RolandCompurhythm1000_mt").struct(     "1 [0 1] 0 0 0 <0 1> 0 0")
+var d2 = sound("OberheimDMX_mt").struct(               "0 0 1 1 0 0 1 0")
+var d3 = sound("AkaiMPC60_rim").struct(  "[0 1] 0 [0 1] 0 0 [0 1] [0 1] 0 ").gain(".5 .5 1 2")
+var d4 = sound("perc").struct(            "0 0 1 0 0 0 0 0")
+var d5 = sound("AkaiMPC60_perc").struct(  "0 0 0 0 0 2*2 0 0 ")
 
-var _drums_intro = stack( d1, d2, d3  ).color("white") // build up
-var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
+var d3x = sound("AkaiMPC60_rim").struct(  "0 0 0 1 0 1*2 0 1*4 ")
+
+
+
+var _drums_intro = stack( d1,  d3x  ).color("white") // build up
+var _drums1 =     stack(  d1,  d2,  d3,  d4, d5).color("white") // normal
+
 var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
+//$: cat(_drums_intro, _drums1)
 
 
 var chords1 = n(`<
- [5 - [6 5]] [5]
- [4 - [5 4]] [4]
- [3 - [4 3]] [3]
- [2 - [3 2]] [2]
+ [5 -  [6 5] [- 5] ] -
+ [4 -  [5 4] [- 4] ] -
 >`)
 var chords2 = n(`<
--
+ [3 - [4 3] [- 3]] -
+ [2 - [3 2] [- 2]] -
 >`)
-var _chords1 = chords1.sound("piano").scale("c3:major").color("red")
-var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
+var _chords1 = chords1.sound("dantranh_vibrato").scale("c2:major").color("red").distort(2)
+var _chords2 = chords2.sound("dantranh_vibrato").scale("c2:major").color("red").distort(2)
 
 var base1 = n(`<
 -
@@ -42,50 +48,52 @@ var _base2 = base2.sound("piano").scale("c3:major").color("orange")
 var sweep1 = n(`<
  5 5
  4 4
+>`)
+var sweep2 = n(`<
  3 3
  2 2
 >`)
-var sweep2 = n(`<
--
->`)
-var _sweep1 = sweep1.sound("gm_church_organ").scale("c3:major").color("yellow").distort(1.2).vibrato("<8,16>")
-var _sweep2 = sweep2.sound("gm_church_organ").scale("c3:major").color("yellow").distort(1.2).vibrato("<8,4>")
+var _sweep1 = sweep1.sound(" harmonica").scale("c2:major").color("yellow").gain(1.5).release(.1)
+var _sweep2 = sweep2.sound(" harmonica").scale("c2:major").color("yellow").gain(1.5).release(.1)
 
+/*
+ [5 - - - 6 5 5 5 - ]
+ [- 6 5 - 6 5 5 5 - ]
+ [4 - - 5 4 - - - ]
+ [4 - - 5 4 - - - ]
+*/
 var lead1 = n(`<
--
+ -
+ -
+ -
+ -
 >`)
 var lead2 = n(`<
 -
 >`)
-var _lead1 = lead1.sound("piano").scale("c3:major").color("yellow")
-var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
+var _lead1 = lead1.sound("gm_voice_oohs").scale("c3:major").color("yellow").gain(3)
+var _lead2 = lead2.sound("gm_voice_oohs").scale("c3:major").color("yellow")
 
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 0; // change to M=1 to unmute all stacks with an M.
+    //.bite(4,"2,3,1,4").fast(2),
+    //.lpf("500 2000 500 2000").echo(4, 1/16, .8),
+var M = 0;
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
-  [1*8, stack(    
+  [1*2, stack(    
     _drums_intro,
-    _chords1, 
-    _base1,
-    _sweep1,
   )],
-  [M*8, stack(
-    _drums1,
-    _chords2,
-    _base2,
-  )],
-  [M*8, stack(    
+  [1*4, stack(    
     _drums1,
     _chords1, 
     _base1,
     _lead1,
+    _sweep1,
   )],
-  [M*8, stack(
+  [M*4, stack(
     _drums1,
     _chords2,
     _base2,
     _lead2,
+    _sweep2,
   )],
   ).punchcard()
   
