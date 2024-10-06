@@ -95,10 +95,10 @@ var lead4 = n(`<
  [- [7 [5,7]*2] - [5,9] ]
  [[0,2] - - [0,4]]
 >`)
-var _lead1 = lead1.sound("steinway").scale("c4:major").color("green").gain(1.2)
-var _lead2 = lead2.sound("steinway").scale("c4:major").color("green").gain(1.2)
-var _lead3 = lead3.sound("steinway").scale("c4:major").color("green").gain(1.2)
-var _lead4 = lead4.sound("steinway").scale("c4:major").color("green").gain(1.2)
+var _lead1 = lead1.sound("steinway").scale("c4:major").color("green").gain(.8)
+var _lead2 = lead2.sound("steinway").scale("c4:major").color("green").gain(.8)
+var _lead3 = lead3.sound("steinway").scale("c4:major").color("green").gain(.8)
+var _lead4 = lead4.sound("steinway").scale("c4:major").color("green").gain(.8)
 
 var sweep1 = n(`<
  0 2 3 2
@@ -151,5 +151,5 @@ $: arrange(
   )],  
 
   
-  )._punchcard()
+  ).punchcard()
   
