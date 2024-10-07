@@ -7,10 +7,10 @@
 
 setcpm(45)
 // -------------- Drums
-var d1 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 0 0")
-var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 0 0")
-var d3 = sound("AlesisSR16_hh").struct("0 0 0 0 0 0 0 0")
-var d4 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 0 0")
+var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 0 0 1*2 0 0")
+var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0")
+var d3 = sound("AlesisSR16_hh").struct("0 1 0 1*2 0 1 0 1*4")
+var d4 = sound("AkaiLinn_bd").struct(  "1*2 0 0 0 0 0 0 0")
 
 var _drums_intro = stack( d1, d2  ).color("white") // build up
 var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
