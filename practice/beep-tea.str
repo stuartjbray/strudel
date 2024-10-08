@@ -45,20 +45,20 @@ var chords2 = n(`<
 var _chords1 = chords1.sound("dantranh_vibrato").scale("c2:major").color("red").distort(2)
 var _chords2 = chords2.sound("dantranh_vibrato").scale("c2:major").color("red").distort(2)
 
-
-
-// ---------- ??? - do something here!!!
 var chords3 = n(`<
+ 4
+ [8 7]
  -
+ [10 9]
 >`)
 var chords4 = n(`<
+ 4
+ [7 5]
  -
+ [5 7]
 >`)
 var _chords3 = chords3.sound("dantranh_vibrato").scale("c2:major").color("red").distort(2)
 var _chords4 = chords4.sound("dantranh_vibrato").scale("c2:major").color("red").distort(2)
-
-
-
 
 var punch1 = n(`<
  [5,7,9] [5,7,10] [4,7,9] [4,7,10]
@@ -98,8 +98,8 @@ var lead2 = n(`<
  [[5 6 5 4 5 4 2 1] [4 1 5 1 5 1 5 1]] -
  [[4 1 5 1 6 7 8 1] [4 1 5 1 5 1 5 1]] -
 >`)
-var _lead1 = lead1.sound("piano").scale("c5:major").color("yellow").gain(2)
-var _lead2 = lead2.sound("piano").scale("c5:major").color("yellow").gain(2)
+var _lead1 = lead1.sound("gm_marimba").scale("c4:major").color("yellow").gain(2.5)
+var _lead2 = lead2.sound("gm_marimba").scale("c4:major").color("yellow").gain(2.5)
 
 var lead3 = n(`<
  [- - [5 6 7 -] -]
@@ -113,8 +113,8 @@ var lead4 = n(`<
  [- - [6 7 8 -] -]
  [- - [8 9 8 -] -]
 >`)
-var _lead3 = lead3.sound("piano").scale("c4:major").color("yellow").gain(2)
-var _lead4 = lead4.sound("piano").scale("c4:major").color("yellow").gain(2)
+var _lead3 = lead3.sound("piano").scale("<c3,c4>:major").color("yellow").gain(2)
+var _lead4 = lead4.sound("piano").scale("<c3,c4>:major").color("yellow").gain(2)
 
 
 
@@ -137,13 +137,13 @@ var _top2 = top2.sound("gm_french_horn").scale("<c3,c4>:major").color("cyan").ga
 var top3 = n(`<
  [- - 4 3 ]
  [- - 4 5]
- [7 4@3]
+ [7 4@2 -]
  [3@2 - -]
 >`)
 var top4 = n(`<
  [- - 4 5 ]
  [- - 5 7]
- [9 7@3]
+ [9 7@2 -]
  [10@2 9@2]
 >`)
 var _top3 = top3.sound("gm_french_horn").scale("<c3,c4>:major").color("cyan").gain(2)
@@ -154,7 +154,7 @@ var _top4 = top4.sound("gm_french_horn").scale("<c3,c4>:major").color("cyan").ga
     //.lpf("500 2000 500 2000").echo(4, 1/16, .8),
 
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*2, stack(    
     _drums_intro,
@@ -175,11 +175,11 @@ $: arrange(
     _drums1,
     _chords2, _punch2, _sweep2,
   )],
-  [M*4, stack(    
+  [1*4, stack(    
     _drums1,
     _chords1,  _punch1,  _lead1,    _sweep1,
   )],
-  [M*4, stack(
+  [1*4, stack(
     _drums1,
     _chords2,  _punch2,
     _lead2,    _sweep2,
@@ -226,14 +226,14 @@ $: arrange(
   [M*2, stack(
     _drums2,
   )],
-  [1*4, stack(    // Chorus
+  [M*4, stack(    // Chorus
     _drums2,
     _chords3,
     _punch3,
     _top3, // cyan
     // _sweep1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums2,
     _chords4,
     _punch4,
