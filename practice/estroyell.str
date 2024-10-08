@@ -2,7 +2,7 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-/*
+/* DO NOT EDIT - MORE LIVE VERSION IS ON MUMBO PC.
 */
 setcpm(30)
 
@@ -114,10 +114,8 @@ var lead6 = n(`<
  [5@2 - [4,6] - [5,7] - [7,9]]
  -
 >`)
-var _lead5 = lead5.sound("steinway").scale("<c4,c5>:major").color("green").gain(1.2)
-var _lead6 = lead6.sound("steinway").scale("<c4,c5>:major").color("green").gain(1.2)
-
-
+var _lead5 = lead5.sound("steinway").scale("c4:major").color("green").gain(.8)
+var _lead6 = lead6.sound("steinway").scale("c4:major").color("green").gain(.8)
 
 var sweep1 = n(`<
  0 2 3 2
@@ -155,7 +153,7 @@ var _bridgeChords2 = bridgeChords2.sound("piano, gm_synth_bass_2").attack(.08).v
 
 
 
-var M = 0;
+var M = 1;
 $: arrange(
   // [1,silence],
   [M*8, stack(    

@@ -1,6 +1,6 @@
 
  The first song you write will be bad. But the next song that you write will be bad. But the next song that you write will be bad.
- Make lots of bad songs.
+ Make lots of bad songs. You'll only realise how much progress you've made, when you look back on your old songs and see they are much, much worse than the bad songs you are making now.
 
  When I noticed I was making a lot of similar structures in my songs I made a template to help me quickly start up new projects. As soon as I finished it I hated it and vowed never to use it. Because struggle is life.
 
@@ -33,4 +33,16 @@
 
  Alternate between lilting and punctuated, frantic and calm. Don't pursue a melody over too many beats, break it up into different instruments.
 
- You could learn to create by independantly recreating every known trick in modern musical history, or... or... you could learn by copying. Take your fave song, or a song that you think you could make using this tool, or a song that you think you couldn't make using this tool, and start recreating it. No doubt half way through you'll get your own ideas about which direction the song should go in. And then once you feel you have something that can stand by itself, go back and remove or mutate or shrink the bits that came from someone else.z
+ You could learn to create by independantly recreating every known trick in modern musical history, or... or... you could learn by copying. Take your fave song, or a song that you think you could make using this tool, or a song that you think you couldn't make using this tool, and start recreating it. No doubt half way through you'll get your own ideas about which direction the song should go in. And then once you feel you have something that can stand by itself, go back and remove or mutate or shrink the bits that came from someone else.
+
+  >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  Tasks:
+  * use Slowcat to merge 2x4 loops in a 8 sized sequence.
+  * Use transpose to vary a _aaa inside the final arrange, for variety.
+  * Set volume in mininotation for individual notes- eg "bd:1:4" is a loud drum.
+  * Bite - chop up a pattern into x pieces and play in this order.
+
+
+
+
