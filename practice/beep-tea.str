@@ -55,10 +55,10 @@ var chords4 = n(`<
  4
  [7 5]
  -
- [5 7]
+ [10 9]
 >`)
-var _chords3 = chords3.sound("dantranh_vibrato").scale("c2:major").color("red").distort(2)
-var _chords4 = chords4.sound("dantranh_vibrato").scale("c2:major").color("red").distort(2)
+var _chords3 = chords3.sound("dantranh_vibrato").scale("c3:major").color("red").distort(2)
+var _chords4 = chords4.sound("dantranh_vibrato").scale("c3:major").color("red").distort(2)
 
 var punch1 = n(`<
  [5,7,9] [5,7,10] [4,7,9] [4,7,10]
@@ -67,10 +67,10 @@ var punch2 = n(`<
  [3,5,7] [3,5,8] [2,5,8] [2,5,9]
 >`)
 var punch3 = n(`<
- [3,5,7] [3,5,8] [3,5,9] [3,5,8] 
+ [3,5,7] [3,5,8] [3,5,9] [3,5,10] 
 >`)
 var punch4 = n(`<
- [4,7,9] [4,7,10] [4,7,11] [4,7,10]
+ [4,7,9] [4,7,10] [4,7,11] [4,7,12]
 >`)
 var _punch1 = punch1.sound("gm_shamisen").scale("c3:major").color("orange").release(.4).clip(1.5).gain(4)
   .struct("0 1*2 0 0 0 1@2 0 ") //1 0 [0 1] 0
@@ -113,8 +113,8 @@ var lead4 = n(`<
  [- - [6 7 8 -] -]
  [- - [8 9 8 -] -]
 >`)
-var _lead3 = lead3.sound("piano").scale("<c3,c4>:major").color("yellow").gain(2)
-var _lead4 = lead4.sound("piano").scale("<c3,c4>:major").color("yellow").gain(2)
+var _lead3 = lead3.sound("gm_marimba").scale("<c3,c4>:major").color("yellow").gain(3)
+var _lead4 = lead4.sound("gm_marimba").scale("<c3,c4>:major").color("yellow").gain(3)
 
 
 
@@ -154,7 +154,7 @@ var _top4 = top4.sound("gm_french_horn").scale("<c3,c4>:major").color("cyan").ga
     //.lpf("500 2000 500 2000").echo(4, 1/16, .8),
 
 
-var M = 1;
+var M = 0;
 $: arrange(
   [M*2, stack(    
     _drums_intro,
@@ -175,11 +175,11 @@ $: arrange(
     _drums1,
     _chords2, _punch2, _sweep2,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums1,
     _chords1,  _punch1,  _lead1,    _sweep1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums1,
     _chords2,  _punch2,
     _lead2,    _sweep2,
@@ -226,19 +226,19 @@ $: arrange(
   [M*2, stack(
     _drums2,
   )],
-  [M*4, stack(    // Chorus
+  [1*4, stack(    // Chorus
     _drums2,
     _chords3,
     _punch3,
     _top3, // cyan
     // _sweep1,
   )],
-  [M*4, stack(
+  [1*4, stack(
     _drums2,
     _chords4,
     _punch4,
     _top4,
     // _sweep2,
   )],    
-  )._punchcard()
+  ).punchcard()
   
