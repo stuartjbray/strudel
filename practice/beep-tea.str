@@ -167,11 +167,11 @@ $: arrange(
     _drums1,
     _chords2, _sweep2,
   )],
-  [M*4, stack(    
+  [0*4, stack(    
     _drums1, 
     _chords1,  _punch1, _sweep1,
   )],
-  [M*4, stack(
+  [0*4, stack(
     _drums1,
     _chords2, _punch2, _sweep2,
   )],
@@ -181,9 +181,9 @@ $: arrange(
   )],
   [M*4, stack(
     _drums1,
-    _chords2,  _punch2,
-    _lead2,    _sweep2,
+    _chords2,  _punch2,    _lead2,    _sweep2,
   )],
+  
   [M*2, stack(
     _drums2,
   )],
@@ -201,18 +201,19 @@ $: arrange(
     _top2,
     _sweep2.transpose(-12),
   )],
-  [M*4, stack(    // dial back a little
+  [1*4, stack(    // dial back a little
     _drums2,
     _chords1,
     _punch1,
     _top1, _lead3,
   )],
-  [M*4, stack(
+  [1*4, stack(
     _drums2,
     _chords2,
     _punch2,
     _top2, _lead4,
   )],  
+  
   [M*4, stack(    // muffle
     _drums3.lpf("1500 3000 1000"),
     _punch1.hpf(1500),
