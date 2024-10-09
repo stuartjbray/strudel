@@ -1,25 +1,26 @@
-//@title Template
+//@title bbtbbtbb
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
 /* aktar - jahr al arab
 */
-setcpm(20)
+setcpm(30)
 
 // -------------- Drums
-var d1 = sound("OberheimDMX_mt").struct(            "0 0 1 0 0 1 0 0 0 0 0 0")
-var d2 = sound("RolandCompurhythm1000_mt").struct(  "1 1 0 1 1 0 1 0 0 0 0 0")
-var d3 = sound("AkaiXR10_sh").struct(               "0 0 1 0 0 1 0 0 0 0 0 0")
-var d4 = sound("AkaiMPC60_perc").struct(            "0 0 0 0 0 0 0 0 0 0 0 0")
+// var d1 = sound("OberheimDMX_mt").struct(            "0 1 0 1 0 1 0 0 0 0 0 0")
+// var d2 = sound("RolandCompurhythm1000_mt").struct(  "1 0 0 0 1 0 1 0 0 0 0 0")
+// var d3 = sound("AkaiXR10_sh").struct(               "0 0 1 0 0 1 0 0 0 0 0 0")
+// var d4 = sound("AkaiMPC60_perc").struct(            "0 0 0 0 0 0 0 0 0 0 0 0")
 
-// var d1 = sound("OberheimDMX_mt").struct(             "1 0 0 0 1 0 0 0 ")
-// var d2 = sound("RolandCompurhythm1000_mt").struct(   "0 1 0 1 0 0 1 0")
-// var d3 = sound("AkaiXR10_sh").struct(                "0 0 0 0 0 0 0 0")
-// var d4 = sound("AkaiMPC60_perc").struct(             "0 0 0 0 0 0 0 0")
+var d1 = sound("OberheimDMX_mt").struct(             "1 0 0 1 0 0 1 0")
+var d2 = sound("RolandCompurhythm1000_mt").struct(   "0 1 1 0 1 1 0 0")
+var d3 = sound("AkaiXR10_sh").struct(                "0 0 1 0 0 0 1 0")
+var d4 = sound("AkaiMPC60_perc").struct(             "0 0 0 0 0 0 0 1*2")
+var d5 = sound("hh").struct(                         "[0 1] 0 0 [0 1] 0 0 0 0")
 
 
-var _drums_intro = stack( d1, d2, d3, d4  ).color("white") // build up
-var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
+var _drums_intro = stack( d1, d2, d3, d4, d5  ).color("white") // build up
+var _drums1 =     stack(  d1,  d2,  d3,  d4, d5 ).color("white") // normal
 var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
 
@@ -77,5 +78,5 @@ $: arrange(
     _base2,
     _lead2,
   )],
-  ).punchcard()
+  )._punchcard()
   
