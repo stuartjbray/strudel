@@ -31,7 +31,7 @@ $: arrange(
     n(arp1.add("<[-7 0]@8>")).chord(chords1).voicing().sound("piano")
   )],
   [1*8, stack(
-    n(arp2).chord(chords2).voicing().sound("piano")
+    n(arp2.add("<[-7 0]@8>")).chord(chords2).voicing().sound("piano")
   )],
   [M*8, stack(
     n(arp1).chord(chords3).voicing().sound("piano")
@@ -45,4 +45,4 @@ $: arrange(
   [M*8, stack(
     n(arp1).chord(chords6).voicing().sound("piano")
   )],
-)._punchcard({labels:1});
+).punchcard({labels:1});
