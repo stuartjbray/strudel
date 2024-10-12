@@ -46,3 +46,13 @@
 
 
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Made using strudel.cc, the javascript version of TidalCycles. Created by typing lines of code. No drag and drop mouse nonsense, or actual instruments.
+#strudel #electronica #blippy #upbeat #algorave
+
+More on SoundCloud: https://soundcloud.com/stuart-j-bray
+
+Video Playlist: https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu4fOB0hZu
+
+Source code: https://bitbucket.org/stuartbray/strudel/
