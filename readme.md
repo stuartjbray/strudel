@@ -2,7 +2,7 @@
 
 This is the reposository of all my strudel music.
 
-You can take any .str file and go to <strudel.cc> and paste it in and press play and music will happen. Then you can edit the code and see what happens live.
+You can take any .str file and go to <https://strudel.cc> and paste it in and press play and music will happen. Then you can edit the code and see what happens live.
 
 Plenty of tutorials on how to do strudel if you look for them.
 
