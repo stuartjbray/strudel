@@ -44,6 +44,9 @@
   * Bite - chop up a pattern into x pieces and play in this order.
 
 
+ * Get good photo for soundcloud library
+ * Contact people about it.
+ * Get log in creds for AWS to reset password to upload snappy fingers.
 
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
