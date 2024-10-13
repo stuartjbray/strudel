@@ -116,15 +116,16 @@ var leadB2 = n(`<
 var _leadB1 = leadB1.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.5).release(.5).room(1)
 var _leadB2 = leadB2.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.5).release(.5).room(1)
 
-var _sweepB1 = n(`<[3 1 0 2]@8>`).struct("1@2 [- 1] 0").sound("gm_violin").scale("c3:major").color("cyan").gain(2).lpf("<500 1000 1500 2000>")
+var _sweepB1 = n(`<[3 1 0 2]@8>`).struct("1 1 [- 1] 0").sound("gm_violin").scale("c3:major").color("cyan").gain(2).lpf("<500 4000>")
 
 var bassB1 = n(`<
- 3 [- 3]
- 1 [- 1]
- 0 [- 0]
- 2 [- 2]
+ 3 [- 3] 1 [- 1] 0 [- 0] 2 [- 2]
+ >`)
+var bassB2 = n(`<
+ 5 [5 -] 3 [3 -] 2 [2 -] 4 [4 -]
  >`)
 var _bassB1 = bassB1.sound("gm_electric_guitar_jazz").scale("c2:major").color("orange").distort(1.5)
+var _bassB2 = bassB2.sound("gm_electric_guitar_jazz").scale("<c2,c3>:major").color("orange").distort(1.5).vibrato(4)
 
 
 var M = 1;
@@ -174,8 +175,9 @@ $: arrange(
   [1*8, stack( // ---------------- Bridge
     _drums3,    _bassB1,    _leadB1,     _sweepB1,
   )],
-  [1*1, stack( // ---------------- Bridge
-    silence, //_drums3,    _bassB1,    _leadB1,     _sweepB1,
-  )],  
+  [1*8, stack( // ---------------- Bridge
+    _drums3,    _bassB1,  _bassB2,    _leadB1,     _sweepB1,
+  )],
+  [1,silence],  
 ).punchcard()
   
