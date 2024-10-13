@@ -2,29 +2,33 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-/*
-*/
 setcpm(30)
 
 // -------------- Drums
-var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 0 1 0 0 0").slow(2)
-var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0")
-var d3 = sound("AlesisSR16_hh").struct("0 0 0 0 0 0 0 0")
-var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
 
-var _drums_intro = stack( d1, d2  ).color("white") // build up
-var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
+var _drums_intro = stack( // build up
+  silence
+).color("white") 
+var _drums1 =     stack(// normal
+ sound("AkaiLinn_bd").struct(  "1 0 0 0 1 0 0 0").slow(2),
+ sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0"),
+ sound("AlesisSR16_hh").struct("0 0 0 0 0 0 0 0"),
+ sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0"),
+).color("white") 
 
-var _drums2 =     stack(  
+var _drums2 =     stack(  // crazy
  sound("AkaiLinn_bd").struct(  "1*2 0 1 0 0 0 0 0"),
  sound("AlesisHR16_lt").struct("0   1 0 0 1 0 0 <0 1> "),
  sound("AkaiMPC60_rim").struct("0   0 1 0 0 0 1*2 0")  ,
  sound("AlesisSR16_cb").struct("0 0 0 0 0 1 0 <0 1> ")  ,
  sound("AkaiXR10_hh").struct(  "0 1*2 0 1*2 0 1*4 0 1*2 ")  ,
-  
-  
-).color("white") // break down
+).color("white") 
 
+var _drums3 = stack( // build up
+ sound("AkaiLinn_bd").struct(  "1 [- 1] 0 1 0 0 0 0"),
+ sound("AlesisHR16_lt").struct("0   0 0 0 0 0 1 0 "),
+ sound("AkaiMPC60_rim").struct("0   0 0 [- 1] 0 1 [- 1] 0")  ,
+).color("white") 
 
 
 
@@ -43,33 +47,23 @@ var dug2 = n(`<
 var _dug1 = dug1.sound("gm_clavinet").scale("c2:major").color("red").distort(1.5).release(.3)
 var _dug2 = dug2.sound("gm_clavinet").scale("c2:major").color("red").distort(1.5).release(.3)
 
-var bass1 = n(`<
- 5 [- 7]
- 3 [- 5]
->`)
-var bass2 = n(`<
- 1 [- 3]
- 2 [- 4]
->`)
+var bass1 = n(`< 5 [- 7] 3 [- 5]>`)
+var bass2 = n(`< 1 [- 3] 2 [- 4]>`)
 var _bass1 = bass1.sound("gm_electric_guitar_jazz").scale("c2:major").color("orange").distort(1.5)
 var _bass2 = bass2.sound("gm_electric_guitar_jazz").scale("c2:major").color("orange").distort(1.5)
 
 var chords1 = n(`<
- [2,4,5]@2
- [0,2,3]@2
+ [2,4,5]@2 [0,2,3]@2
 >`)
 var chords2 = n(`<
- [-2,0,1]@2
- [0,2,4]@2
+ [-2,0,1]@2 [0,2,4]@2
 >`)
 var _chords1 = chords1.struct("[- 1] [- 1]@2 0 0 1@2 0").sound("piano").scale("c4:major").color("yellow")
 var _chords2 = chords2.struct("[- 1] [- 1]@2 0 0 1@2 0").sound("piano").scale("c4:major").color("yellow")
 
 var lead1 = n(`<
- -
- [- [2 4] 5@2]
- -
- [- [1 0] 2@2]
+ - [- [2 4] 5@2]
+ - [- [1 0] 2@2]
 >`)
 var lead2 = n(`<
  [- 1 [0 -] -]
@@ -93,13 +87,13 @@ var lead5 = n(`<
  -
  [5 4 [- [5,7]] -]
  [8 9 [- [5,7]] -]
- [- - [- [2,5]] -]
+ [5 - [- [2,5]] -]
 >`)
 var lead6 = n(`<
  [3 - [- [5,7]] -]
  [5 4 [- [4,6]] -]
  [8 9 [- [6,9]] -]
- [- - [- [7,11]] -]
+ [8 - [- [7,11]] -]
 >`)
 var _lead1 = lead1.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.5).release(.5).room(1)
 var _lead2 = lead2.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.5).release(.5).room(1)
@@ -108,11 +102,30 @@ var _lead4 = lead4.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").
 var _lead5 = lead5.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.5).release(.5).room(1)
 var _lead6 = lead6.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.5).release(.5).room(1)
 
-
-
-
 var _sweep1 = n(`<5 5 3 3>`).sound("gm_violin").scale("c3:major").color("cyan").gain(2)
 var _sweep2 = n(`<1 1 2 2>`).sound("gm_violin").scale("c3:major").color("cyan").gain(2)
+
+// -------------------------- Bridge
+
+var leadB1 = n(`<
+ -
+>`)
+var leadB2 = n(`<
+-
+>`)
+var _leadB1 = leadB1.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.5).release(.5).room(1)
+var _leadB2 = leadB2.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.5).release(.5).room(1)
+
+var _sweepB1 = n(`<[3 1 0 2]@8>`).struct("1@2 [- 1] 0").sound("gm_violin").scale("c3:major").color("cyan").gain(2).lpf("<500 1000 1500 2000>")
+
+var bassB1 = n(`<
+ 3 [- 3]
+ 1 [- 1]
+ 0 [- 0]
+ 2 [- 2]
+ >`)
+var _bassB1 = bassB1.sound("gm_electric_guitar_jazz").scale("c2:major").color("orange").distort(1.5)
+
 
 var M = 1;
 $: arrange(
@@ -123,20 +136,16 @@ $: arrange(
     _drums1,    _chords2,    _bass2,    _dug2,
   )],
   [M*4, stack(    
-    _drums1,    _chords1,     _bass1,    _dug1,
-    _lead1,
+    _drums1,    _chords1,     _bass1,    _dug1,    _lead1,
   )],
   [M*4, stack(
-    _drums1,    _chords2,    _bass2,    _dug2,
-    _lead2,
+    _drums1,    _chords2,    _bass2,    _dug2,    _lead2,
   )],
   [M*4, stack(    
-    _drums1,    _chords1,    _bass1,
-    _lead3,     _sweep1,
+    _drums1,    _chords1,    _bass1,    _lead3,     _sweep1,
   )],
   [M*4, stack(
-    _drums1,    _chords2,    _bass2,    
-    _lead4,     _sweep2,
+    _drums1,    _chords2,    _bass2,    _lead4,     _sweep2,
   )],
   [M*4, stack(    
     _drums1,    
@@ -148,19 +157,25 @@ $: arrange(
     _chords2.transpose(-12).gain(2),    _bass2,    
     _lead4.transpose(12),     _sweep2,
   )],
-  [1*4, stack(
+  [M*4, stack( // ----------------- Crazy Drums
     _drums2,    _bass1,    _sweep1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums2,    _bass2,    _sweep2,
   )],
-  [1*4, stack(    
-    _drums2,    _bass1,    _dug1.transpose(12), //_chords1,    
+  [M*4, stack(    
+    _drums2,    _bass1,    _dug1.transpose(12), 
     _lead5,     _sweep1,
   )],
-  [1*4, stack(
-    _drums2,    _bass2,    _dug2.transpose(12), //_chords2,    
+  [M*4, stack(
+    _drums2,    _bass2,    _dug2.transpose(12), 
     _lead6,     _sweep2,
   )],
+  [1*8, stack( // ---------------- Bridge
+    _drums3,    _bassB1,    _leadB1,     _sweepB1,
+  )],
+  [1*1, stack( // ---------------- Bridge
+    silence, //_drums3,    _bassB1,    _leadB1,     _sweepB1,
+  )],  
 ).punchcard()
   
