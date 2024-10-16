@@ -11,7 +11,7 @@ var _drums_intro = stack( // build up
 ).color("white") 
 var _drums1 =     stack(// normal
  sound("AkaiLinn_bd").struct(  "1 0 0 0 1 0 0 0").slow(2),
- sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0"),
+ sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0").gain("<[1.5 .7]!2>"),
  sound("AlesisSR16_hh").struct("0 0 0 0 0 0 0 0"),
  sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0"),
 ).color("white") 
@@ -61,6 +61,18 @@ var chords2 = n(`<
 var _chords1 = chords1.struct("[- 1] [- 1]@2 0 0 1@2 0").sound("piano").scale("c4:major").color("yellow")
 var _chords2 = chords2.struct("[- 1] [- 1]@2 0 0 1@2 0").sound("piano").scale("c4:major").color("yellow")
 
+var bip1 = n(`<
+ [2 2 0 0]@2
+>`)
+var bip2 = n(`<
+ [-2 -2 0 0]@2
+>`)
+// [- 1] <1 0> [- 1] <1 0>       [- 1] [- 1]@2 0 0 1@2 0
+var _bip1 = bip1.struct("[1 -]!4").sound("square").scale("c3:major").distort("<1.4 1.8>").gain(.3).attack(.1).color("purple")
+var _bip2 = bip2.struct("[1 -]!4").sound("square").scale("c3:major").distort("<1.4 1.8>").gain(.3).attack(.1).color("purple")
+
+
+
 var lead1 = n(`<
  - [- [2 4] 5@2]
  - [- [1 0] 2@2]
@@ -87,7 +99,7 @@ var lead5 = n(`<
  -
  [5 4 [- [5,7]] -]
  [8 9 [- [5,7]] -]
- [5 - [- [2,5]] -]
+ [- - [- [2,5]] -]
 >`)
 var lead6 = n(`<
  [3 - [- [5,7]] -]
@@ -124,7 +136,7 @@ var _bassB1 = bassB1.sound("gm_electric_guitar_jazz").scale("c2:major").color("o
 var _bassB2 = bassB2.sound("gm_electric_guitar_jazz").scale("<c2,c3>:major").color("orange").distort(1.5).vibrato(4)
 
 
-var M = 1;
+var M = 0;
 $: arrange(
   [M*4, stack(    
     _drums1,    _chords1,     _bass1,    _dug1,
@@ -154,11 +166,11 @@ $: arrange(
     _chords2.transpose(-12).gain(2),    _bass2,    
     _lead4.transpose(12),     _sweep2,
   )],
-  [M*4, stack( // ----------------- Crazy Drums
-    _drums2,    _bass1,    _sweep1,
+  [1*4, stack( // ----------------- Crazy Drums
+    _drums2,    _bass1,    _sweep1, _bip1,
   )],
-  [M*4, stack(
-    _drums2,    _bass2,    _sweep2,
+  [1*4, stack(
+    _drums2,    _bass2,    _sweep2, _bip2,
   )],
   
   [M*4, stack(    // ------------- Best bit
@@ -180,10 +192,10 @@ $: arrange(
     _lead6,     _sweep2,
   )],
   
-  [1*8, stack( // ---------------- Bridge
+  [M*8, stack( // ---------------- Bridge
     _drums3,    _bassB1,    _leadB1,     _sweepB1,
   )],
-  [1*8, stack( // ---------------- Bridge
+  [M*8, stack( // ---------------- Bridge
     _drums3,    _bassB1,  _bassB2,    _leadB1, _leadB2,     _sweepB1,
   )],
 
@@ -205,6 +217,6 @@ $: arrange(
     _sweep2.transpose(12).gain(1),
   )],
   
-  [1,silence],  
+  [M,silence],  
 )._punchcard()
   
