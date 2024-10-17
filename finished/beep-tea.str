@@ -2,28 +2,30 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
+// TODO- NEED RE-RECORDING
+
 /* aktar assala
 */
 setcpm(30)
 
 // -------------- Drums
-var d1 = sound("RolandCompurhythm1000_mt").struct(  "1 [0 1] 0 0 0 <0 1> 0 0")
-var d2 = sound("OberheimDMX_mt").struct(            "0 0 1 1 0 0 1 0")
-var d3 = sound("AkaiMPC60_rim").struct(             "[0 1] 0 [0 1] 0 0 [0 1] [0 1] 0 ").gain(".5 .5 1 2")
-var d4 = sound("perc").struct(                      "0 0 1 0 0 0 0 0")
+var d1 = sound("RolandCompurhythm1000_mt").struct(  "1 [0 1] 0 0 0 <0 1> 0 0").gain(.5)
+var d2 = sound("OberheimDMX_mt").struct(            "0 0 1 1 0 0 1 0").gain(.5)
+var d3 = sound("AkaiMPC60_rim").struct(             "[0 1] 0 [0 1] 0 0 [0 1] [0 1] 0 ").gain(".5 .5 1 1.5")
+var d4 = sound("perc").struct(                      "0 0 1 0 0 0 0 0").gain(.5)
 var d5 = sound("AkaiMPC60_perc").struct(            "0 0 0 0 0 2*2 0 0 ")
 
 var d3x = sound("AkaiMPC60_rim").struct(            "0 0 0 1 0 1*2 <0 1*4> 1*<4 8> ")
 
-var db1 = sound("RolandCompurhythm1000_mt").struct(   "1 0 0 0 0 0 0 0  1 0 0 0 0 0 0 0").slow(2)
-var db2 = sound("OberheimDMX_mt").struct(            "0 0 0 1 0 0 1 0  0 0 0 0 0 0 0 0").slow(2)
-var db3 = sound("AkaiMPC60_rim").struct(             "0 0 0 0 1*2 0 0 0  0 0 0 0 1*2 0 1 0").slow(2)
+var db1 = sound("RolandCompurhythm1000_mt").struct( "1 0 0 0 0 0 0 0  1 0 0 0 0 0 0 0").slow(2)
+var db2 = sound("OberheimDMX_mt").struct(           "0 0 0 1 0 0 1 0  0 0 0 0 0 0 0 0").gain(.5).slow(2)
+var db3 = sound("AkaiMPC60_rim").struct(            "0 0 0 0 1*2 0 0 0  0 0 0 0 1*2 0 1 0").slow(2)
 
-var db3x = sound("AkaiMPC60_rim").struct(             "0 0 0 1 0 0 1 0  0 0 0 1 0 0 1*2 0").slow(2)
+var db3x = sound("AkaiMPC60_rim").struct(           "0 0 0 1 0 0 1 0  0 0 0 1 0 0 1*2 0").slow(2)
 
-var db4 = sound("AlesisSR16_cp").struct(             "0 0 1 0 0 0 1 0  0 0 1 0 0 0 1 0").slow(2)
-var db5 = sound("AkaiXR10_sd").struct(               "0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 1").slow(2)
-var db6 = sound("AkaiMPC60_perc").struct(             "0 0 0 0 0 1*2 0 0  0 0 0 1*2 0 0 0 0").slow(2)
+var db4 = sound("AlesisSR16_cp").struct(            "0 0 1 0 0 0 1 0  0 0 1 0 0 0 1 0").slow(2)
+var db5 = sound("AkaiXR10_sd").struct(              "0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 1").slow(2)
+var db6 = sound("AkaiMPC60_perc").struct(           "0 0 0 0 0 1*2 0 0  0 0 0 1*2 0 0 0 0").slow(2)
 
 
 var _drums_intro = stack( d1,  d3x  ).color("white") // build up
@@ -77,14 +79,14 @@ var punch3 = n(`<
 var punch4 = n(`<
  [3,5,10] [4,6,8] [5,7,9] [5,7,11] 
 >`)
-var _punch1 = punch1.sound("gm_shamisen").scale("c3:major").color("orange").release(.4).clip(1.5).gain(4)
+var _punch1 = punch1.sound("gm_shamisen").scale("c3:major").color("orange").release(.4).clip(1.5).gain(3)
   .struct("0 1*2 0 0 0 1@2 0 ") //1 0 [0 1] 0
-var _punch2 = punch2.sound("gm_shamisen").scale("c3:major").color("orange").release(.4).clip(1.5).gain(4)
+var _punch2 = punch2.sound("gm_shamisen").scale("c3:major").color("orange").release(.4).clip(1.5).gain(3)
   .struct("0 1*2 0 0 0 1@2 0 ")
 
-var _punch3 = punch3.sound("gm_shamisen").scale("c3:major").color("orange").release(.4).clip(1.5).gain(4)
+var _punch3 = punch3.sound("gm_shamisen").scale("c3:major").color("orange").release(.4).clip(1.5).gain(3)
   .struct("0 0 0 1 0 0 1 0") //1 0 [0 1] 0
-var _punch4 = punch4.sound("gm_shamisen").scale("c3:major").color("orange").release(.4).clip(1.5).gain(4)
+var _punch4 = punch4.sound("gm_shamisen").scale("c3:major").color("orange").release(.4).clip(1.5).gain(3)
   .struct("0 0 0 1 0 0 1 0 ")
 
 var sweep1 = n(`<
@@ -102,8 +104,8 @@ var sweep3 = n(`<
 var sweep4 = n(`<
  3 5 7 -
 >`)
-var _sweep3 = sweep3.sound(" harmonica").scale("c1:major").color("green").gain(2).release(.1).vibrato(8)
-var _sweep4 = sweep4.sound(" harmonica").scale("c1:major").color("green").gain(2).release(.1).vibrato(8)
+var _sweep3 = sweep3.sound(" harmonica").scale("c1:major").color("green").gain(2).release(.1).vibrato(16).attack(0)
+var _sweep4 = sweep4.sound(" harmonica").scale("c1:major").color("green").gain(2).release(.1).vibrato(16).attack(0)
 
 var lead1 = n(`<
  [[5 6 5 4 5 4 2 1] [4 1 5 1 5 1 5 1]] -
@@ -128,8 +130,8 @@ var lead4 = n(`<
  [- - [6 7 8 -] -]
  [- - [8 9 8 -] -]
 >`)
-var _lead3 = lead3.sound("gm_marimba").scale("<c3,c4>:major").color("yellow").gain(3).room(1)
-var _lead4 = lead4.sound("gm_marimba").scale("<c3,c4>:major").color("yellow").gain(3).room(1)
+var _lead3 = lead3.sound("gm_marimba").scale("c4:major").color("yellow").gain(1).room(2)
+var _lead4 = lead4.sound("gm_marimba").scale("c4:major").color("yellow").gain(1).room(2)
 
 
 
@@ -164,9 +166,6 @@ var top4 = n(`<
 var _top3 = top3.sound("gm_french_horn").scale("<c3,c4>:major").color("cyan").gain(2)
 var _top4 = top4.sound("gm_french_horn").scale("<c3,c4>:major").color("cyan").gain(2)
 
-
-    //.bite(4,"2,3,1,4").fast(2),
-    //.lpf("500 2000 500 2000").echo(4, 1/16, .8),
 
 
 var M = 1;
@@ -210,23 +209,17 @@ $: arrange(
     _sweep1.transpose(-12),
   )],
   [M*4, stack(
-    _drums2,
-    _chords2.transpose(-12),
-    _punch2,
-    _top2,
+    _drums2,    _chords2.transpose(-12),
+    _punch2,    _top2,
     _sweep2.transpose(-12),
   )],
   [M*4, stack(    // dial back a little
-    _drums2,
-    _chords1,
-    _punch1,
+    _drums2,    _chords1,    _punch1,
     _top1, _lead3, // yellow triples
   )],
   [M*4, stack(
-    _drums2,
-    _chords2,
-    _punch2,
-    _top2, _lead4,
+    _drums2,    _chords2,
+    _punch2,    _top2, _lead4,
   )],  
   
   [M*4, stack(    // muffle
@@ -239,35 +232,27 @@ $: arrange(
     _punch2.hpf(1500),
     _lead4.echo(3, 1/4, .8),
   )],
-  [M*2, stack(
+  [M*2, stack( // Break it down
     _drums3,
   )],
   
-  [1*4, stack(    // Chorus
-    _drums3,
-    _chords3,
-    _punch3,
-    // _top3, // cyan
+  [1*4, stack(    // Bring it back in
+    _drums3,    _chords3,    _punch3,
+     //_top3.transpose(-12).gain(.7), // cyan
   )],
   [1*4, stack(
-    _drums3,
-    _chords4,
-    _punch4,
-    // _top4,
+    _drums3,    _chords4,    _punch4,
+     //_top4.transpose(-12).gain(.7),
   )],    
   
   [1*4, stack(
-    _drums3,
-    _chords3,
-    _punch3,
+    _drums3,    _chords3,    _punch3,
     _top3, // cyan
     _sweep3,
   )],
   [1*4, stack(
-    _drums3,
-    _chords4,
-    _punch4,
-    _top4,
+    _drums3,    _chords4,    _punch4,
+    _top4,    
     _sweep4,
   )],    
   
@@ -286,7 +271,8 @@ $: arrange(
     _sweep2.transpose(-12),
   )],
   
-  [M*2, _drums_intro] // finish with the intro.
-  
-  ).punchcard()
+  [M*2, _drums_intro], // finish with the intro.
+
+  [1,silence]
+).punchcard()
   

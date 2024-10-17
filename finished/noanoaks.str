@@ -2,20 +2,22 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
+// TODO- NEED RE-RECORDING
+
 // -------------- Drums
-var d1 = sound("AkaiLinn_bd").struct( "1 0 0 0 1 0 0 0").echo(2,.2,.2)
-var d2 = sound("AkaiMPC60_rim").struct(   "0 0 0 0 0 0 1 0")
+var d1 = sound("AkaiLinn_bd").struct( "1 1 0 0 1 0 0 0").gain("<[.4 .1]*4>")
+var d2 = sound("AkaiMPC60_rim").struct(   "0 0 0 0 0 0 1 0").gain(.5)
 var d3 = sound("AlesisSR16_hh").struct(     "0 1 0 1 0 1 0 1").room(2).gain(.1)
 var d6 = sound("AlesisSR16_cr").struct( "0 0 0 <0 1>").phaser(5).gain(.2)
 
-var d4 = sound("AkaiLinn_bd").struct(  "1 0 0 0 0 0 0 0").echo(4,.125,.3)
+var d4 = sound("AkaiLinn_bd").struct(  "1 0 0 0 0 0 0 0").gain(.4)
 var d7 = sound("BossDR110_hh").struct(  "1 1 1 1 1 1 1 1").gain("<[.05 .01]*4>")
 
-var d1_a = sound("AkaiLinn_bd").struct( "1 0 0 0 0 0 0 0").echo(4,.125,.5)
-var d5_a = sound("BossDR110_sd").struct( "0 0 0 0 1 0 0 0").echo(4,.125,.5)
+var d1_a = sound("AkaiLinn_bd").struct(  "1 1 1 1 0 0 0 0").gain("<[.6 .4 .3 .2]*2>")
+var d5_a = sound("BossDR110_sd").struct( "0 0 0 0 1 0 0 0").echo(4,.125,.3)
 
 var _drums_intro = stack( d1, d2  ).color("white") // build up
-var _drums_1 =     stack(  d1,  d2,  d3,  d4, d6).color("white") // normal
+var _drums_1 =     stack(  d1,  d2,  d3, d6).color("white") // normal
 var _drums_2 =     stack(  d1_a, d5_a  ).color("white") // echoey
 var _drums_tick =     stack( d4, d7 ).color("white") // ticky
 
@@ -108,7 +110,7 @@ var dug1 = n(`<
  [4 5 6 4@5]
  [5 6 7 8@5]
 >`)
-var _dug1 = dug1.sound("gm_fx_crystal").scale("c2:major").color("red").gain(3).crush("6").lpf(500)
+var _dug1 = dug1.sound("gm_fx_crystal").scale("c2:major").color("red").gain(2).crush("6").lpf(800)
 
 var soft1 = n(`<
  [5 4 3 2]@2,
@@ -122,24 +124,24 @@ var _softEnd = softEnd.sound(" gm_fx_brightness").scale("<c2,c3>:major").vibrato
 
 var M = 1;
 $: arrange(
-  [M*4, stack(    
-    _drums_intro,
-    _mid1,
-    _lead1,
-  )],
-  [M*4, stack(    
-    _drums_1,
-    _base1,
-    _mid1,
-    _lead1,
-  )],
-  [M*8, stack(
-    _drums_1,
-    _base1,
-    _mid1,    _mid2,
-    _lead1,
-    _sweep1
-  )],
+  // [M*4, stack(    
+  //   _drums_intro,
+  //   _mid1,
+  //   _lead1,
+  // )],
+  // [M*4, stack(    
+  //   _drums_1,
+  //   _base1,
+  //   _mid1,
+  //   _lead1,
+  // )],
+  // [M*8, stack(
+  //   _drums_1,
+  //   _base1,
+  //   _mid1,    _mid2,
+  //   _lead1,
+  //   _sweep1
+  // )],
   [M*8, stack( // chorus
     _drums_2,
     _base_ch,

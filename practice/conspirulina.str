@@ -68,8 +68,8 @@ var bip2 = n(`<
  [-2 -2 0 0]@2
 >`)
 // [- 1] <1 0> [- 1] <1 0>       [- 1] [- 1]@2 0 0 1@2 0
-var _bip1 = bip1.struct("[1 -]!4").sound("square").scale("c3:major").distort("<1.4 1.8>").gain(.3).attack(.1).color("purple")
-var _bip2 = bip2.struct("[1 -]!4").sound("square").scale("c3:major").distort("<1.4 1.8>").gain(.3).attack(.1).color("purple")
+var _bip1 = bip1.struct("[1 -]!4").sound("square").scale("c3:major").distort("<1.4 1.8>").gain(.2).attack(.1).color("purple")
+var _bip2 = bip2.struct("[1 -]!4").sound("square").scale("c3:major").distort("<1.4 1.8>").gain(.2).attack(.1).color("purple")
 
 
 
@@ -136,7 +136,7 @@ var _bassB1 = bassB1.sound("gm_electric_guitar_jazz").scale("c2:major").color("o
 var _bassB2 = bassB2.sound("gm_electric_guitar_jazz").scale("<c2,c3>:major").color("orange").distort(1.5).vibrato(4)
 
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4, stack(    
     _drums1,    _chords1,     _bass1,    _dug1,
@@ -218,5 +218,5 @@ $: arrange(
   )],
   
   [M,silence],  
-)._punchcard()
+).punchcard()
   
