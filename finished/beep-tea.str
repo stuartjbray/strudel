@@ -130,8 +130,8 @@ var lead4 = n(`<
  [- - [6 7 8 -] -]
  [- - [8 9 8 -] -]
 >`)
-var _lead3 = lead3.sound("gm_marimba").scale("c4:major").color("yellow").gain(1).room(2)
-var _lead4 = lead4.sound("gm_marimba").scale("c4:major").color("yellow").gain(1).room(2)
+var _lead3 = lead3.sound("gm_marimba").scale("c4:major").color("yellow").gain(1.5).room(2)
+var _lead4 = lead4.sound("gm_marimba").scale("c4:major").color("yellow").gain(1.5).room(2)
 
 
 
