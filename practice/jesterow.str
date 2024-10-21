@@ -66,6 +66,9 @@ var _buzz2 = n(`< 3 0 2 0>`).struct("[0 1 [- 1] 0]").sound("square  ").scale("c3
 
 var M = 1;
 $: arrange(
+  [M*1,stack(
+    _chords1
+  )],
   [M*4, stack(    
     _drums1,
     _chords1, 
