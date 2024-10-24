@@ -2,7 +2,9 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-
+/*
+RERECORD
+*/
 
 var d1 = sound("AkaiLinn_bd ").struct(   "1 0 0 1 0 0")
 var d2 = sound("AkaiMPC60_rim").struct(  "0 0 0 1 0 0 ")
@@ -50,8 +52,8 @@ var follow3 = n(`<
  - [7 8 7 8 6 7 6 7 5 6 5 6]
  - [5 4 - 1 2 3]
 >`)
-var _follow1 = follow1.scale("c3:major").sound("piano").color("magenta").gain(2)
-var _follow2 = follow2.scale("c4:major").sound("piano").color("magenta").gain(2)
+var _follow1 = follow1.scale("c3:major").sound("piano").color("magenta").gain(3)
+var _follow2 = follow2.scale("c4:major").sound("piano").color("magenta").gain(3)
 var _follow3 = follow3.scale("c4:major").sound("piano").color("magenta").gain(3)
 
 
@@ -61,8 +63,8 @@ var xbass1 = n(`<
  [3 1] -
  [2 -2] -
 >`)
-var _xbass1 = xbass1.scale("<c2,c3>:major").sound("piano").color("orange").gain(1.1)
-var _ybass1 = xbass1.scale("c2:major").sound("gm_synth_brass_2").color("orange").phaser(4).distort(1.5).release(1.1)
+var _xbass1 = xbass1.scale("<c2,c3>:major").sound("piano").color("orange").gain(.8)
+var _ybass1 = xbass1.scale("c2:major").sound("gm_synth_brass_2").color("orange").phaser(4).distort(1.2).release(1.1)
 
 
 
@@ -78,8 +80,8 @@ var trill2 = n(`<
  -
  [- - [7 6] 7 - - ]
 >`)
-var _trill1 = trill1.scale("c4:major").sound("piano").color("yellow").distort(1.8)
-var _trill2 = trill2.scale("c4:major").sound("piano").color("yellow").distort(1.8)
+var _trill1 = trill1.scale("c4:major").sound("piano").color("yellow").distort(1.2).gain(1.4)
+var _trill2 = trill2.scale("c4:major").sound("piano").color("yellow").distort(1.2).gain(1.4)
 
 var plink1 = n(`<
  [- - - 5 - - ] -
@@ -108,10 +110,10 @@ var dug1 = n(dug.add("< 3@2 2@2 1@2 0@2 >"))
 var dug2 = n(dugx.add("< 3@2 2@2 1@2 0@2 >"))
 
 var _dug_intro = dug_intro.scale("c2:major").sound("psaltery_pluck").color("blue").distort(2).release(2).gain(.2)
-var _dug1 = dug1.scale("c2:major").sound("psaltery_pluck").color("blue").distort(2).release(2).gain(.4).lpf("<[500 1000]*2>")
-var _dug2 = dug2.scale("<c2,c3>:major").sound("psaltery_pluck").color("blue").distort(2).release(2).gain(.4).lpf("<[500 1000]*2>")
+var _dug1 = dug1.scale("c2:major").sound("psaltery_pluck").color("blue").distort(1.5).release(2).gain(.3).lpf("<[500 1000]*2>")
+var _dug2 = dug2.scale("<c2,c3>:major").sound("psaltery_pluck").color("blue").distort(1.5).release(2).gain(.3).lpf("<[500 1000]*2>")
 
-var _bells_Intro = n("<[-7 0][7 14]>").sound("flexatone").scale("c2:major").distort(2)
+var _bells_Intro = n("<[-7 0][7 14]>").sound("flexatone").scale("c2:major").distort(1.5)
 
 // adds to the 'dug' with a drone sound.
 var wush1 = n(`<
@@ -179,4 +181,4 @@ $: arrange(
  [1,silence]
   
 
-)//.punchcard()
+).punchcard()

@@ -43,11 +43,18 @@
   * Set volume in mininotation for individual notes- eg "bd:1:4" is a loud drum.
   * Bite - chop up a pattern into x pieces and play in this order.
 
-
  * Get good photo for soundcloud library
  * Contact people about it.
  * Get log in creds for AWS to reset password to upload snappy fingers.
 
+ * Remix these to have not-shit bass.
+ - estroyel - READY
+ - whisterly - READY
+ - uruppy
+ - rowlyups
+ - blingety
+ - boogler
+ - weirderer
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -64,6 +71,7 @@ Source code: https://bitbucket.org/stuartbray/strudel/
 
 $: 
 cat(
- stack( n("-1,5").color("black"), n(5).color("red"), n(4).color("orange"), n(3).color("yellow"), n(2).color("green"), n(1).color("blue"), n(0).color("purple") ).lpf(0),
+ stack( n("-1,6").color("black"), n(5).color("red"), n(4).color("orange"), n(3).color("yellow"), 
+        n(2).color("green"), n(1).color("blue"), n(0).color("purple") ).lpf(0),
  stack( n("-1,5").color("black"), n("0,4").color("cyan"), n("1,3").color("pink"), n("2").color("white") )
-).lpf(0)._punchcard()
+).lpf(0).punchcard()
