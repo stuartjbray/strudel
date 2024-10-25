@@ -57,8 +57,8 @@ var lead2 = n(`<
 - [- 0] [2 ] -
 - [- 0] [2b ] -
 >`)
-var _lead1 = lead1.sound("gm_synth_brass_1, gm_synth_brass_2 ").scale("c2:major").release(.3).gain(3).color("yellow")
-var _lead2 = lead2.sound("gm_synth_brass_1, gm_synth_brass_2 ").scale("c2:major").release(.3).gain(3).color("yellow")
+var _lead1 = lead1.sound("gm_synth_brass_2, piano ").scale("c2:major").release(.6).gain(3).color("yellow")
+var _lead2 = lead2.sound("gm_synth_brass_2, piano").scale("c2:major").release(.6).gain(3).color("yellow")
 var wip1 = n(`<
  -  [- 3 3 2 ] 
  - <[- 5 5 3 ] [- 7 7 5 ]>
