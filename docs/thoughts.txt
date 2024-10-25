@@ -50,9 +50,9 @@
  * Remix these to have not-shit bass.
  - estroyel - READY
  - whisterly - READY
- - uruppy
- - rowlyups
- - blingety
+ - uruppy - READY
+ - rowlyups - READY
+ - blingety - READY
  - boogler
  - weirderer
 

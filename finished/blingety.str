@@ -3,6 +3,9 @@
 @by Stuart Bray
 @url https://soundcloud.com/stuart-j-bray
 */
+/*
+RERECORD
+*/
 var n1 = n(`<  
   [8 - <7 9> -]  
   [5 [- 4] 5 -]  
@@ -87,35 +90,35 @@ var arps = arrange(
      harp1.sound("gm_orchestral_harp").scale("c3:major").release(2).gain(1).color("white"),
      nArp1.sound("piano").scale("c3:major").room(2).gain(2), 
      accent1.sound("gm_dulcimer").scale("c4:major").release(2).gain(4),
-     bass1.sound("gm_alto_sax").scale("c2:major").room(5).release(5).gain(.5)
+     bass1.sound("gm_alto_sax").scale("c2:major").room(3).release(5).gain(.3)
    )], 
    [2*4, stack(
      harp2.sound("gm_orchestral_harp").scale("c3:major").release(2).gain(1).color("white"),
      nArp11.sound("piano").scale("c3:major").phaser("<8 16 4 8>"), 
      accent2.sound("gm_koto").scale("c3:major").room(2).gain(3),
-     bass2.sound("gm_alto_sax").scale("c2:major").room(3).release(2).gain(.5)
+     bass2.sound("gm_alto_sax").scale("c2:major").room(3).release(2).gain(.3)
    )], 
    [2*4, stack( // ---- Warbly 
      nArp1.sound("piano").scale("c3:major").clip(".5").ply(2), 
      accent1.sound("gm_sitar").scale("c3:major").release(2).gain(1),
-     warblyTan.sound("z_tan").scale("c1:major").delay(1) 
+     warblyTan.sound("z_tan").scale("c1:major").delay(1).gain(.4) 
    )], 
    [1*8, stack( // ----  Drumless
-     nArp2.vib("<0 5>").sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2),
+     nArp2.vib("<0 5>").sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2).gain(1.5),
      nArp22.sound("piano").scale("c4:major").ply(2).clip(".5").fast(2),
-     nArpChords1.sound("gm_acoustic_guitar_steel").scale("c3:major").room(5)
+     nArpChords1.sound("gm_acoustic_guitar_steel").scale("c3:major").room(3)
      
    )], 
    [2*4, stack(
      nArp2.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2).ply("<1 2>"),
      nArp3.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2).ply("<2 1>"),
-     nArpChords1.sound("gm_acoustic_guitar_steel").scale("c3:major").room(5)
+     nArpChords1.sound("gm_acoustic_guitar_steel").scale("c3:major").room(3)
    )],
    [2*4, stack(
      nArp2.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(4),
      nArp3.sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2),
      nArp3.rev().sound("piano").scale("c4:major").clip("<.75 1.5>").fast(2),
-     harp1.sound("gm_bagpipe").scale("c1:major").release(5),
+     harp1.sound("gm_bagpipe").scale("c1:major").release(5).gain(.5),
      nArpChords1.sound("gm_acoustic_guitar_steel").scale("c4:major").room(5)     
    )],
   [1,stack( // Outro
