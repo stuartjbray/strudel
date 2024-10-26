@@ -1,0 +1,26 @@
+//@title Dungly
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+var dugs =
+n("0 [- 2] 0 [- -2]").sound("piano").scale("c2:major")
+  .ply("<1 1 4 2>").lpf("<500 1000 2500>").hpf("400 1000").vibrato("<2 4 8 4>")
+
+var ticks = 
+n("- 5 - 5").sound("piano").scale("c4:major")
+  .ply("<4 1 2>").lpf("<1000 2500 500>").hpf("1000 400 1000").vibrato("<2 4>").clip("2 .6 2")
+
+var swoosh =
+  n("0 2*2 -2*4 0*2").struct("1 0 [0 1] 1 0 0 1 1*2").sound("gm_electric_bass_pick").scale("c3:major")
+
+$: arrange(
+  [1,stack(
+    dugs.gain("1"),
+    ticks,
+  )],
+  [1,stack(
+    dugs.gain("1"),
+    ticks,
+    swoosh,
+  )],
+)
