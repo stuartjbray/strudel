@@ -47,14 +47,14 @@
  * Contact people about it.
  * Get log in creds for AWS to reset password to upload snappy fingers.
 
- * Remix these to have not-shit bass.
- - estroyel - READY
- - whisterly - READY
- - uruppy - READY
- - rowlyups - READY
- - blingety - READY
- - boogler - READY
- - weirderer - READY
+ * Upload the not-shit versions on soundcloud up to youtube.
+ - estroyel - READY -
+ - whisterly - READY -
+ - uruppy - READY -
+ - rowlyups - READY - 
+ - blingety - READY -
+ - boogler - READY -
+ - weirderer - READY - 
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -68,45 +68,54 @@ Video Playlist: https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu
 Source code: https://bitbucket.org/stuartbray/strudel/
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 var top = n("0,1,2,3,4,5,6,7,8,9").scale("c1:major").color("#111")
 var bottom = n("0,1,2,3,4,5,6,7,8,9").scale("c0:major").color("#111")
 var r1 = 10
 var r2 = 20
 var r3 = 20
 var r4 = 10
+
+var tCols = ["black","cyan","pink","white","pink","cyan","black"];
+var pCols = ["black","red","orange","yellow","green","blue","purple","black"];
+
+for(var i=0; i<10; i++){
+  r1 = i;
+}
+
 var tf = stack(
-  n("-1,5".add(r1)).color("#222"),
-  n("0,4 ".add(r1)).color("cyan"),
-  n("1,3 ".add(r1)).color("pink"),
-  n("2   ".add(r1)).color("white"),
+  n("-1,5".add(r1)).color(tCols[0]),
+  n("0,4 ".add(r1)).color(tCols[1]),
+  n("1,3 ".add(r1)).color(tCols[2]),
+  n("2   ".add(r1)).color(tCols[3]),
 )
 var tf2 = stack(
-  n("-1,5".add(r3)).color("#222"),
-  n("0,4 ".add(r3)).color("cyan"),
-  n("1,3 ".add(r3)).color("pink"),
-  n("2   ".add(r3)).color("white"),
+  n("-1,5".add(r3)).color(tCols[0]),
+  n("0,4 ".add(r3)).color(tCols[1]),
+  n("1,3 ".add(r3)).color(tCols[2]),
+  n("2   ".add(r3)).color(tCols[3]),
 )
   var pf = stack(
-  n("-1,6".add(r2)).color("#222"),
-  n("5   ".add(r2)).color("red"),
-  n("4   ".add(r2)).color("orange"),
-  n("3   ".add(r2)).color("yellow"), 
-  n("2   ".add(r2)).color("green"),
-  n("1   ".add(r2)).color("blue"),
-  n("0   ".add(r2)).color("purple"),
+  n("-1,6".add(r2)).color(pCols[0]),
+  n("5   ".add(r2)).color(pCols[1]),
+  n("4   ".add(r2)).color(pCols[2]),
+  n("3   ".add(r2)).color(pCols[3]), 
+  n("2   ".add(r2)).color(pCols[4]),
+  n("1   ".add(r2)).color(pCols[5]),
+  n("0   ".add(r2)).color(pCols[6]),
 )
 var pf2 = stack(
-  n("-1,6".add(r4)).color("#222"),
-  n("5   ".add(r4)).color("red"),
-  n("4   ".add(r4)).color("orange"),
-  n("3   ".add(r4)).color("yellow"), 
-  n("2   ".add(r4)).color("green"),
-  n("1   ".add(r4)).color("blue"),
-  n("0   ".add(r4)).color("purple"),
+  n("-1,6".add(r4)).color(pCols[0]),
+  n("5   ".add(r4)).color(pCols[1]),
+  n("4   ".add(r4)).color(pCols[2]),
+  n("3   ".add(r4)).color(pCols[3]), 
+  n("2   ".add(r4)).color(pCols[4]),
+  n("1   ".add(r4)).color(pCols[5]),
+  n("0   ".add(r4)).color(pCols[6]),
 )
 setCpm(60)
-$: cat(
- stack( pf,   tf, ),
- stack( pf2,  tf2, ),
-).lpf(0).punchcard({fillActive  :1, cycles:2})
+$: arrange(
+ [1,stack( pf,   tf, )],
+ [1,silence],
+ [1,stack( pf2,  tf2,)],
+ [1,silence],
+).lpf(0).punchcard({ cycles:8, fillActive:1, fold:1, background:'#000'})

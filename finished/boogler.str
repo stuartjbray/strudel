@@ -1,9 +1,6 @@
 //@title Boogler
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
-// TODO - rerecord
-
 var cpm = 60;
 var d1_pre = sound("BossDR110_bd").struct(  "0 1 0 1")
 var d2_pre = sound("BossDR220_cp").struct(  "1 0 1 0").lpf("<[500 1000 1500 2000 ]@2>")
