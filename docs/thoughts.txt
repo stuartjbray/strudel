@@ -53,8 +53,8 @@
  - uruppy - READY
  - rowlyups - READY
  - blingety - READY
- - boogler
- - weirderer
+ - boogler - READY
+ - weirderer - READY
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
