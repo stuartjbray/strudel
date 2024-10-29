@@ -48,13 +48,15 @@
  * Get log in creds for AWS to reset password to upload snappy fingers.
 
  * Upload the not-shit versions on soundcloud up to youtube.
- - estroyel - READY -
- - whisterly - READY -
- - uruppy - READY -
- - rowlyups - READY - 
- - blingety - READY -
+ - estroyel - 
+
  - boogler - READY -
- - weirderer - READY - 
+ - whisterly - READY -
+ 
+ - uruppy - 
+ - rowlyups -
+ - blingety -
+ - weirderer -
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 

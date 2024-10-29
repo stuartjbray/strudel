@@ -3,11 +3,11 @@
 //@url https://soundcloud.com/stuart-j-bray
 
 // -------------- Drums
-var d1 = sound("SakataDPM48_bd, RolandTR626_bd").struct(  "1 0 0 0 1 0 0 0").room(1.4).gain(.7) //AkaiLinn_bd,
+var d1 = sound("SakataDPM48_bd, RolandTR626_bd").struct(  "1 0 0 0 1 0 0 0").room(1.4).gain(.3) //AkaiLinn_bd,
 var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 1 0").lpf("<2000 5000>")
 var d3 = sound("RolandMC303_rim").struct("0 0 0 0 0 <[- 1] 0> 0 0").gain(.5)
 
-var d1b = sound("SakataDPM48_bd, RolandTR626_bd").struct(  "1*2 1 1*2 1 0 0 0 0").room(1.4).gain(.7) //AkaiLinn_bd,
+var d1b = sound("SakataDPM48_bd, RolandTR626_bd").struct(  "1*2 1 1*2 1 0 0 0 0").room(1.4).gain(.3) //AkaiLinn_bd,
 var d2b = sound("AkaiMPC60_rim").struct("0 1 0 1 0 0 1*2 0").lpf("<2000 5000>")
 var d3b = sound("RolandMC303_rim").struct("0 0 0 0 0 1 0 1*2").gain(.5)
 
@@ -37,7 +37,7 @@ var _base2 = base2.sound("piano").scale("<c2,c3>c2:major").gain(.7).color("orang
 var descend1 = n(`<
  [6 5 6 - 5 4 5 - 4 2 4 - 2 1 2 -]
 >`)
-var _descend1 = descend1.sound("piano").scale("<c5 c4 c3 c2>:major").gain(3).color("purple") 
+var _descend1 = descend1.sound("piano").scale("<c5 c4 c3 c2>:major").gain(2).color("purple") 
 var lead1 = n(`<
  [0 - 2 [- 4]] 2
  [4 - 5 [- 6]] 4
