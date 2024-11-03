@@ -1,0 +1,105 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+/*
+*/
+setcpm(40)
+
+// -------------- Drums
+var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 0 0 0 0 0")
+var dx1 = sound("AkaiLinn_bd").struct(  "1 0 <1 0> 0 0 0 0 0 0 1 0 0").lpf("<2000 1000>*8")
+var dy1 = sound("BossDR550_mt").struct("0 0 0 0 0 0 <1 0> 0 0 0 0 0 ")
+
+var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 <1 0> 0")
+var d3 = sound("AlesisSR16_hh").struct("0 0 0 0 0 <1 0> 0 0")
+var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
+
+var _drums_intro = stack( d1, d2, d3  ).color("white") // build up
+var _drums1 =     stack(  dx1, dy1,  d2,  d3,  d4).color("white") // normal
+var _drums2 =     stack(  d1, d2  ).color("white") // break down
+
+
+
+var chords1 = n(`<
+ [[0,4] [1 5] - [1 6]]
+ [1,6]
+ -
+ [6,<8 9>]
+>`)
+var chords2 = n(`<
+-
+>`)
+var _chords1 = chords1.sound("piano").scale("c4:major").color("red")
+var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
+
+var base1 = n(`<
+ [0@2 - 1@2 - 4@2 ]
+ -
+ [0@2 - 1@2 - 1@2 ]
+ -
+ [4@2 - 3@2 - 2@2 ]
+ -
+ [3@2 - 2@2 - 1@2 ]
+ - 
+>`) 
+var base2 = n(`<
+-
+>`)
+var _base1 = stack(
+  base1.ply(4).clip("<[.8 .4]*4>").scale("c2:major").sound("piano"),
+  base1.ply(2).clip(1).scale("c3:major").sound("piano"),
+  base1.sound("gm_fx_sci_fi").scale("c2:major").echo(4, 1/16, .9)
+).color("orange")
+var _base2 = base2.sound("piano").scale("c2:major").color("orange")
+
+var dug1 = n(`<
+ [1 4] 
+ -
+ [7 4] 
+ -
+>`) 
+// [0@6 -@2 4@6 -@2] 
+// [3@6 -@2 1@6 -@2]  
+var _dug1 = stack(
+  dug1.clip("1").scale("c2:major").sound("gm_shanai") //.lpf("500")
+).color("yellow")
+
+
+var lead1 = n(`<
+ [-]
+>`)
+var lead2 = n(`<
+-
+>`)
+var _lead1 = lead1.sound("gm_banjo").scale("c3:major").color("yellow")
+
+var _lead2 = lead2.sound("gm_banjo").scale("c3:major").color("yellow")
+var M = 0;
+$: arrange(
+  [M*8, stack(    
+    _drums_intro,
+    _chords1, 
+    _base1,
+    _dug1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords1,
+    _base1,
+    _dug1,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _base1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _base2,
+    _lead2,
+  )],
+  ).punchcard()
+  
