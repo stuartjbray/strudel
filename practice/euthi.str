@@ -1,9 +1,43 @@
-var aaa = n(`<[0 2 0 4]>`.add("<0 2 4 7 7 4 2 0>")).fast("<2 4 8 16>")
+setCpm(30)
 
-var _aaa = aaa.sound("z_sawtooth ").scale("c3:major")
 
+var aaa = n(`<[0 - 4 2 - 0 2 -]>`.add("<0 2 0 4 7 5 4 5>"))
+var _aaa = aaa.sound("gm_clavinet").scale("c2:minor").color("yellow")
+
+
+var bbb = n(`<
+ [0,2]
+ [2,6]
+ [0,4]
+ [4,6]
+ [7 6 5 4]
+ [5,6]
+ [4,8]
+ [5,7]
+>`)
+var _bbb = bbb.sound("gm_oboe").scale("c3:minor").color("orange")
+
+var ccc = n(`<
+ [-@2 0 2 3 - 0 2]
+ -
+ [-@2 0 2 3 - 0 2]
+ -
+ [-@2 5 4 - 4 3 - ]
+ -
+ [-@2 4 3 - 3 2 -]
+ -
+>`)
+var _ccc = ccc.sound("gm_dulcimer").scale("c2:minor").color("red")
 
 $: arrange(
-  [1,_aaa],
-  [1,_aaa],
+  [8,stack(
+    _aaa,
+    _bbb,
+    _ccc,
+  )],
+  [8,stack(
+    _aaa,
+    _bbb,
+    _ccc,
+  )],
 ).punchcard()
