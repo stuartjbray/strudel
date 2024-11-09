@@ -35,6 +35,7 @@
 
  You could learn to create by independantly recreating every known trick in modern musical history, or... or... you could learn by copying. Take your fave song, or a song that you think you could make using this tool, or a song that you think you couldn't make using this tool, and start recreating it. No doubt half way through you'll get your own ideas about which direction the song should go in. And then once you feel you have something that can stand by itself, go back and remove or mutate or shrink the bits that came from someone else.
 
+ Don't just add stuff because it sounds ok. Stop. Listen. Play through the music in your head and then hum what SHOULD come next. Then consciously make that happen.
   >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   Tasks:
@@ -43,19 +44,19 @@
   * Set volume in mininotation for individual notes- eg "bd:1:4" is a loud drum.
   * Bite - chop up a pattern into x pieces and play in this order.
 
- * Get good photo for soundcloud library
- * Contact people about it.
- * Get log in creds for AWS to reset password to upload snappy fingers.
+  * Contact people about it. More - don't give up.
+  * Get log in creds for AWS to reset password to upload snappy fingers.
 
- * Upload the not-shit versions on soundcloud up to youtube.
+  * 
+
+  * Upload the not-shit versions on soundcloud up to youtube.
  - estroyel - 
-
- - boogler - READY -
- - whisterly - READY -
- 
+ - boogler -
+ - whisterly -
  - uruppy - 
  - rowlyups -
  - blingety -
+
  - weirderer -
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>

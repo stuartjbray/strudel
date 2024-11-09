@@ -1,3 +1,7 @@
+//@title purauld
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
 setCpm(30)
 
 
@@ -7,7 +11,9 @@ var d3 = sound("AkaiXR10_hh").struct(  "0 0 0 1 0 1 0 1")
 var d4 = sound("AkaiLinn_lt").struct(  "0 0 0 0 1*2 0 1*2 0").lpf("[500 2000]*8")
 
 var _drums_intro =     stack(  d1, d2, d3, d4) .color("white")
-var _drums1 = stack( d1, d2, d3, d4  ).color("white") // d1_down
+var _drums1 = stack( d1, d2, d3, d4  ).color("white") 
+var _drums1 = stack( d1, d2, d3, d4  ).color("white") 
+
 //var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
 
@@ -15,7 +21,8 @@ var _drums1 = stack( d1, d2, d3, d4  ).color("white") // d1_down
 var aaa = n(`<
  [ 5 - 5 -  <5 7> [- 5]  - 4 ]
  >`)
-var _aaa = aaa.sound("gm_timpani").scale("c2:minor").color("yellow").distort(2).room(1.2)
+var _aaa = aaa.sound("gm_timpani").scale("c2:minor").color("yellow")
+  .distort(1.2).room(1.2).lpf("<[1000 2000]*2>").gain(.5)
 
 
 var bbb = n(`<
@@ -45,10 +52,10 @@ var ddd2 = n(`<
  [- 5 - 5 - 4 - 5 - 6 - 6 - 7 - -] 
  -
 >`)
-var _ddd = ddd.sound("piano").scale("c3:minor").color("red")
-var _ddd2 = ddd2.sound("piano").scale("c3:minor").color("red")
+var _ddd = ddd.sound("gm_electric_bass_pick").scale("c3:minor").color("red").gain(2).room(1.5)
+var _ddd2 = ddd2.sound("gm_electric_bass_pick").scale("c3:minor").color("red").gain(2).room(1.5)
 
-var M = 1;
+var M = 0;
 $: arrange(
   [M*4,stack(
     _drums_intro,
@@ -60,7 +67,8 @@ $: arrange(
     _ccc,
     _ddd,
   )],
-  [M*8,stack(
+  [1*8,stack(
+    d3,
     _aaa,
     _bbb.transpose(12),
     _ccc.transpose(12),
