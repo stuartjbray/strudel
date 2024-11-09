@@ -22,19 +22,23 @@ var aaa = n(`<
  [ 5 - 5 -  <5 7> [- 5]  - 4 ]
  >`)
 var _aaa = aaa.sound("gm_timpani").scale("c2:minor").color("yellow")
-  .distort(1.2).room(1.2).lpf("<[1000 2000]*2>").gain(.5)
+  .distort(1.2).room(1.2).lpf("<[1000 2000]*2>").gain(.2)
 
 
 var bbb = n(`<
  10 11 5 6# 
 >`)
+var bbb2 = n(`<
+ 8 9 10 6# 
+>`)
 var _bbb = bbb.sound("gm_oboe").scale("c3:minor").color("orange")
+var _bbb2 = bbb2.sound("gm_oboe").scale("c3:minor").color("orange")
 
 var ccc = n(`<
  5 6 5 2
 >`)
 var ccc2 = n(`<
- 9 6 7 2
+ 9 10 5 2
 >`)
 var _ccc = ccc.sound("gm_alto_sax").scale("c2:minor").color("red")
 var _ccc2 = ccc2.sound("gm_alto_sax").scale("c2:minor").color("red")
@@ -47,13 +51,16 @@ var ddd = n(`<
  -
 >`)
 var ddd2 = n(`<
- [- 5 - 5 - 4 - 4 - 3 - 3 - 2 - -]
+ [- 5 - 5 - - - - - - - [3,5] - 2 - -]
  -
- [- 5 - 5 - 4 - 5 - 6 - 6 - 7 - -] 
+ [- 5 - 5 - - - - - - - 6 - [7,9] - -] 
  -
 >`)
 var _ddd = ddd.sound("gm_electric_bass_pick").scale("c3:minor").color("red").gain(2).room(1.5)
 var _ddd2 = ddd2.sound("gm_electric_bass_pick").scale("c3:minor").color("red").gain(2).room(1.5)
+
+var eee = n(`<[5 4 3 5 - - - - 5 4 3 4 5 6 5 4]>`)
+var _eee = eee.sound("gm_marimba").scale("c4:minor").color("green")
 
 var M = 0;
 $: arrange(
@@ -67,18 +74,19 @@ $: arrange(
     _ccc,
     _ddd,
   )],
-  [1*8,stack(
+  [M*8,stack(
     d3,
     _aaa,
     _bbb.transpose(12),
     _ccc.transpose(12),
     _ddd.transpose(12),
   )],
-  [8,stack(
-    _drums1,
+  [1*8,stack(
+    // _drums1,
     _aaa,
-    _bbb,
+    _bbb2,
     _ccc2,
     _ddd2,
+    _eee
   )],
 ).punchcard()
