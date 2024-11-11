@@ -22,7 +22,7 @@ var aaa = n(`<
  [ 5 - 5 -  <5 7> [- 5]  - 4 ]
  >`)
 var _aaa = aaa.sound("gm_timpani").scale("c2:minor").color("yellow")
-  .distort(1.2).room(1.2).lpf("<[1000 2000]*2>").gain(.2)
+  .distort(1.2).room(1.2).lpf("<[1000 2000]*2>").gain(.7)
 
 
 var bbb = n(`<
@@ -62,7 +62,7 @@ var _ddd2 = ddd2.sound("gm_electric_bass_pick").scale("c3:minor").color("red").g
 var eee = n(`<[5 4 3 5 - - - - 5 4 3 4 5 6 5 4]>`)
 var _eee = eee.sound("gm_marimba").scale("c4:minor").color("green")
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4,stack(
     _drums_intro,
@@ -82,7 +82,7 @@ $: arrange(
     _ddd.transpose(12),
   )],
   [1*8,stack(
-    // _drums1,
+    _drums1,
     _aaa,
     _bbb2,
     _ccc2,
