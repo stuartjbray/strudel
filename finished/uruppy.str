@@ -2,6 +2,8 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
+// RE RECORD
+
 // -------------- Drums
 var d1 = sound("SakataDPM48_bd, RolandTR626_bd").struct(  "1 0 0 0 1 0 0 0").room(1.4).gain(.3) //AkaiLinn_bd,
 var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 1 0").lpf("<2000 5000>")
@@ -37,7 +39,7 @@ var _base2 = base2.sound("piano").scale("<c2,c3>c2:major").gain(.7).color("orang
 var descend1 = n(`<
  [6 5 6 - 5 4 5 - 4 2 4 - 2 1 2 -]
 >`)
-var _descend1 = descend1.sound("piano").scale("<c5 c4 c3 c2>:major").gain(2).color("purple") 
+var _descend1 = descend1.sound("piano").scale("<c5 c4 c3 c2>:major").gain(1.4).color("purple") 
 var lead1 = n(`<
  [0 - 2 [- 4]] 2
  [4 - 5 [- 6]] 4
@@ -62,7 +64,7 @@ var uppy2 =n(`<
  [7 0 0 7 7 - 0 7]
 >`.fast(2))
 var _uppy2 = uppy2.sound("sine square").fm(sine.range(1,50)).vib("<1 10 30>").fmattack("<.5 1 .8 1.2>")
-  .jux(rev).room("<0 1>").clip("<.5 1 .8>").crush("<4 5 6 7>").gain(.5).color("white")
+  .jux(rev).room("<0 1>").clip("<.5 1 .8>").crush("<4 5 6 7>").gain(.4).color("white")
 
 var M = 1;
 //M=0;
@@ -86,7 +88,7 @@ $: arrange(
   )],
   [M*4, stack( // Breakout
     _drums1,
-    _uppy2.gain(2.5),
+    _uppy2.gain(1.5),
     _descend1.gain(1),
   )],
   [M*4, stack( // Breakout

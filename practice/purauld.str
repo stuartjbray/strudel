@@ -83,7 +83,7 @@ $: arrange(
   )],
   [1*8,stack(
     _drums1,
-    _aaa,
+    //_aaa,
     _bbb2,
     _ccc2,
     _ddd2,
