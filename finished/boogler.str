@@ -36,10 +36,10 @@ var dug4 = n(`<
  [2b@3 [ 1]]  [0 - - -]  -  - 
  [-2@3 [ 0]]  [0 - - -]  -  -
 >`)
-var _dug1 = dug1.sound("gm_rock_organ,gm_slap_bass_1").scale("c3:major").distort(4).gain(.1).color("red")
-var _dug2 = dug2.sound("gm_rock_organ,gm_slap_bass_1").scale("c3:major").distort(4).gain(.1).color("red")
-var _dug3 = dug3.sound("gm_rock_organ,gm_slap_bass_1").scale("c3:major").distort(4).gain(.1).color("red")
-var _dug4 = dug4.sound("gm_rock_organ,gm_slap_bass_1").scale("c3:major").distort(4).gain(.1).color("red")
+var _dug1 = dug1.sound("gm_rock_organ,gm_slap_bass_1").scale("c3:major").distort(4).gain(.3).color("red")
+var _dug2 = dug2.sound("gm_rock_organ,gm_slap_bass_1").scale("c3:major").distort(4).gain(.3).color("red")
+var _dug3 = dug3.sound("gm_rock_organ,gm_slap_bass_1").scale("c3:major").distort(4).gain(.3).color("red")
+var _dug4 = dug4.sound("gm_rock_organ,gm_slap_bass_1").scale("c3:major").distort(4).gain(.3).color("red")
 
 var accent1 = n(`<
 - - [- 3 3 2] [2 1 1 0]
@@ -53,7 +53,7 @@ var _accent1 = accent1.sound("piano,gm_music_box").scale("c4:major").gain(2).col
 var _accent2 = accent2.sound("piano,gm_music_box").scale("c4:major").gain(2).color("orange")
 var lead1 = n(`<
 - [- 0] 2 -
-- [- 3] 2 -
+- [- 3] 5 -
 >`)
 var lead2 = n(`<
 - [- 0] [2 ] -
@@ -110,12 +110,13 @@ var soft_x1 = n(`<
 var soft_x2 = n(`<
  5 6 7 <6 ->
 >`)
-var _soft_x1 = soft_x1.sound("gm_pad_halo").scale("c3:major").color("#00FF00").gain(2)
-var _soft_x2 = soft_x2.sound("gm_pad_halo").scale("c3:major").color("#00FF00").gain(2)
+var _soft_x1 = soft_x1.sound("gm_pad_poly").scale("c3:major").color("#00FF00").gain(2)
+var _soft_x2 = soft_x2.sound("gm_pad_poly").scale("c3:major").color("#00FF00").gain(2)
 
 
 var M = 1;
 $: arrange(
+
   [M*2, _drums_pre],
   [M*8, stack(    
     _drums,
@@ -193,6 +194,6 @@ $: arrange(
     _hig2, _hig4,
     _soft2,
   )],  
-  [M,silence]
+  [M*4,silence]
 ).cpm(cpm).punchcard()
   

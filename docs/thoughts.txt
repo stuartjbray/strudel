@@ -43,22 +43,25 @@
   * Use transpose to vary a _aaa inside the final arrange, for variety.
   * Set volume in mininotation for individual notes- eg "bd:1:4" is a loud drum.
   * Bite - chop up a pattern into x pieces and play in this order.
-
   * Contact people about it. More - don't give up.
   * Get log in creds for AWS to reset password to upload snappy fingers.
 
-  * 
 
   * Upload the not-shit versions on soundcloud up to youtube.
- - estroyel - 
- - boogler -
- - rowlyups -
- - blingety -
+
+                - YT  - SC  -
+ - beeptea      - y     y     
+ - conspirulina - y     y     
+ - noanoaks     - N     y     
+ - estroyel     - N     y     
+ - whisterly    - y     y     
+ - uruppy       - N     y     
+ - rowlyups     - N     N     
+ - blingety     - y     y     
+ - boogler      - N     y     
+ - weirderer    - N     y     
 
     - RE RECORD
- - whisterly -
- - uruppy - 
- - weirderer -
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 

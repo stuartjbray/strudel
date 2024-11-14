@@ -1,9 +1,6 @@
 //@title whisterly
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
-// RE - RECORD
-
 var d1 = sound("AkaiLinn_bd ").struct(   "1 0 0 1 0 0").gain(.3)
 var d2 = sound("AkaiMPC60_rim").struct(  "0 0 0 1 0 0 ").gain(.3)
 var d5 = sound("gm_melodic_tom").struct( "1 0 1 0 0 0 ") 

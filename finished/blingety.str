@@ -85,14 +85,14 @@ var arps = arrange(
    )],
    [2*4, stack( // ---- Intro
      harp1.sound("gm_orchestral_harp").scale("c3:major").release(2).gain(1).color("white"),
-     nArp1.sound("piano").scale("c3:major").room(2).gain(2), 
-     accent1.sound("gm_dulcimer").scale("c4:major").release(2).gain(4),
+     nArp1.sound("piano").scale("c3:major").room(2).gain(1.2), 
+     accent1.sound("gm_dulcimer").scale("c4:major").release(2).gain(2),
      bass1.sound("gm_alto_sax").scale("c2:major").room(3).release(5).gain(.3)
    )], 
    [2*4, stack(
      harp2.sound("gm_orchestral_harp").scale("c3:major").release(2).gain(1).color("white"),
      nArp11.sound("piano").scale("c3:major").phaser("<8 16 4 8>"), 
-     accent2.sound("gm_koto").scale("c3:major").room(2).gain(3),
+     accent2.sound("gm_koto").scale("c3:major").room(2).gain(1.5),
      bass2.sound("gm_alto_sax").scale("c2:major").room(3).release(2).gain(.3)
    )], 
    [2*4, stack( // ---- Warbly 

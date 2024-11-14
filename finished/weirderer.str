@@ -1,6 +1,5 @@
 //@title Weirderer
 //@by Stuart Bray
-// RE RECORD
 var d = stack( "[hh - AlesisSR16_rim -] [- hh*2 AlesisSR16_rim <hh ->]",  "AlesisSR16_bd - - [- <AlesisSR16_bd AlesisHR16_oh>]" )
 var _d = stack(
   sound(d).pan(sine.slow(4)),
@@ -68,6 +67,11 @@ var _swoop_b2 = swoop_b2.sound("gm_orchestral_harp").scale("c4:major").distort(d
        .gain(gainPattern).crush(crushPattern).ply(plyPattern).color("green").room(1.5);
 var _dug1 = n(`< - [-  [- 4 5 6]]>`).sound("gm_fretless_bass").scale("c2:major").gain(1.2).color("purple").crush(2).room(2)
 var _dug2 = n(`< - [-  [- 4 7 -]]>`).sound("gm_fretless_bass").scale("c2:major").gain(1.2).color("purple").crush(2).room(2)
+
+var _dug3 = n(`<[- [4,10]] [- [4,9]] [- [7,11]] [- [5,12]]>`).sound("gm_fretless_bass").scale("c2:major").gain(1.2).color("purple").release(2)
+var _dug4 = n(`<[- [4,10]] [- [4,9]] [- [7,8 ]] [- [4,7 ]]>`).sound("gm_fretless_bass").scale("c2:major").gain(1.2).color("purple").release(2)
+  
+
 // ----------- bells
 var _bell1 = n("< [- - - 4] >").sound("gm_vibraphone").scale("c2:major").gain(1.2).release(2).color("blue");
 var _bell2 = n("< [- - - 5] >").sound("gm_vibraphone").scale("c2:major").gain(1.2).release(2).color("blue");
@@ -99,18 +103,18 @@ var _steep1 = silence; //steep1.sound("gm_epiano2 ").scale("c3:major").gain(3).d
 // Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
 var M = 1;
 $: arrange(
-  // [M*4, stack( _d, _lowChords1, _bass1  )],
-  // [M*4, stack( _d, _lowChords2, _bass2  )],
+  [M*4, stack( _d, _lowChords1, _bass1  )],
+  [M*4, stack( _d, _lowChords2, _bass2  )],
   [M*4, stack( _d, _lowChords1, _bass1, _swoop_a1,  )],
   [M*4, stack( _d, _lowChords2, _bass2, _swoop_a1,  )],
   [M*4, stack( _d, _lowChords1, _bass1, _swoop_b1, _dug1 )],
   [M*4, stack( _d, _lowChords2, _bass2, _swoop_b2, _dug2 )],
   [M*4, stack( _d, _lowChords1, _bass1, _swoop_a1, _strum1, _bell1 )],
   [M*4, stack( _d, _lowChords2, _bass2, _swoop_a1, _strum1, _bell2  )],
-  [1*4, stack(     _strum1, _bell3, _sweep1.gain(.6), _steep1    )], // ----------------------- Drumless
-  [1*4, stack(     _strum1, _bell4, _sweep2.gain(.6), _steep1    )],
-  [M*4, stack( _d,  _bass3, _bass3_2,  _strum3)],
-  [M*4, stack( _d,  _bass4, _bass4_2,  _strum3)],
+  [1*4, stack(     _strum1, _bell3, _sweep1.gain(.6), _steep1, _dug3    )], // ----------------------- Drumless
+  [1*4, stack(     _strum1, _bell4, _sweep2.gain(.6), _steep1, _dug4    )],
+  [M*4, stack( _d,  _bass3, _bass3_2,  _strum3, _dug3)],
+  [M*4, stack( _d,  _bass4, _bass4_2,  _strum3, _dug4)],
   [2,silence],
-).cpm(30) //.punchcard()
+).cpm(30).punchcard()
 
