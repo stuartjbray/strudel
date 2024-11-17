@@ -1,43 +1,51 @@
+/*
+@title euthi
+@by Stuart Bray
+@url https://soundcloud.com/stuart-j-bray
+*/
 setCpm(30)
-
-
-var aaa = n(`<[0 - 4 2 - 0 2 -]>`.add("<0 2 0 4 7 5 4 5>"))
+var aaa = n(`<[0 - 4 [- 2] - 0 - 2]>`.add("<0 2 0 4 7 5 4 5>"))
 var _aaa = aaa.sound("gm_clavinet").scale("c2:minor").color("yellow")
 
-
 var bbb = n(`<
- [0,2]
- [2,6]
- [0,4]
- [4,6]
- [7 6 5 4]
- [5,6]
- [4,8]
- [5,7]
+ [0,2]  [2,6] [0,4] [4,6]
+ [7 6 5 4] [5,6] [4,8] [5,7]
 >`)
 var _bbb = bbb.sound("gm_oboe").scale("c3:minor").color("orange")
+var _bbb2 = bbb.sound("gm_oboe").scale("c3:minor").color("orange")
+ .ply("2 8 4 2").clip(".75 .5")
 
 var ccc = n(`<
- [-@2 0 2 3 - 0 2]
- -
- [-@2 0 2 3 - 0 2]
- -
- [-@2 5 4 - 4 3 - ]
- -
- [-@2 4 3 - 3 2 -]
- -
+ [-@2 0 2 3 - 0 2] -
+ [-@2 0 2 3 - 0 2] -
+ [-@2 4 5 - 3 4 - ] -
+ [-@2 4 3 - 3 2 -] -
 >`)
-var _ccc = ccc.sound("gm_dulcimer").scale("c2:minor").color("red")
+var _ccc = ccc.sound("gm_electric_guitar_jazz").scale("c3:minor").room(2).color("red")
 
+var ddd = n(`<
+ [0 4 0 3]@4
+ [7 4 4 7]@4
+>`)
+var _ddd = ddd.sound("gm_piccolo").scale("c3:major").color("cyan")
+
+var M=0;
 $: arrange(
-  [8,stack(
+  [0*8,stack(
     _aaa,
     _bbb,
     _ccc,
   )],
-  [8,stack(
+  [M*8,stack(
     _aaa,
-    _bbb,
+    _bbb2,
     _ccc,
+    _ddd
+  )],
+  [1*8,stack(
+    _aaa.transpose(12),
+    _bbb2.transpose(12),
+    _ccc.transpose(12),
+    _ddd.transpose(12)
   )],
 ).punchcard()

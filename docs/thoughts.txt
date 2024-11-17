@@ -52,14 +52,14 @@
                 - YT  - SC  -
  - beeptea      - y     y     
  - conspirulina - y     y     
- - noanoaks     - N     y     
- - estroyel     - N     y     
+ - noanoaks     - y     y     
+ - estroyel     - y     y     
  - whisterly    - y     y     
- - uruppy       - N     y     
- - rowlyups     - N     N     
+ - uruppy       - y     y     
+ - rowlyups     - y     N     
  - blingety     - y     y     
- - boogler      - N     y     
- - weirderer    - N     y     
+ - boogler      - y     y     
+ - weirderer    - y     y     
 
     - RE RECORD
 
