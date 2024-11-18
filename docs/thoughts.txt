@@ -36,6 +36,12 @@
  You could learn to create by independantly recreating every known trick in modern musical history, or... or... you could learn by copying. Take your fave song, or a song that you think you could make using this tool, or a song that you think you couldn't make using this tool, and start recreating it. No doubt half way through you'll get your own ideas about which direction the song should go in. And then once you feel you have something that can stand by itself, go back and remove or mutate or shrink the bits that came from someone else.
 
  Don't just add stuff because it sounds ok. Stop. Listen. Play through the music in your head and then hum what SHOULD come next. Then consciously make that happen.
+
+ Sometimes you can turn something obvious and boring, into something delightful and mysterious, just by deleting one note. It will be the one patronising note, that you shouldn't have to play because it's obviously there. After it's gone, you can still hear it, but it sounds so much better because it doesn't play. I only hope that other listeners can hear how good it sounds not being there, because they never heard it there in the first place.
+
+ Sometimes I'll be working on a track, and it sounds great, and then you listen a bit more, and all of a sudden it sounds terrible, and you hate it, and you have to stop working on that track and work on something else. And then you come back later and play it, and it's beautiful again.
+
+
   >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   Tasks:
@@ -49,19 +55,17 @@
 
   * Upload the not-shit versions on soundcloud up to youtube.
 
-                - YT  - SC  -
- - beeptea      - y     y     
- - conspirulina - y     y     
- - noanoaks     - y     y     
- - estroyel     - y     y     
- - whisterly    - y     y     
- - uruppy       - y     y     
- - rowlyups     - y     N     
- - blingety     - y     y     
- - boogler      - y     y     
- - weirderer    - y     y     
-
-    - RE RECORD
+                - Local   - YT    - SC  -
+ - beeptea      - y       y       y     
+ - noanoaks     - y       y       y     
+ - conspirulina - y       y       y     
+ - estroyel     - y       y       y     
+ - whisterly    - y       y       y     
+ - uruppy       - y       y       y     
+ - rowlyups     - N       N       N     
+ - blingety     - y       y       y     
+ - boogler      - y       y       y     
+ - weirderer    - y       y       y     
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 

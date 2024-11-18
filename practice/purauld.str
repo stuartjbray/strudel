@@ -75,7 +75,7 @@ $: arrange(
     _ddd,
   )],
   [M*8,stack(
-    d3,
+    d3.color("white"),
     _aaa,
     _bbb.transpose(12),
     _ccc.transpose(12),
