@@ -1,8 +1,9 @@
 //@title conspirulina
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
 setcpm(30)
+
+// RE RECORD
 
 // -------------- Drums
 
@@ -64,8 +65,8 @@ var _dug2 = dug2.sound("gm_clavinet").scale("c2:major").color("red").distort(1.5
 
 var bass1 = n(`< 5 [- 7] 3 [- 5]>`)
 var bass2 = n(`< 1 [- 3] 2 [- 4]>`)
-var _bass1 = bass1.sound("gm_electric_guitar_jazz").scale("c2:major").color("orange").distort(1.5)
-var _bass2 = bass2.sound("gm_electric_guitar_jazz").scale("c2:major").color("orange").distort(1.5)
+var _bass1 = bass1.sound("gm_electric_guitar_jazz").scale("c2:major").color("orange").distort(1.5).gain(1.8)
+var _bass2 = bass2.sound("gm_electric_guitar_jazz").scale("c2:major").color("orange").distort(1.5).gain(1.8)
 
 var chords1 = n(`<
  [2,4,5]@2 [0,2,3]@2
@@ -122,12 +123,12 @@ var lead6 = n(`<
  [8 9 [- [6,9]] -]
  [8 - [- [7,11]] -]
 >`)
-var _lead1 = lead1.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.2).release(.5).room(1)
-var _lead2 = lead2.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.2).release(.5).room(1)
-var _lead3 = lead3.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.2).release(.5).room(1)
-var _lead4 = lead4.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.2).release(.5).room(1)
-var _lead5 = lead5.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.2).release(.5).room(1)
-var _lead6 = lead6.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.2).release(.5).room(1)
+var _lead1 = lead1.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.8).release(.5)
+var _lead2 = lead2.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.8).release(.5)
+var _lead3 = lead3.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.8).release(.5)
+var _lead4 = lead4.sound("gm_lead_2_sawtooth").scale("c3:major").color("green").gain(1.8).release(.5)
+var _lead5 = lead5.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.8).release(.5)
+var _lead6 = lead6.sound("gm_lead_2_sawtooth").scale("c4:major").color("green").gain(1.8).release(.5)
 
 var _sweep1 = n(`<5 5 3 3>`).sound("gm_violin").scale("c3:major").color("cyan").gain(2)
 var _sweep2 = n(`<1 1 2 2>`).sound("gm_violin").scale("c3:major").color("cyan").gain(2)

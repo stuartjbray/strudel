@@ -8,8 +8,8 @@ setcpm(30)
 
 // -------------- Drums
 var d1 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 0 0")
-var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 0 0")
-var d3 = sound("AlesisSR16_hh").struct("0 0 1*2 0 0 0 1 0")
+var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 0 0")
+var d3 = sound("AlesisSR16_hh").struct("0 0 [- 1] [- 1] 0 0 1 0")
 var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
 
 var _drums_intro = stack( d1, d2, d3  ).color("white") // build up
@@ -26,6 +26,18 @@ var chords2 = n(`<
 >`)
 var _chords1 = chords1.sound("gm_pad_warm, gm_epiano1").scale("c3:major").color("red")
 var _chords2 = chords2.sound("gm_pad_warm, gm_epiano1").scale("c3:major").color("red")
+
+var chordsB1 = n(`<
+ [1 2 - 1][3 - -2 -4]
+ [- 2 1 -][0 -2 - -4] 
+>`)
+var chordsB2 = n(`<
+ [1 2 - 1][-2 - -4 0]
+ [- 1 0 -][-2 0 - -] 
+>`)
+var _chordsB1 = chordsB1.sound("gm_pad_warm, gm_epiano1").scale("c4:major").color("orange")
+var _chordsB2 = chordsB2.sound("gm_pad_warm, gm_epiano1").scale("c4:major").color("orange")
+
 
 var base1 = n(`<
  [ 0 -  [0,2] -]
@@ -55,8 +67,8 @@ var baseX2 = n(`<
  [ 0 -  0 -]
  [ 2 -  2 -]
 >`)
-var _baseX1 = baseX1.sound("gm_guitar_harmonics").scale("c2:major").distort(3).gain(.02).room(3).color("orange")
-var _baseX2 = baseX2.sound("gm_guitar_harmonics").scale("c2:major").distort(3).gain(.02).room(3).color("orange")
+var _baseX1 = baseX1.sound("gm_guitar_harmonics").scale("c2:major").distort(2).gain(.02).room(3).color("orange")
+var _baseX2 = baseX2.sound("gm_guitar_harmonics").scale("c2:major").distort(2).gain(.02).room(3).color("orange")
 
 
 
@@ -87,23 +99,23 @@ var M = 1;
 $: arrange(
   [M*4, stack(    
     _drums1,
-    _chords1, 
+    _chords1, _chordsB1, 
     _base1,    _baseX1,
   )],
-  [M*4, stack(
+  [1*4, stack(
     _drums1,
-    _chords2,
+    _chords2, _chordsB2, 
     _base2,    _baseX2,
   )],
   [M*4, stack(    
     _drums1,
-    _chords1, 
+    _chords1,  _chordsB1, 
     _base1,    _baseX1,
     _lead1,    _leadX1,
   )],
   [M*4, stack(
     _drums1,
-    _chords2,
+    _chords2, _chordsB2, 
     _base2,    _baseX2,
     _lead2,    _leadX2,
   )],
