@@ -10,13 +10,18 @@ var d2 = sound("AkaiXR10_lt").struct(  "0 1 0 0 0 0 0 0")
 var d3 = sound("AkaiXR10_hh").struct(  "0 0 0 1 0 1 0 1")
 var d4 = sound("AkaiLinn_lt").struct(  "0 0 0 0 1*2 0 1*2 0").lpf("[500 2000]*8")
 
+var d5 = sound("BossDR110_cp").struct(  "0 0 1 0 0 0 0 [0 1]")
+var d6 = sound("AlesisSR16_cp").struct( "0 0 0 0 1 0 [0 1] 0")
+
 var _drums_intro =     stack(  d1, d2, d3, d4) .color("white")
 var _drums1 = stack( d1, d2, d3, d4  ).color("white") 
-
 
 var d1x = sound("AkaiXR10_mt").struct(  "0 [- 1] 0 0 0 0 0 0").gain(.3)
 var d2x = sound("AkaiXR10_lt").struct(  "0 1 0 0 0 0 0 0").gain(.5)
 var _drums2 = stack( d1x, d2x  ).color("white") // break down
+
+var _drums3 = stack( d1, d2, d3, d4, d5, d6  ).color("white") 
+
 
 var aaa = n(`<
  [ 5 - 5 -  <5 7> [- 5]  - 4 ]
@@ -70,7 +75,7 @@ var _ddd2 = ddd2.sound("gm_electric_bass_pick").scale("c3:minor").color("red").g
 var eee = n(`<[5 4 3 - - - - - 5 4 3 - - - 5 4]>`)
 var _eee = eee.sound("gm_marimba").scale("c4:minor").color("green")
 
-var M = 0;
+var M = 1;
 $: arrange(
   
   [M*4,stack(
@@ -91,7 +96,7 @@ $: arrange(
     _ddd.transpose(12),
   )],
   
-  [1*8,stack(
+  [M*8,stack(
     _drums2,
     _aaa,     _aaa2.transpose(12),
     _bbb2.lpf(800),
@@ -99,13 +104,10 @@ $: arrange(
     _ddd2.lpf(800),
     _eee
   )],
-
-  [1*8,stack(
-    _drums2,
+  [M*8,stack(
+    _drums3,
     _aaa3,     
-    //_bbb2,
-    // _ccc2,
-    // _ddd2,
-    // _eee
+    _bbb2,
+    _ccc2,
   )],  
 ).punchcard()

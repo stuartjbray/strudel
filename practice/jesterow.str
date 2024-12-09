@@ -31,6 +31,9 @@ var dug2 = n(`<
 var _dug1 = dug1.sound("gm_epiano1 ").scale("<c2,c3>:major").color("red")
 var _dug2 = dug2.sound("gm_epiano1 ").scale("<c2,c3>:major").color("red")
 
+var _dugX1 = n("4 - - <2 ->").sound("gm_shamisen").scale("c3:major").color("cyan").room(3)
+var _dugX2 = n("5 - - <8 ->").sound("gm_shamisen").scale("c3:major").color("cyan").room(3)
+
 var base1 = n(`<
  4 2 3 3
 >`)
@@ -46,8 +49,8 @@ var lead1 = n(`<
 var lead2 = n(`<
  3 4 <3 7>@2
 >`)
-var _lead1 = lead1.sound("supersaw ").scale("c2:major").color("yellow")
-var _lead2 = lead2.sound("supersaw ").scale("c2:major").color("yellow")
+var _lead1 = lead1.sound("supersaw").scale("c2:major").color("yellow")
+var _lead2 = lead2.sound("supersaw").scale("c2:major").color("yellow")
 var _lead1_vib = _lead1.vibrato("<[1,4] [2,3] > ")
 var _lead2_vib = _lead2.vibrato("<[1,4] [2,3] > ")
  
@@ -62,7 +65,11 @@ var _bell2 = n(`<
 
 var _bell3 = n(`<
  [[3,5] [1,4] - -] [[2,1] [2,4] -  -]
- [7,9] [- [7,10]]
+ <
+ [[7,9] - - [7,10] ]
+ [[9 8] [7 -] [6,8] -]
+ >
+ -
  >`).sound("kawai").scale("c3:major").color("green").gain(2)
 var _bell4 = n(`<
  [[6,8] [6,7]] [- 5 9 [-[4,9]]]
@@ -99,27 +106,27 @@ $: arrange(
   )],
   [M*8, stack(    
     _drums1,
-    _dug1,     _base1,
+    _dug1, _dugX1,     _base1,
     _lead1_vib,
   )],
   [M*4, stack(
     _drums1,
-    _dug2,    _base2,
+    _dug2, _dugX2,    _base2,
     _lead2_vib,
   )],
   [M*8, stack(    
     _drums2,
-    _dug1,     _base1,
+    _dug1,_dugX1,     _base1,
     _lead1,    _buzz1,
     _bell1,
   )],
   [M*4, stack(
     _drums2,
-    _dug2,    _base2,
+    _dug2,_dugX2,    _base2,
     _lead2,    _buzz2,
     _bell2,
   )],
-  [M*8, stack(    
+  [1*8, stack(    
     _drums2,
     _dug1.transpose(12),     _base1,
     _lead1,
@@ -131,13 +138,13 @@ $: arrange(
     _lead2,
     _bell4,
   )],    
-  [1*8, stack(    
+  [M*8, stack(    
     _drums3,
     _dug1.transpose(24),     _base1,
     _lead1.transpose(12),
     _bell5,_bell5x,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums3,
     _dug2.transpose(24),    _base2,
     _lead2.transpose(12),
