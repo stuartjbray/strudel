@@ -7,7 +7,7 @@
 setcpm(30)
 
 // -------------- Drums
-var d1 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 0 0")
+var d1 = sound("EmuDrumulator_bd").struct(  "1 0 0 0 0 0 1*2 0")
 var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 0 0")
 var d3 = sound("AlesisSR16_hh").struct("0 0 [- 1] [- 1] 0 0 1 0")
 
@@ -16,9 +16,9 @@ var dX2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0")
 var dX3 = sound("AlesisSR16_hh").struct("1 1 1 1 1*2 1 1*2 1 ").lpf("<200 8000>*8")
 
 
-var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 <- 1>").lpf(1500)
+var d4 = sound("EmuDrumulator_cr").struct(  "0 0 0 0 0 0 0 <- 1>") //.lpf(1500)
 var d5 = sound("YamahaRM50_mt").struct("1 0 0 1*2 0 1 0 0")
-var d6 = sound("SimmonsSDS5_ht").struct("0 0 0 0 0 <0 1*2> 0 <0 1>")
+var d6 = sound("SimmonsSDS5_ht").struct("0 0 0 0 0 <0 1*2> 0 <0 1>").gain(.2)
 
 var _drums_intro = stack( d1, d2, d3  ).color("white") // build up
 var _drums1 =     stack(  dX1, dX2, dX3,  d4).color("white") // normal
@@ -43,8 +43,8 @@ var chordsB2 = n(`<
  [1 2 - 1][-2 - -4 0]
  [- 1 0 -][-2 0 - -] 
 >`)
-var _chordsB1 = chordsB1.sound("gm_pad_warm, gm_epiano1").scale("c4:major").color("orange")
-var _chordsB2 = chordsB2.sound("gm_pad_warm, gm_epiano1").scale("c4:major").color("orange")
+var _chordsB1 = chordsB1.sound("gm_pad_warm, gm_epiano1").scale("<c3,c4>:major").color("orange")
+var _chordsB2 = chordsB2.sound("gm_pad_warm, gm_epiano1").scale("<c3,c4>:major").color("orange")
 
 var chordsC1 = n(`<
  -4 2 1 -2
@@ -70,8 +70,8 @@ var base2 = n(`<
  [ 0 -  [0,5] -]
  [ 2 -  [2,4] -]
 >`)
-var _base1 = base1.sound("gm_clavinet").scale("c3:major").distort(1.5).gain(.3).room(2).color("orange")
-var _base2 = base2.sound("gm_clavinet").scale("c3:major").distort(1.5).gain(.3).room(2).color("orange")
+var _base1 = base1.sound("gm_clavinet").scale("c3:major").distort(1.5).gain(.1).room(2).color("orange")
+var _base2 = base2.sound("gm_clavinet").scale("c3:major").distort(1.5).gain(.1).room(2).color("orange")
 
 
 var baseX1 = n(`<
