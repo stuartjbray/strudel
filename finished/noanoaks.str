@@ -122,24 +122,24 @@ var _softEnd = softEnd.sound(" gm_fx_brightness").scale("<c2,c3>:major").vibrato
 
 var M = 1;
 $: arrange(
-  // [M*4, stack(    
-  //   _drums_intro,
-  //   _mid1,
-  //   _lead1,
-  // )],
-  // [M*4, stack(    
-  //   _drums_1,
-  //   _base1,
-  //   _mid1,
-  //   _lead1,
-  // )],
-  // [M*8, stack(
-  //   _drums_1,
-  //   _base1,
-  //   _mid1,    _mid2,
-  //   _lead1,
-  //   _sweep1
-  // )],
+  [M*4, stack(    
+    _drums_intro,
+    _mid1,
+    _lead1,
+  )],
+  [M*4, stack(    
+    _drums_1,
+    _base1,
+    _mid1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums_1,
+    _base1,
+    _mid1,    _mid2,
+    _lead1,
+    _sweep1
+  )],
   [M*8, stack( // chorus
     _drums_2,
     _base_ch,
