@@ -1,4 +1,4 @@
-//@title jestero
+//@title jesterow
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -8,7 +8,7 @@ setcpm(30)
 
 // -------------- Drums
 // EmuSP12_bd
-var d1 = sound(" DoepferMS404_bd").transpose(30).struct(   "1 0 0 0 0 0 1 0").gain(2)
+var d1 = sound(" KorgDDM110_bd").transpose(30).struct(   "1 0 0 0 0 0 1 0")
 var d2 = sound("AkaiMPC60_rim").struct("0 0     0 0 1 0 <0 1> 0")
 var d2x = sound("EmuSP12_rim").struct( "0 0     0 1 0 0 0     <0 1>").lpf("1500 2000")
 
@@ -173,14 +173,14 @@ $: arrange(
 
   [M*8, stack(    // First block again with beefier drums.
     _drums4,
-    _dug1, _dugX1.transpose("0,12").gain(1.5),
-    _base1.transpose("0,12").gain(1.8),
+    _dug1, _dugX1.transpose("0,12").gain(1.2),
+    _base1.transpose("0,12").gain(1.2),
     _lead1_vib,
   )],
   [M*4, stack(
     _drums4,
-    _dug2, _dugX2.transpose("0,12").gain(1.5),
-    _base2.transpose("0,12").gain(1.8),
+    _dug2, _dugX2.transpose("0,12").gain(1.2),
+    _base2.transpose("0,12").gain(1.2),
     _lead2_vib,
   )],
 
@@ -200,45 +200,50 @@ $: arrange(
     _bell7.echo(2, .25, .7) ,
   )],
 
-  // intro again
-    [1*1,stack( //
+  // intro again - fast beat
+  [1*1,stack( //
     _dug1
   )],
-  [1*8, stack(    
-    _drums6,
-    _dug1.transpose(12), _dugX1,     
-    _base1.ply(8).transpose("[0 12]*4"),
+  [1*4, stack(    
+    _base1.ply(8).transpose("[0 -12]*4").gain(2),
     _lead1_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
-    _bell3.transpose("0, -12"),
   )],
-  [1*4, stack(
-    _drums6,
-    _dug2.transpose(12), _dugX2,    
-    _base2.ply(8).transpose("[0 12]*4"),
-    _lead2_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
-    _bell4.transpose("0, -12"),
-  )],
-  [1*8, stack(    
-    _drums6,
-    _dug1.transpose(12), _dugX1,     
-    _base1.ply(8).transpose("[0 12]*4"),
-    _lead1_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
-    _bell5.transpose("0, -12"),
-  )],
-  [1*4, stack(
-    _drums6,
-    _dug2.transpose(12), _dugX2,    
-    _base2.ply(8).transpose("[0 12]*4"),
-    _lead2_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
-    _bell6.transpose("0, -12"),
-  )],
-    [1*2,stack( //
-      _dug1.rev(),
-      _dug1.transpose(-12)
+  
+   [1*8, stack(    
+     _drums6.lpf(500),
+     _dug1.transpose(12), _dugX1,     
+     _base1.ply(8).transpose("[0 -12]*4").gain(2),
+     _lead1_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
+     _bell3.transpose("0, -12").gain(.5),
+   )],
+   [1*4, stack(
+     _drums6.lpf(1000),
+     _dug2.transpose(12), _dugX2,    
+     _base2.ply(8).transpose("[0 12]*4"),
+     _lead2_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
+     _bell4.transpose("0, -12"),
+   )],
+   [1*8, stack(    
+     _drums6,
+     _dug1.transpose(12), _dugX1,     
+     _base1.ply(8).transpose("[0 12]*4"),
+     _lead1_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
+     _bell5.transpose("0, -12"),
+   )],
+   [1*4, stack(
+     _drums6,
+     _dug2.transpose(12), _dugX2,    
+     _base2.ply(8).transpose("[0 12]*4"),
+     _lead2_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
+     _bell6.transpose("0, -12"),
+   )],
+   [1*2,stack( //
+       _dug1.rev(),
+       _dug1.transpose(-12)
     )],
     [2, silence]
   
-  ).punchcard()
+  ) //.punchcard()
 
 
 
