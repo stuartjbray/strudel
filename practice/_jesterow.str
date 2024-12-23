@@ -19,6 +19,7 @@ var d3x = sound("AlesisSR16_hh").struct("<-@3 [1 1*2 1*4 1*8]>").lpf("[2000 2500
 
 var d1y = sound("EmuSP12_bd").struct(   "1*2 0 0 <1 -> 0 0 0 0").room(1)
 var d6y = sound("AlesisSR16_cp").struct("0 0 <1*2 1> 0 <0 1> 0 <1 1*2> 0")
+var d6x = sound("AlesisSR16_cp").struct("0 0 1 0 0 0 <1 1*2> 0")
 var d7y = sound("BossDR550_mt").struct("0 0 0 1 0 0 0 <- 1>")
 
 var d8 = sound("DoepferMS404_bd").transpose(30).struct(   "1 0 1*2 0 1 0 1 0")
@@ -30,7 +31,7 @@ var _drums3 = stack(  d2, d3  ).color("white") // break down
 
 var _drums4 = stack( d1y,  d2, d3, d6y, d7y  ).color("white") 
 var _drums5 = stack( d1, d1y,  d7y  ).color("white") 
-var _drums6 = stack(d8, d9).color("white") 
+var _drums6 = stack( d6x, d8, d9).color("white") 
 
 var dug1 = n(`< [4 5 <- 6> <2 7>]*2 >`)
 var dug2 = n(`< [5 6 <- 8> <4 9>]*2 >`)
@@ -126,13 +127,13 @@ $: arrange(
   )],
   [M*8, stack(    
     _drums1,
-    _dug1, _dugX1,     _base1,
-    _lead1_vib,
+    _dug1.gain(.4), _dugX1,     _base1,
+    _lead1_vib.gain(.4),
   )],
   [M*4, stack(
     _drums1,
-    _dug2, _dugX2,    _base2,
-    _lead2_vib,
+    _dug2.gain(.4), _dugX2,    _base2,
+    _lead2_vib.gain(.4),
   )],
   [M*8, stack(    
     _drums2,
@@ -173,13 +174,13 @@ $: arrange(
 
   [M*8, stack(    // First block again with beefier drums.
     _drums4,
-    _dug1, _dugX1.transpose("0,12").gain(1.2),
+    _dug1, _dugX1.transpose("0,12").gain(.8),
     _base1.transpose("0,12").gain(1.2),
     _lead1_vib,
   )],
   [M*4, stack(
     _drums4,
-    _dug2, _dugX2.transpose("0,12").gain(1.2),
+    _dug2, _dugX2.transpose("0,12").gain(.8),
     _base2.transpose("0,12").gain(1.2),
     _lead2_vib,
   )],
@@ -201,38 +202,38 @@ $: arrange(
   )],
 
   // intro again - fast beat
-  [1*1,stack( //
+  [M*1,stack( //
     _dug1
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _base1.ply(8).transpose("[0 -12]*4").gain(2),
     _lead1_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
   )],
   
    [1*8, stack(    
      _drums6.lpf(500),
-     _dug1.transpose(12), _dugX1,     
+     _dug1.transpose(12).struct("[1 0]*16"),
      _base1.ply(8).transpose("[0 -12]*4").gain(2),
      _lead1_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
-     _bell3.transpose("0, -12").gain(.5),
+     _bell3.transpose("0, -12").gain(.8),
    )],
    [1*4, stack(
      _drums6.lpf(1000),
-     _dug2.transpose(12), _dugX2,    
+     _dug2.transpose(12).struct("[1 0]*16"), 
      _base2.ply(8).transpose("[0 12]*4"),
      _lead2_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
      _bell4.transpose("0, -12"),
    )],
    [1*8, stack(    
      _drums6,
-     _dug1.transpose(12), _dugX1,     
+     _dug1.transpose(12).struct("[1 0]*16"),  
      _base1.ply(8).transpose("[0 12]*4"),
      _lead1_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
      _bell5.transpose("0, -12"),
    )],
    [1*4, stack(
      _drums6,
-     _dug2.transpose(12), _dugX2,    
+     _dug2.transpose(12).struct("[1 0]*16"), 
      _base2.ply(8).transpose("[0 12]*4"),
      _lead2_vib.ply(8).struct("[1 0]*8").lpf("[500 1000]*2"),
      _bell6.transpose("0, -12"),
@@ -243,7 +244,7 @@ $: arrange(
     )],
     [2, silence]
   
-  ) //.punchcard()
+  ).punchcard()
 
 
 

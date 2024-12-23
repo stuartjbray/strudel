@@ -22,10 +22,13 @@ var d6_2 = sound("AkaiMPC60_rim").struct( "0 0     1 0 1 0 [1 1][1 1]").room(2)
 var d7_2 = sound("AlesisSR16_cr").struct("0 0 0 0 0 0 1 [1 1]")
 var d8 = sound("BossDR110_oh").struct("0 1 0 1 0 [1 1] 0 1")
 
-var _drums_pre =   sound("[AkaiXR10_hh hh]*4").lpf("500 1000 1500 2000").color("white")
+var d9 = sound("AkaiLinn_cr").struct(  "1*8").lpf("[200 400 600 <800 <1400 2000>>]*2").clip("[.1 .8]")
+
+
+var _drums_pre =   sound("[AkaiXR10_hh hh]*4").lpf("1000 1500 2000 2500").color("white")
 
 var _drums_1 = stack( d2_q ).color("white")
-var _drums_2 = stack( d1, d2, d2_q2, d3, d4  ).color("white")
+var _drums_2 = stack( d1, d2, d2_q2, d3, d4, d9  ).color("white")
 
 var _drums_3 = stack(    d2,  d3,  d4, d5_2,  d7_2, d8).slow(2).color("white") 
 
