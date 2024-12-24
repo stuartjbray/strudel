@@ -7,7 +7,7 @@
 setcpm(30)
 
 // -------------- Drums
-var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 0 0 0 0 0")
+var d1 = sound("bd").struct(  "1 0 0 0 1 0 0 0")
 var d1a = sound("AkaiLinn_bd").struct(  "<1 1*2> 0 0 0 <1 1*2> 0 0 0")
 
 var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 0 0")
@@ -25,16 +25,16 @@ var _drums1 =     stack(  d1a,  d2a,  d3a ).color("white") // normal
 var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
 
-var run1 = n("<2 2 3 0>")
-var run2 = n("<-2 -2 -4 -3>")
-var run3 = n("<-2 -2 0 -1>")
-var run4 = n("<3 3 4 4.5>")
+var run1 = ("<2 2 3 0>")
+var run2 = ("<-2 -2 -4 -3>")
+var run3 = ("<-2 -2 0 -1>")
+var run4 = ("<3 3 4 4.5>")
  
 
-var _chords1 = run1.sound("gm_acoustic_bass").struct("1*2 0 0 1").scale("c3:major").color("red")
-var _chords2 = run2.sound("gm_acoustic_bass").struct("1*2 0 0 1").scale("c3:major").color("red")
-var _chords3 = run3.sound("gm_acoustic_bass").struct("1*2 0 0 1").scale("c3:major").color("red")
-var _chords4 = run4.sound("gm_acoustic_bass").struct("1*2 0 0 1").scale("c3:major").color("red")
+var _chords1 = n(run1).sound("gm_acoustic_bass").struct("1*2 0 0 1").scale("c3:major").color("red")
+var _chords2 = n(run2).sound("gm_acoustic_bass").struct("1*2 0 0 1").scale("c3:major").color("red")
+var _chords3 = n(run3).sound("gm_acoustic_bass").struct("1*2 0 0 1").scale("c3:major").color("red")
+var _chords4 = n(run4).sound("gm_acoustic_bass").struct("1*2 0 0 1").scale("c3:major").color("red")
 
 var base1 = n(`<
  [2 - 2 - ]
@@ -60,10 +60,10 @@ var base4 = n(`<
  [4 - 4 -]
  [4.5 - 4.5 -]
 >`)
-var _base1 = base1.sound("gm_electric_guitar_clean").clip(.3).echo(2, 1/8, .7).scale("c1:major").color("orange")
-var _base2 = base2.sound("gm_electric_guitar_clean").clip(.3).echo(2, 1/8, .7).scale("c2:major").color("orange")
-var _base3 = base3.sound("gm_electric_guitar_clean").clip(.3).echo(2, 1/8, .7).scale("c2:major").color("orange")
-var _base4 = base4.sound("gm_electric_guitar_clean").clip(.3).echo(2, 1/8, .7).scale("c2:major").color("orange")
+var _base1 = base1.sound("gm_electric_guitar_clean, gm_synth_bass_1").clip(.4).echo(2, 1/8, .7).scale("c2:major").color("orange")
+var _base2 = base2.sound("gm_electric_guitar_clean, gm_synth_bass_1").clip(.4).echo(2, 1/8, .7).scale("c2:major").color("orange")
+var _base3 = base3.sound("gm_electric_guitar_clean, gm_synth_bass_1").clip(.4).echo(2, 1/8, .7).scale("c2:major").color("orange")
+var _base4 = base4.sound("gm_electric_guitar_clean, gm_synth_bass_1").clip(.4).echo(2, 1/8, .7).scale("c2:major").color("orange")
 
 var baseB1 = n(`< [2 - 4 6] - [3 - 4 3] - >`)
 var baseB2 = n(`< [-2 - -3 -2] - [-4 - - -] - >`)
@@ -77,18 +77,18 @@ var _baseB4 = baseB4.sound("gm_fiddle ").scale("c3:major").color("yellow")
 
 
 var lead1 = n(`<
- [[2 3 2 -] 4]
  2
- [[3 4 3 -] 5]
+ 2
+ 3
  0
 >`)
 var lead2 = n(`<
 -
 >`)
-var _lead1 = silence // lead1.sound("gm_harpsichord").struct("[1*4][0 1*3]").scale("c3:major").color("green")
-var _lead2 = silence // lead2.sound("gm_harpsichord").scale("c3:major").color("green")
-var _lead3 = silence
-var _lead4 = silence
+var _lead1 = n(run1.add("0, 2")).sound("gm_lead_3_calliope").struct("[1*2][0 1*3]").scale("c2:major").color("green")
+var _lead2 = n(run2.add("0, 2")).sound("gm_lead_3_calliope").struct("[1*2][0 1*3]").scale("c2:major").color("green")
+var _lead3 = n(run3.add("0, 2")).sound("gm_lead_3_calliope").struct("[1*2][0 1*3]").scale("c2:major").color("green")
+var _lead4 = n(run4.add("0, 2")).sound("gm_lead_3_calliope").struct("[1*2][0 1*3]").scale("c2:major").color("green")
 
 
 var __beat1 = stack( _chords1, _base1, _baseB1, _lead1)
