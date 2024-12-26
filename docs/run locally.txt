@@ -22,3 +22,16 @@
   chirp: 'chirp.mp3'
   },'http://192.168.1.23:5432/')
 // $: sound("chirp")
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+ Copy all sounds locally.
+
+  1) Get list of all the sounds you use.
+  - Done via extract_sounds.html
+
+  2) write a .str which plays each sound at a range of octaves.
+  3) find the downloaded sounds which were created as a result.
+  4) upload those to my own repo.
+  5) repoint my tracks to use this repo instead.

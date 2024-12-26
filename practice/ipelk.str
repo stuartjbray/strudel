@@ -1,4 +1,4 @@
-//@title Template
+//@title IPelk
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -67,9 +67,9 @@ var lead3 = n(`<
  [3 - - -]
  
 >`)
-var _lead1 = lead1.sound("piano").scale("c3:major").color("yellow")
-var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
-var _lead3 = lead3.sound("piano").scale("c3:major").color("yellow")
+var _lead1 = lead1.sound("piano").scale("c4:major").color("yellow").distort(1.2)
+var _lead2 = lead2.sound("piano").scale("c4:major").color("yellow").distort(1.2)
+var _lead3 = lead3.sound("piano").scale("c4:major").color("yellow").distort(1.2)
 
 var M = 1; 
 $: arrange(

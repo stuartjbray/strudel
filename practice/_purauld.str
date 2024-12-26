@@ -1,0 +1,119 @@
+//@title purauld
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setCpm(30)
+
+
+var d1 = sound("AkaiXR10_mt").struct(  "0 [- 1] 0 0 0 0 0 0")
+var d1x = sound("AkaiXR10_mt").struct(  "0 [- 1] 0 0 0 0 0 0").gain(.3)
+
+var d2 = sound("AlesisHR16_hh").struct(  "0 1 0 0 0 0 0 0")
+var d2x = sound("AkaiXR10_lt").struct(  "0 1 0 0 0 0 1*2 0").gain(.5)
+
+var d3 = sound("AkaiXR10_hh").struct(  "0 0 0 1 0 1 0 1")
+var d4 = sound("AkaiLinn_lt").struct(  "0 0 0 0 1*2 0 1*2 0").lpf("[500 2000]*8")
+var d5 = sound("BossDR110_cp").struct(  "0 0 1 0 0 0 0 [0 1]")
+var d6 = sound("AlesisSR16_cp").struct( "0 0 0 0 1 0 [0 1] 0")
+
+var _drums_intro =     stack(  d1, d2, d3, d4) .color("white")
+var _drums1 = stack( d1, d2, d3, d4  ).color("white") 
+var _drums2 = stack( d1x, d2x  ).color("white") // break down
+var _drums3 = stack( d1, d2, d3, d4, d5, d6  ).color("white") 
+
+
+var aaa = n(`<
+ [ 5 - 5 -  <5 7> [- 5]  - 4 ]
+ >`)
+var aaa3 = n(`<
+ [ 5 - 5 -  -@4]
+ >`)
+var _aaa = aaa.sound("gm_timpani").scale("c2:minor").color("yellow")
+  .distort(1.2).room(1.2).lpf("<[1000 2000]*2>").gain(.7)
+var _aaa2 = aaa.sound("gm_trumpet").scale("c2:minor").color("yellow")
+  .distort(1.2).room(1.2).lpf("<[1000 2000]*2>").gain(.7)
+var _aaa3 = aaa3.sound("gm_timpani").scale("c2:minor").color("yellow")
+  room(2).gain(1.5).release(2)
+
+
+var bbb = n(`<
+ 10 11 5 6# 
+>`)
+var bbb2 = n(`<
+ 8 9 10 6# 
+>`)
+var _bbb = bbb.sound("gm_oboe").scale("c3:minor").color("orange")
+var _bbb2 = bbb2.sound("gm_oboe").scale("c3:minor").color("orange")
+
+var ccc = n(`<
+ 5 6 5 2
+>`)
+var ccc2 = n(`<
+ 9 10 5 2
+>`)
+var _ccc = ccc.sound("gm_alto_sax").scale("c2:minor").color("red")
+var _ccc2 = ccc2.sound("gm_alto_sax").scale("c2:minor").color("red")
+
+
+// [- 5 - 5 - 4 - 4 - 3 - 3 - 2 - -] - [- 5 - 5 - 4 - 5 - 6 - 6 - 7 - -]  -
+var ddd = n(`<
+ [- [[4,6] - 3 4 - [2,4] - -]]
+ -
+ [- [[4,6] - 3 4 - [5,7] - -]]
+ -
+>`)
+var ddd2 = n(`<
+ [- [[4,6] - 4 5 - [7,9] - -]]
+ -
+ [- [[4,6] - 4 5 - [7,12] - -]]
+ -
+>`)
+var _ddd = ddd.sound("gm_electric_bass_pick").scale("c3:minor").color("red").gain(2).room(1.5)
+var _ddd2 = ddd2.sound("gm_electric_bass_pick").scale("c3:minor").color("red").gain(2).room(1.5)
+
+var eee = n(`<[5 4 3 - - - - - 5 4 3 - - - 5 4]>`)
+var _eee = eee.sound("gm_marimba").scale("c4:minor").color("green")
+
+var M = 1;
+$: arrange(
+  
+  [M*4,stack(
+    _drums_intro,
+    _aaa,
+  )],
+  [M*8,stack(
+    _aaa,
+    _bbb,
+    _ccc,
+    _ddd,
+  )],
+  [M*8,stack(
+    d3.color("white"),
+    _aaa2,
+    _bbb.transpose(12),
+    _ccc.transpose(12),
+    _ddd.transpose(12),
+  )],
+  
+  [M*8,stack(
+    _drums2,
+    _aaa,     _aaa2.transpose(12),
+    _bbb2.lpf(800),
+    _ccc2.lpf(800),
+    _ddd2,
+    _eee
+  )],
+  [M*8,stack(
+    _drums3,
+    _aaa3,     
+    _bbb2,
+    _ccc2,
+  )],  
+  [1*8,stack(
+    _drums3,
+    _aaa.sound("z_sine").transpose(12).clip(.1).ply(2).gain(.6),
+    _bbb.transpose("<[12 0]*4>").ply(8),
+    _ccc.transpose("<[0 12]*2>").ply(8),
+  )]
+  
+).punchcard()

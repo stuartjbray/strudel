@@ -2,8 +2,6 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-// TODO- NEED RE-RECORDING
-
 // -------------- Drums
 var d1 = sound("AkaiLinn_bd").struct( "1 1 0 0 1 0 0 0").gain("<[.4 .1]*4>")
 var d2 = sound("AkaiMPC60_rim").struct(   "0 0 0 0 0 0 1 0").gain(.5)
@@ -124,24 +122,24 @@ var _softEnd = softEnd.sound(" gm_fx_brightness").scale("<c2,c3>:major").vibrato
 
 var M = 1;
 $: arrange(
-  // [M*4, stack(    
-  //   _drums_intro,
-  //   _mid1,
-  //   _lead1,
-  // )],
-  // [M*4, stack(    
-  //   _drums_1,
-  //   _base1,
-  //   _mid1,
-  //   _lead1,
-  // )],
-  // [M*8, stack(
-  //   _drums_1,
-  //   _base1,
-  //   _mid1,    _mid2,
-  //   _lead1,
-  //   _sweep1
-  // )],
+  [M*4, stack(    
+    _drums_intro,
+    _mid1,
+    _lead1,
+  )],
+  [M*4, stack(    
+    _drums_1,
+    _base1,
+    _mid1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums_1,
+    _base1,
+    _mid1,    _mid2,
+    _lead1,
+    _sweep1
+  )],
   [M*8, stack( // chorus
     _drums_2,
     _base_ch,

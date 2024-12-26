@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Sound Names</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #output { margin-top: 20px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>Extract Sound Names from Files</h1>
+    <p>Select files to extract the content inside sound("...")</p>
+    
+    <input type="file" id="fileInput" multiple>
+    <button onclick="processFiles()">Extract Sounds</button>
+
+    <h2>Extracted Results:</h2>
+    <div id="output"></div>
+
+    <script>
+        // Function to process the files selected by the user
+        function processFiles() {
+            const fileInput = document.getElementById('fileInput');
+            const outputDiv = document.getElementById('output');
+            outputDiv.textContent = ''; // Clear previous results
+            
+            if (fileInput.files.length === 0) {
+                alert('Please select some files.');
+                return;
+            }
+
+            let allExtractedNames = new Set(); // Use a Set to store unique names
+            
+            for (let file of fileInput.files) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    const fileContent = event.target.result;
+                    const regex = /sound\("([^"]+)"\)/g; // Regex to match sound("...")
+                    let match;
+                    
+                    // Extract all matches in the file
+                    while ((match = regex.exec(fileContent)) !== null) {
+                        const sounds = match[1];
+
+                        // Split sound names by spaces or commas and clean up each name
+                        let soundNames = sounds.split(/[\s,;]+/); // Split by space, comma, or semicolon
+                        for (let name of soundNames) {
+                            // Remove unwanted characters (brackets, dashes, extra spaces)
+                            name = name.replace(/[^\w\s]/g, '').trim(); // Remove non-alphanumeric chars
+                            
+                            // If name is not empty, add it to the set
+                            if (name) {
+                                allExtractedNames.add(name);
+                            }
+                        }
+                    }
+
+                    // Display the results
+                    outputDiv.textContent = Array.from(allExtractedNames).join('\n');
+                };
+
+                // Read the file content as text
+                reader.readAsText(file);
+            }
+        }
+    </script>
+</body>
+</html>

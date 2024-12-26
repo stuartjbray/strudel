@@ -35,6 +35,13 @@
 
  You could learn to create by independantly recreating every known trick in modern musical history, or... or... you could learn by copying. Take your fave song, or a song that you think you could make using this tool, or a song that you think you couldn't make using this tool, and start recreating it. No doubt half way through you'll get your own ideas about which direction the song should go in. And then once you feel you have something that can stand by itself, go back and remove or mutate or shrink the bits that came from someone else.
 
+ Don't just add stuff because it sounds ok. Stop. Listen. Play through the music in your head and then hum what SHOULD come next. Then consciously make that happen.
+
+ Sometimes you can turn something obvious and boring, into something delightful and mysterious, just by deleting one note. It will be the one patronising note, that you shouldn't have to play because it's obviously there. After it's gone, you can still hear it, but it sounds so much better because it doesn't play. I only hope that other listeners can hear how good it sounds not being there, because they never heard it there in the first place.
+
+ Sometimes I'll be working on a track, and it sounds great, and then you listen a bit more, and all of a sudden it sounds terrible, and you hate it, and you have to stop working on that track and work on something else. And then you come back later and play it, and it's beautiful again.
+
+
   >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   Tasks:
@@ -42,12 +49,23 @@
   * Use transpose to vary a _aaa inside the final arrange, for variety.
   * Set volume in mininotation for individual notes- eg "bd:1:4" is a loud drum.
   * Bite - chop up a pattern into x pieces and play in this order.
+  * Contact people about it. More - don't give up.
+  * Get log in creds for AWS to reset password to upload snappy fingers.
 
 
- * Get good photo for soundcloud library
- * Contact people about it.
- * Get log in creds for AWS to reset password to upload snappy fingers.
+  * Upload the not-shit versions on soundcloud up to youtube.
 
+                - Local   - YT    - SC  -
+ - beeptea      - y       y       y     
+ - noanoaks     - y       y       y     
+ - conspirulina - y       y       y     
+ - estroyel     - y       y       y     
+ - whisterly    - y       y       y     
+ - uruppy       - y       y       y     
+ - rowlyups     - N       N       N     
+ - blingety     - y       y       y     
+ - boogler      - y       y       y     
+ - weirderer    - y       y       y     
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -59,3 +77,56 @@ More on SoundCloud: https://soundcloud.com/stuart-j-bray
 Video Playlist: https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu4fOB0hZu
 
 Source code: https://bitbucket.org/stuartbray/strudel/
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+var top = n("0,1,2,3,4,5,6,7,8,9").scale("c1:major").color("#111")
+var bottom = n("0,1,2,3,4,5,6,7,8,9").scale("c0:major").color("#111")
+var r1 = 10
+var r2 = 20
+var r3 = 20
+var r4 = 10
+
+var tCols = ["black","cyan","pink","white","pink","cyan","black"];
+var pCols = ["black","red","orange","yellow","green","blue","purple","black"];
+
+for(var i=0; i<10; i++){
+  r1 = i;
+}
+
+var tf = stack(
+  n("-1,5".add(r1)).color(tCols[0]),
+  n("0,4 ".add(r1)).color(tCols[1]),
+  n("1,3 ".add(r1)).color(tCols[2]),
+  n("2   ".add(r1)).color(tCols[3]),
+)
+var tf2 = stack(
+  n("-1,5".add(r3)).color(tCols[0]),
+  n("0,4 ".add(r3)).color(tCols[1]),
+  n("1,3 ".add(r3)).color(tCols[2]),
+  n("2   ".add(r3)).color(tCols[3]),
+)
+  var pf = stack(
+  n("-1,6".add(r2)).color(pCols[0]),
+  n("5   ".add(r2)).color(pCols[1]),
+  n("4   ".add(r2)).color(pCols[2]),
+  n("3   ".add(r2)).color(pCols[3]), 
+  n("2   ".add(r2)).color(pCols[4]),
+  n("1   ".add(r2)).color(pCols[5]),
+  n("0   ".add(r2)).color(pCols[6]),
+)
+var pf2 = stack(
+  n("-1,6".add(r4)).color(pCols[0]),
+  n("5   ".add(r4)).color(pCols[1]),
+  n("4   ".add(r4)).color(pCols[2]),
+  n("3   ".add(r4)).color(pCols[3]), 
+  n("2   ".add(r4)).color(pCols[4]),
+  n("1   ".add(r4)).color(pCols[5]),
+  n("0   ".add(r4)).color(pCols[6]),
+)
+setCpm(60)
+$: arrange(
+ [1,stack( pf,   tf, )],
+ [1,silence],
+ [1,stack( pf2,  tf2,)],
+ [1,silence],
+).lpf(0).punchcard({ cycles:8, fillActive:1, fold:1, background:'#000'})
