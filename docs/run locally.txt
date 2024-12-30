@@ -42,3 +42,8 @@
     - Have left comment in discord: https://discord.com/channels/779427371270275082/779737254465765426
     - Found files in chrome DevTools > App > Cache Storage > external samples.
     - Can't find files here: C:\Users\Stuart Bray\AppData\Local\Google\Chrome\User Data
+
+    Feedback says I can copy the files direct from github, put them in my own repo and reference them from there.
+    Have downloaded 0.45 Gb and added to samples. But the VCSL is 3 Gb and counting for a download.
+    Putting them into bitbucket has limits - eg 3.5 per push, and 2Gb per repo - so do not use this.
+    I could stick into a public S3 from my account, and just load them via 
