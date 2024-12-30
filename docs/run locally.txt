@@ -35,3 +35,10 @@
   3) find the downloaded sounds which were created as a result.
   4) upload those to my own repo.
   5) repoint my tracks to use this repo instead.
+
+  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+   [] Test storing sounds on my repo:
+    - Have left comment in discord: https://discord.com/channels/779427371270275082/779737254465765426
+    - Found files in chrome DevTools > App > Cache Storage > external samples.
+    - Can't find files here: C:\Users\Stuart Bray\AppData\Local\Google\Chrome\User Data

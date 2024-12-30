@@ -1,0 +1,92 @@
+// title: drum patterns
+
+
+// -------------- Drums
+var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 1  1 0 0 0").gain("[.8 .3 .8 1]")
+var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0  0 0 1 0").room(".1 1")
+var d3 = sound("AlesisSR16_hh").struct("1*16").lpf("400*3 1000*3 400*6 1000*3")
+var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
+
+var _drums_intro = stack( d1, d2, d3  ).color("white") // build up
+var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
+var _drums2 =     stack(  d1, d2  ).color("white") // break down
+
+
+
+var breakbeat = stack(
+  sound("bd").struct("1 0 0 0 <0 1> 1 0 0"),
+  sound("rim").struct("0 0 1 0 0 0 1 0").room(".2 1"),
+  sound("hh").struct("1*8").gain(".2 1 .2 .5"),
+)
+
+setcpm(30)
+var bangra = stack(
+  sound("OberheimDMX_ht")   .struct("0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0"),
+  sound("OberheimDMX_mt")   .struct("0 0 1 0 1 0 0 0 0 0 0 0 1 0 1 0"),
+  sound("OberheimDMX_lt")   .struct("1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0"),
+  sound("KorgDDM110_sd")    .struct("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"),
+  sound("hh")            .struct("0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1"),
+  
+)
+
+var rock = stack(
+  sound("bd").struct("1 0 0 0 1 0 0 0"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 1 1 1 1 1 1 1")
+)
+var house = stack(
+  sound("bd").struct("1 0 1 0 1 0 1 0"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 1 1 1 1 1 1 1"),
+  sound("oh").struct("0 0 0 1 0 0 0 1")
+)
+var funk = stack(
+  sound("bd").struct("1 0 0 1 0 1 0 0"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 0 1 0 1 0 1 0"),
+  sound("rim").struct("0 1 0 1 0 1 0 1")
+)
+var hiphop = stack(
+  sound("bd").struct("1 0 0 0 1 1 0 0"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 1 1 1 1 1 1 1"),
+  sound("oh").struct("0 0 0 1 0 0 0 0")
+)
+var blues = stack(
+  sound("bd").struct("1 0 0 1 0 0 1 0"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 0 1 0 1 0 1 0")
+)
+var boombap = stack(
+  sound("bd").struct("1 0 0 0 1 0 0 0"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 1 1 1 1 1 1 1"),
+  sound("rim").struct("0 1 0 0 0 1 0 0")
+)
+var westcoast = stack(
+  sound("bd").struct("1 1 0 0 1 0 0 1"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 1 1 1 1 1 1 1"),
+  sound("oh").struct("0 0 0 1 0 0 0 1")
+)
+var trap = stack(
+  sound("bd").struct("1 0 0 1 0 0 1 0"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 1 1 1 1 1 1 1"),
+  sound("oh").struct("1 0 1 1 1 0 1 1")
+)
+var lofi = stack(
+  sound("bd").struct("1 0 0 0 0 1 0 0"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 0 1 0 1 0 1 0"),
+  sound("rim").struct("0 1 0 1 0 0 0 1")
+)
+var southern = stack(
+  sound("bd").struct("1 0 1 1 0 0 1 0"),
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 1 1 1 1 1 1 1"),
+  sound("rim").struct("0 1 0 0 1 1 0 0")
+)
+
+
+$: southern
