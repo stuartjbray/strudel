@@ -105,8 +105,8 @@ var _drone2 = drone2.sound("gm_orchestral_harp").struct("1 0 1 0").scale("c4:maj
 var tune1 = n(`<
  [- 7@2 [5,7] - [4,8]@2 - ]
  [- 7 6 [5,7] - [4,9]@2 - ]
- [- 3 2 [5,7] - [5,8]@2 - ]
- [- 2 3 [5,7] - [3,8]@2 - ]
+ [- 3 2 [3,5] - [2,5]@2 - ]
+ [- 2 3 [5,9] - [3,8]@2 - ]
 >`)
 var tune2 = n(`<
  [- 0 1 [0,2] - 1 2 - ]
@@ -135,44 +135,44 @@ var _full1 = stack( _chords1,     _base1,    _lead1,    _synth1,    _sweep1,    
 var _full2 = stack( _chords2,     _base2,    _lead2,    _synth2,    _sweep2,    _drone2 )
 var M = 1; 
 $: arrange(
-  // [M*4, stack(    
-  //   _drums_intro,
-  //   _chords1,     _base1,
-  // )],
-  // [M*4, stack(
-  //   _drums1,
-  //   _chords2,    _base2,
-  // )],
-  // [M*4, stack(    
-  //   _drums1,
-  //   _chords1,     _base1,    _lead1,    _synth1,
-  // )],
-  // [M*4, stack(
-  //   _drums1,
-  //   _chords2,    _base2,    _lead2,    _synth2,
-  // )],
-  // [M*4, stack(    
-  //   _drums1,    _full1
-  // )],
-  // [M*4, stack(
-  //   _drums1,    _full2
-  // )],
-  // [M*4, stack(    
-  //   _drums1,
-  //   _full1.gain(.3),
-  //   _tune1.transpose(12),
-  // )],
+  [M*4, stack(    
+    _drums_intro,
+    _chords1,     _base1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,    _base2,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1,     _base1,    _lead1,    _synth1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,    _base2,    _lead2,    _synth2,
+  )],
+  [M*4, stack(    
+    _drums1,    _full1
+  )],
+  [M*4, stack(
+    _drums1,    _full2
+  )],
+  [M*4, stack(    
+    _drums1,
+    _full1.gain(.3),
+    _tune1.transpose(12),
+  )],
   [M*4, stack(
     _drums1,
     _full2.gain(.3),
     _tune2.transpose(12),
   )],
-  [M*4, stack(
+  [1*4, stack(
     _drums1.lpf("1000 2000 3000 4000"),
     _full1.transpose(12).gain(.3),
     _tune1,
   )],
-  [M*4, stack(
+  [1*4, stack(
     _drums1.hpf("4000 3000 2000 1000"),
     _full2.transpose(12).gain(.3),
     _tune2
@@ -183,5 +183,5 @@ $: arrange(
   //   _tune2,
   //   _swing1,
   // )],
-)//.punchcard()
+).punchcard()
   
