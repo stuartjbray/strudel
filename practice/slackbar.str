@@ -1,6 +1,6 @@
 
 
-//@title Template
+//@title slackbar
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -14,13 +14,13 @@ var trap = stack(
   sound("sd").struct("0 0 1 0 0 0 1 0"),
   sound("hh").struct("1 1 1 1 1 1 1 1"),
   sound("oh").struct("1 0 1 1 1 0 1 1")
-)
+).color("white")
 var southern = stack(
   sound("bd").struct("1 0 1 1 0 0 1 0"),
   sound("sd").struct("0 0 1 0 0 0 1 0"),
   sound("hh").struct("1 1 1 1 1 1 1 1"),
   sound("rim").struct("0 1 0 0 1 1 0 0")
-)
+).color("white")
 
 
 var d1 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 0 0")
@@ -44,13 +44,15 @@ var _chords1 = chords1.sound("piano").scale("c3:major").color("red")
 var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
 
 var base1 = n(`<
--
+ [5 [- 2] [4 5] -] -
+ [3 [- 0] [2 3] -] -
+ [1 [- -2] [0 1] -] -
+ [0 [- -3] [-1 0] -] -
 >`)
-var base2 = n(`<
--
->`)
-var _base1 = base1.sound("piano").scale("c3:major").color("orange")
-var _base2 = base2.sound("piano").scale("c3:major").color("orange")
+// [2 [- -1] [1 2] -] -
+var base1x = n(`< 5 - 3 - 1 - 0 - >`)
+var _base1 = base1.sound("gm_rock_organ,gm_slap_bass_1").scale("c2:major").distort(4).gain(.3).color("red")
+var _base1x = base1x.sound("gm_rock_organ,gm_slap_bass_1").scale("[c2,c3]:major").distort(4).gain(.1).color("red")
 
 var lead1 = n(`<
 -
@@ -61,30 +63,28 @@ var lead2 = n(`<
 var _lead1 = lead1.sound("piano").scale("c3:major").color("yellow")
 var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
 
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 0; // change to M=1 to unmute all stacks with an M.
+var M = 0; 
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
-  [1*4, stack(    
+  [1*8, stack(    
     cat(southern,trap),
     _chords1, 
-    _base1,
+    _base1,_base1x,
   )],
-  [1*4, stack(
+  [1*8, stack(
     cat(southern,trap),
     _chords2,
-    _base2,
+    _base1,_base1x,
   )],
-  [M*4, stack(    
+  [M*8, stack(    
     cat(southern,trap),
     _chords1, 
-    _base1,
+    _base1,_base1x,
     _lead1,
   )],
-  [M*4, stack(
+  [M*8, stack(
     cat(southern,trap),
     _chords2,
-    _base2,
+    _base1,_base1x,
     _lead2,
   )],
   ).punchcard()
