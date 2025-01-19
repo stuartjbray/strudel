@@ -135,33 +135,33 @@ var _full1 = stack( _chords1,     _base1,    _lead1,    _synth1,    _sweep1,    
 var _full2 = stack( _chords2,     _base2,    _lead2,    _synth2,    _sweep2,    _drone2 )
 var M = 1; 
 $: arrange(
-  // [M*4, stack(    
-  //   _drums_intro,
-  //   _chords1,     _base1,
-  // )],
-  // [M*4, stack(
-  //   _drums1,
-  //   _chords2,    _base2,
-  // )],
-  // [M*4, stack(    
-  //   _drums1,
-  //   _chords1,     _base1,    _lead1,    _synth1,
-  // )],
-  // [M*4, stack(
-  //   _drums1,
-  //   _chords2,    _base2,    _lead2,    _synth2,
-  // )],
-  // [M*4, stack(    
-  //   _drums1,    _full1
-  // )],
-  // [M*4, stack(
-  //   _drums1,    _full2
-  // )],
-  // [M*4, stack(    
-  //   _drums1,
-  //   _full1.gain(.3),
-  //   _tune1.transpose(12),
-  // )],
+  [M*4, stack(    
+    _drums_intro,
+    _chords1,     _base1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,    _base2,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1,     _base1,    _lead1,    _synth1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,    _base2,    _lead2,    _synth2,
+  )],
+  [M*4, stack(    
+    _drums1,    _full1
+  )],
+  [M*4, stack(
+    _drums1,    _full2
+  )],
+  [M*4, stack(    
+    _drums1,
+    _full1.gain(.3),
+    _tune1.transpose(12),
+  )],
   [M*4, stack(
     _drums1,
     _full2.gain(.3),
@@ -183,5 +183,5 @@ $: arrange(
   //   _tune2,
   //   _swing1,
   // )],
-)//.punchcard()
+).punchcard()
   
