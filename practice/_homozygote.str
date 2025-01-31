@@ -16,30 +16,13 @@ var _drums_intro = stack( d1, d2, d3  ).color("white") // build up
 var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
 var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
-
-
-var chords1 = n(`<
- [0,4,6]
- -
- [0,5,7]
- -
->`)
-var chords2 = n(`<
- [4,6,10]
- -
- [0,5,9]
- -
->`)
+var chords1 = n(`< [0,4,6] - [0,5,7] ->`)
+var chords2 = n(`< [4,6,10] - [0,5,9] ->`)
 var _chords1 = chords1.sound("piano").scale("c3:major").color("red")
 var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
 
-var base1 = n(`<
- 0@2 
- -2@2
->`)
-var base2 = n(`<
--
->`)
+var base1 = n(`< 0@2  -2@2 >`)
+var base2 = n(`< 3@2 2@2 >`)
 var _base1 = base1.sound("gm_reed_organ").scale("c3:major").color("orange")
 var _base2 = base2.sound("gm_reed_organ").scale("c3:major").color("orange")
 
@@ -60,12 +43,8 @@ var _lead1 = lead1.sound("piano").clip(.6).echo(3, 1/16, .8)
 var _lead2 = lead2.sound("piano").clip(.6).echo(3, 1/16, .8)
   .scale("c3:major").color("yellow")
 
-var synth1 = n(`<
- 2 1 -1 0
- >`)
-var synth2 = n(`<
- 2 1 -1 0
->`)
+var synth1 = n(`< 2 1 -1 0 >`)
+var synth2 = n(`< 2 1 -1 0>`)
 var _synth1 = synth1.sound("gm_fx_brightness, gm_overdriven_guitar").gain(.4).attack(.6).scale("c4:major").color("yellow")
 var _synth2 = synth2.sound("gm_fx_brightness, gm_overdriven_guitar").gain(.4).attack(.6).scale("c4:major").color("yellow")
 
@@ -118,16 +97,17 @@ var _tune1 = tune1.sound("piano, gm_electric_bass_pick").room(1).scale("c3:major
 var _tune2 = tune2.sound("piano, gm_electric_bass_pick").room(1).scale("c3:major").color("red")
 
 var swing1 = n(`<
- [-]
- -
- -
- -
+ [0,2,4]@2
+ [-2,0,2]@2
 >`)
 var swing2 = n(`<
- [-]
+ [3,5,10]@2
+ [2,4,9]@2
 >`)
-var _swing1 = swing1.sound("gm_reed_organ, gm_pad_poly").room(1).scale("c3:major").color("cyan")
-var _swing2 = swing2.sound("gm_reed_organ, gm_pad_poly").room(1).scale("c3:major").color("cyan")
+var _swing1 = swing1.sound("gm_reed_organ, gm_pad_poly").room(1).struct("1!2 0!1 1!2 0!2 1").lpf("500 2000 300 2000")
+  .scale("c3:major").color("cyan")
+var _swing2 = swing2.sound("gm_reed_organ, gm_pad_poly").room(1).struct("1!2 0!1 1!2 0!2 1").lpf("500 2000 300 2000")
+  .scale("c3:major").color("cyan")
 
 
 
@@ -177,11 +157,21 @@ $: arrange(
     _full2.transpose(12).gain(.3),
     _tune2
   )],
-  // [1*4, stack(
-  //   _drums1.struct("[1 0]*<2 0 16 0>"),
-  //   _chords1,
-  //   _tune2,
-  //   _swing1,
-  // )],
+  [M*4, stack(    
+    _drums_intro,
+    _chords1,     _base1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,    _base2,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1,     _base1.transpose(12),    _lead1,   _swing1,
+  )],
+  [M*4, stack(
+     _drums1,
+    _chords2,    _base2.transpose(12),    _lead2,   _swing2,
+  )],
 ).punchcard()
   
