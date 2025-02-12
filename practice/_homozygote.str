@@ -111,67 +111,93 @@ var _swing2 = swing2.sound("gm_reed_organ, gm_pad_poly").room(1).struct("1!2 0!1
 
 
 
+
+
+ // [0 [- 2] [- 0] - 3 3 2 2 ]
+ // [3 [- 2] [- 3] - [- 2] 3 ]
+ // [[4,6]]
+var plunk1 = n(`<
+ -
+>`)
+var plunk2 = n(`<
+-
+>`)
+var _plunk1 = plunk1.sound("piano").scale("c4:major").color("blue").gain(2)
+var _plunk2 = plunk2.sound("piano").scale("c4:major").color("blue")
+
+
+
 var _full1 = stack( _chords1,     _base1,    _lead1,    _synth1,    _sweep1,    _drone1 )
 var _full2 = stack( _chords2,     _base2,    _lead2,    _synth2,    _sweep2,    _drone2 )
 var M = 1; 
 $: arrange(
+  // [M*4, stack(    
+  //   _drums_intro,
+  //   _chords1,     _base1,
+  // )],
+  // [M*4, stack(
+  //   _drums1,
+  //   _chords2,    _base2,
+  // )],
+  // [M*4, stack(    
+  //   _drums1,
+  //   _chords1,     _base1,    _lead1,    _synth1,
+  // )],
+  // [M*4, stack(
+  //   _drums1,
+  //   _chords2,    _base2,    _lead2,    _synth2,
+  // )],
+  // [M*4, stack(    
+  //   _drums1,    _full1
+  // )],
+  // [M*4, stack(
+  //   _drums1,    _full2
+  // )],
+  // [M*4, stack(    
+  //   _drums1,
+  //   _full1.gain(.3),
+  //   _tune1.transpose(12),
+  // )],
+  // [M*4, stack(
+  //   _drums1,
+  //   _full2.gain(.3),
+  //   _tune2.transpose(12),
+  // )],
+  // [1*4, stack(
+  //   _drums1.lpf("1000 2000 3000 4000"),
+  //   _full1.transpose(12).gain(.3),
+  //   _tune1,
+  // )],
+  // [1*4, stack(
+  //   _drums1.hpf("4000 3000 2000 1000"),
+  //   _full2.transpose(12).gain(.3),
+  //   _tune2
+  // )],
+  // [M*4, stack(    
+  //   _drums_intro,
+  //   _chords1,     _base1,
+  // )],
+  // [M*4, stack(
+  //   _drums1,
+  //   _chords2,    _base2,
+  // )],
+  // [M*4, stack(    
+  //   _drums1,
+  //   _chords1.transpose(12),     _base1.transpose(12),    _lead1,   _swing1,
+  // )],
+  // [M*4, stack(
+  //    _drums1,
+  //   _chords2.transpose(12),    _base2.transpose(12),    _lead2,   _swing2,
+  // )],
   [M*4, stack(    
-    _drums_intro,
-    _chords1,     _base1,
-  )],
-  [M*4, stack(
     _drums1,
-    _chords2,    _base2,
-  )],
-  [M*4, stack(    
-    _drums1,
-    _chords1,     _base1,    _lead1,    _synth1,
-  )],
-  [M*4, stack(
-    _drums1,
-    _chords2,    _base2,    _lead2,    _synth2,
-  )],
-  [M*4, stack(    
-    _drums1,    _full1
-  )],
-  [M*4, stack(
-    _drums1,    _full2
-  )],
-  [M*4, stack(    
-    _drums1,
-    _full1.gain(.3),
-    _tune1.transpose(12),
-  )],
-  [M*4, stack(
-    _drums1,
-    _full2.gain(.3),
-    _tune2.transpose(12),
-  )],
-  [1*4, stack(
-    _drums1.lpf("1000 2000 3000 4000"),
-    _full1.transpose(12).gain(.3),
-    _tune1,
-  )],
-  [1*4, stack(
-    _drums1.hpf("4000 3000 2000 1000"),
-    _full2.transpose(12).gain(.3),
-    _tune2
-  )],
-  [M*4, stack(    
-    _drums_intro,
-    _chords1,     _base1,
-  )],
-  [M*4, stack(
-    _drums1,
-    _chords2,    _base2,
-  )],
-  [M*4, stack(    
-    _drums1,
-    _chords1,     _base1.transpose(12),    _lead1,   _swing1,
+    _chords1, _base1,    
+    _lead1,   _swing1, _plunk1,
   )],
   [M*4, stack(
      _drums1,
-    _chords2,    _base2.transpose(12),    _lead2,   _swing2,
+    _chords2, _base2,    
+    _lead2,   _swing2, _plunk2,
   )],
 ).punchcard()
   
