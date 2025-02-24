@@ -110,9 +110,9 @@ var _swing2 = swing2.sound("gm_reed_organ, gm_pad_poly").room(1).struct("1!2 0!1
   .scale("c3:major").color("cyan")
 
 var plunk1 = n(`<
- [0 [- 2] [- 0] - 3 - 2 - ]
- [3 [- 2] [- 3] - 2 - 3 - ]
- [[4,6]]
+ [[0,5] - [- [1,4]] - [3,6] - [2,7] - ]
+ [- - 3 - 2 - 3 - ]
+ [[4,6,8] - - [5,6,9]]
  -
 >`)
 var plunk2 = n(`<
@@ -162,38 +162,38 @@ $: arrange(
     _full2.gain(.3),
     _tune2.transpose(12),
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums1.lpf("1000 2000 3000 4000"),
     _full1.transpose(12).gain(.3),
     _tune1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums1.hpf("4000 3000 2000 1000"),
     _full2.transpose(12).gain(.3),
     _tune2
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums_intro,
     _chords1,     _base1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums1,
     _chords2,    _base2,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums1,
     _chords1.transpose(12),     _base1.transpose(12),    _lead1,   _swing1,
   )],
-  [1*4, stack(
+  [M*4, stack(
      _drums1,
     _chords2.transpose(12),    _base2.transpose(12),    _lead2,   _swing2,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums1,
     _chords1, //_base1,    
     _lead1,   _swing1,  _plunk1,
   )],
-  [1*4, stack(
+  [M*4, stack(
      _drums1,
     _chords2, //_base2,    
     _lead2,   _swing2, _plunk2,
@@ -210,23 +210,13 @@ $: arrange(
     _synth2,    _sweep2,    _drone2    
   )],
   [1*4, stack(    
-    _drums1,
-    _full1.gain(.3),
-    _tune1.transpose(12),
-  )],
-  [1*4, stack(
-    _drums1,
-    _full2.gain(.3),
-    _tune2.transpose(12),
-  )],  
-  [M*4, stack(    
     _drums_intro,
     _chords1,     _base1,
   )],
-  [M*4, stack(
+  [1*4, stack(
     _drums1,
     _chords2,    _base2,
   )],
-  
+  [4,silence]
 ).punchcard()
   
