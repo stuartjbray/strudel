@@ -12,8 +12,8 @@ setcpm(35)
 var trap = stack(
   sound("bd").struct("1 0 0 1 0 0 1 0"),
   sound("sd").struct("0 0 1 0 0 0 1 0"),
-  sound("hh").struct("1 1 1 1 1 1 1 1"),
-  sound("oh").struct("1 0 1 1 1 0 1 1")
+  sound("hh").struct("1 1 1 1 1 1 1 1").gain("2 1 1 2"),
+  sound("oh").struct("1 0 1 1 1 0 1 1").lpf("5000 2500 4000 3000")
 ).color("white")
 var southern = stack(
   sound("bd").struct("1 0 1 1 0 0 1 0"),
