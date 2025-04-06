@@ -1,11 +1,7 @@
 //@title homozygote
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
-/*
-*/
 setcpm(30)
-
 // -------------- Drums
 var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 1  1 0 0 0").gain("[.8 .3 .8 1]")
 var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0  0 0 1 0").room(".1 1")
@@ -200,14 +196,18 @@ $: arrange(
   )],
   [1*4, stack(    
     _lead1,   _swing1,  
-    _plunk1.transpose(-12),
-    _synth1,    _sweep1,    _drone1    
+    _plunk1.transpose(12),
+    _synth1.gain(.5),    
+    //_sweep1,    
+    _drone1    
   )],
   [1*4, stack(
     _chords2, 
     _lead2,   _swing2, 
-    _plunk2.transpose(-12),
-    _synth2,    _sweep2,    _drone2    
+    _plunk2.transpose(12),
+    _synth2.gain(.5),    
+    //_sweep2,    
+    _drone2    
   )],
   [1*4, stack(    
     _drums_intro,
