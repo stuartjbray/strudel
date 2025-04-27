@@ -1,4 +1,4 @@
-//@title Template
+//@title Olosevel
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -10,14 +10,22 @@ setcpm(40)
 var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 0 0 0 0 0")
 var dx1 = sound("AkaiLinn_bd").struct(  "1 0 <1 0> 0 0 0 0 0 0 1 0 0").lpf("<2000 1000>*8")
 var dy1 = sound("BossDR550_mt").struct("0 0 0 0 0 0 <1 0> 0 0 0 0 0 ")
-
-var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 <1 0> 0")
+var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 1 0")
 var d3 = sound("AlesisSR16_hh").struct("0 0 0 0 0 <1 0> 0 0")
+
+
+
+var d1f = sound("AkaiLinn_bd").struct(  "1 1 0 0  0 0 <1*2 0> 0").lpf("<2000 4000>*2")
+var d1f_ = sound("percysyn_bd").struct( "0 0 1 1  0 0 1 1 ")
+var d2f = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0")
+var d3f = sound("AlesisSR16_hh").struct("0 1 0 1 0 1*2 0 1").gain("[.1 .8]*2")
+
 var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
 
 var _drums_intro = stack( d1, d2, d3  ).color("white") // build up
-var _drums1 =     stack(  dx1, dy1,  d2,  d3,  d4).color("white") // normal
-var _drums2 =     stack(  d1, d2  ).color("white") // break down
+var _drums_simple =     stack(  dx1, dy1,  d2,  d3,  d4).color("white") // normal
+
+var _drums_fast =     stack(  d1f, d1f_, d2f, d3f ).color("white") // fast
 
 
 
@@ -28,10 +36,21 @@ var chords1 = n(`<
  [6,<8 9>]
 >`)
 var chords2 = n(`<
--
+ [[2,7] [4 6] - -]
+ [[1,5] - - [4 5]]
+ [[4,6] [6 5] - - ]
+ [2,4]
 >`)
+var chords3 = n(`<
+ [[2] [2 4] - -]
+ [[1,5] - - [4 5]]
+ [[4,6] [4 8] - - ]
+ [0,2,4]
+>`)
+
 var _chords1 = chords1.sound("piano").scale("c4:major").color("red")
 var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
+var _chords3 = chords3.sound("piano").scale("c3:major").color("red")
 
 var base1 = n(`<
  [0@2 - 1@2 - 4@2 ]
@@ -78,28 +97,28 @@ var _lead2 = lead2.sound("gm_banjo").scale("c3:major").color("yellow")
 var M = 0;
 $: arrange(
   [M*8, stack(    
-    _drums_intro,
-    _chords1, 
-    _base1,
-    _dug1,
+    _drums_intro,    _chords1,     _base1,    _dug1,
   )],
-  [1*8, stack(
-    _drums1,
-    _chords1,
-    _base1,
-    _dug1,
+  
+  [M*8, stack(
+    _drums_simple,    _chords1,    _base1,    _dug1,
   )],
   [M*8, stack(    
-    _drums1,
-    _chords1, 
-    _base1,
-    _lead1,
+    _drums_fast,    _chords1,     _base1,    _lead1,
   )],
-  [M*8, stack(
-    _drums1,
-    _chords2,
-    _base2,
-    _lead2,
+  
+  [1*4, stack(
+    _drums_fast,    _chords2,    _base2,    _lead2,
   )],
+  [1*4, stack(
+    _drums_fast,    _chords3,    _base2,    _lead2,
+  )],
+
+  [1*4, stack(
+    _drums_fast,    _chords2.transpose(12),    _base2,    _lead2,
+  )],
+  [1*4, stack(
+    _drums_fast,    _chords3.transpose(12),    _base2,    _lead2,
+  )],  
   ).punchcard()
   
