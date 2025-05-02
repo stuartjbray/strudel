@@ -17,8 +17,8 @@ var d3 = sound("AlesisSR16_hh").struct("0 0 0 0 0 <1 0> 0 0")
 
 var d1f = sound("AkaiLinn_bd").struct(  "1 1 0 0  0 0 <1*2 0> 0").lpf("<2000 4000>*2")
 var d1f_ = sound("percysyn_bd").struct( "0 0 1 1  0 0 1 1 ")
-var d2f = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0")
-var d3f = sound("AlesisSR16_hh").struct("0 1 0 1 0 1*2 0 1").gain("[.1 .8]*2")
+var d2f = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0").gain(.5)
+var d3f = sound("AlesisSR16_hh").struct("0 1 0 1 0 1*2 0 1").gain("[.1 .4]*2")
 
 var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
 
@@ -36,12 +36,19 @@ var chords1 = n(`<
  [6,<8 9>]
 >`)
 var chords2 = n(`<
+ [[5,7] [5 6] - [1 5]]
+ [1,6]
+ -
+ [6,<8 9>]
+>`)
+
+var chords3 = n(`<
  [[2,7] [4 6] - -]
  [[1,5] - - [4 5]]
  [[4,6] [6 5] - - ]
  [2,4]
 >`)
-var chords3 = n(`<
+var chords4 = n(`<
  [[2] [2 4] - -]
  [[1,5] - - [4 5]]
  [[4,6] [4 8] - - ]
@@ -49,8 +56,9 @@ var chords3 = n(`<
 >`)
 
 var _chords1 = chords1.sound("piano").scale("c4:major").color("red")
-var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
-var _chords3 = chords3.sound("piano").scale("c3:major").color("red")
+var _chords2 = chords2.sound("piano").scale("c4:major").color("red")
+var _chords3 = chords3.sound("piano").scale("c4:major").color("red")
+var _chords4 = chords4.sound("piano").scale("c4:major").color("red")
 
 var base1 = n(`<
  [0@2 - 1@2 - 4@2 ]
@@ -66,59 +74,73 @@ var base2 = n(`<
 -
 >`)
 var _base1 = stack(
-  base1.ply(4).clip("<[.8 .4]*4>").scale("c2:major").sound("piano"),
-  base1.ply(2).clip(1).scale("c3:major").sound("piano"),
+  base1.ply(4).clip("<[.4 .2]*4>").scale("c2:major").sound("piano"),
+  base1.ply(1).clip(1).scale("c3:major").sound("piano").echo(4, 1/8, .9),
   base1.sound("gm_fx_sci_fi").scale("c2:major").echo(4, 1/16, .9)
 ).color("orange")
 var _base2 = base2.sound("piano").scale("c2:major").color("orange")
 
 var dug1 = n(`<
- [1 4] 
- -
- [7 4] 
- -
+ [1 2]
+ [4 5] 
+ [6 8]
+ [5 4] 
 >`) 
-// [0@6 -@2 4@6 -@2] 
-// [3@6 -@2 1@6 -@2]  
-var _dug1 = stack(
-  dug1.clip("1").scale("c2:major").sound("gm_shanai") //.lpf("500")
-).color("yellow")
-
+var dug2 = n(`<
+ [7 4]
+ [6 4] 
+ [6 8]
+ [5 4] 
+>`)
+var _dug1 = dug1.struct("0 1 1 0").scale("c2:major").sound("gm_orchestral_harp").room(2).color("yellow")
+var _dug2 = dug2.struct("0 1 1 0").scale("c2:major").sound("gm_orchestral_harp").room(2).color("yellow")
 
 var lead1 = n(`<
- [-]
+ 1 
+ 4
+ 6
+ 5
 >`)
 var lead2 = n(`<
 -
 >`)
-var _lead1 = lead1.sound("gm_banjo").scale("c3:major").color("yellow")
+var _lead1 = lead1.sound("gm_accordion").scale("c2:major").color("yellow").gain(.5)
+var _lead2 = lead2.sound("gm_accordion").scale("c2:major").color("yellow").gain(.5)
 
-var _lead2 = lead2.sound("gm_banjo").scale("c3:major").color("yellow")
-var M = 0;
+
+var M = 1;
 $: arrange(
-  [M*8, stack(    
-    _drums_intro,    _chords1,     _base1,    _dug1,
-  )],
+  // [M*8, stack(    
+  //   _drums_intro,    _chords1,     _base1,    _dug1,
+  // )],
   
   [M*8, stack(
-    _drums_simple,    _chords1,    _base1,    _dug1,
+    _drums_intro,    _chords1,    _base1,    //_dug1,
   )],
   [M*8, stack(    
-    _drums_fast,    _chords1,     _base1,    _lead1,
+    _drums_simple,   _chords2,    _base1,   
   )],
   
-  [1*4, stack(
-    _drums_fast,    _chords2,    _base2,    _lead2,
-  )],
-  [1*4, stack(
+  [M*4, stack(
     _drums_fast,    _chords3,    _base2,    _lead2,
+  )],
+  [M*4, stack(
+    _drums_fast,    _chords4,    _base2,    _lead2,
   )],
 
   [1*4, stack(
-    _drums_fast,    _chords2.transpose(12),    _base2,    _lead2,
+    _drums_fast,    _chords3.transpose(12),    _base2,    _lead1,  _dug2
   )],
   [1*4, stack(
-    _drums_fast,    _chords3.transpose(12),    _base2,    _lead2,
+    _drums_fast,    _chords4.transpose(12),    _base2,    _lead1,  _dug2
   )],  
-  ).punchcard()
-  
+).punchcard()
+
+
+//$: n(sine.segment(8).range(0,6)).scale("c5:major").gain(.3)
+
+
+
+//note("0 1 2 3 4 5 6 7".scale('c:mixolydian')).bite(4, "3 2 1 0")
+
+//sound("piano").beat("0,1,2,3,7",8)
