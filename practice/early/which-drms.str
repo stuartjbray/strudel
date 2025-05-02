@@ -1,0 +1,73 @@
+//@title which-drms
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+/*
+*/
+setcpm(20)
+
+// -------------- Drums
+var d1 = sound("AkaiLinn_bd").struct(  "[1 1] [1 1 1]").lpf("[500 2000]!4").transpose(sine)
+var d4 = sound("bossdr550_lt").struct( "1 1").transpose(-12).room(".5 2")
+var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0  0 0 1 0 ").gain(".2 1")
+var d3 = sound("AlesisSR16_hh").struct("[0 1 0][0 1 1!4] ").gain(".8 .4 .2")
+
+var _drums_intro = stack( d1, d2, d3, d4 ).color("white") // build up
+var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
+var _drums2 =     stack(  d1, d2  ).color("white") // break down
+
+
+
+var chords1 = n(`<
+-
+>`)
+var chords2 = n(`<
+-
+>`)
+var _chords1 = chords1.sound("piano").scale("c3:major").color("red")
+var _chords2 = chords2.sound("piano").scale("c3:major").color("red")
+
+var base1 = n(`<
+-
+>`)
+var base2 = n(`<
+-
+>`)
+var _base1 = base1.sound("piano").scale("c3:major").color("orange")
+var _base2 = base2.sound("piano").scale("c3:major").color("orange")
+
+var lead1 = n(`<
+-
+>`)
+var lead2 = n(`<
+-
+>`)
+var _lead1 = lead1.sound("piano").scale("c3:major").color("yellow")
+var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
+
+var M = 0; 
+$: arrange(
+  [1*4, stack(    
+    _drums_intro,
+    _chords1, 
+    _base1,
+  )],
+  [0*4, stack(
+    _drums1,
+    _chords2,
+    _base2,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1, 
+    _base1,
+    _lead1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,
+    _base2,
+    _lead2,
+  )],
+  ).punchcard()
+  
