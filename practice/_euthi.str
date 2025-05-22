@@ -28,7 +28,7 @@ var d6_2 = sound("AkaiMPC60_rim").struct( "0 1 0 1 0 1 0 1")
 var d8 = sound("BossDR110_oh").struct("0 1 0 1 0 [1 1] 0 1")
 
 var d7 = sound("AkaiLinn_cr").struct(  "1*8").lpf("[200 400 600 <800 <1400 2000>>]*2").clip("[.1 .8]")
-var d7_2 = sound("AlesisSR16_cr").struct("0 0 0 0 0 0 0 1")
+var d7_2 = sound("AlesisSR16_cr").struct("0 0 0 0 0 0 0 1").lpf(3000)
 
 
 var _drums_pre =   sound("[AkaiXR10_hh hh]*4").lpf("1000 1500 2000 2500").color("white")
