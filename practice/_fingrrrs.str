@@ -89,10 +89,15 @@ var __beat4 = stack( _chords4, _base4, _baseB4, _lead4)
 
 var M = 0;
 $: arrange(
-  [1*4, stack(    _drums_intro,  __beat1  )],
-  [1*4, stack(    _drums_intro, d3a,  __beat2  )],
-  [1*4, stack(    _drums_intro, d4a, __beat3  )],
-  [1*4, stack(    _drums_intro, d4b, __beat4  )],
+  [M*4, stack(    _drums_intro,      __beat1  )],
+  [M*4, stack(    _drums_intro, d3a, __beat2  )],
+  [M*4, stack(    _drums_intro, d4a, __beat3  )],
+  [M*4, stack(    _drums_intro, d4b, __beat4  )],
+
+  [1*4, stack(    _drums1,      __beat1  )],
+  [1*4, stack(    _drums1, d3a, __beat2  )],
+  [1*4, stack(    _drums1, d4a, __beat3  )],
+  [1*4, stack(    _drums1, d4b, __beat4  )],
 
   
   ).punchcard()

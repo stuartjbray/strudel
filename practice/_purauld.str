@@ -74,7 +74,7 @@ var _ddd2 = ddd2.sound("gm_electric_bass_pick").scale("c3:minor").color("red").g
 var eee = n(`<[5 4 3 - - - - - 5 4 3 - - - 5 4]>`)
 var _eee = eee.sound("gm_marimba").scale("c4:minor").color("green")
 
-var M = 1;
+var M = 0;
 $: arrange(
   
   [M*4,stack(
@@ -110,10 +110,10 @@ $: arrange(
     _ccc2,
   )],  
   [1*8,stack(
-    _drums3,
+    _drums3.lpf(500),
     _aaa.sound("z_sine").transpose(12).clip(.1).ply(2).gain(.6),
-    _bbb.transpose("<[12 0]*4>").ply(8),
-    _ccc.transpose("<[0 12]*2>").ply(8),
+    _bbb.struct("1 0 0 0 1 0 0 0"),
+    _ccc.struct("0 0 1 0 0 0 1 0 "),
   )]
   
 ).punchcard()

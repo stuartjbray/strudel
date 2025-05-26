@@ -26,8 +26,8 @@ var chords2 = n(`<
  -2
  2
 >`.add("0,5"))
-var _chords1 = chords1.sound("recorder_bass_sus").scale("c3:major").color("red").gain(3).release(1)
-var _chords2 = chords2.sound("recorder_bass_sus").scale("c3:major").color("red").gain(3).release(1)
+var _chords1 = chords1.sound("recorder_bass_sus").scale("c3:major").color("red").gain(2).release(1)
+var _chords2 = chords2.sound("recorder_bass_sus").scale("c3:major").color("red").gain(2).release(1)
 
 var base1 = n(`<
  [0 1 0 4@5] 
@@ -38,8 +38,8 @@ var base1 = n(`<
 var base2 = n(`<
 -
  >`)
-var _base1 = base1.sound("piano").scale("<c3, c5>:major").color("orange").gain(2)
-var _base2 = base2.sound("piano").scale("<c3, c5>:major").color("orange").gain(2)
+var _base1 = base1.sound("piano").scale("<c3, c5>:major").color("orange").gain(1.5)
+var _base2 = base2.sound("piano").scale("<c3, c5>:major").color("orange").gain(1.5)
 
 
 var lead1 = n(`<
@@ -50,8 +50,8 @@ var lead2 = n(`<
  - - - -
  - - - -
 >`)
-var _lead1 = lead1.sound("clavisynth").scale("c3:major").color("yellow").distort(2)
-var _lead2 = lead2.sound("clavisynth").scale("c3:major").color("yellow").distort(2)
+var _lead1 = lead1.sound("clavisynth").scale("c3:major").color("yellow").distort(1.5)
+var _lead2 = lead2.sound("clavisynth").scale("c3:major").color("yellow").distort(1.5)
 
 
 var whum1 = n(`<
