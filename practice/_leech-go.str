@@ -11,7 +11,7 @@ var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 1 0 0 0 0").echo(2,.25,.5)
 var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 <1 [1 1] [1 1 1 1] [1 1]> 0 0 0").gain("[.4 .6 .8 .6]*16")
 
 var d3 = sound("AlesisSR16_hh").struct("1 0 1*2 1 0 12 0 0").lpf("<[1500 3000@2]>")
-var d4 = sound("circuitstom_sd").struct(  "0 0 1 0 0 0 1 0").room(.4).gain(".4 1")
+var d4 = sound("circuitstom_sd").struct(  "0 0 1 0 0 0 1 0").room(.4).gain(".4 .8")
 
 var d4_fill = sound("circuitstom_sd").struct(  "<-@3 [0 0 1 0 0 0 1 1]>").room(.4)
 var d5 = sound("dpm48_rd").struct("<- - - [0 0 1 0 0 0 1 1]>")
@@ -92,8 +92,8 @@ var dug2 = n(`<
  [0@5 3 1@2] 
  [0@5 2 1 -] 
  >`)
-var _dug1 = dug1.sound("gm_pad_warm").scale("c3:minor").color("green") 
-var _dug2 = dug2.sound("gm_pad_warm").scale("c3:minor").color("green")
+var _dug1 = dug1.sound("gm_pad_warm").scale("c3:minor").color("green").gain("1.5 1.1")
+var _dug2 = dug2.sound("gm_pad_warm").scale("c3:minor").color("green").gain("1.5 1.1")
 
 var puk1 = n(`<
  [-@7 [0,2]] 
@@ -122,9 +122,9 @@ var zum1 = n(`<
 var zum2 = n(`<
  5 4 3 0
 >`)
-var _zum1 = zum1.sound("supersaw").ply(8).gain(".5 .7 .4 .6")
+var _zum1 = zum1.sound("supersaw").ply(8).gain(".5 .9 .4 .9")
   .scale("c3:minor").color("blue")
-var _zum2 = zum2.sound("supersaw").ply(8).gain(".5 .7 .4 .6")
+var _zum2 = zum2.sound("supersaw").ply(8).gain(".5 .9 .4 .9")
   .scale("c3:minor").color("blue")
 
 
