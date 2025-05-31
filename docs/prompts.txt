@@ -1,0 +1,16 @@
+
+
+**"Please refactor this Strudel code to use the 'pass function' pattern. For each instrument type that has repeated sound/scale/color/effects settings, create a pass function at the top that applies those common settings. Then compress the code so that patterns are defined inline within the pass function calls, eliminating intermediate variables.
+For example, if I have:
+var drums1 = n(`
+ x . 
+ y .
+`)
+var _drums1 = drums1.sound("808").gain(.5).color("red")
+It should become:
+var drumsPass = (x) => x.sound("808").gain(.5).color("red")
+var _drums1 = drumsPass(n(`
+ x . 
+ y .
+`))
+Please maintain the same functionality while making the code more concise and maintainable."**

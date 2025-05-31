@@ -25,6 +25,19 @@ var _drums2 =     stack(  d2a, d6  )          .color("white") // break down
 
 _$: _drums1.punchcard();
 
+
+// Define pass functions for each instrument
+var chordsPass = (x) => x.sound("gm_brass_section").scale("c3:minor").color("red").room(1)
+var basePass = (x) => x.sound("piano").scale("c3:minor").color("orange")
+var lowPass = (x) => x.sound("gm_brass_section").scale("c2:minor").color("yellow")
+var leadPass = (x) => x.sound("gm_violin").scale("c4:minor").color("yellow")
+var dugPass = (x) => x.sound("gm_pad_warm").scale("c3:minor").color("green")
+var pukPass = (x) => x.sound("handchimes").scale("c4:minor").color("cyan").echo(4,1/8,.6)
+var pukBuildUpPass = (x) => x.sound("handchimes").scale("c4:minor").color("cyan")
+var zumPass = (x) => x.sound("supersaw").ply(8).gain(".5 .7 .4 .6").scale("c3:minor").color("blue")
+var dunPass = (x) => x.sound("gm_koto").scale("<c3,c4>:minor").color("magenta").room(1)
+
+// Apply pass functions to patterns
 var chords1 = n(`<
  [0 2 4 7 -@4]
  [-2 0 2 5 -@4]
@@ -37,8 +50,8 @@ var chords2 = n(`<
  [3 1 2 3 -@4]
  [0 3 5 7 -@4]
 >`)
-var _chords1 = chords1.sound("gm_brass_section").scale("c3:minor").color("red").room(1)
-var _chords2 = chords2.sound("gm_brass_section").scale("c3:minor").color("red").room(1)
+var _chords1 = chordsPass(chords1)
+var _chords2 = chordsPass(chords2)
 
 var base1 = n(`<
  [0 2 4 7 4 2 0 -]
@@ -52,8 +65,8 @@ var base2 = n(`<
  [3 1 2 3 1 2 3 -]
  [-1 3 5 7 <5 ~> <3 ~> <-1 ~> -]
 >`)
-var _base1 = base1.sound("piano").scale("c3:minor").color("orange")
-var _base2 = base2.sound("piano").scale("c3:minor").color("orange")
+var _base1 = basePass(base1)
+var _base2 = basePass(base2)
 
 var low1 = n(`<
  0 -2 3 2
@@ -61,9 +74,8 @@ var low1 = n(`<
 var low2 = n(`<
  5 4 6 7
 >`)
-var _low1 = low1.sound("gm_brass_section").scale("c2:minor").color("yellow")
-var _low2 = low2.sound("gm_brass_section").scale("c2:minor").color("yellow")
-
+var _low1 = lowPass(low1)
+var _low2 = lowPass(low2)
 
 var lead1 = n(`<
  [0@3 2 ]
@@ -77,8 +89,8 @@ var lead2 = n(`<
  [6@3 4]
  [7]
 >`)
-var _lead1 = lead1.sound("gm_violin").scale("c4:minor").color("yellow")
-var _lead2 = lead2.sound("gm_violin").scale("c4:minor").color("yellow")
+var _lead1 = leadPass(lead1)
+var _lead2 = leadPass(lead2)
 
 var dug1 = n(`<
  [2@5 0 1@2] 
@@ -92,8 +104,8 @@ var dug2 = n(`<
  [0@5 3 1@2] 
  [0@5 2 1 -] 
  >`)
-var _dug1 = dug1.sound("gm_pad_warm").scale("c3:minor").color("green") 
-var _dug2 = dug2.sound("gm_pad_warm").scale("c3:minor").color("green")
+var _dug1 = dugPass(dug1)
+var _dug2 = dugPass(dug2)
 
 var puk1 = n(`<
  [-@7 [0,2]] 
@@ -108,13 +120,10 @@ var puk2 = n(`<
  <[-@7 [-1,3]] ->
  >`)
 
-var _pukBuildUp = n("5 4 3 2").sound("handchimes").scale("c4:minor").color("cyan")
+var _pukBuildUp = pukBuildUpPass(n("5 4 3 2"))
 
-var _puk1 = puk1.sound("handchimes").scale("c4:minor").color("cyan").echo(4,1/8,.6)
-var _puk2 = puk2.sound("handchimes").scale("c4:minor").color("cyan").echo(4,1/8,.6)
-
-
-// pipeorgan_loud
+var _puk1 = pukPass(puk1)
+var _puk2 = pukPass(puk2)
 
 var zum1 = n(`<
  0 2 -2 -1
@@ -122,11 +131,8 @@ var zum1 = n(`<
 var zum2 = n(`<
  5 4 3 0
 >`)
-var _zum1 = zum1.sound("supersaw").ply(8).gain(".5 .7 .4 .6")
-  .scale("c3:minor").color("blue")
-var _zum2 = zum2.sound("supersaw").ply(8).gain(".5 .7 .4 .6")
-  .scale("c3:minor").color("blue")
-
+var _zum1 = zumPass(zum1)
+var _zum2 = zumPass(zum2)
 
 var dun1 = n(`<
  [- [3,5] - [3,5] - 4 5 [3,4]] 
@@ -140,8 +146,9 @@ var dun2 = n(`<
  -
  [- 0 1 2 7 4 0 -]
  >`)
-var _dun1 = dun1.sound("gm_koto").scale("<c3,c4>:minor").color("magenta").room(1)
-var _dun2 = dun2.sound("gm_koto").scale("<c3,c4>:minor").color("magenta").room(1)
+var _dun1 = dunPass(dun1)
+var _dun2 = dunPass(dun2)
+
 
 var M = 1; 
 $: arrange(
