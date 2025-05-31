@@ -38,116 +38,99 @@ var zumPass = (x) => x.sound("supersaw").ply(8).gain(".5 .7 .4 .6").scale("c3:mi
 var dunPass = (x) => x.sound("gm_koto").scale("<c3,c4>:minor").color("magenta").room(1)
 
 // Apply pass functions to patterns
-var chords1 = n(`<
+var _chords1 = chordsPass(n(`<
  [0 2 4 7 -@4]
  [-2 0 2 5 -@4]
  [-3 0 1 3 -@4]
  [2 0 1 2 -@4]
->`)
-var chords2 = n(`<
+>`))
+var _chords2 = chordsPass(n(`<
  [5 3 4 5 -@4]
  [4 2 3 4 -@4]
  [3 1 2 3 -@4]
  [0 3 5 7 -@4]
->`)
-var _chords1 = chordsPass(chords1)
-var _chords2 = chordsPass(chords2)
+>`))
 
-var base1 = n(`<
+var _base1 = basePass(n(`<
  [0 2 4 7 4 2 0 -]
  [-2 0 2 5 2 0 -2 -]
  [-3 0 1 3 4 5 <3 -> <4 ->]
  [2 0 1 2 3 4 <2 -><1 ->]
->`)
-var base2 = n(`<
+>`))
+var _base2 = basePass(n(`<
  [5 3 4 5 3 4 5 -]
  [4 2 3 4 2 3 4 -]
  [3 1 2 3 1 2 3 -]
  [-1 3 5 7 <5 ~> <3 ~> <-1 ~> -]
->`)
-var _base1 = basePass(base1)
-var _base2 = basePass(base2)
+>`))
 
-var low1 = n(`<
+var _low1 = lowPass(n(`<
  0 -2 3 2
->`)
-var low2 = n(`<
+>`))
+var _low2 = lowPass(n(`<
  5 4 6 7
->`)
-var _low1 = lowPass(low1)
-var _low2 = lowPass(low2)
+>`))
 
-var lead1 = n(`<
+var _lead1 = leadPass(n(`<
  [0@3 2 ]
  [-2]
  [3@3 5]
  [2 1]
->`)
-var lead2 = n(`<
+>`))
+var _lead2 = leadPass(n(`<
  [5@3 7]
  [4]
  [6@3 4]
  [7]
->`)
-var _lead1 = leadPass(lead1)
-var _lead2 = leadPass(lead2)
+>`))
 
-var dug1 = n(`<
+var _dug1 = dugPass(n(`<
  [2@5 0 1@2] 
  [2@5 0 1 -] 
  [3@5 0 1@2] 
  [2@5 0 1 -] 
->`)
-var dug2 = n(`<
+>`))
+var _dug2 = dugPass(n(`<
  [0@5 2 1@2] 
  [0@5 2 1 -] 
  [0@5 3 1@2] 
  [0@5 2 1 -] 
- >`)
-var _dug1 = dugPass(dug1)
-var _dug2 = dugPass(dug2)
+ >`))
 
-var puk1 = n(`<
+var _puk1 = pukPass(n(`<
  [-@7 [0,2]] 
  [-@7 [0,3]] 
  [-@7 [-1,4]] 
  [-@7 [-1,3]] 
->`)
-var puk2 = n(`<
+>`))
+var _puk2 = pukPass(n(`<
  [-@7 [0,2]] 
  [-@7 [0,3]] 
  [-@7 [-1,4]] 
  <[-@7 [-1,3]] ->
- >`)
+ >`))
 
 var _pukBuildUp = pukBuildUpPass(n("5 4 3 2"))
 
-var _puk1 = pukPass(puk1)
-var _puk2 = pukPass(puk2)
-
-var zum1 = n(`<
+var _zum1 = zumPass(n(`<
  0 2 -2 -1
->`)
-var zum2 = n(`<
+>`))
+var _zum2 = zumPass(n(`<
  5 4 3 0
->`)
-var _zum1 = zumPass(zum1)
-var _zum2 = zumPass(zum2)
+>`))
 
-var dun1 = n(`<
+var _dun1 = dunPass(n(`<
  [- [3,5] - [3,5] - 4 5 [3,4]] 
  - 
  [- [1,3] - [1,3] - <2 0> 1 [<-2 2>,0]] 
  - 
->`)
-var dun2 = n(`<
+>`))
+var _dun2 = dunPass(n(`<
  -
  [- 2 3 2 3 4 3 2]
  -
  [- 0 1 2 7 4 0 -]
- >`)
-var _dun1 = dunPass(dun1)
-var _dun2 = dunPass(dun2)
+ >`))
 
 
 var M = 1; 
