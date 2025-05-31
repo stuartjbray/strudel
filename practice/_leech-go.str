@@ -11,7 +11,7 @@ var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 1 0 0 0 0").echo(2,.25,.5)
 var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 <1 [1 1] [1 1 1 1] [1 1]> 0 0 0").gain("[.4 .6 .8 .6]*16")
 
 var d3 = sound("AlesisSR16_hh").struct("1 0 1*2 1 0 12 0 0").lpf("<[1500 3000@2]>")
-var d4 = sound("circuitstom_sd").struct(  "0 0 1 0 0 0 1 0").room(.4).gain(".4 1")
+var d4 = sound("circuitstom_sd").struct(  "0 0 1 0 0 0 1 0").room(.4).gain(".4 .8")
 
 var d4_fill = sound("circuitstom_sd").struct(  "<-@3 [0 0 1 0 0 0 1 1]>").room(.4)
 var d5 = sound("dpm48_rd").struct("<- - - [0 0 1 0 0 0 1 1]>")
