@@ -21,15 +21,14 @@ var _drums_intro = drumsPass(stack( d1b, d3b, d5b  )).slow(2)         // build u
 var _drums1 =     drumsPass(stack(  d1,  d2,  d3,  d4, d5))           // normal
 var _drums2 =     drumsPass(stack(  d1, d2, d3c))                   // break down
 
-var _drum_xyl = sound("xylophone_hard_ff").struct("0 0 1 0").gain(.5)
-
+var _drum_xyl = sound("xylophone_hard_ff").struct("0 0 1 0").gain(.3).lpf("<500 750 1000 1250 1500 1750 2000 2250>")
 _$: _drum_xyl
 
 // Define pass functions for each instrument. And NPass functions for note patterns.
 var chordsPass = (x) => x.sound("piano").scale("c3:minor").color("red").gain(slider(0.785))
 var chordsNPass = (x) => x.struct("1 0 0 0 1 1 0 0")
 var basePass = (x) => x.sound("gm_orchestral_harp").release(1).scale("c3:minor").color("orange").gain(slider(0.613))
-var leadPass = (x) => x.sound("gm_harpsichord").scale("c4:minor").color("yellow").room(1.5).gain(slider(0.525))
+var leadPass = (x) => x.sound("gm_koto").scale("c4:minor").color("yellow").room(2).gain(slider(0.525))
 var dugPass = (x) => x.sound("gm_banjo").scale("c3:minor").color("cyan").echo(2,1/16,.5).room(1).gain(slider(0.687))
 
 var _chords1 = chordsPass(n(chordsNPass(`< 0 0 7 3      0 0 7 5>`)))
@@ -37,42 +36,16 @@ var _chords2 = chordsPass(n(chordsNPass(`< 5 5 4 6      5 5 4 6 >`)))
 var _chords3 = chordsPass(n(chordsNPass(`< 0 0 -2 -2    -4 -4 -5 -5>`)))
 var _chords4 = chordsPass(n(chordsNPass(`< -4 -4 -5 -5  -4 -4 -2 -1>`)))
 
-var _base1 = basePass(n(`<
- 0 - 2 -
->`))
-var _base2 = basePass(n(`<
- 5 - 4 -
->`))
-var _base3 = basePass(n(`<
- 0 - 2 -
->`))
-var _base4 = basePass(n(`<
- 5 - 7 -
->`))
+var _base1 = basePass(n(`< 0 - 2 ->`))
+var _base2 = basePass(n(`< 5 - 4 ->`))
+var _base3 = basePass(n(`< 0 - 2 ->`))
+var _base4 = basePass(n(`< 5 - 7 ->`))
 
-var _lead1 = leadPass(n(`<
- [5 6 7@6]
- [- - - - 5 - 4 -] 
- 3
- <2 4>
->`))
-var _lead2 = leadPass(n(`<
--
->`))
+var _lead1 = leadPass(n(`< [5@2 [2,7] -] - [5@2 [6,4] -] ->`))
+var _lead2 = leadPass(n(`< [3@7 4] [3 -@3] [2@7 3] [2 -@3]>`))
 
-var _dug1 = dugPass(n(`<
- [0 -@5 2 4 ]
- [0 2 5 -@5]
- [4 -@5 3 -1]
- [4 2 -1 -@5]
->`))
-var _dug2 = dugPass(n(`<
- [5 -@5 3 0 ]
- [5 3 0 -@5]
- [4 -@5 2 -1]
- [4 2 -1 -@5]
->`))
-
+var _dug1 = dugPass(n(`< [0 -@5 2 4 ] [0 2 5 -@5] [4 -@5 3 -1] [4 2 -1 -@5]>`))
+var _dug2 = dugPass(n(`< [5 -@5 3 0 ] [5 3 0 -@5] [4 -@5 2 -1] [4 2 -1 -@5]>`))
 
 var M = 1;
 $: arrange(
@@ -80,43 +53,27 @@ $: arrange(
     _drums_intro,
   )],
   [M*8, stack(    
-    _drums1,
-    _chords1, 
-    _base1,
-    _lead1,
+    _drums1,    _chords1,     _base1,
   )],
   [M*8, stack(
-    _drums2,
-    _chords2,
-    _base2,
-    _lead2,
+    _drums2,    _chords2,    _base2,
   )],
   [1*8, stack(    
-    _drums1,
-    _chords1, 
-    _base1,
-    _lead1,
-    _dug1,
+    _drums1,    _chords1,     _base1,
+    _lead1,    _dug1,
   )],
   [1*8, stack(
-    _drums2,
-    _chords2,
-    _base2,
-    _lead2,
-    _dug2,
+    _drums2,    _chords2,    _base2,
+    _lead2,    _dug2,
   )],
   [M*8, stack(    
-    _drums1, 
-    _drum_xyl,
-    _chords3, 
-    _base3,
+    _drums1,     _drum_xyl,
+    _chords3,    _base3,
     // _lead1,
   )],
   [M*8, stack(
-    _drums2,
-    _drum_xyl,
-    _chords4,
-    _base4,
+    _drums2,    _drum_xyl,
+    _chords4,    _base4,
     // _lead2,
   )],
 ).punchcard()
