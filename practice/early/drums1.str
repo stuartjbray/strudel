@@ -1,0 +1,76 @@
+//@title drums1
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(20)
+
+// -------------- Drums
+const drumsPass = (x) => x.gain(slider(1)).color("white");
+
+var d1 = sound("alesishr16_bd").struct( `<[1 [0 1] 0 1 [0 1] 1 0 0 ]
+                                          [1 [0 1] 0 1 [0 1] 1 1 1]>`)
+var d2 = sound("alesishr16_cp").struct( "<[0 1     0 0 0 0 0 0]!3 [0 0 0 0 0 0 0 0]>")
+var d3 = sound("AlesisSR16_hh").struct("1*16").lpf("[400 1000]*4")
+var d4 = sound("AkaiLinn_cr").struct(    "  0 0 0 0 0 0 0 0")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+$: _drums1;
+
+// Define pass functions for each instrument
+var chordsPass = (x) => x.sound("piano").scale("c3:major").color("red")
+var basePass = (x) => x.sound("piano").scale("c3:major").color("orange")
+var leadPass = (x) => x.sound("piano").scale("c3:major").color("yellow")
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(n(`<
+-
+>`))
+var _chords2 = chordsPass(n(`<
+-
+>`))
+
+var _base1 = basePass(n(`<
+-
+>`))
+var _base2 = basePass(n(`<
+-
+>`))
+
+var _lead1 = leadPass(n(`<
+-
+>`))
+var _lead2 = leadPass(n(`<
+-
+>`))
+
+// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
+var M = 0; // change to M=1 to unmute all stacks with an M.
+_$: arrange(
+  // Change 1 to be M to conditionally mute this stack.
+  [1*4, stack(    
+    _drums_intro,
+    _chords1, 
+    _base1,
+  )],
+  [1*4, stack(
+    _drums1,
+    _chords2,
+    _base2,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1, 
+    _base1,
+    _lead1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,
+    _base2,
+    _lead2,
+  )],
+  ).punchcard()
+  
