@@ -27,8 +27,8 @@ _$: _drum_xyl
 // Define pass functions for each instrument. And NPass functions for note patterns.
 var chordsPass = (x) => x.sound("piano").scale("c3:minor").color("red").gain(slider(0.785))
 var chordsNPass = (x) => x.struct("1 0 0 0 1 1 0 0")
-var basePass = (x) => x.sound("gm_orchestral_harp").release(1).scale("c3:minor").color("orange").gain(slider(0.613))
-var leadPass = (x) => x.sound("gm_koto").scale("c4:minor").color("yellow").room(2).gain(slider(0.525))
+var basePass = (x) => x.sound("gm_orchestral_harp").release(1).scale("c3:minor").color("orange").gain(slider(0.811))
+var leadPass = (x) => x.sound("gm_koto").scale("c3:minor").color("yellow").room(2).gain(slider(0.525))
 var dugPass = (x) => x.sound("gm_banjo").scale("c3:minor").color("cyan").echo(2,1/16,.5).room(1).gain(slider(0.687))
 
 var _chords1 = chordsPass(n(chordsNPass(`< 0 0 7 3      0 0 7 5>`)))
