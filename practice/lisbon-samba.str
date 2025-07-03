@@ -5,7 +5,7 @@ setcpm(30)
 
 // -------------- Drums
 const drumsPass = (x) => x.gain(slider(0.281)).color("white") ;
-var d1 = sound("circuitstom_bd, AkaiLinn_bd").struct( "1 0     0 1 1 1 0 0").room(1.2)
+var d1 = sound("circuitstom_bd, AkaiLinn_bd").struct( "1 0     0 <0 1> 1 1 0 0").room(1.2)
 var d2 = sound("AkaiMPC60_rim").struct(               "0 [0 1] 0 0 0 0 1 0").room(2)
 
 var d3 = sound("AlesisSR16_hh").struct(  "0 0 0 0 1 0 1 <0@3 1>")
@@ -25,29 +25,48 @@ var _drums2 =     drumsPass(stack(  d1, d2, d3c))                   // break dow
 var _drum_xyl = sound("xylophone_hard_ff").struct("0 0 1 0").gain(.3).lpf("<500 750 1000 1250 1500 1750 2000 2250>")
 _$: _drum_xyl
 
-var chordsPass = (x) => x.sound("gm_trumpet").scale("c3:minor").color("red").gain(slider(0.785)).release(1.2)
-var basePass = (x) => x.sound("gm_orchestral_harp").release(1).scale("c3:minor").color("orange").gain(slider(0.613))
-var leadPass = (x) => x.sound("gm_koto").scale("c3:minor").color("yellow").room(2).gain(slider(0.525))
-var dugPass = (x) => x.sound("gm_banjo").scale("c3:minor").color("cyan").echo(2,1/16,.5).room(1).gain(slider(0.687))
+var chordsPass = (x) => x.sound("gm_trumpet").scale("c3:minor").color("red").gain(slider(0.663)).release(1.2)
+var basePass = (x) => x.sound("gm_orchestral_harp").release(1).scale("c3:minor").color("orange").gain(slider(0.415))
+var leadPass = (x) => x.sound("gm_synth_brass_2").scale("c4:minor").echo(4,1/16,.2).color("yellow").gain(slider(0.14))
+var dugPass = (x) => x.sound("gm_banjo").scale("c2:minor").color("cyan").room(1).gain(slider(1))
 
 var _chords1 = chordsPass(n(`<
- [- - - - 5@2 4@2]
- [<0@4 7@4> -@4] 
+ [- - 5 4]
+ [<0 7> -] 
  [- - - - 2 0 2 0]
- [2 - 3@4 - -]
+ [2 [- 3] 3@3 - - -]
 >`))
 
 var _base1 = basePass(n(`< 0 - 2 ->`))
 
-var _lead1 = leadPass(n(`< - >`))
+var _lead1 = leadPass(n(`<
+ -
+ [- [5 8] - [5 9]]
+ -
+ [- [5 10] - [5 9]]
+>`))
 
-var _dug1 = dugPass(n(`< - >`))
+var _dug1 = dugPass(n(`< 
+ [0 [- 1] 1 2 0 [- 1] 1 3]
+ -
+ [4 [- 3] 3 2 3 [- 2] 2 1]
+ -
+>`))
 
 var M = 1;
 $: arrange(
-  [M*3, stack(    
+  [M*2, stack(    
     _drums1,
-    _chords1
+  )],
+  [M*4, stack(    
+    cat(_drums1, _drums1, silence, _drums1),
+    _chords1,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1,
+    _lead1,
+    _dug1,
   )],
 ).punchcard()
   
