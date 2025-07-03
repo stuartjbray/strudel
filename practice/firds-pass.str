@@ -1,7 +1,7 @@
 //@title firds-pass
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-setcpm(35)
+setcpm(32)
 
 // -------------- Drums
 const drumsPass = (x) => x.gain(slider(0.281)).color("white") ;
@@ -11,8 +11,8 @@ var d3 = sound("AlesisSR16_hh").struct(  "0 0 0 0 1 0 1 <0@3 1>")
 var d4 = sound("AkaiLinn_bd").struct(    "0 0 0 1 0 1 0 0")
 var d5 = sound("circuitstom_sd").struct( "0 0 1 0 0 1 <0@3 1> 0")
 
-var d1b = sound("circuitstom_bd").struct( "0 1 0 0 0 0 1 0  0 0 0 0 0 1 0 0")
-var d3b = sound("AlesisSR16_hh").struct(  "1 0 1 0 0 1 0 1  0 0 0 0 1 0 1 0")
+var d1b = sound("circuitstom_bd").struct( "1 - - 1 1 1 -@5 1 1 1 1 1")
+var d3b = sound("AlesisSR16_hh").struct(  "1*4 - - -  1*4 - - -")
 var d5b = sound("circuitstom_sd").struct( "1 0 1 0 0 1 0 1  0 0 0 0 1 0 1 0").lpf("500 1000 1500 2000")
 
 var d3c = sound("AlesisSR16_hh").struct(  "1!8").lpf("500 2000")
@@ -27,54 +27,84 @@ _$: _drum_xyl
 // Define pass functions for each instrument. And NPass functions for note patterns.
 var chordsPass = (x) => x.sound("piano").scale("c3:minor").color("red").gain(slider(0.785))
 var chordsNPass = (x) => x.struct("1 0 0 0 1 1 0 0")
-var basePass = (x) => x.sound("gm_orchestral_harp").release(1).scale("c3:minor").color("orange").gain(slider(0.811))
-var leadPass = (x) => x.sound("gm_koto").scale("c3:minor").color("yellow").room(2).gain(slider(0.525))
-var dugPass = (x) => x.sound("gm_banjo").scale("c3:minor").color("cyan").echo(2,1/16,.5).room(1).gain(slider(0.687))
+var basePass = (x) => x.sound("gm_orchestral_harp").release(1).scale("c3:minor").color("orange").gain(slider(0.77))
+var leadPass = (x) => x.sound("handchimes").scale("c3:minor").color("yellow").room(2).gain(slider(0.851))
+var dugPass = (x) => x.sound("gm_banjo").scale("c2:minor").color("cyan").echo(8,1/16,.8).room(1).gain(slider(0.829))
 
 var _chords1 = chordsPass(n(chordsNPass(`< 0 0 7 3      0 0 7 5>`)))
 var _chords2 = chordsPass(n(chordsNPass(`< 5 5 4 6      5 5 4 6 >`)))
 var _chords3 = chordsPass(n(chordsNPass(`< 0 0 -2 -2    -4 -4 -5 -5>`)))
 var _chords4 = chordsPass(n(chordsNPass(`< -4 -4 -5 -5  -4 -4 -2 -1>`)))
 
+
+var _chords1a = chordsPass(n(`< 
+  [4 [2 4] 6 -] -
+  [3 4 3 - - - - -] -
+  [2 3 2 -@5]
+  [0 - 4 -@5]
+  [1 - 4 -@5]
+  [2 - 5 -@5]
+>`)).transpose(12)
+var _chords2a = chordsPass(n(`< 
+ [0,3] -
+ [0,2] -
+ [0,3] -
+ [0,4] -
+>`)).transpose(12)
+
+var _chords3a = chordsPass(n(`< 
+  [4 [2 4] 6 -]
+  [[5 6] 5 - 4] 
+  [3 4 3 - 0 1 2 0]
+  [-2 5 -@2]
+  
+  [4 5 4 3 4 3 2 1]
+  [-2 - 5 -@2 -2 - 6]
+  [6 6 6 - - 4 4 4]
+  [- - 2 1 2 3 2 1]
+>`)).transpose(12)
+var _chords4a = chordsPass(n(`< 
+  [4 [3 2] 4 -] -
+  [2 [1 0] 2 -] -
+  [0 1 0 -1 0 -@3] -
+  [[-2,4] [-2,6] - [[6,9] [6,8]]] -
+>`)).transpose(12)
+
+
+// var _chords1a = chordsPass(n(chordsNPass(`< 0 0 7 3      0 0 7 5>`)))
+// var _chords2a = chordsPass(n(chordsNPass(`< 5 5 4 6      5 5 4 6 >`)))
+
 var _base1 = basePass(n(`< 0 - 2 ->`))
 var _base2 = basePass(n(`< 5 - 4 ->`))
 var _base3 = basePass(n(`< 0 - 2 ->`))
 var _base4 = basePass(n(`< 5 - 7 ->`))
 
-var _lead1 = leadPass(n(`< [5@2 [2,7] -] - [5@2 [6,4] -] ->`))
-var _lead2 = leadPass(n(`< [3@7 4] [3 -@3] [2@7 3] [2 -@3]>`))
+var _lead1 = leadPass(n(`< [4 5] - [3 4] ->`))
+var _lead2 = leadPass(n(`< [2 3] - [1 2] ->`))
 
-var _dug1 = dugPass(n(`< [0 -@5 2 4 ] [0 2 5 -@5] [4 -@5 3 -1] [4 2 -1 -@5]>`))
-var _dug2 = dugPass(n(`< [5 -@5 3 0 ] [5 3 0 -@5] [4 -@5 2 -1] [4 2 -1 -@5]>`))
+var _dug1 = dugPass(n(`< - 0 - 2 >`))
+var _dug2 = dugPass(n(`< - 5 - 4 >`))
 
 var M = 1;
 $: arrange(
-  [M*2, stack(    
-    _drums_intro,
-  )],
-  [M*8, stack(    
-    _drums1,    _chords1,     _base1,
-  )],
-  [M*8, stack(
-    _drums2,    _chords2,    _base2,
-  )],
+  [M*2, stack(    _drums_intro,  )],
+  [M*8, stack(    _drums1,    _chords1, _chords1a,     _base1,  )],
+  [M*8, stack(    _drums2,    _chords2, _chords2a,    _base2,  )],
   [1*8, stack(    
     _drums1,    _chords1,     _base1,
-    _lead1,    _dug1,
+    _lead1,     _dug1,
   )],
   [1*8, stack(
     _drums2,    _chords2,    _base2,
     _lead2,    _dug2,
   )],
-  [M*8, stack(    
+  [1*8, stack(    
     _drums1,     _drum_xyl,
-    _chords3,    _base3,
-    // _lead1,
+    _chords3,    _chords3a,    _base3,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums2,    _drum_xyl,
-    _chords4,    _base4,
-    // _lead2,
+    _chords4,   _chords4a,        _base4,
   )],
-).punchcard()
+)//._punchcard()
   
