@@ -24,6 +24,9 @@ var _drums_intro = stack( d1, d2, d3  ).color("white") // build up
 var _drums1 =     stack(  dX1, dX2, dX3,  d4).color("white") // normal
 var _drums2 =     stack(  dX1, dX2, d5, d6  ).color("white") // break down
 
+// Instruments
+var accentPass = (x) => x.sound("piano").scale("c3:major").color("green")
+
 
 
 var chords1 = n(`<
@@ -114,30 +117,45 @@ var _leadX1 = leadX1.sound("gm_fx_crystal").scale("c5:major").color("yellow").cl
 var _leadX2 = leadX2.sound("gm_fx_crystal").scale("c5:major").color("yellow").clip(.3)
 
 
+var _accent1 = accentPass(n(`<
+ [- - [3 4] [- 3]] 
+ [- - [4 5] [- 4]] 
+ [- [3,5]]
+ [- [2,5]]
+>`))
+var _accent2 = accentPass(n(`<
+ [- - [5 4] [- 5]] 
+ [- - [3 2] [- 3]] 
+ [- [3,5]]
+ [- [3,7]]
+>`))
 
-var M = 1; 
+
+var M = 0; 
 $: arrange(
   [M*4, stack(    
     _drums_intro,
     _chordsC1.transpose(12),
     _base1,    
+    _accent1,
   )],
   [M*4, stack(    
     _drums_intro,
     _chordsC2.transpose(12),
     _base2,    
+    _accent2,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums1,
     _chords1, _chordsB1, _chordsC1, 
     _base1,    _baseX1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums1,
     _chords2, _chordsB2, _chordsC2, 
     _base2,    _baseX2,
   )],
-  [M*4, stack(    
+  [M*4, stack(    // Yellow crystals
     _drums2,
     _chords1,  _chordsB1,  _chordsC1, 
     // _base1,    _baseX1,
@@ -149,5 +167,19 @@ $: arrange(
     // _base2,    _baseX2,
     _lead2,    _leadX2,
   )],
+  [1*4, stack(
+    _chordsC1, //.transpose(12),
+    _base1,    
+    _accent1.transpose("-12,0").hpf(1000),
+    _lead1,
+  )],
+  [1*4, stack(
+    _chordsC1, //.transpose(12),
+    _base2,    
+    _accent2.transpose("-12,0").hpf(1000),
+    _lead2,
+  )],
+
+  
   ).punchcard()
   
