@@ -20,6 +20,7 @@ var d3c = sound("AlesisSR16_hh").struct(  "1!8").lpf("500 2000")
 var _drums_intro = drumsPass(stack( d1b,  d5b  )).slow(2)         // build up
 var _drums1 =     drumsPass(stack(  d1,  d2,  d3,  d4, d5))           // normal
 var _drums2 =     drumsPass(stack(  d1, d2, d3c))                   // break down
+var _drums4 =     drumsPass(stack(  d2, d3c))
 
 var _drum_xyl = sound("xylophone_hard_ff").struct("0 0 1 0").gain(.3).lpf("<500 750 1000 1250 1500 1750 2000 2250>")
 _$: _drum_xyl
@@ -36,7 +37,6 @@ var _chords1 = chordsPass(n(chordsNPass(`< 0 0 7 3      0 0 7 5>`))).transpose("
 var _chords2 = chordsPass(n(chordsNPass(`< 5 5 4 6      5 5 4 6 >`))).transpose("0,12")
 var _chords3 = chordsPass(n(chordsNPass(`< 0 0 -2 -2    -4 -4 -5 -5>`))).transpose("0,12")
 var _chords4 = chordsPass(n(chordsNPass(`< -4 -4 -5 -5  -4 -4 -2 -1>`))).transpose("0,12")
-
 
 var _tune1 = tunePass(n(`< 
   [4 [2 4] 6 -] -
@@ -70,15 +70,22 @@ var _tune4 = tunePass(n(`<
   [0 1 0 -1 0 -@3] -
   [[-2,4] [-2,6] - [[6,9] [6,8]]] -
 >`))
-
-
-// var _chords1a = chordsPass(n(chordsNPass(`< 0 0 7 3      0 0 7 5>`)))
-// var _chords2a = chordsPass(n(chordsNPass(`< 5 5 4 6      5 5 4 6 >`)))
+var _tune5 = tunePass(n(`< 
+ [5,7,9]
+ [4,7,<9 11>]
+ [6,9,<10 12>]
+ [6,8,<10 11>]
+>`)).transpose(-24)
+var _tune6 = tunePass(n(`< 
+ [5,7,9]
+>`))
 
 var _base1 = basePass(n(`< 0 - 2 ->`))
 var _base2 = basePass(n(`< 5 - 4 ->`))
 var _base3 = basePass(n(`< 0 - 2 ->`))
 var _base4 = basePass(n(`< 5 - 7 ->`))
+var _base5 = basePass(n(`< 5 - 4 - 7 - 8 ->`))
+var _base6 = basePass(n(`< 0 - 1 ->`))
 
 var _lead1 = leadPass(n(`< [4 5] - [3 4] - [2 3] - [1 -] ->`))
 var _lead2 = leadPass(n(`< [2 3] <4 -> [1 -] <5 6>>`))
@@ -91,21 +98,20 @@ $: arrange(
   [M*2, stack(    _drums_intro,  )],
   [M*8, stack(    _drums1,    _chords1, _tune1,     _base1,  )],
   [M*8, stack(    _drums2,    _chords2, _tune2,    _base2,  )],
+  [M*8, stack(    _drums1,    _chords1,     _base1,    _lead1,     _dug1,  )],
+  [M*8, stack(    _drums2,    _chords2,    _base2,    _lead2,    _dug2,  )],
+  [M*8, stack(    _drums1,     _drum_xyl,    _chords3,    _tune3,    _base3,  )],
+  [1*8, stack(    _drums2,    _drum_xyl,    _chords4,   _tune4,     _base4,  )],
   [1*8, stack(    
-    _drums1,    _chords1,     _base1,
-    _lead1,     _dug1,
+    _drums4,
+    _tune5.arp("0 [-[1,2]] [0,2] 1").clip(".9 1"),
+    _tune5.arp("0 1 2 0").transpose(-12).clip("1"),
+    _base5,
+    _lead1
   )],
-  [1*8, stack(
-    _drums2,    _chords2,    _base2,
-    _lead2,    _dug2,
-  )],
-  [1*8, stack(    
-    _drums1,     _drum_xyl,
-    _chords3,    _tune3,    _base3,
-  )],
-  [1*8, stack(
-    _drums2,    _drum_xyl,
-    _chords4,   _tune4,        _base4,
+  [M*8, stack(
+    _tune5,     
+    _base6,
   )],
 ).punchcard()
   

@@ -51,8 +51,8 @@ var base1 = n(`<
 >`)
 // [2 [- -1] [1 2] -] -
 var base1x = n(`< 5 - 3 - 1 - 0 - >`)
-var _base1 = base1.sound("gm_rock_organ,gm_slap_bass_1").scale("c2:major").distort(4).gain(.3).color("red")
-var _base1x = base1x.sound("gm_rock_organ,gm_slap_bass_1").scale("[c2,c3]:major").distort(4).gain(.1).color("red")
+var _base1 = base1.sound("gm_rock_organ,gm_slap_bass_1").scale("c2:major").distort(3).gain(.3).color("red")
+var _base1x = base1x.sound("gm_rock_organ,gm_slap_bass_1").scale("[c2,c3]:major").distort(2).gain(.1).color("red")
 
 var lead1 = n(`<
 -
