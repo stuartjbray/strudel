@@ -8,7 +8,8 @@ setcpm(30)
 
 // -------------- Drums
 var d1 = sound("bd").struct(  "1 0 0 0 1 0 0 0")
-var d1a = sound("AkaiLinn_bd").struct(  "<1 1*2> 0 0 0 <1 1*2> 0 0 0")
+var d1a = sound("AkaiLinn_bd").struct(  "1 <0 1> 0 0 1 0 0 0")
+var d1b = sound("emusp12_bd").struct(  "1*4").gain(".2 .5")
 
 var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 0 0")
 var d2a = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0")
@@ -21,8 +22,8 @@ var d4a = sound("AkaiLinn_cr").struct(  "1*16").clip(".1 .2 0 .2")
 var d4b = sound("AkaiLinn_cr").struct(  "1*8").lpf("[200 400 600 <800 <1400 3000>>]*2").clip("[.1 .5]")
 
 var _drums_intro = stack( d1, d2 , d3 ).color("white") // build up
-var _drums1 =     stack(  d1a,  d2a,  d3a ).color("white") // normal
-var _drums2 =     stack(  d1, d2  ).color("white") // break down
+var _drums1 =     stack(  d1b, d1a,  d2a,  d3a ).color("white") // normal
+var _drums2 =     stack(  d1b, d1, d2  ).color("white") // break down
 
 
 var run1 = ("<2 2 3 0>")
@@ -87,7 +88,7 @@ var __beat2 = stack( _chords2, _base2, _baseB2, _lead2)
 var __beat3 = stack( _chords3, _base3, _baseB3, _lead3)
 var __beat4 = stack( _chords4, _base4, _baseB4, _lead4)
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4, stack(    _drums_intro,      __beat1  )],
   [M*4, stack(    _drums_intro, d3a, __beat2  )],
