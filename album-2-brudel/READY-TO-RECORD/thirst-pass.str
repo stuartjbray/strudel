@@ -1,4 +1,4 @@
-//@title firds-pass
+//@title thirst-pass
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 setcpm(35)
@@ -98,10 +98,10 @@ $: arrange(
   [M*2, stack(    _drums_intro,  )],
   [M*8, stack(    _drums1,    _chords1, _tune1,     _base1,  )],
   [M*8, stack(    _drums2,    _chords2, _tune2,    _base2,  )],
-  [M*8, stack(    _drums1,    _chords1,     _base1,    _lead1,     _dug1,  )],
-  [M*8, stack(    _drums2,    _chords2,    _base2,    _lead2,    _dug2,  )],
   [M*8, stack(    _drums1,     _drum_xyl,    _chords3,    _tune3,    _base3,  )],
   [M*8, stack(    _drums2,    _drum_xyl,    _chords4,   _tune4,     _base4,  )],
+  [M*8, stack(    _drums1,    _chords1,     _base1,    _lead1,     _dug1,  )],
+  [M*8, stack(    _drums2,    _chords2,    _base2,    _lead2,    _dug2,  )],
   [M*8, stack(    
     _drums4,
     _tune4.mask("1 - "),
