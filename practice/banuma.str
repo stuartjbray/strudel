@@ -1,0 +1,90 @@
+//@title banuma
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("AkaiLinn_bd").struct(  "1 0 1 0 <1 0> <0 1> <1 1*2> 0").lpf("<[100 300 500 700]>")
+var d2 = sound("AkaiMPC60_rim").struct("0 1 0 0 0 1 <0@3 1> 0").room(2).clip(".04 .08")
+var d3 = sound("AlesisSR16_hh").struct("0 0 0 1 0 0 0 <1 1*2>").gain("<[.4 .8]>")
+var d3a = sound("AlesisSR16_hh").struct("1*8").gain("<[.4 .8]>")
+var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 <0@3 1>").gain(.3)
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack( d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack( d2, d3a  ))           // break down
+var _drums3 =      drumsPass(stack( d1, d3  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsNPass = (x) => x.arp("0 1 0*2 - 1 0 - -").ply(2)
+ var chordsPass = (x) => n(x).sound("sine").scale("c4:major").color("red").gain(.6)
+var bassNPass = (x) => x
+ var bassPass = (x) => n(x).sound("gm_guitar_harmonics").scale("c2:major").color("orange").gain(.6)
+var leadPass = (x) => n(x).sound("piano").scale("c3:major").color("yellow")
+var dugPass = (x) => n(x).sound("gm_acoustic_bass").scale("c2:major").color("green").gain(1.2)
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(chordsNPass(`<
+ [0,2] [0,3] [-2,0] [-1,0]
+>`))
+var _chords2 = chordsPass(chordsNPass(`<
+-
+>`))
+
+var _bass1 = bassPass(bassNPass(`<
+ [7 6 - 7@3 - -]
+ [3 2 - 1 <0 -> - - -]
+>`))
+var _bass2 = bassPass(bassNPass(`<
+ [2 1 - 2@3 - -]
+ [4 5 - <6 0>@3 - -]
+>`))
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+var _dug1 = dugPass(`<
+ [0*2 [- 0] -2 0] -
+ [0*2 [- 0] 1 0] -
+>`)
+var _dug2 = dugPass(`<
+-
+>`)
+
+var M = 1; 
+$: arrange(
+  [M*1, stack(    
+    _drums_intro,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords1.transpose(12).rev(),
+    _chords1.transpose(12).fast(2),
+    _bass2,
+  )],
+  [1*4, stack(    
+    _drums3,
+    _chords1, 
+    _bass1,
+    _dug1,
+  )],
+  [1*4, stack(
+    _drums2,
+    _chords2,
+    _bass2,
+    _dug1.transpose(12),
+  )],
+  ).punchcard()
+  
