@@ -1,11 +1,11 @@
-//@title Template
+//@title rumblr
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
 setcpm(30)
 
 // -------------- Drums
-const drumsPass = (x) => x.gain(slider(1)).color("white");
+const drumsPass = (x) => x.gain(slider(0)).color("white");
 
 var d1 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 0 0")
 var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 0 0")
@@ -16,11 +16,24 @@ var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
+//
+// var _ch1 = ch1.sound("gm_overdriven_guitar").scale("c2:minor").release(1.1).room(2).gain(.4).color("red")
+// var _tr1 = tr1.sound("gm_koto").scale("c4:minor").room(2).color("orange")
+// var _sw1 = sw1.sound("gm_slap_bass_1").scale("c2:minor").room(2).gain(2).color("yellow")
+
 
 // Define pass functions for each instrument
 var chordsPass = (x) => x.sound("piano").scale("c3:major").color("red")
-var bassPass = (x) => x.sound("piano").scale("c3:major").color("orange")
 var leadPass = (x) => x.sound("piano").scale("c3:major").color("yellow")
+
+// Rumbler
+var bassPass1 = (x) => stack(
+  x.sound("<[gm_overdriven_guitar piano]@4>").scale("c2:major").vowel("<u@3 e u@3 o>").lpf("<[500 1000 1500 2000 ]>").pan(0.3), 
+  x.sound("gm_overdriven_guitar").scale("c2:major").vowel("<o>").pan(.7)
+  ).gain(1).color("orange")
+var bassPass2 = (x) => stack(
+  x.sound("<gm_overdriven_guitar>").scale("c2:major")
+  ).gain(1.2).color("orange")
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(n(`<
@@ -30,11 +43,12 @@ var _chords2 = chordsPass(n(`<
 -
 >`))
 
-var _bass1 = bassPass(n(`<
--
+var _bass1 = bassPass1(n(`<
+ [0!2 - 0 - 0!3]
 >`))
-var _bass2 = bassPass(n(`<
--
+var _bass2 = bassPass2(n(`<
+ [0 0 -@6]
+ [3 3 - - -1 -1 - - ] 
 >`))
 
 var _lead1 = leadPass(n(`<
@@ -44,14 +58,13 @@ var _lead2 = leadPass(n(`<
 -
 >`))
 
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 0; // change to M=1 to unmute all stacks with an M.
+var M = 0;
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
   [1*4, stack(    
     _drums_intro,
     _chords1, 
     _bass1,
+    _bass2,
   )],
   [1*4, stack(
     _drums1,
@@ -70,5 +83,5 @@ $: arrange(
     _bass2,
     _lead2,
   )],
-  ).punchcard()
+  )._punchcard()
   
