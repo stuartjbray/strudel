@@ -7,35 +7,34 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
+var d1_0 = sound("linndrum_bd").struct(  "1*2 - - 1")
+var d2_0 = sound("AkaiMPC60_rim").struct("- - 1 -")
+
 var d1 = sound("linndrum_bd").struct(  "1 0 0 0 0 1")
 var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0").gain(.2)
 var d3 = stack(
-  sound("d110_hh").struct("- - - - - 1 - - - - - -").gain(".1"),
+  sound("d110_hh").struct("- - - - - 1 - - - - - -").gain(".07"),
   sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 - 1 -").gain(".02")
 )
 
 var d1x = sound("linndrum_bd").struct(  "1 0 0 1 0 1")
 var d2x = sound("AkaiMPC60_rim").struct("0 0 1 0 1*2 0").gain(.2)
 var d3x = stack(
-  sound("d110_hh").struct("- 1 - - - 1 - - - - 1 -").gain(".1"),
+  sound("d110_hh").struct("- 1 - - - 1 - - - - 1 -").gain(".07"),
   sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 1 - -").gain(".02")
 )
 
-var _drums0 =      drumsPass(stack( d1  ))             // build up
-var _drums1 =      drumsPass(stack( d1, d2, d3 ))      // normal
+var _drums0 =      drumsPass(stack( d1_0, d2_0  ))        // build up
+var _drums1 =      drumsPass(stack( d1, d2, d3 ))         // normal
 var _drums2 =      drumsPass(stack( d1x, d2x, d3x ))      // break down
-
-//
-// var _ch1 = ch1.sound("gm_overdriven_guitar").scale("c2:minor").release(1.1).room(2).gain(.4).color("red")
-// var _tr1 = tr1.sound("gm_koto").scale("c4:minor").room(2).color("orange")
-// var _sw1 = sw1.sound("gm_slap_bass_1").scale("c2:minor").room(2).gain(2).color("yellow")
-
+var _drums3 =      drumsPass(stack( d1x ))
 
 // Define pass functions for each instrument
-var bassPass = (x) => x.sound("piano").scale("<c2,c3>:major").color("red").gain(.6)
+var bassPass = (x) => x.sound("piano").scale("<c2,c3>:major").color("red").gain(.4)
 var chordsPass = (x) => x.sound("piano").scale("c3:major").release(2).color("orange")
-var leadPass = (x) => x.sound("piano").scale("c4:major").color("yellow")
-var dronePass = (x) => x.sound("gm_alto_sax").scale("<c2,c3>:major").phaser("<6 0>").color("green").gain(.5)
+var leadPass = (x) => x.sound("piano").scale("c4:major").color("yellow").gain(.7)
+var dronePass = (x) => x.sound("gm_alto_sax, gm_epiano2").scale("<c2>:major").phaser("<6 0>").color("green").gain(.6)
+var whooshPass = (x) => x.sound("gm_fretless_bass").scale("c3:major").color("blue").gain(.4).release(1.2)
 
 var bassPass2 = (x) => stack(
   x.sound("<piano>").scale("c2:minor")
@@ -77,6 +76,21 @@ var _chords4 = chordsPass(n(`<
  [- [2,7] - [2,7] -@2 - [4,8] - - -@2]
  >`))
 
+var _ding1 = chordsPass(n(`<
+ [7 6 [- 5] 4 3 2]
+ [6 4 5 6 -@2]
+ [5 3 [- 4] 5 4 3]
+ [2 0 1 2 -@2]
+>`))
+var _ding2 = chordsPass(n(`<
+ 0
+>`))
+var _ding3 = chordsPass(n(`<
+ 0
+>`))
+var _ding4 = chordsPass(n(`<
+ 0
+>`))
 
 var _lead1 = leadPass(n(`<
  -
@@ -102,33 +116,50 @@ var _drone2 = dronePass(n(`4`));
 var _drone3 = dronePass(n(`5`));
 var _drone4 = dronePass(n(`7`));
 
+var _whoosh1 = whooshPass(n(`< [6, 8] ->`))
+var _whoosh2 = whooshPass(n(`< [5, 7] ->`))
+
 var M = 1;
 $: arrange(
   // [M*2, stack(        _drums0,    _bass1,  )],
-  // [1*4, stack(    
-  //   _drums1,    _bass1,    _chords1, _lead1, 
-  // )],
-  // [1*2, stack(
-  //   _drums1,    _bass2,    _chords2, _lead2,
-  // )],
-  // [1*4, stack(    
-  //   _drums1,    _bass3,    _chords3, _lead3,  
-  // )],
-  // [1*2, stack(
-  //   _drums1,    _bass4,    _chords4, _lead4,
-  // )],
+  [M*4, stack(    
+    _drums1,    _bass1,    _chords1, _lead1, _whoosh1
+  )],
+  [M*2, stack(
+    _drums1,    _bass2,    _chords2, _lead2, _whoosh1
+  )],
+  [M*4, stack(    
+    _drums1,    _bass3,    _chords3, _lead3,  _whoosh2
+  )],
+  [M*2, stack(
+    _drums1,    _bass4,    _chords4, _lead4,  _whoosh2
+  )],
   
-  [1*4, stack(    
+  [M*4, stack(    
     _drums2,    _bass1.transpose(12),    _chords1.transpose(12).lpf("<500 2000>"), _lead1, _drone1,
   )],
-  [1*2, stack(
+  [M*2, stack(
     _drums2,    _bass2.transpose(12),    _chords2.transpose(12).lpf("<500 2000>"), _lead2, _drone2,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums2,    _bass3.transpose(12),    _chords3.transpose(12).lpf("<500 2000>"), _lead3, _drone3,
   )],
-  [1*2, stack(
+  [M*2, stack(
     _drums2,    _bass4.transpose(12),    _chords4.transpose(12).lpf("<500 2000>"), _lead4, _drone4,
   )],
+
+  [1*4, stack(    
+    _drums3,    _chords1.sound("gm_acoustic_guitar_steel"), _ding1,
+  )],
+  [1*2, stack(
+    _drums3,    _chords2.sound("gm_acoustic_guitar_steel"), _ding2,
+  )],
+  [1*4, stack(    
+    _drums3,    _chords3.sound("gm_acoustic_guitar_steel"), _ding3,
+  )],
+  [1*2, stack(
+    _drums3,    _chords4.sound("gm_acoustic_guitar_steel"), _ding4,
+  )],
+  
 ).punchcard()
   
