@@ -34,8 +34,8 @@ var bassPass = (x) => n(x).sound("gm_rock_organ,gm_slap_bass_1").scale("c2:major
 var bassPass2 = (x) => bassPass(x).gain(.1).distort(2)
 var chordsPass = (x) => n(x).sound("gm_electric_guitar_clean").scale("c3:major").color("orange").room(2)
 var leadPass = (x) => n(x).sound("gm_alto_sax").scale("c4:major").color("yellow")
-var synthPass = (x) => n(x).sound("gm_synth_brass_1").scale("<c2,c3>:major").color("green")
-var dingPass = (x) => n(x).sound("piano").scale("c4:major").color("cyan")
+var synthPass = (x) => n(x).sound("gm_acoustic_guitar_steel").scale("c3:major").color("green").gain(1)
+var dingPass = (x) => n(x).sound(" gm_koto ").scale("c3:major").color("cyan").room(1.5).gain(1)
 
 var _chords1 = chordsPass(`<
  [5,7] [1,6] [2,4] [0,5]
@@ -62,20 +62,20 @@ var _lead2 = leadPass(`<
  - [5,7] - [0,2] - [1,3] - [2,4]
 >`).struct("- 1 - 1 - 1 - -")
 
-var _synth1 = synthPass(`< 0 >`)
-var _synth2 = synthPass(`< 5 >`)
+var _synth1 = synthPass(`< [2 0]*4 >`)
+var _synth2 = synthPass(`< [7 5]*4 >`)
 
 var _ding1 = dingPass(`<
- [5 4 5 4 5 4 5 6]
- [4 3 4 3 4 3 4 -]
- [3 2 3 2 3 2 3 4]
- [2 1 2 1 2 1 0 -] 
+ [5 4 5 4 - - 5 6]
+ <[4 3 4 3 - - - -] [7 6 7 6 - - - -]>
+ [3 2 3 2 - - 3 4]
+ <[2 1 2 1 - - - -] [2 1 0 1 2 3 4 5]>
 >`)
 var _ding2 = dingPass(`<
- [5 4 5 4 5 4 5 4]
- [6 5 6 5 6 5 6 -]
- [7 6 7 6 7 6 7 6]
- [8 7 8 7 8 7 8 -] 
+ [5 4 5 4 - - 5 4]
+ [6 5 6 5 - - - -]
+ <[7 6 7 6 - - 7 6] [7 5 2 5 7 5 7 5]>
+ [8 7 8 7 - - - -] 
 >`)
 
 var M = 1; 
@@ -100,7 +100,7 @@ $: arrange(
     _lead2,
     _synth2,
   )],
-  [1*8, stack(
+  [M*8, stack(
     cat(southern,trap).lpf(sine.range(3000,1000).slow(8)),
     _chords1.gain(.3),
     _bass1,
