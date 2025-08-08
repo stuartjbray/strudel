@@ -19,7 +19,11 @@ var southern = stack(
   sound("hh").struct("1 1 1 1 1 1 1 1"),
   sound("rim").struct("0 1 0 0 1 1 0 0")
 ).color("white")
-
+var southern2 = stack(
+  sound("sd").struct("0 0 1 0 0 0 1 0"),
+  sound("hh").struct("1 1 1 1 1 1 1 1"),
+  sound("rim").struct("0 1 0 0 1 1 0 0")
+).color("white")
 
 var d1 = sound("AkaiLinn_bd").struct(  "0 0 0 0 0 0 0 0")
 var d2 = sound("AkaiMPC60_rim").struct("0 0 0 0 0 0 0 0")
@@ -36,6 +40,7 @@ var chordsPass = (x) => x.sound("gm_electric_guitar_clean").color("orange").room
 var leadPass = (x) => n(x).sound("gm_alto_sax").scale("c4:major").color("yellow")
 var synthPass = (x) => n(x).sound("gm_acoustic_guitar_steel").scale("c3:major").color("green").gain(1)
 var dingPass = (x) => n(x).sound(" gm_koto ").scale("c3:major").color("cyan").room(1.5).gain(.8)
+var saxPass = (x) => n(x).sound("gm_baritone_sax").scale("c3:major").color("purple")
 
 // Am G Em C
 var _chords1 = chordsPass(n(`<
@@ -44,14 +49,6 @@ var _chords1 = chordsPass(n(`<
 var _chords2 = chordsPass(n(`<
  7 6 2 3
 >`)).struct("1 - - 1").scale("c3:major")
-
-
-var _chords3 = chordsPass(chord(`<
- Am G Em F
->`).voicing()).arp("0 1 2 3 - 0 1 2")
-
-
-
 
 var _bass1 = bassPass(`<
  [5 [- 2] [4 5] -] -
@@ -87,10 +84,25 @@ var _ding2 = dingPass(`<
  [8 7 8 - - - - -] 
 >`)
 
-var _lead_mid1 = synthPass(`<
- [0 1 2 3]
- [0 -1 -2 -3]
+var _chords_mid1 = chordsPass(chord(`<
+ Am G Em F
+>`).voicing()).arp("<[ [0,1,2]@4 - - ]>")
+var _chords_mid2 = chordsPass(chord(`<
+ Am G Em F
+>`).voicing()).arp("<[0 1 2 3 - 0 1 2]!3 [0 1 2 3 -@4]>")
+
+var _drone_mid1 = saxPass(`<
+ 0 <1 -1> <2 4> [3 -]
 >`)
+
+var _lead_mid1 = leadPass(`<
+ [-]
+ [7 6 - <5 7> <4 8> - <4 8> -]
+ [-]
+ [ -@4 2 <3 1> <2 0> - ]
+>`)
+
+
 
 var M = 1; 
 $: arrange(
@@ -128,10 +140,30 @@ $: arrange(
     _synth2.transpose(-12).gain(.3),
     _ding2,
   )],
+  
+  [M*8, stack( // ----------------- mid section
+    southern2,
+    _chords_mid1,    _drone_mid1,    _lead_mid1,
+  )],
+  [M*8, stack( // ----------------- mid section
+    southern2,
+    _chords_mid1.transpose(-12).gain(.2),
+    _chords_mid2,    _drone_mid1,    _lead_mid1,
+  )],
+
+  [1*8, stack(
+    drum_intro,
+    _chords2.crush(4).gain(.3),
+    _bass1,_bass1x,
+    _synth2.transpose(12),
+    _synth2.fast(2).gain(.5),
+  )],
   [1*8, stack(
     cat(southern,trap),
-    _chords3,
-    _lead_mid1,
+    _chords2.gain(.4),
+    _bass1,_bass1x,
+    _lead2,
+    _synth2,
   )],
   
 ).punchcard()
