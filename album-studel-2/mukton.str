@@ -1,0 +1,260 @@
+//@title mukton
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1_0 = sound("percysyn_bd").struct(  "1*2 - - 1")
+var d2_0 = sound("alesissr16_rim").struct("- - 1 -")
+
+var d1 = sound("percysyn_bd").struct(  "1 0 0 0 1 0")
+var d2 = sound("alesissr16_rim").struct("0 0 <0 1> 1 0 0").gain(.5)
+var d3 = stack(
+  sound("d110_hh").struct("- - - - - 1 - - - - - -").gain(".07"),
+  sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 - 1 -").gain(".02")
+)
+
+var d1x = sound("percysyn_bd").struct(  "1 0 0 1 0 0")
+var d2x = sound("alesissr16_rim").struct("0 0 1 0 1*2 0").gain(.4)
+var d3x = stack(
+  sound("d110_hh").struct("- 1 - - - 1 - - - - 1 -").gain(".07"),
+  sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 1 - -").gain(".02")
+)
+var d2x2 = sound("alesissr16_rim").struct("1 1 0 0 1 1").gain(".2 .1 0 0 .4 .3")
+
+var _drums0 =      drumsPass(stack( d1_0, d2_0  ))        // build up
+var _drums1 =      drumsPass(stack( d1, d2, d3 ))         // normal
+var _drums2 =      drumsPass(stack( d1x, d2x, d3x ))      // break down
+var _drums3 =      drumsPass(stack( d1x, d2x2 ))
+
+// Define pass functions for each instrument
+var bassPass = (x) => n(x).sound("piano").scale("<c2,c3>:major").color("red").gain(.8)
+var chordsPass = (x) => n(x).sound("piano").scale("c3:major").release(2).color("orange")
+var chordsPass2 = (x) => n(x).sound("piano").scale("c4:major").color("orange")
+var leadPass = (x) => n(x).sound("piano").scale("c4:major").color("yellow").gain(1)
+var dronePass = (x) => n(x).sound("gm_alto_sax, gm_epiano2").scale("<c2>:major").phaser("<6 0>").color("green").gain(.6)
+var whooshPass = (x) => n(x).sound("gm_fretless_bass").scale("c3:major").color("blue").gain(.4).release(1.2)
+
+var bassPass2 = (x) => stack(
+  x.sound("<piano>").scale("c2:minor")
+  ).color("orange").room(1.5)
+
+// Apply pass functions to patterns
+var _bass1 = bassPass(`<
+ [2 - 2 1 - 1]
+ [0 -  0 -2 - -2]
+>`)
+var _bass2 = bassPass(`<
+ [2  - 2 1  - 1]
+ [4  - 4 5  - 5]
+>`)
+var _bass3 = bassPass(`<
+ [5 - 5 3 - 3] 
+ [2 - 2 4 - 4]
+>`)
+
+var _bass4 = bassPass(`<
+ [5 - 5 3 - 3] 
+ [9 - 9 8 - 8] 
+>`)
+
+var _chords1 = chordsPass(`<
+ [- [4,6] - [4,6] -@2 - [4,6] - [4,6] -@2]
+ [- [4,7] - [4,7] -@2 - [5,7] - - -@2]
+>`)
+var _chords2 = chordsPass(`<
+ [- [4,6] - [4,6] -@2 - [4,6] - [4,6] -@2]
+ [- [7,9] - [7,9] -@2 - [7,9] - [8,9] -@2]
+>`)
+var _chords3 = chordsPass(`<
+ [- [5,7] - [5,7] -@2 - [4,7] - [4,7] -@2]
+ [- [2,4] - [2,4] -@2 - [6,7] - - -@2]
+ >`)
+var _chords4 = chordsPass(`<
+ [- [5,7] - [5,7] -@2 - [4,7] - [4,7] -@2]
+ [- [2,7] - [2,7] -@2 - [4,8] - - -@2]
+ >`)
+
+var _trill1 = leadPass(`<
+ - [-@6 5 6 7 6 5 -]
+ - [-@6 7 6 7 6 5 -]
+>`)
+
+var _trill2 = leadPass(`<
+ [-@5 [2 [4,6]]] 
+ [8 - [2 [4,7]] -@3]
+ [-@5 [2 [4,6]]] 
+ [9 - [2 [4,8]] -@3]
+>`)
+var _trill3 = leadPass(`<
+ [- [5,7,9] - [4,7,9]]
+ [- [2,4,6] - [4,6,7]]
+>`)
+var _trill4 = leadPass(`<
+ [7 6 7 6 7 6]*2
+ [9 7 8 9 8 7 8 7 8 7 6 4]
+ 5
+ -
+>`)
+
+var _drone1 = dronePass(`2`);
+var _drone2 = dronePass(`4`);
+var _drone3 = dronePass(`5`);
+var _drone4 = dronePass(`7`);
+
+var _whoosh1 = whooshPass(`< [6, 8] ->`)
+var _whoosh2 = whooshPass(`< [5, 7] ->`)
+
+// ----------- Mid
+
+var liltArp = "0 [1 2] - - - -";
+var liltArp_offset = "- - - 0 [1 2] -";
+var liltArp2 = "[0,1,2] - [0,1,2]";
+
+var _chords_mid1 = chordsPass2(`<
+ [-2,0,2] [-3,0,2] [-4,-2,0] [-3,-1,0]
+ >`).arp(liltArp)
+var _chords_mid2 = chordsPass2(`<
+ [0,2,5] [-1,2,6] [0,2,5] [1,2,6]
+ >`).arp(liltArp)
+var _chords_mid3 = chordsPass2(`<
+ [-2,0,1] [-3,0,1] [-4,-2,0] [-3,-1,0] 
+ >`).arp(liltArp)
+var _chords_mid4 = chordsPass2(`<
+ [-2,0,1] [-3,0,1]
+ >`).arp(liltArp)
+
+var _ding1 = leadPass(`<
+ [0 - - 1 - 2]
+ [- - - 3 - 2]
+ [[0,2] - - - 2 0]
+ [[4,6] - - - - -]
+>`)
+var _ding2 = leadPass(`<
+ [[5,7]@2 - 4@2 -]
+ [2 1 0 - - -]
+ [- - - 0 1 2]
+ [- [1,3] - 1 0 -1]
+>`)
+var _ding3 = leadPass(`<
+ [-]
+ [7 - - 6 - 4 ] 
+ [[0,2] - - [0,3] -  -]
+ [[0,5] - - - [5,7] -]
+>`)
+var _ding4 = leadPass(`<
+ [-]
+ [2 - - 3 - 4 ]
+ [[0,2] - - [0,5] - -]
+ [[0,7]]
+>`)
+var _ding3_arp = leadPass(`<
+  [-2,0,2] [-3,0,2] [-4,-2,0] [-3,-1,0]
+>`).arp(liltArp_offset).gain(.5)
+
+var _bass_mid1 = bassPass(`<
+ [ 0 -] [ 1 -] [ 2 -] [ 4 -]
+>`)
+var _bass_mid2 = bassPass(`<
+ [ 5 -] [ 4 -] [ 3 -] [ 2 -]
+>`)
+
+var _whoosh_mid1 = whooshPass(`<
+ [ [0 ]*6 ] [ [1 ]*6 ]
+>`)
+var _whoosh_mid2 = whooshPass(`<
+ [ [2 ]*6 ] [ [1 ]*6 ]
+>`)
+
+var _trill_out1 = leadPass(`<
+ [- - - 2 1 0]
+ [4 - - 0 -1 -2]
+ [- - - 2 1 0]
+ [5 4 2 0 -1 -2]
+>`)
+var _trill_out2 = leadPass(`<
+ [- - - 2 1 0]
+ [[5,7] - - [7,9] - -]
+ >`)
+var _trill_out3 = leadPass(`<
+ [9 7 8 9 - 7]
+ [10 11 10 9 8 7]
+ [7 8 9 9 - -]
+ [7 6 5 5 - -]
+>`)
+var _trill_out4 = leadPass(`<
+ [9@2 7@2 8@2 9 - - 10 9 8]
+ [9 8 7 8 7 6 7 6 5 6 7 8]
+>`)
+var _trill_out5 = leadPass(`<
+ [[-2,2,5] [-2 -1 0] [-2,2,6] [-2 -1 0]]
+ [-2,2,5]
+>`)
+
+var M = 1;
+$: arrange(
+  [M*2, stack(        _drums0,    _bass1,  )],
+  [M*4, stack(    
+    _drums1,    _bass1,    _chords1, _trill1, _whoosh1
+  )],
+  [M*2, stack(
+    _drums1,    _bass2,    _chords2,  _whoosh1
+  )],
+  [M*4, stack(    
+    _drums1,    _bass3,    _chords3, _trill1,  _whoosh2
+  )],
+  [M*2, stack(
+    _drums1,    _bass4,    _chords4,   _whoosh2
+  )],
+  
+  [M*4, stack(    
+    _drums2,    _bass1.transpose(12),    _chords1.transpose(12).lpf("<500 2000>"), _trill2, _drone1,
+  )],
+  [M*2, stack(
+    _drums2,    _bass2.transpose(12),    _chords2.transpose(12).lpf("<500 2000>"), _trill2, _drone2,
+  )],
+  [M*4, stack(    
+    _drums2,    _bass3.transpose(12),    _chords3.transpose(12).lpf("<500 2000>"), _trill3, _drone3,
+  )],
+  [M*2, stack(
+    _drums2,    _bass4.transpose(12),    _chords4.transpose(12).lpf("<500 2000>"), _trill4, _drone4,
+  )],
+  
+  [M*4, stack(    // ---------------------- Mid Section
+    _drums3,    _chords_mid1.transpose(-12).lpf(500), _ding1, _bass_mid1.lpf(500), _whoosh_mid1,
+  )],
+  [M*4, stack(
+    _drums3,    _chords_mid2.transpose(-12).lpf(500), _ding2, _bass_mid2.lpf(500), _whoosh_mid2,
+  )],
+  [1*4, stack(    
+    _drums3,    _chords_mid3.transpose(-12).lpf(500), _ding3, _bass_mid1.lpf(500), _whoosh_mid1,
+    _ding3_arp
+  )],
+  [1*4, stack(
+    _drums3,    _chords_mid4.transpose(-12).lpf(500), _ding4, _bass_mid2.lpf(500), _whoosh_mid2,
+    _ding3_arp
+  )],
+
+
+  [M*4, stack(    
+    _drums1,    _bass1,    _chords1, _whoosh1, _trill_out1,
+  )],
+  [M*2, stack(
+    _drums1,    _bass2,    _chords2,  _whoosh1, _trill_out2,
+  )],
+  [M*4, stack(    
+    _drums1,    _bass3,    _chords3, _whoosh2, _trill_out3,
+  )],
+  [M*2, stack(
+    _drums1,    _bass4,    _chords4,  _whoosh2, _trill_out4,
+  )],
+  [M*2, stack(
+    _drums1,    _trill_out5,
+  )],
+  
+  [M*1,silence]
+).punchcard()
+  
