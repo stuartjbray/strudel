@@ -1,29 +1,27 @@
 //@title mukton
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
 setcpm(30)
-
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
 var d1_0 = sound("percysyn_bd").struct(  "1*2 - - 1")
-var d2_0 = sound("alesissr16_rim").struct("- - 1 -")
+var d2_0 = sound("akaixr10_rim").struct("- - 1 -")
 
-var d1 = sound("percysyn_bd").struct(  "1 0 0 0 1 0")
-var d2 = sound("alesissr16_rim").struct("0 0 <0 1> 1 0 0").gain(.5)
+var d1 = sound("percysyn_bd").struct(  "1 0 0 0 1 <0 1>")
+var d2 = sound("akaixr10_rim").struct("0 0 <0 1> 1 0 <0 1>").gain(.5)
 var d3 = stack(
   sound("d110_hh").struct("- - - - - 1 - - - - - -").gain(".07"),
   sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 - 1 -").gain(".02")
 )
 
-var d1x = sound("percysyn_bd").struct(  "1 0 0 1 0 0")
-var d2x = sound("alesissr16_rim").struct("0 0 1 0 1*2 0").gain(.4)
+var d1x = sound("percysyn_bd").struct(  "1 0 0 1 0 <0 1>")
+var d2x = sound("akaixr10_rim").struct("0 0 1 0 1*2 0").gain(.4)
 var d3x = stack(
   sound("d110_hh").struct("- 1 - - - 1 - - - - 1 -").gain(".07"),
   sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 1 - -").gain(".02")
 )
-var d2x2 = sound("alesissr16_rim").struct("1 1 0 0 1 1").gain(".2 .1 0 0 .4 .3")
+var d2x2 = sound("akaixr10_rim").struct("1 1 0 0 1 1").gain(".2 .1 0 0 .4 .3")
 
 var _drums0 =      drumsPass(stack( d1_0, d2_0  ))        // build up
 var _drums1 =      drumsPass(stack( d1, d2, d3 ))         // normal
@@ -229,11 +227,11 @@ $: arrange(
   [M*4, stack(
     _drums3,    _chords_mid2.transpose(-12).lpf(500), _ding2, _bass_mid2.lpf(500), _whoosh_mid2,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums3,    _chords_mid3.transpose(-12).lpf(500), _ding3, _bass_mid1.lpf(500), _whoosh_mid1,
     _ding3_arp
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums3,    _chords_mid4.transpose(-12).lpf(500), _ding4, _bass_mid2.lpf(500), _whoosh_mid2,
     _ding3_arp
   )],
@@ -245,16 +243,22 @@ $: arrange(
   [M*2, stack(
     _drums1,    _bass2,    _chords2,  _whoosh1, _trill_out2,
   )],
-  [M*4, stack(    
+  [1*4, stack(    
     _drums1,    _bass3,    _chords3, _whoosh2, _trill_out3,
   )],
-  [M*2, stack(
+  [1*4, stack(    
+    _drums1,    _bass3,    _chords3, _whoosh2, _trill_out3,
+  ).transpose(2)],
+  [1*4, stack(    
+    _drums1,    _bass3,    _chords3, _whoosh2, _trill_out3,
+  ).transpose(4)],
+  [1*2, stack(
     _drums1,    _bass4,    _chords4,  _whoosh2, _trill_out4,
-  )],
-  [M*2, stack(
+  ).transpose(6)],
+  [1*2, stack(
     _drums1,    _trill_out5,
-  )],
+  ).transpose(6)],
   
-  [M*1,silence]
+  [1*1,silence]
 ).punchcard()
   
