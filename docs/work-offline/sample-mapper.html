@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strudel Sample Mapper</title>
+    <style>
+        body {
+            font-family: monospace;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #0f0;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            background: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px;
+            font-family: monospace;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #0a0;
+        }
+        .instructions {
+            background: #000;
+            padding: 15px;
+            border: 1px solid #0f0;
+            margin: 20px 0;
+        }
+        h2 {
+            color: #0f0;
+            border-bottom: 1px solid #0f0;
+            padding-bottom: 5px;
+        }
+        pre {
+            background: #000;
+            padding: 10px;
+            border: 1px solid #444;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Strudel Local Sample Mapper</h1>
+    
+    <div class="instructions">
+        <h2>Instructions:</h2>
+        <ol>
+            <li>Run your local server: <code>npx http-server C:\Source_GitHub\strudel-samples -p 8000 --cors</code></li>
+            <li>Click "Generate Sample Map" below</li>
+            <li>Copy the generated code to your Strudel session</li>
+        </ol>
+    </div>
+
+    <button onclick="generateSampleMap()">Generate Sample Map</button>
+    
+    <h2>Generated Strudel Code:</h2>
+    <textarea id="output" readonly placeholder="Generated code will appear here..."></textarea>
+    
+    <button onclick="copyToClipboard()">Copy to Clipboard</button>
+
+    <script>
+        const SAMPLE_MAPPINGS = {
+            // Tidal Drum Machines mapping
+            'tidal-drum-machines': {
+                'RolandCompurhythm78': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'cy', 'oh', 'ch'],
+                'RolandCompurhythm1000': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'cy', 'oh', 'ch'],
+                'RolandTR808': ['bd', 'sd', 'lt', 'mt', 'ht', 'lc', 'mc', 'hc', 'rs', 'cl', 'ma', 'cp', 'cb', 'cy', 'oh', 'ch'],
+                'RolandTR909': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'oh', 'hh', 'cr', 'rd'],
+                'RolandTR707': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr', 'rd', 'sh', 'ta'],
+                'RolandTR626': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr', 'sh'],
+                'RolandTR606': ['bd', 'sd', 'lt', 'ht', 'rs', 'cp', 'ch', 'oh', 'cy'],
+                'RolandTR505': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr', 'rd'],
+                'RolandMC303': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'oh', 'ch', 'cr'],
+                'BossDR110': ['bd', 'sd', 'ch', 'oh', 'cp'],
+                'BossDR220': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr'],
+                'YamahaRX5': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr', 'sh'],
+                'YamahaRX7': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr'],
+                'YamahaRX21': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'ch', 'oh', 'cr'],
+                'YamahaMR10': ['bd', 'sd', 'lt', 'ht', 'rs', 'cp', 'ch', 'oh', 'cy'],
+                'KorgDDM110': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'ch', 'oh'],
+                'KorgDDM220': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'ch', 'oh'],
+                'KorgKPR77': ['bd', 'sd', 'lt', 'ht', 'rs', 'cp', 'ch', 'oh', 'cy'],
+                'KorgKR55': ['bd', 'sd', 'rs', 'cy'],
+                'KorgMiniPops': ['bd', 'sd', 'lt', 'ht', 'rs', 'cp', 'cb', 'cy'],
+                'LinndromLinnDrum': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr', 'ta'],
+                'LinndromLM1': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr'],
+                'AkaiXR10': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr'],
+                'OberheimDMX': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'ch', 'oh', 'cr', 'rd', 'sh', 'ta'],
+                'Sequential_TomDrum': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'ch', 'oh', 'cr'],
+                'Simmons_SDS5': ['bd', 'sd', 'lt', 'mt', 'ht'],
+                'Alesis_HR16': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr'],
+                'Casio_RZ1': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr'],
+                'Casio_VL1': ['bd', 'sd', 'ht'],
+                'Emu_Drumulator': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'cb', 'ch', 'oh', 'cr', 'rd'],
+                'Kawai_R50': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'ch', 'oh', 'cr'],
+                'Kawai_R100': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'ch', 'oh', 'cr'],
+                'Ensoniq_Mirage': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'ch', 'oh'],
+                'FairlightCMI_IIx': ['bd', 'sd', 'lt', 'mt', 'ht', 'oh'],
+                'Akai_MPC60': ['bd', 'sd', 'lt', 'mt', 'ht', 'rs', 'cp', 'ch', 'oh', 'cr']
+            }
+        };
+
+        function generateSampleMap() {
+            const baseUrl = 'http://localhost:8000/';
+            let strudelCode = '// Local Sample Configuration for Strudel\n';
+            strudelCode += '// Generated by Sample Mapper\n\n';
+            
+            // Method 1: Using sampleFolder for each drum machine
+            strudelCode += '// Method 1: Load individual drum machines\n';
+            strudelCode += '// Uncomment the machines you want to use:\n\n';
+            
+            for (const [repo, machines] of Object.entries(SAMPLE_MAPPINGS)) {
+                for (const machine of Object.keys(machines)) {
+                    const machineName = machine.toLowerCase().replace(/[_-]/g, '');
+                    strudelCode += `// await sampleFolder('${machineName}', '${baseUrl}${repo}/${machine}/')\n`;
+                }
+            }
+            
+            strudelCode += '\n// Then use like: s("808:bd 808:sd").fast(2)\n\n';
+            
+            // Method 2: Direct sample mapping
+            strudelCode += '// Method 2: Direct sample mapping\n';
+            strudelCode += '// This creates a custom sample bank:\n\n';
+            strudelCode += 'const localSamples = {\n';
+            
+            // Generate common samples from TR808 as default
+            const defaultMachine = 'RolandTR808';
+            const defaultSounds = SAMPLE_MAPPINGS['tidal-drum-machines'][defaultMachine];
+            
+            for (const sound of defaultSounds) {
+                strudelCode += `  ${sound}: ['${baseUrl}tidal-drum-machines/${defaultMachine}/${sound.toUpperCase()}/${sound.toUpperCase()}0000.wav'],\n`;
+            }
+            
+            strudelCode += '};\n\n';
+            strudelCode += 'samples(localSamples);\n\n';
+            strudelCode += '// Now you can use: s("bd sd [cp hh*2]").fast(2)\n\n';
+            
+            // Method 3: Load everything with prefixes
+            strudelCode += '// Method 3: Load multiple machines with prefixes\n';
+            strudelCode += '// This loads several popular drum machines:\n\n';
+            
+            const popularMachines = ['RolandTR808', 'RolandTR909', 'RolandTR707', 'LinndromLinnDrum'];
+            
+            for (const machine of popularMachines) {
+                const prefix = machine.replace('Roland', '').replace('Linndrom', '').toLowerCase();
+                strudelCode += `await sampleFolder('${prefix}', '${baseUrl}tidal-drum-machines/${machine}/')\n`;
+            }
+            
+            strudelCode += '\n// Use like: s("tr808:bd tr909:sd tr707:cp linnDrum:oh").fast(2)\n';
+            
+            document.getElementById('output').value = strudelCode;
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            output.select();
+            document.execCommand('copy');
+            alert('Code copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
