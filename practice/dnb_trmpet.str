@@ -1,0 +1,61 @@
+//@title dnb_trmpet
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+setcpm(40)
+
+var d = stack(
+  sound("hh*8").gain(".2@4 .6@5 .2@3 .8@4"),
+  sound("- - rim - - - <- cp> -"),
+  sound("- - - - - - - oh"),
+  sound("bd - - - - <- bd> - -").room(".2 .8"),
+  sound("<-@3 [- - gm_timpani@4 - - ]>")
+)
+  
+$: arrange(
+  [4, stack(
+    d.phaser(8)
+  ).color("green")],
+  [4, stack(
+    d.pan(0),
+    d.lpf(sine.range(500,5000).slow(4))
+  ).color("red")],
+  [4, stack(
+    d.pan(1),
+    d.hpf(sine.range(500,5000).slow(4))
+  ).color("blue")]
+)//._spectrum()
+var leadPass = (x) => n(x).sound("z_square ").clip(.5).echo(4, 1/4, .6).scale("c3:minor").color("cyan")
+var saxPass = (x) => n(x).sound("piano ").phaser(2).scale("<c2,c3,c4>:minor").color("yellow")
+var hornPass = (x) => n(x).sound("gm_french_horn").scale("c3:minor").room(1).color("purple")
+
+var _lead1 = leadPass(`<
+ [- [0 3 5@2] - ]
+ -
+ [- [3 5 7@2] - ]
+ -
+ [- [0 4 5@2] - ]
+ -
+ [- [3 4 7@2] - ]
+ -
+>`)
+
+var _sax1 = saxPass(`<
+ 0 2 3 2
+ 5 4 3 4
+>`).struct("<[1@2 - 1 ] [0 1 0 0]>")
+
+var _horn1 = hornPass(`< 3@2 5 - 7@2 9 - >`)
+var _horn2 = hornPass(`< 3@2 5 - 3@2 - - >`)
+
+$: arrange(
+  [4, stack(
+    _lead1,
+    _sax1,
+    _horn1,
+  )],
+  [4, stack(
+    _lead1.transpose(12),
+    _sax1,
+    _horn2,
+  )],
+).punchcard()
