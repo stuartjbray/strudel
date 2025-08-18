@@ -1,0 +1,21 @@
+
+ Musical Cliches
+
+
+ ------------- Muffle drums and bring them back
+
+var drums1 = stack(
+ sound("bd").struct(  "1 0 0 0 1 0 0 0"),
+ sound("rim").struct("0 0 1 0 0 0 1 0"),
+ sound("hh").struct("0 1 0 1 0 1 0 1")
+)
+$: _drums1.lpf(sine.range(3000,1000).slow(4))
+
+------------- Key Change
+
+var tune1 = n("[0 2 4 7]").scale("c3:major")
+$: arrange(
+  [1,tune1],
+  [1,tune1.transpose(2)],
+  [1,tune1.transpose(4)],
+)

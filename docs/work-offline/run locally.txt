@@ -48,3 +48,11 @@
     Putting them into bitbucket has limits - eg 3.5 per push, and 2Gb per repo - so DO NOT do this.
     
     [] I could stick into a public S3 from my account, then make links and point to them. --- TRY THIS!!!
+
+
+>>>>>>>>>>>>>>
+
+    [+] Have downloaded the 3 repos (vscl, tidal-drum-machines, webaudiofontdata) to LenLoq Source Github.
+
+    npx http-server C:\Source_GitHub\strudel-samples -p 8000 --cors
+    
