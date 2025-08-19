@@ -19,3 +19,5 @@ $: arrange(
   [1,tune1.transpose(2)],
   [1,tune1.transpose(4)],
 )
+
+------------- Drops
