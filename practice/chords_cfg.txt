@@ -1,0 +1,28 @@
+//@title chords_cfg
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+
+cpm(30)
+var pianoPass = (x) => n(x).sound("piano").scale("c3:major")
+var sawPass = (x) => n(x).sound("supersaw").scale("c2:major")
+
+
+var _piano1 = pianoPass(`<
+ [0,2,4,7]
+ [0,3,5,7]
+ [1,4,6,8]
+ [0,3,5,7]
+>`).arp("[0,1,2] [- [1,2,3]]")
+
+var _saw1 = sawPass(`<
+ 0 3 4 3
+>`).struct("1 - - - - 1 - -")
+
+var M = 1;
+$: arrange(
+  [M*4,stack(
+    _piano1,
+    _saw1,
+  )],
+).punchcard()
