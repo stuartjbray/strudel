@@ -9,8 +9,8 @@ const drumsPass = (x) => x.color("white");
 
 
 
-var d1 = sound("bd").struct(  "<[1 0 1 0 0 1 1 0]>").gain("[.2 .5]*2 ")
-var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0").gain(".4 1")
+var d1 = sound("bd").struct(  "<[1 0 1 0 0 1 <0 1> 0]>").gain("[.2 .8]*2 ")
+var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 <0 1>").gain(".4 1")
 var d3 = sound("AlesisSR16_hh").struct("1*16").gain(".1@3 .3@2 .1@3")
 var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
 
@@ -26,7 +26,7 @@ var _drums2 =      stack(
 
 // Define pass functions for each instrument
 var chordsPass = (x) => chord(x).voicing().sound("piano").color("red")
-var bassPass = (x) => x.sound("piano").scale("c3:major").color("orange")
+var bassPass = (x) => x.sound("piano").room(2).scale("c3:major").color("orange")
 var leadPass = (x) => x.sound("gm_fretless_bass").scale("c2:major").room(2).color("yellow").gain(.7)
 
 // Apply pass functions to patterns
@@ -46,38 +46,40 @@ var _chords3 = chordsPass(`<
 
 
 var _bass1 = bassPass(n(`<
- [0 - 2 1]
- [- - 2 1]
- [0 - 4 1]
- [0 - 2 5]
+ [0 - [2,4] 1]
+ [- - [2,5] 1]
+ [0 - [4,5] 1]
+ [0 - [2,4] 5]
 >`))
 var _bass2 = bassPass(n(`<
 -
 >`))
 
 var _lead1 = leadPass(n(`<
- [4 5 - -]
- [4 2 -  -]
+ [4 - - [- 5]]
+ [4 - - [- 2]]
 >`)).room(3)
 var _lead2 = leadPass(n(`<
 -
 >`))
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4, stack(    
     _drums_intro,
-    _chords1, 
+    _chords1.lpf(400), 
   )],
   [1*4, stack(
     _drums1,
-    _chords2, 
-    // _bass1,
-    // _lead1,
+    _chords2.transpose("0,12"), 
+    _bass1.lpf(500),
+    _lead1,
   )],
   [1*4, stack(    
     _drums1,
     _chords3, 
+    _bass1,
+    _lead1,
   )],
   ).punchcard()
   

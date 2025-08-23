@@ -1,9 +1,6 @@
 //@title down-de-down
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
-/*
-*/
 setcpm(30)
 
 // -------------- Drums
@@ -16,45 +13,34 @@ var _drums_intro = stack( d1, d2  ).color("white") // build up
 var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
 var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
+var chordPass = (x) => n(x).sound("piano").scale("c3:minor").color("red")
 
+var _chords1 = chordPass(`<
+ [0,2,7] -
+>`)
+var _chords2 = chordPass(`<
+ [-2,2,5] -
+>`)
+var _chords3 = chordPass(`<
+ [-4,-2,0] -
+>`)
+var _chords4 = chordPass(`<
+ [-3,-1,1] -
+>`)
 
-var chords1 = n(`<
- [0,2,7]
- -
->`)
-var chords2 = n(`<
- [-2,2,5]
- -
->`)
-var chords3 = n(`<
- [-4,-2,0]
- -
->`)
-var chords4 = n(`<
- [-3,-1,1]
- -
->`)
-var _chords1 = chords1.sound("piano").scale("c3:minor").color("red")
-var _chords2 = chords2.sound("piano").scale("c3:minor").color("red")
-var _chords3 = chords3.sound("piano").scale("c3:minor").color("red")
-var _chords4 = chords4.sound("piano").scale("c3:minor").color("red")
-
-var base1 = n(`<
+var bassPass = (x) => n(x).sound("gm_synth_brass_1").scale("c2:minor").color("orange").room(2)
+var _bass1 = bassPass(`<
  [0@2 ~ ~ ~ 2 4 ~]
 >`)
-var base2 = n(`<
+var _bass2 = bassPass(`<
  [-2@2 ~ ~ ~ 0 2 ~]
 >`)
-var base3 = n(`<
+var _bass3 = bassPass(`<
  [-4@2 ~ ~ ~ -2 0 ~]
 >`)
-var base4 = n(`<
+var _bass4 = bassPass(`<
  [-3@2 ~ ~ ~ -1 1 ~]
 >`)
-var _base1 = base1.sound("gm_synth_brass_1").scale("c2:minor").color("orange").room(2)
-var _base2 = base2.sound("gm_synth_brass_1").scale("c2:minor").color("orange").room(2)
-var _base3 = base3.sound("gm_synth_brass_1").scale("c2:minor").color("orange").room(2)
-var _base4 = base4.sound("gm_synth_brass_1").scale("c2:minor").color("orange").room(2)
 
 var lead1 = n(`<
 -
@@ -68,40 +54,25 @@ var _lead2 = lead2.sound("piano").scale("c3:major").color("yellow")
 var M = 1;
 $: arrange(
   [M*4, stack(    
-    _drums_intro,
-    _base1,
+    _drums_intro,    _bass1,
   )],
   [1*4, stack(
-    _drums1,
-    _chords1,
-    _base1,
+    _drums1,    _chords1,    _bass1,
   )],
   [1*4, stack(    
-    _drums1,
-    _chords2, 
-    _base2,
+    _drums1,    _chords2,     _bass2,
   )],
   [1*4, stack(
-    _drums1,
-    _chords3,
-    _base3,
+    _drums1,    _chords3,    _bass3,
   )],
   [1*4, stack(    
-    _drums1,
-    _chords4, 
-    _base4,
+    _drums1,    _chords4,     _bass4,
   )],
   [M*4, stack(
-    _drums1,
-    _chords1,
-    _base1,
-    _lead1,
+    _drums1,    _chords1,    _bass1,    _lead1,
   )],
   [M*4, stack(
-    _drums1,
-    _chords2,
-    _base2,
-    _lead2,
+    _drums1,    _chords2,    _bass2,    _lead2,
   )],
   ).punchcard()
   
