@@ -18,9 +18,9 @@ var _drums2 =      drumsPass(stack(  d2, d4  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => x.sound("gm_contrabass").scale("c3:major").color("red")
+var chordsPass = (x) => x.sound("gm_contrabass").scale("c3:major").color("red").phaser("<0 4>")
 var bassPass = (x) => x.sound("piano").scale("c3:major").color("orange")
-var leadPass = (x) => x.sound("supersaw ").scale("c3:major").color("yellow")
+var leadPass = (x) => x.sound("supersaw ").scale("c3:major").room(4).color("yellow")
 var guitPass = (x) => x.sound("gm_violin").scale("c2:major").color("green")
 var fidPass = (x) => x.sound("gm_fiddle").scale("c3:major").color("blue").room(2)
 
@@ -51,8 +51,9 @@ var _lead1 = leadPass(n(`<
  - <[9 7 [- 5] -] [9 7 [- 9] -]>
 >`))
 var _lead2 = leadPass(n(`<
--
->`))
+ - [0 2 0 4]
+ - [2 3 2 0]
+>`)).gain(.3)
 
 var _guit1 = guitPass(n(`<
  [0 - - 2] -
@@ -61,13 +62,13 @@ var _guit1 = guitPass(n(`<
 
 var M = 1; 
 $: arrange(
-  [0*4, stack(    // Intro
+  [M*4, stack(    // Intro
     _drums_intro,
     _chords1_jitter, 
     _lead1,
     _guit1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums1,
     _chords1_jitter.transpose(12), 
     _lead1,
@@ -77,13 +78,13 @@ $: arrange(
     _drums2,
     _chords1, _chords1_jitter,
     _bass1,
-    _lead1,
+    _lead1, _lead2,
   )],
   [1*4, stack(
     _drums2,
     _chords2, _chords2_jitter,
     _bass2,
-    _lead1,
+    _lead1, _lead2,
   )],
   ).punchcard()
   

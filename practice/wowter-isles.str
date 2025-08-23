@@ -26,8 +26,8 @@ var _drums2 =      stack(
 
 // Define pass functions for each instrument
 var chordsPass = (x) => chord(x).voicing().sound("piano").color("red")
-var bassPass = (x) => x.sound("piano").room(2).scale("c3:major").color("orange")
-var leadPass = (x) => x.sound("gm_fretless_bass").scale("c2:major").room(2).color("yellow").gain(.7)
+var bassPass = (x) => x.sound("piano").room(2).scale("c3:major").gain(.5).color("orange")
+var leadPass = (x) => x.sound("gm_fretless_bass").scale("c2:major").room(3).color("yellow").gain(.4)
 
 // Apply pass functions to patterns
 var arp1 = "[- 2 3 - - - 3 -]*2"
@@ -69,17 +69,24 @@ $: arrange(
     _drums_intro,
     _chords1.lpf(400), 
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums1,
     _chords2.transpose("0,12"), 
-    _bass1.lpf(500),
+    _bass1,
     _lead1,
   )],
   [1*4, stack(    
     _drums1,
     _chords3, 
+    _bass1.transpose(12),
+    _lead1.transpose(12),
+  )],
+  [1*4, stack(
+    _drums1,
+    _chords2, 
     _bass1,
     _lead1,
   )],
-  ).punchcard()
+  
+).punchcard()
   
