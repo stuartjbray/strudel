@@ -1,0 +1,58 @@
+//@title synth-arps
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+
+var leadPass = (x) => n(x).sound("gm_lead_7_fifths").scale("c3:minor").room(4).color("red")
+var synthPass = (x) => n(x).sound("gm_epiano2").scale("c3:minor").color("orange")
+var padPass = (x) => n(x).sound("gm_pad_halo").scale("c3:minor").color("yellow")
+var dugPass = (x) => n(x).sound("gm_synth_bass_1").scale("c2:minor").clip(.5).color("green")
+var whooshPass = (x) => n(x).sound("gm_lead_3_calliope").scale("c3:minor").color("blue")
+
+var _synth1 = leadPass(`<
+ [0 1 2 4]!2
+ [-2 1 2 6]!2 
+ [0 1 2 4]!2
+ [-2 6 2 1]!2 
+>`)
+var _synth2 = leadPass(`<
+ 9 7 <6 10> <5 7>
+>`)
+var _pad1 = padPass(`<
+ [0,2,4] -
+>`)
+var _lead1 = leadPass(`<
+ [ - - [7,9] - - [7,8] - - ]
+ [ - - [7,9] - - [7,10] - -]
+ [ - - [6,8] - - [6,9] - -]
+ [ - - [6,10] - - [6,7] - -]
+>`)
+var _dug1 = dugPass(`<
+ [0 - - 1 0 -@3]
+ [0 - 2 0 -@4]
+ [0 - - 3 0 -@3]
+ [0 - 2 0 -@4]
+>`)
+var _whoosh1 = whooshPass(`<
+ -
+ [4 3]
+ -
+ -
+>`)
+var M = 1;
+$: arrange(
+  [M*8,stack(
+    _synth1,    _synth2,    _pad1,
+  )],
+  [M*8,stack(
+    _synth1.lpf(500),    _synth2.transpose(-12),    _pad1.transpose(12),
+  )],
+  [M*8,stack(
+    _synth1,    _synth2,    _pad1,
+    _lead1,
+  )],
+  [1*8,stack(
+    _synth1.lpf(500),    _synth2.transpose(12).lpf(1000).gain(.5),    _pad1.transpose(12),
+    _dug1, _whoosh1,
+  )],
+).punchcard()

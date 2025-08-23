@@ -17,12 +17,12 @@ var bbb = n(`<
  3
  [4 -]
  >`)
-var _bbb = bbb.scale("<c2,c3>:major").sound("gm_english_horn").color("yellow").distort(2).attack(1).release(.3).gain(.4)
+var _bbb = bbb.scale("<c2,c3>:major").sound("gm_english_horn").color("yellow").distort(1.2).attack(1).release(.3).gain(.4)
 
 var ccc = n(`< 7 6 5 4 3 2 3 4 >`)
 var ccc2 = n(`< 7 8 9 11 8 9 10 11>`)
-var _ccc = ccc.scale("<c3>:major").sound("gm_distortion_guitar").color("orange").phaser(2).distort(2).attack(.3)
-var _ccc2 = ccc2.scale("<c2>:major").sound("gm_distortion_guitar").color("orange").phaser(4).distort(2).attack(.6)
+var _ccc = ccc.scale("<c3>:major").sound("gm_distortion_guitar").color("orange").phaser(2).distort(1.2).attack(.3)
+var _ccc2 = ccc2.scale("<c2>:major").sound("gm_distortion_guitar").color("orange").phaser(4).distort(1.2).attack(.6)
 
 
 
