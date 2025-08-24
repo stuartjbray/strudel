@@ -1,8 +1,8 @@
-//@title synth-arps
+//@title ntharps
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-var _drumIntro = sound("rim").echo(5,1/8,.6).room(2).color("white")
+var _drumIntro = sound("rim").echo(5,1/8,.7).room(2).lpf(800).color("white")
 var _d1 = sound("hh hh*2 - <- oh>").color("white")
 var _d2 = sound("bd [rim <- bd>]").color("white")
 var _d3 = sound("hh hh*<2 4> - hh")
@@ -67,7 +67,9 @@ var M = 1;
 $: arrange(
   [M*8,stack(
     cat(silence,_drumIntro),
-    _synth1,    _synth2,    _pad1,
+    _synth1.gain(.3),
+    _synth2,
+    _pad1,
   )],
   [M*8,stack(
     _d1, _d2,

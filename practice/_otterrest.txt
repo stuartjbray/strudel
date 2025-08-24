@@ -1,4 +1,4 @@
-//@title chords_cfg
+//@title otterrest
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -7,7 +7,7 @@ var pianoPass = (x) => n(x).sound("piano").scale("c3:major").color("orange")
 var bassPass = (x) => n(x).sound("piano").scale("c2:major").color("red")
 var sawPass = (x) => n(x).sound("supersaw").scale("c2:major")
 var padPass = (x) => n(x).sound("gm_fx_brightness").scale("c2:major").gain(.5)
-var aahPass = (x) => n(x).sound("gm_synth_choir").scale("c3:major").color("yellow").gain(1).release(1)
+var aahPass = (x) => n(x).sound("gm_trumpet").scale("c3:major").color("yellow").gain(1).release(.2)
 
 var stutPass = (x) => n(x).sound("tri").scale("c4:major").color("cyan").gain(2)
 
@@ -33,7 +33,7 @@ var _bass3 = bassPass(`< 0 -2>`).struct(arpBass)
 
 
 var _drone1 = padPass(`0`)
-var _aah1 = aahPass(`0 - - 0`)
+var _aah1 = aahPass(`<[- - 0 2][ - - <3 0> <2 ->]>`)
 var _saw1 = sawPass(`<
  0 3 4 3
 >`).struct("1 - - - - 1 - -")
@@ -41,7 +41,7 @@ var _saw1 = sawPass(`<
 var _stut1 = stutPass(`<[0 - - 0 0 - 0 0]>`).vowel("a o e u")
 var _stut2 = stutPass(`<[0*2 - - 0 0*2 - 0 0]>`).vowel("[a o e u]")
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4,stack( // Build Up
     _piano1.lpf(200), _stut1,   
@@ -49,16 +49,16 @@ $: arrange(
   [M*4,stack(
     _piano1.lpf(400), _stut1,   
   )],
-  [M*4,stack(
+  [1*4,stack(
     _piano2.lpf(800), _bass2.gain(.3),   _stut1, _aah1,
   )],  
-  [M*4,stack(
+  [1*4,stack(
     _piano3.lpf(1200), _bass3.gain(.6),   _stut1, _aah1,
   )],  
-  [M*4,stack( // Full intensity
+  [1*4,stack( // Full intensity
     _piano1, _bass1, _stut1, _aah1,
   )],
-  [M*4,stack(
+  [1*4,stack(
     _piano1, _bass1, _stut1, _aah1,
   )],
   [M*4,stack( 
