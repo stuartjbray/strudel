@@ -21,6 +21,7 @@ var _drums2 =      stack(
 // Define pass functions for each instrument
 var chordsPass = (x) => chord(x).voicing().sound("piano").color("red")
 var bassPass = (x) => x.sound("piano").room(2).scale("c3:major").gain(.5).color("orange")
+var tinkPass = (x) => x.sound("piano").scale("c4:major").color("cyan")
 var dugPass = (x) => x.sound("gm_electric_bass_finger").room(2).scale("c3:major").gain(.8).color("blue")
 var leadPass = (x) => x.sound("gm_fretless_bass").scale("c2:major").room(3).color("yellow").gain(.4)
 var stringPass = (x) => x.sound("gm_violin").scale("c4:major").room(1.2).release(1).color("green").gain(.5)
@@ -78,7 +79,7 @@ var _dug1 = dugPass(n(`<
  [- [- [0 1 -2 -1] ]]
 >`))
 
-var M = 1;
+var M = 0;
 $: arrange(
   [M*4, stack(    
     _drums_intro,    _chords1.lpf(400), _dug1.gain(.5),
@@ -108,14 +109,15 @@ $: arrange(
     _chords3, _chords2.transpose(-12).gain(.6),
     _lead2.transpose(12).gain(.6),
   )],  
-  [M*4, stack(
+  [1*4, stack(
     _drums1,
     _chords1.sound("pulse").room(3).gain(.6), 
     _chords1.transpose(-12),
   )],  
-  [M*4, stack(
+  [1*4, stack(
     _drums1,
     _chords4,
+    tinkPass(n(`<- [[7 6 5 6 5 4 3 2] 4 ] - [[0 1 2 1 2 3 2 3] 4 ]>`)),
     _lead2.transpose(12).lpf(500).gain(.2),
     _dug1.lpf(400),
   )],  
@@ -126,5 +128,5 @@ $: arrange(
   )],  
 
 
-).punchcard()
+)._punchcard()
   

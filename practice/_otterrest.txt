@@ -3,11 +3,11 @@
 //@url https://soundcloud.com/stuart-j-bray
 
 cpm(30)
-var pianoPass = (x) => n(x).sound("piano").scale("c3:major").color("orange")
+var pianoPass = (x) => n(x).sound("piano").scale("c4 :major").color("orange").gain(.6)
 var bassPass = (x) => n(x).sound("piano").scale("c2:major").color("red")
 var sawPass = (x) => n(x).sound("supersaw").scale("c2:major")
 var padPass = (x) => n(x).sound("gm_fx_brightness").scale("c2:major").gain(.5)
-var aahPass = (x) => n(x).sound("gm_trumpet").scale("c3:major").color("yellow").gain(1).release(.2)
+var aahPass = (x) => n(x).sound("gm_lead_1_square").scale("c3:major").color("yellow").gain(.3).release(.7)
 
 var stutPass = (x) => n(x).sound("tri").scale("c4:major").color("cyan").gain(2)
 
