@@ -65,11 +65,11 @@ var _dik2 = dikPass(`<
 
 var M = 1;
 $: arrange(
-  [M*8,stack(
+  [M*4,stack(
     cat(silence,_drumIntro),
     _synth1.gain(.3),
-    _synth2,
-    _pad1,
+    _synth2.gain(.3),
+    _pad1.gain(.3),
   )],
   [M*8,stack(
     _d1, _d2,
