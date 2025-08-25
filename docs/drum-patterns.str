@@ -63,6 +63,8 @@ var boombap = stack(
   sound("hh").struct("1 1 1 1 1 1 1 1"),
   sound("rim").struct("0 1 0 0 0 1 0 0")
 )
+$: westcoast
+
 var westcoast = stack(
   sound("bd").struct("1 1 0 0 1 0 0 1"),
   sound("sd").struct("0 0 1 0 0 0 1 0"),
