@@ -2,38 +2,52 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-cpm(30)
+setcpm(30)
+
 var pianoPass = (x) => n(x).sound("piano").scale("c4 :major").color("orange").gain(.6)
-var bassPass = (x) => n(x).sound("piano").scale("c2:major").color("red")
+var bassPass = (x) => n(x).sound("gm_slap_bass_1").scale("c2:major").color("red")//.early(-1/16)
 var sawPass = (x) => n(x).sound("supersaw").scale("c2:major")
 var padPass = (x) => n(x).sound("gm_fx_brightness").scale("c2:major").gain(.5)
 var aahPass = (x) => n(x).sound("gm_lead_1_square").scale("c3:major").color("yellow").gain(.3).release(.7)
-
+var bellPass = (x) => n(x).sound("gm_glockenspiel").scale("c3:major").color("purple")
 var stutPass = (x) => n(x).sound("tri").scale("c4:major").color("cyan").gain(2)
 
+var _drum_rattle = stack(
+  sound("<-@3 hh>").echo(6,1/8,.7).late(-1/16).pan(.7),
+  sound("<-@3 oh>").echo(6,1/8,.7).pan(.3),
+  ).color("white")
+var _drum1 = stack(
+  sound("bd - - bd <- bd> - - -").gain(".7 .2 .7 -"),
+  sound("- - rim - - - <- rim> -"),
+  sound("- - - - - - <alesissr16_cp -> <- - alesissr16_cp -> ")
+).color("white")
+
+
+
+var arp1 = "[0,1,2] [- [1,2,3]]"
+var arp2 = "[0,1,2] [- [1 2 3 -]]"
 var _piano1 = pianoPass(`<
  [0,2,4,7]
  [0,3,5,7]
  [1,4,6,8]
  [0,3,5,7]
->`).arp("[0,1,2] [- [1,2,3]]") // C F G F
+>`).arp(arp1) // C F G F
 var _piano2 = pianoPass(`<
  [1,4,6,8]
  [0,3,5,7]
->`).arp("[0,1,2] [- [1 2 3 -]]") // G F
+>`).arp(arp2) // G F
 var _piano3 = pianoPass(`<
  [0,2,4,7]
  [-2,0,2,5]
->`).arp("[0,1,2] [- [1 2 3 -]]") // C Am
+>`).arp(arp2) // C Am
 
-var arpBass = "[- - - 1 - 1 1@2]"
+var arpBass = "[- - - 1 - 1@3]"
 var _bass1 = bassPass(`< 0 -2 -1 -2>`).struct(arpBass)
 var _bass2 = bassPass(`< 1 0>`).struct(arpBass)
 var _bass3 = bassPass(`< 0 -2>`).struct(arpBass)
 
-
 var _drone1 = padPass(`0`)
-var _aah1 = aahPass(`<[- - 0 2][ - - <3 0> <2 ->]>`)
+var _aah1 = aahPass(`<[-  0 ][ - 3]>`)
 var _saw1 = sawPass(`<
  0 3 4 3
 >`).struct("1 - - - - 1 - -")
@@ -41,33 +55,39 @@ var _saw1 = sawPass(`<
 var _stut1 = stutPass(`<[0 - - 0 0 - 0 0]>`).vowel("a o e u")
 var _stut2 = stutPass(`<[0*2 - - 0 0*2 - 0 0]>`).vowel("[a o e u]")
 
+var _pianoBuild = pianoPass(`<
+ - [0 1 2 1 2 3 2 3]
+ [4 3 4 5 4 5 6 5]
+ [6 7 6 7 8 9 8 7]
+>`).transpose(-12)
+
 var M = 1;
 $: arrange(
   [M*4,stack( // Build Up
     _piano1.lpf(200), _stut1,   
+    _drum_rattle,
   )],
   [M*4,stack(
-    _piano1.lpf(400), _stut1,   
-  )],
-  [1*4,stack(
-    _piano2.lpf(800), _bass2.gain(.3),   _stut1, _aah1,
-  )],  
-  [1*4,stack(
-    _piano3.lpf(1200), _bass3.gain(.6),   _stut1, _aah1,
+    _pianoBuild.gain(.4),
+    _piano2.lpf(800), _bass2.gain(.3),   _stut1,
   )],  
   [1*4,stack( // Full intensity
-    _piano1, _bass1, _stut1, _aah1,
+    _drum1,
+    _piano1.transpose(-12), _bass1, _stut1, 
   )],
   [1*4,stack(
-    _piano1, _bass1, _stut1, _aah1,
+    _drum1,
+    _piano2.transpose(-12), _bass1, _stut1, 
   )],
-  [M*4,stack( 
-    _piano2, _bass2, _stut2, _aah1, 
+  [1*4,stack( 
+    _drum1,
+    _bass2, _stut2, 
     _bass2.transpose(12).late(1/8),
     _stut2.transpose(12),
   )],
-  [M*4,stack(
-    _piano3, _bass3, _stut2, _aah1,
+  [1*4,stack(
+    _drum1,
+    _bass3, _stut2,
     _bass3.transpose(12).late(1/8),
     _stut2.transpose(12),
   )],
