@@ -28,8 +28,8 @@ var bassPass = (x) => x.sound("piano").scale("c3:major").color("orange")
 var leadPass = (x) => x.sound("gm_epiano2 ").scale("c3:major").room(4).color("yellow")
 var guitPass = (x) => x.sound("gm_violin").scale("c2:major").color("green").room(2)
 var fidPass = (x) => x.sound("gm_fiddle").scale("c3:major").color("blue").room(2)
-var epiPass = (x) => x.sound("gm_epiano1").scale("c3:major").color("cyan").room(2)
-var pianoPass = (x) => x.sound("piano").scale("c4:major").color("purple")
+var epiPass = (x) => x.sound("gm_epiano1").scale("<c3,c4>:major").color("cyan").room(2)
+var pianoPass = (x) => x.sound("piano").scale("<c4,c5>:major").color("purple")
 
 var _chords1 = chordsPass(n(`<
  [0,2] [1,3] [2,4] [3,5]
@@ -45,12 +45,22 @@ var _chords1_jitter = fidPass(n(`<
 var _chords2_jitter = fidPass(n(`<
  [0,6] [1,7] [2,6] [3,9]
 >`)).struct(structFid).clip(.5)
+var _chords3_jitter = fidPass(n(`<
+ [4,7] [3,5] [2,4]  [1,3]  
+>`)).struct(structFid).clip(.5)
+
 
 var _bass1 = bassPass(n(`<
  -
 >`))
 var _bass2 = bassPass(n(`<
--
+ -
+>`))
+var _bass3 = bassPass(n(`<
+ [0]
+ [1 2 3 1]
+ [2]
+ [3 4 5 3]
 >`))
 
 var _lead1 = leadPass(n(`<
@@ -63,6 +73,13 @@ var _lead2 = leadPass(n(`<
  - [- 7 - [8 7]]
  - [- 4 - [5 4]]
 >`))
+var _lead3 = leadPass(n(`<
+ [0,2]
+ -
+ [4,6]
+ -
+>`))
+
 
 var _epi1 = epiPass(n(`<
  [0 - 0 4]*2 -
@@ -92,7 +109,7 @@ var _hurry1 = pianoPass(n(`<
  [- [6 7 6 - 6 7 6 -]] -
 >`))
 
-var M = 1; 
+var M = 0; 
 $: arrange(
   [M*4, stack(    // Intro
     _drums_intro,    _chords1_jitter,     _lead1,    _guit1,
@@ -121,8 +138,14 @@ $: arrange(
     _piano2,
   )],
   [1*8, stack(
-    _drums1,
+    _drums1, _drum_rattle,
     _lead2,    _guit1,  _hurry1.gain(.5),
+  )],
+  [1*8, stack(
+    _drums1,    
+    _chords3_jitter,
+    _lead3,    _guit1,  _hurry1.gain(.5),
+    _bass3,
   )],
   ).punchcard()
   
