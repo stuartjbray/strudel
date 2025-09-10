@@ -1,27 +1,28 @@
 //@title mukton
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
+// ------------- RE-RECORD
 setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
 var d1_0 = sound("percysyn_bd").struct(  "1*2 - - 1")
-var d2_0 = sound("akaixr10_rim").struct("- - 1 -")
+var d2_0 = sound("mfb512_ht").struct("- - 1 -").gain(.4)
 
 var d1 = sound("percysyn_bd").struct(  "1 0 0 0 1 <0 1>")
-var d2 = sound("akaixr10_rim").struct("0 0 <0 1> 1 0 <0 1>").gain(.5)
+var d2 = sound("mfb512_ht").struct("0 0 <0 1> 1 0 <0 1>").gain(.6)
 var d3 = stack(
-  sound("d110_hh").struct("- - - - - 1 - - - - - -").gain(".07"),
+  sound("d110_hh").struct("- - - - - 1 - - - - - -").gain(".05"),
   sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 - 1 -").gain(".02")
 )
 
 var d1x = sound("percysyn_bd").struct(  "1 0 0 1 0 <0 1>")
-var d2x = sound("akaixr10_rim").struct("0 0 1 0 1*2 0").gain(.4)
+var d2x = sound("mfb512_ht").struct("0 0 1 0 1*2 0").gain(.4)
 var d3x = stack(
   sound("d110_hh").struct("- 1 - - - 1 - - - - 1 -").gain(".07"),
   sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 1 - -").gain(".02")
 )
-var d2x2 = sound("akaixr10_rim").struct("1 1 0 0 1 1").gain(".2 .1 0 0 .4 .3")
+var d2x2 = sound("mfb512_ht").struct("1 1 0 0 1 1").gain(".2 .1 0 0 .4 .3")
 
 var _drums0 =      drumsPass(stack( d1_0, d2_0  ))        // build up
 var _drums1 =      drumsPass(stack( d1, d2, d3 ))         // normal
@@ -29,7 +30,7 @@ var _drums2 =      drumsPass(stack( d1x, d2x, d3x ))      // break down
 var _drums3 =      drumsPass(stack( d1x, d2x2 ))
 
 // Define pass functions for each instrument
-var bassPass = (x) => n(x).sound("piano").scale("<c2,c3>:major").color("red").gain(.8)
+var bassPass = (x) => n(x).sound("piano").scale("<c2,c3>:major").color("red").gain(.6)
 var chordsPass = (x) => n(x).sound("piano").scale("c3:major").release(2).color("orange")
 var chordsPass2 = (x) => n(x).sound("piano").scale("c4:major").color("orange")
 var leadPass = (x) => n(x).sound("piano").scale("c4:major").color("yellow").gain(1)
@@ -260,5 +261,5 @@ $: arrange(
   ).transpose(6)],
   
   [1*1,silence]
-).punchcard()
+)._punchcard()
   

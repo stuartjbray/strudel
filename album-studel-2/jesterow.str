@@ -9,15 +9,15 @@ setcpm(30)
 // -------------- Drums
 // EmuSP12_bd
 var d1 = sound(" KorgDDM110_bd").transpose(30).struct(   "1 0 0 0 0 0 1 0")
-var d2 = sound("AkaiMPC60_rim").struct("0 0     0 0 1 0 <0 1> 0")
-var d2x = sound("EmuSP12_rim").struct( "0 0     0 1 0 0 0     <0 1>").lpf("1500 2000")
+var d2 = sound("casiorz1_cp").struct("0 0     0 0 1 0 <0 1> 0")
+var d2x = sound("rolandmc303_cp").struct( "0 0     0 1 0 0 0     <0 1>").lpf("1500 2000")
 
 var d3 = sound("AlesisSR16_hh").struct("0 0 0 1*2 0 0 0 1")
 var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
 
 var d3x = sound("AlesisSR16_hh").struct("<-@3 [1 1*2 1*4 1*8]>").lpf("[2000 2500]*8")
 
-var d1y = sound("EmuSP12_bd").struct(   "1*2 0 0 <1 -> 0 0 0 0").room(1)
+var d1y = sound("EmuSP12_bd").struct(   "1*2 0 0 <1 -> 0 0 0 0")
 var d6y = sound("AlesisSR16_cp").struct("0 0 <1*2 1> 0 <0 1> 0 <1 1*2> 0")
 var d6x = sound("AlesisSR16_cp").struct("0 0 1 0 0 0 <1 1*2> 0")
 var d7y = sound("BossDR550_mt").struct("0 0 0 1 0 0 0 <- 1>")
@@ -33,88 +33,88 @@ var _drums4 = stack( d1y,  d2, d3, d6y, d7y  ).color("white")
 var _drums5 = stack( d1, d1y,  d7y  ).color("white") 
 var _drums6 = stack( d6x, d8, d9).color("white") 
 
-var dug1 = n(`< [4 5 <- 6> <2 7>]*2 >`)
-var dug2 = n(`< [5 6 <- 8> <4 9>]*2 >`)
-var _dug1 = dug1.sound("gm_epiano1 ").scale("<c2,c3>:major").color("red")
-var _dug2 = dug2.sound("gm_epiano1 ").scale("<c2,c3>:major").color("red")
+// --- Instruments
+var bellPass = (x) => x.sound("kawai").scale("c3:major").color("green").gain(.8)
+var dugPass = (x) => x.sound("gm_epiano1 ").scale("<c2,c3>:major").color("red")
+var organPass = (x) => x.sound("gm_drawbar_organ").scale("c2:major").color("orange").gain(.7)
+var celestePass = (x) => x.sound("gm_celesta").room(2).gain(.3).scale("c3:major").color("grey")
+var leadPass = (x) => x.sound("supersaw").scale("c2:major").color("yellow").release(.75).gain(.5)
+
+
+var _dug1 = dugPass(n(`< [4 5 <- 6> <2 7>]*2 >`))
+var _dug2 = dugPass(n(`< [5 6 <- 8> <4 9>]*2 >`))
 
 // gm_shamisen
-var _dugX1 = n("4 - - <<4 5> ->").sound("gm_celesta").room(3).gain(.5).scale("c3:major").color("grey")
-var _dugX2 = n("5 - - <<4 5> ->").sound("gm_celesta").room(3).gain(.5).scale("c3:major").color("grey")
+var _dugX1 = celestePass(n("4 - - <<4 5> ->"))
+var _dugX2 = celestePass(n("5 - - <<4 5> ->"))
 
-var _dug3 = n(`< [7 6 <- 5> <4 8>]*2 >`).sound("gm_epiano1 ").scale("<c2,c3>:major").color("red")
-var _dug4 = n(`< [4 5 <- 6> <2 7>]*2 >`).sound("gm_epiano1 ").scale("<c2,c3>:major").color("red")
+var _dug3 = dugPass(n(`< [7 6 <- 5> <4 8>]*2 >`).sound("gm_epiano1 "))
+var _dug4 = dugPass(n(`< [4 5 <- 6> <2 7>]*2 >`).sound("gm_epiano1 "))
 
+var _base1 = organPass(n(`< 4 2 3 3>`))
+var _base2 = organPass(n(`< 1 4 3 3>`))
 
-var base1 = n(`< 4 2 3 3>`)
-var base2 = n(`< 1 4 3 3>`)
-var _base1 = base1.sound("gm_drawbar_organ").scale("c2:major").color("orange").gain(1.5)
-var _base2 = base2.sound("gm_drawbar_organ").scale("c2:major").color("orange").gain(1.5)
-
-var lead1 = n(`< 6 4 5@2>`)
-var lead2 = n(`< 3 4 <3 7>@2>`)
-var _lead1 = lead1.sound("supersaw").scale("c2:major").color("yellow")
-var _lead2 = lead2.sound("supersaw").scale("c2:major").color("yellow")
+var _lead1 = leadPass(n(`< 6 4 5@2>`))
+var _lead2 = leadPass(n(`< 3 4 <3 7>@2>`))
 var _lead1_vib = _lead1.vibrato("<[1,4] [2,3] > ")
 var _lead2_vib = _lead2.vibrato("<[1,4] [2,3] > ")
 
-var _lead3 = n(`< 10 9 8 7 >`).sound("supersaw").scale("c2:major").color("yellow")
-var _lead4 = n(`< 3 4 5 6  >`).sound("supersaw").scale("c2:major").color("yellow")
+var _lead3 = leadPass(n(`< 10 9 8 7 >`))
+var _lead4 = leadPass(n(`< 3 4 5 6  >`))
 
 
-var _bell1 = n(`<
+var _bell1 = bellPass(n(`<
  [4 [8,10]] [- - 11 [-[6,8]]]
  <[7,9] [[9 8] [7 -] [6,8] -]> -
- >`).sound("kawai").scale("c3:major").color("green").gain(1.5)
-var _bell2 = n(`<
+ >`))
+var _bell2 = bellPass(n(`<
  [[6,8]] [- - 9 [-[4,8]]]
  [5,7] -
- >`).sound("kawai").scale("c3:major").color("green").gain(1.5)
-
-var _bell3 = n(`<
+ >`))
+var _bell3 = bellPass(n(`<
  [[3,5] [1,4] - -] [[2,1] [2,4] -  -]
  <
  [[7,9] - - [7,10] ]
  [[9 8] [7 -] [6,8] -]
  >
  -
- >`).sound("kawai").scale("c3:major").color("green").gain(1.5)
-var _bell4 = n(`<
+ >`))
+var _bell4 = bellPass(n(`<
  [[6,8] [6,7]] [- 5 9 [-[4,9]]]
  [5,7,9] -
- >`).sound("kawai").scale("c3:major").color("green").gain(1.5)
-var _bell5 = n(`<
+ >`))
+var _bell5 = bellPass(n(`<
  [6 5 [5 6] [- 7]] [- - 4 7]
  [4 [- - 3 2] 3 -] -
  [6 5 [4 2] [- 0]] [- - 2 4]
  [0 [- - 2 4] 3 -] -
- >`).pan(0).sound("kawai").scale("c3:major").color("green").gain(1.5)
-var _bell5x = n(`<
+ >`))
+var _bell5x = bellPass(n(`<
  [4 2 [4 7] [- 5]] [- - 4 0]
  [2 [- - 2 3] 0 -] -
- >`).pan(1).sound("kawai").scale("c2:major").color("green").gain(1.5)
-var _bell6 = n(`<
+ >`))
+var _bell6 = bellPass(n(`<
  [4 - [4 5] [- 7]] [- - 7 5]
  [8 7 - 6 5 4 2 -]  0
- >`).pan(0).sound("kawai").scale("c3:major").color("green").gain(1.5)
-var _bell6x = n(`<
+ >`))
+var _bell6x = bellPass(n(`<
  [4 - [5 0] [- 5]] [- - 0 5]
  [2 4 - 4 5 6 7 -]  8
- >`).pan(1).sound("kawai").scale("c2:major").color("green").gain(1.5)
-var _bell7 = n(`<
+ >`))
+var _bell7 = bellPass(n(`<
  [[3,5] [- [5,6]] - [4,7]]
  <[[3,9] - - [- - 4 4]]
  [[5,7] - - [- - 4 4]]>
  [[4 3][2 3] 4 - - - - [- - 4 4] ]
  <[[4 6][4 0] - - - - - - ]
  [[10 9][8 7] - - - - - - ]>
->`).sound("kawai").scale("c3:major").color("green").gain(1.5)
-var _bell8 = n(`<
+>`))
+var _bell8 = bellPass(n(`<
  [- - 3 3 2 1 - -]
  [0 0 1 2  3 - - 3]
  <[2 5] [3 2]>
  <[7 0] [1 0]>
->`).sound("kawai").scale("c3:major").color("green").gain(1.5)
+>`))
 
 
 var _buzz1 = n(`<-2 0 1 0>`).struct("[0 1 [- 1] 0]").sound("gm_clavinet  ").scale("c3:major").color("cyan").gain(1.5)
@@ -244,7 +244,7 @@ $: arrange(
     )],
     [2, silence]
   
-  ).punchcard()
+  )._punchcard()
 
 
 
