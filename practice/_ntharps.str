@@ -2,7 +2,7 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-var _drumIntro = sound("rim").echo(5,1/8,.7).room(2).lpf(800).color("white")
+var _drumIntro = sound("rim!2 - rim!2 -@3").room(2).gain("[.7 .2]!4").color("white")
 var _d1 = sound("hh hh*2 - <- oh>").color("white")
 var _d2 = sound("bd [rim <- bd>]").color("white")
 var _d3 = sound("hh hh*<2 4> - hh")
@@ -66,7 +66,7 @@ var _dik2 = dikPass(`<
 var M = 1;
 $: arrange(
   [M*4,stack(
-    cat(silence,_drumIntro),
+    _drumIntro.mask("<0 1>"),
     _synth1.gain(.3),
     _synth2.gain(.3),
     _pad1.gain(.3),

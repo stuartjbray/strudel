@@ -9,7 +9,7 @@ setcpm(30)
 // -------------- Drums
 var d1 = sound("bd").struct(  "1 0 0 0 1 0 0 0")
 var d1a = sound("AkaiLinn_bd").struct(  "1 <0 1> 0 0 1 0 0 0")
-var d1b = sound("emusp12_bd").struct(  "1*4").gain(".2 .5")
+var d1b = sound("emusp12_bd").struct(  "1*4").gain(".2 .3 .5 .2")
 
 var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 0 0")
 var d2a = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0")
