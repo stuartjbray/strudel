@@ -85,7 +85,7 @@ var _chords_mid2 = chordsPass(n(`<
  -
 >`))
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4, stack(    _drums_intro,   _chords1,     _bass1,  )],
   [M*4, stack(    _drums1,        _chords2,    _bass2,        )],
