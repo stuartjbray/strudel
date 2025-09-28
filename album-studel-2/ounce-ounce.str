@@ -120,7 +120,7 @@ var _hurry1 = pianoPass(n(`<
  [- [6 7 6 - 6 7 6 -]] -
 >`))
 
-var M = 0; 
+var M = 1; 
 $: arrange(
   [M*4, stack(    // Intro
     _drums_intro,    _chords1_jitter,     _lead1,    _guit1,
