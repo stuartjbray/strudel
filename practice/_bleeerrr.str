@@ -10,7 +10,7 @@ const drumsPass = (x) => x.color("white");
 var d1 = sound("<hh*2 hh*4 hh*8 hh*16>").room("[.1 1]")
 var d2 = sound("bd - rim <- [- bd]>")
 var d3 = sound("oh hh - hh hh -@3")
-var d4 = sound("9000_hh!16").gain(".2")
+var d4 = sound("9000_hh!16").mask("1 1 - 1  1 1 - 1  1 - - 1  1 - - -").gain(.3)
 var d5 = sound("- cp - cp").gain("[.3 1]")
 
 var _drum_rattle = stack(
@@ -21,7 +21,7 @@ var _drum_rattle = stack(
 var _drums_intro = drumsPass(stack(  d1  ))            // build up
 var _drums1 =      drumsPass(stack(  d2, d3 ))  // normal
 var _drums2 =      drumsPass(stack(  d2,    ))           // break down
-var _drums3 =      drumsPass(stack(  d2, d3, d4, d5))
+var _drums3 =      drumsPass(stack(  d2,  d4, d5))
 
 // Define pass functions for each instrument
 var chordsPass = (x) => x.sound("gm_contrabass").scale("c3:major").color("red").phaser("<0 4>")
@@ -108,6 +108,13 @@ var _piano2 = pianoPass(n(`<
  [[10,12] - - - - - - -]
 >`))
 
+var _piano3 = pianoPass(n(`<
+ [[7,9] 6 7 - 7 5 - -] [[4,7] 5 4 -@5]
+ [[5,7] 4 4 - 2 4 - -] [4,6]
+ [[7,9] 8 7 - - 5 - -] [7 8 [7,9] -@5]
+ [[5,7] 4 4 - 2 - 7 8] [9,11]
+>`))
+
 var _hurry1 = pianoPass(n(`<
  [- [7 9 7 - 7 9 7 -]] -
  [- [6 7 6 - 6 7 6 -]] -
@@ -159,17 +166,31 @@ $: arrange(
     _hurry1.gain(.5),
     _bass3.transpose("0,12"),
   )],
-  [M*8, stack(
+  [M*8, stack( // drumless
     _lead1,
     _lead3.transpose("0,12").lpf(1000),    _guit1,  
     _hurry1.gain(.5).transpose(-12),
     _bass3.transpose("0,12"),
   )],  
-  [1*8, stack(
+  [M*8, stack( // new melody
     _drums1,
+    _chords3_jitter.gain(.4),
     _lead3.transpose(12),
     _guit1.echo(4,1/8,.6),  
     _bass3.transpose(-12),
+    _piano3
   )],  
+  [1*8, stack( // new melody
+    _drums1,
+    _chords3_jitter.transpose(12),
+    _lead3.transpose(-12),
+    _guit1,  
+    _bass3.transpose(0),
+    _bass3.transpose(12).late(1/8),
+    // _bass3.transpose(24).late(2/8), // nice but too much?
+    _piano3.transpose(-12).release(1)
+  )],  
+
+  [M*4,silence]
 ).punchcard()
   
