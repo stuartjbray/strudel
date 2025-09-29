@@ -1,7 +1,6 @@
 //@title mukton
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-// ------------- RE-RECORD
 setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
@@ -12,15 +11,15 @@ var d2_0 = sound("mfb512_ht").struct("- - 1 -").gain(.4)
 var d1 = sound("percysyn_bd").struct(  "1 0 0 0 1 <0 1>")
 var d2 = sound("mfb512_ht").struct("0 0 <0 1> 1 0 <0 1>").gain(.6)
 var d3 = stack(
-  sound("d110_hh").struct("- - - - - 1 - - - - - -").gain(".05"),
-  sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 - 1 -").gain(".02")
+  sound("d110_hh").struct("- - - - - 1 - - - - - -").gain(".09"),
+  sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 - 1 -").gain(".03")
 )
 
 var d1x = sound("percysyn_bd").struct(  "1 0 0 1 0 <0 1>")
 var d2x = sound("mfb512_ht").struct("0 0 1 0 1*2 0").gain(.4)
 var d3x = stack(
-  sound("d110_hh").struct("- 1 - - - 1 - - - - 1 -").gain(".07"),
-  sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 1 - -").gain(".02")
+  sound("d110_hh").struct("- 1 - - - 1 - - - - 1 -").gain(".09"),
+  sound("d110_hh").struct("- 1 1 - 1 - 1 1 1 1 - -").gain(".03")
 )
 var d2x2 = sound("mfb512_ht").struct("1 1 0 0 1 1").gain(".2 .1 0 0 .4 .3")
 
@@ -260,6 +259,6 @@ $: arrange(
     _drums1,    _trill_out5,
   ).transpose(6)],
   
-  [1*1,silence]
-)._punchcard()
+  [1*4,silence]
+).punchcard()
   

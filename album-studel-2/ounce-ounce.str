@@ -10,7 +10,8 @@ const drumsPass = (x) => x.color("white");
 var d1 = sound("<hh*2 hh*4 hh*8 hh*16>").room("[.1 1]")
 var d2 = sound("bd - rim <- [- bd]>")
 var d3 = sound("oh hh - hh hh -@3")
-var d4 = sound("-")
+var d4 = sound("9000_hh!16").mask("1 1 - 1  1 1 - 1  1 - - 1  1 - - -").gain(.3)
+var d5 = sound("- cp - cp").gain("[.3 1]")
 
 var _drum_rattle = stack(
   sound("<-@3 hh>").echo(6,1/8,.7).late(-1/16).pan(.7),
@@ -18,9 +19,9 @@ var _drum_rattle = stack(
   ).color("white")
 
 var _drums_intro = drumsPass(stack(  d1  ))            // build up
-var _drums1 =      drumsPass(stack(  d2,  d3,  d4))  // normal
-var _drums2 =      drumsPass(stack(  d2, d4  ))           // break down
-
+var _drums1 =      drumsPass(stack(  d2, d3 ))  // normal
+var _drums2 =      drumsPass(stack(  d2,    ))           // break down
+var _drums3 =      drumsPass(stack(  d2,  d4, d5))
 
 // Define pass functions for each instrument
 var chordsPass = (x) => x.sound("gm_contrabass").scale("c3:major").color("red").phaser("<0 4>")
@@ -28,7 +29,7 @@ var bassPass = (x) => x.sound("piano").scale("c3:major").color("orange")
 var leadPass = (x) => x.sound("gm_epiano2 ").scale("c3:major").room(4).color("yellow")
 var guitPass = (x) => x.sound("gm_violin").scale("c2:major").color("green").room(2)
 var fidPass = (x) => x.sound("gm_fiddle").scale("c3:major").color("blue").room(2)
-var epiPass = (x) => x.sound("gm_epiano1").scale("<c3,c4>:major").color("cyan").room(2)
+var epiPass = (x) => x.sound("gm_epiano1").scale("<c3,c4>:major").color("cyan").room(2).gain(.7)
 var pianoPass = (x) => x.sound("piano").scale("<c4,c5>:major").color("purple")
 
 var _chords1 = chordsPass(n(`<
@@ -82,10 +83,13 @@ var _lead3 = leadPass(n(`<
 
 
 var _epi1 = epiPass(n(`<
- [0 - 0 4]*2 -
- [2 - 2 0]*2 -
->`)).gain(.6)
+ [0 - 0 4] [0 - 0 3]  [2 0 2 4] [3 -]
+>`))
+var _epi2 = epiPass(n(`<
+ [0 - 0 -2] [0 - - -]  [0 -2 -3 -] [0 -]
+>`))
 
+                    
 var _guit1 = guitPass(n(`<
  [0 - - 2] -
  [2 - - 4] -
@@ -104,12 +108,19 @@ var _piano2 = pianoPass(n(`<
  [[10,12] - - - - - - -]
 >`))
 
+var _piano3 = pianoPass(n(`<
+ [[7,9] 6 7 - 7 5 - -] [[4,7] 5 4 -@5]
+ [[5,7] 4 4 - 2 4 - -] [4,6]
+ [[7,9] 8 7 - - 5 - -] [7 8 [7,9] -@5]
+ [[5,7] 4 4 - 2 - 7 8] [9,11]
+>`))
+
 var _hurry1 = pianoPass(n(`<
  [- [7 9 7 - 7 9 7 -]] -
  [- [6 7 6 - 6 7 6 -]] -
 >`))
 
-var M = 0; 
+var M = 1; 
 $: arrange(
   [M*4, stack(    // Intro
     _drums_intro,    _chords1_jitter,     _lead1,    _guit1,
@@ -119,33 +130,83 @@ $: arrange(
     _lead1,    _guit1,
   )],
   [M*4, stack(    
-    _drums2,    _chords1, _chords1_jitter,
+    _drums2,    _chords1, _chords1_jitter.mask("1 0"),
     _bass1,    _epi1,
   )],
   [M*4, stack(
-    _drums2,    _chords2, _chords2_jitter,
-    _bass2,    _epi1,
+    _drums2,    _chords2, _chords2_jitter.mask("1 0"),
+    _bass2,    _epi2,
   )],
   [M*4, stack(    
     _drums2,  _drum_rattle,
     _chords1, _chords1_jitter.gain(.4),
-    _bass1,    _epi1,
+    _bass1,    _epi1.gain(.6),
     _piano1,
   )],
   [M*4, stack(
     _drums2,    _chords2, _chords2_jitter.gain(.4),
-    _bass2,    _epi1,
+    _bass2,    _epi2.gain(.6),
     _piano2,
   )],
-  [1*8, stack(
+  [M*8, stack( // break down
     _drums1, _drum_rattle,
     _lead2,    _guit1,  _hurry1.gain(.5),
   )],
-  [1*8, stack(
+  [M*8, stack( // building up
     _drums1,    
     _chords3_jitter,
-    _lead3,    _guit1,  _hurry1.gain(.5),
+    _lead3,    _guit1,  
+    _hurry1.gain(.5),
     _bass3,
   )],
-  ).punchcard()
+  [M*8, stack(
+    _drums3,    
+    _chords3_jitter,
+    _lead3.transpose("0,12"),    _guit1,  
+    _hurry1.gain(.5),
+    _bass3.transpose("0,12"),
+  )],
+  [M*8, stack( // drumless
+    _lead1,
+    _lead3.transpose("0,12").lpf(1000),    _guit1,  
+    _hurry1.gain(.5).transpose(-12),
+    _bass3.transpose("0,12"),
+  )],  
+  [M*8, stack( // new melody
+    _drums1,
+    _chords3_jitter.gain(.6),
+    _lead3.transpose(12),
+    _guit1.echo(4,1/8,.6),  
+    _bass3.transpose(-12),
+    _piano3
+  )],  
+  [M*8, stack( 
+    _drums1,
+    _chords3_jitter.transpose(12),
+    _lead3.transpose(-12),
+    _guit1,  
+    _bass3.transpose(0),
+    _bass3.transpose(12).late(1/8), // offset bass
+    _piano3.transpose(-12).release(1)
+  )],  
+  [M*8, stack( 
+    _drums1.lpf(600),
+    _chords3_jitter.transpose(-12),
+    _lead3.transpose(-24),
+    _guit1.transpose("12,24"),  
+    _bass3.transpose(0),
+    _bass3.transpose(-12).late(1/8).clip(1), // offset bass
+    
+    _piano3.transpose(0).release(1),
+    _piano3.transpose(12).release(1),
+  )],    
+  [1*8, stack( 
+    _drums1.mask("1@7 0"),
+    _drum_rattle,
+    _chords1_jitter.lpf(400),
+    _lead1,    _guit1,    
+  )],    
+
+  [1*4,silence]
+).punchcard()
   

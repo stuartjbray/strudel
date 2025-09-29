@@ -8,7 +8,7 @@ var pianoPass = (x) => n(x).sound("piano").scale("c4 :major").color("orange").ga
 var bassPass = (x) => n(x).sound("gm_slap_bass_1").scale("c2:major").color("red")//.early(-1/16)
 var sawPass = (x) => n(x).sound("supersaw").scale("c2:major")
 var padPass = (x) => n(x).sound("gm_fx_brightness").scale("c2:major").gain(.5)
-var aahPass = (x) => n(x).sound("gm_lead_1_square").scale("c3:major").color("yellow").gain(.3).release(.7)
+var aahPass = (x) => n(x).sound("gm_lead_1_square").scale("<c2,c3>:major").color("yellow").gain(.3).release(.7)
 var bellPass = (x) => n(x).sound("gm_glockenspiel").scale("c3:major").color("purple")
 var stutPass = (x) => n(x).sound("tri").scale("c4:major").color("cyan").gain(2)
 
@@ -17,7 +17,7 @@ var _drum_rattle = stack(
   sound("<-@3 oh>").echo(6,1/8,.7).pan(.3),
   ).color("white")
 var _drum1 = stack(
-  sound("bd - - bd <- bd> - - -").gain(".7 .2 .7 -"),
+  sound("bd - - bd <- bd> - - -").gain("1 .2 .2 -"),
   sound("- - rim - - - <- rim> -"),
   sound("- - - - - - <alesissr16_cp -> <- - alesissr16_cp -> ")
 ).color("white")
@@ -61,23 +61,39 @@ var _pianoBuild = pianoPass(`<
  [6 7 6 7 8 9 8 7]
 >`).transpose(-12)
 
+var _lead1 = aahPass(`<
+ [7 8 - 9 7 - - -]
+ [5 6 - 7 5 - - -]
+ [4 5 - 6 - 7 - 8]
+ 5
+>`)
+var _lead2 = aahPass(`<
+ [7 8 - 9 - - - -]
+ [10 10 - 9 - - - -]
+ [- 8 - 8 - 6 - 4 ]
+ 7
+>`)
+
 var M = 1;
 $: arrange(
   [M*4,stack( // Build Up
+    _drum_rattle, 
     _piano1.lpf(200), _stut1,   
-    _drum_rattle,
-  )],
-  [M*4,stack(
     _pianoBuild.gain(.4),
-    _piano1.lpf(800), _stut1,
   )],  
-  [1*4,stack( // Full intensity
+  [M*4,stack( 
     _drum1,
     _piano1.transpose(-12), _bass1, _stut1, 
   )],
   [1*4,stack(
     _drum1,
-    _piano2.transpose(-12), _bass1, _stut1, 
+    _piano1.transpose(-12), _bass1, _stut1, 
+    _lead1,
+  )],
+  [1*4,stack(
+    _drum1,
+    _piano1.transpose(-12), _bass1, _stut1, 
+    _lead2,
   )],
   [1*4,stack( 
     _drum1,
@@ -85,6 +101,9 @@ $: arrange(
     _bass2.transpose(12).late(1/8),
     _stut2.transpose(12),
   )],
+
+
+  
   [1*4,stack(
     _drum1,
     _bass3, _stut2,
