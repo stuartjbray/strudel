@@ -2,8 +2,9 @@
 
  What is strudel
  Make drums
- Bhangra style
+  - Normally 4-to-the-floor, but this time: Bhangra style!
  Baseline - timing
  Build up layers
  Lead layer.
  Combine into 1 arrange function.
+ Reuse blocks by: transpose, lpf, switch instrument, remove drums...
