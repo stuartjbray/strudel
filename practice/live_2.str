@@ -1,0 +1,35 @@
+
+
+$: stack(
+  sound("bd!4"),
+  sound("- rim - rim*2").lpf("1000 2000"),
+  sound("hh!16").gain(".2 .4 .6 .2"),
+)
+
+
+var triPass = (x) => x.sound("z_triangle ").scale("c3:major").ply(3)
+var pianPass = (x) => x.sound("piano ").scale("c3:major").lpf("500 1000")
+
+var _tri1 = triPass(`<
+ [0 4 7 -]
+ [0 4 8 -]
+ [0 4 7 -]
+ [0 4 6 -]
+>`)
+
+
+var _piano1 = pianPass(`<
+ [0,4,6]
+ [0,4,7]
+ [0,4,8]
+ [0,4,9]
+>`).arp("0 1 2 [1,2] 0 - 1 -")
+
+
+$: arrange(
+  [4,stack(
+    _tri1,
+    _piano1,
+    _piano1.transpose(12).late(1/4),
+  )],
+)
