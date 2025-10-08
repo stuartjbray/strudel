@@ -1,0 +1,54 @@
+
+
+$: stack(
+  sound("bd - - bd - - - <- bd> "),
+  sound("- - rim - - - <rim ->  -  "),
+  sound("- - - <- - - linn9000_rd>"),
+  sound("hh!8").gain(".2 .4 .6 .2"),
+)
+
+
+var triPass = (x) => x.sound("square, supersaw").scale("c2:major").release(.3).gain(.6)
+var pianPass = (x) => x.sound("piano ").scale("c3:major").lpf("500 1000")
+var bassPass = (x) => x.sound("gm_slap_bass_2").scale("[c2,c3]:major")
+var trumPass = (x) => x.sound("gm_trumpet").scale("c3:major")
+var guitPass = (x) => x.sound("gm_lead_7_fifths").scale("c3:major")
+var _tri1 = triPass(`<
+ [0 0 - 0 - - - -]
+ [0 0 - -1 - - - -]
+>`)
+var _bass1 = bassPass(`<
+ [- [0,2,4] - [0,2,4]]
+ [- [0,2,5] - [0,2,5]]
+ [- [0,2,6] - [0,2,6]]
+ [- [0,2,7] - [0,2,7]]
+>`).ply(4).lpf("[200 500 1000 1500 ]*4")
+
+var _piano1 = pianPass(`<
+ [0,4,6]
+ [0,4,7]
+ [0,4,8]
+ [0,4,9]
+>`).arp("0 1 2 [1,2] 0 - 1 -")
+
+var _trum1 = trumPass(`<
+ [0,2]
+ [0,4]
+ [0,<5 3>]
+ [0,<7 2>]
+>`)
+var _guit1 = guitPass(`<
+ 2 4 5 7
+>`).ply(8).clip(.3)
+
+
+$: arrange(
+  [4,stack(
+    _tri1,
+    _bass1,
+    _piano1,
+    _piano1.transpose(12).late(1/4),
+    _trum1,
+    _guit1,
+  )],
+)
