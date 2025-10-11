@@ -1,7 +1,7 @@
 //@title ounce-ounce
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-// - RERECORD a bit.
+// RERECORD - a bit
 setcpm(30)
 
 // -------------- Drums
@@ -83,10 +83,10 @@ var _lead3 = leadPass(n(`<
 
 
 var _epi1 = epiPass(n(`<
- [0 - 0 4] [0 - 0 3]  [2 0 2 4] [3 -]
+ [0 - 0 4] [0 - - ]  [2 - 2 4] [3 -]
 >`))
 var _epi2 = epiPass(n(`<
- [0 - 0 -2] [0 - - -]  [0 -2 -3 -] [2 -]
+ [0 - 0 -2] [0 - - -]  [- -2 -3 -] [0 -]
 >`))
 
                     
@@ -120,15 +120,20 @@ var _hurry1 = pianoPass(n(`<
  [- [6 7 6 - 6 7 6 -]] -
 >`))
 
+var _desc1 = pianoPass(n(`<
+ 0 1 2 3
+>`))
+
 var M = 1; 
 $: arrange(
-  [M*4, stack(    // Intro
-    _drums_intro,    _chords1_jitter,     _lead1,    _guit1,
-  )],
-  [M*4, stack(
-    _drums1,    _chords1_jitter.transpose(12), 
-    _lead1,    _guit1,
-  )],
+  // [M*4, stack(    // Intro
+  //   _drums_intro,    _chords1_jitter,     _lead1,    _guit1,
+  // )],
+  // [M*4, stack(
+  //   _drums1,    _chords1_jitter.transpose(12), 
+  //   _lead1,    _guit1,
+  //   _desc1,
+  // )],
   [M*4, stack(    
     _drums2,    _chords1, _chords1_jitter.mask("1 0"),
     _bass1,    _epi1,
