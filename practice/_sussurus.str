@@ -31,9 +31,18 @@ var _synth2 = synthPass(`<
  [10,12,18]  [9,11,17]  [7,9,16]  [6,10,15] 
  [10,12,14]  [9,11,15]  [7,9,16]  [6,10,17] 
 >`).arp(arpSynth)
+var _synth1x = synthPass(`<
+ -@3 [[8,11] [8,10]]
+>`)  
+var _synth2x = synthPass(`<
+ -@3 [6 7 8 9]
+>`)
+
+
+  
 var _dik1 = dikPass(`<
  [- 0@2 -1] [ -3 -4 0@2]
- [- 0@2 -1] [ -3 - 2@2]
+ [- 0@2 -1] [ -3 - 2@2] 
 >`)
 var _dik2 = dikPass(`<
  [- 4@2 3] [ 4 5 6@2] [- 4@2 3] [ 2 - 1@2]
@@ -87,15 +96,15 @@ var _cell4 = cellPass(`<
  -
 >`).clip(.2)
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*8,stack(
     _drumIntro.mask("1@3 0"),    _df1,
-    _synth1,    _pad1.clip(.5),
+    _synth1, _synth1x,    _pad1.clip(.5),
   )],
   [M*8,stack(
     _drum1,
-    _synth2,    _pad2,
+    _synth2, _synth2x,   _pad2,
   )],
   [M*8,stack(
     _drum1,
