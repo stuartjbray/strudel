@@ -19,7 +19,7 @@ var synthPass = (x) => n(x).sound("gm_epiano2").scale("c2:minor").color("orange"
 var padPass = (x) => n(x).sound("gm_pad_halo").scale("c4:minor").color("yellow").room(3).gain(.4)
 var dugPass = (x) => n(x).sound("gm_synth_bass_1").scale("c2:minor").clip(.5).color("green")
 var whooshPass = (x) => n(x).sound("gm_lead_3_calliope").scale("c3:minor").color("blue")
-var dikPass = (x) => n(x).sound("gm_distortion_guitar").scale("c3:minor").color("cyan").room(2)
+var dikPass = (x) => n(x).sound("gm_distortion_guitar").scale("c3:minor").color("cyan").room(2).gain(.4)
 var cellPass = (x) => n(x).sound("gm_cello").room(2).release(1.1).scale("c4:minor").color("purple")
 
 var arpSynth = "[0 1 2 -] [[0,1,2] <- 0>]";
@@ -81,24 +81,44 @@ var _cell3 = cellPass(`<
 >`).clip(.2)
 
 // Section 4
-var _lead4 = leadPass(`<
- [-]
- -
+var _lead4 = dikPass(`<
+ - [2 3 - 4] 
+ - [5 4 - 3]
+ - [2 3 - 4]
+ [5 2 - 7] [6 5 - 4]
 >`)
 var _pad4 = padPass(`<
- -
+ 3 2 5 4
 >`).arp(padArp1).clip(.3)
 var _cell4 = cellPass(`<
- -
->`).clip(.2)
-var _synth4 = synthPass(`<
- [ 3]
- [ 2]
- [ 5]
- [ 4]
+ [3,5,7]
+ [2,4,6]
+ [5,7,9]
+ [4,6,9]
+>`).arp(arpSynth).clip(.2)
+var _synth4 = synthPass(`<3 2 5 4>`)
+
+// Section 5
+var _synth5 = synthPass(`<
+ 0 5 0 -
 >`)
+var _lead5 = dikPass(`<
+ -
+>`)
+var _pad5 = padPass(`<
+ [- - 4 3 4 - 2 -]
+ [- - 0 1 2 - 3 -]
+ [4 0 3 0]
+ [5 0 <4 6> <3 7>]
+>`)
+var _cell5 = cellPass(`<
+ [0,2,4]
+ [0,3,5]
+>`).arp(arpSynth).clip(.2)
 
-
+var _pad6 = padPass(`<
+ 0 1 2 3
+>`).arp(padArp1).clip(.3)
 
 
 var M = 1;
@@ -121,11 +141,11 @@ $: arrange(
   )],
   [M*8,stack(
     _drum1,
-    _synth1,    _pad1,    _dik1.transpose(12),    _cell1,
+    _synth1,    _pad1,    _dik1.transpose(12).gain(.6),    _cell1,
   )],
   [M*8,stack(
     _drum1,
-    _synth2,    _pad2,    _dik2.transpose(12),    _cell2,
+    _synth2,    _pad2,    _dik2.transpose(12).gain(.6),    _cell2,
   )],
   [M*8,stack(
     _drum2,
@@ -137,10 +157,39 @@ $: arrange(
   [M*8,stack(
     _synth2,    _pad2,    _dik2,    _cell2,
   )],
+  [M*8,stack( // Section 4
+    _drum1,
+    _lead4.transpose(-12), _cell4.transpose(-12),    _pad4, _synth4.transpose(12),
+  )],
+  [M*8,stack(
+    _drum1,
+    _lead4, _cell4.gain(.7), _pad4.transpose(-12), _synth4,
+  )],
+  [M*4,stack( // Section 5
+    _lead5, _cell5.transpose(-12).gain(.3), _pad5, _synth5.transpose("-12,0,12"),
+  )],  
+  [1*8,stack( // Section 5
+    _d4,
+    _dik1.clip(.1).echo(3,1/8,.6),
+    _lead5, 
+    _cell5.transpose(-12).gain(.3), _pad5, _synth5.transpose("-12,0,12"),
+  )],  
+  [1*8,stack( // Section 5
+    _drum1,
+    _dik2.clip(.3), _dik2.late(1/16).transpose(12).gain(.3),
+    _lead5, 
+    _cell5.transpose(-12).gain(.3), _pad5, _synth5.transpose("-12,0,12"),
+  )],  
+  [1*8,stack( // Opening
+    _drum1.lpf(500),
+    _synth1, _synth1x, _pad1.transpose(-12), _pad6,
+  )],
   [1*8,stack(
-    // _drum1,
-    _lead4, _cell4, _pad4, _synth4.transpose(12),
+    _drum1.lpf(500),
+    _synth2, _synth2x, _pad2.transpose(-12), _pad6,
   )],
   
-  
-)._punchcard()
+).punchcard()
+
+
+
