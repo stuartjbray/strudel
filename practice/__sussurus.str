@@ -12,14 +12,15 @@ var _drumIntro = stack(_d1, _d2, _d3).color("white")
 var _drum1 = stack( _d1, _d2, _d3, _d4).color("white")
 var _drum2 = stack(  _d2x, _d3, _d5).color("white")
 var _df1 = sound("<-@3 [[oh hh*2 oh hh*2],[rim - cp -]]>")
+var _drumOut = sound("[hh oh hh <rim hh>]*2")
 
 
 var leadPass = (x) => n(x).sound("gm_lead_7_fifths").scale("c3:minor").room(4).color("red")
 var synthPass = (x) => n(x).sound("gm_epiano2").scale("c2:minor").color("orange").release(.6)
 var padPass = (x) => n(x).sound("gm_pad_halo").scale("c4:minor").color("yellow").room(3).gain(.4)
-var dugPass = (x) => n(x).sound("gm_synth_bass_1").scale("c2:minor").clip(.5).color("green")
+var dugPass = (x) => n(x).sound("gm_synth_bass_1").scale("c3:minor").color("green").room(2)
 var whooshPass = (x) => n(x).sound("gm_lead_3_calliope").scale("c3:minor").color("blue")
-var dikPass = (x) => n(x).sound("gm_distortion_guitar").scale("c3:minor").color("cyan").room(2).gain(.4)
+var dikPass = (x) => n(x).sound("gm_distortion_guitar").scale("c3:minor").color("cyan").room(2).gain(.6)
 var cellPass = (x) => n(x).sound("gm_cello").room(2).release(1.1).scale("c4:minor").color("purple")
 
 var arpSynth = "[0 1 2 -] [[0,1,2] <- 0>]";
@@ -81,7 +82,7 @@ var _cell3 = cellPass(`<
 >`).clip(.2)
 
 // Section 4
-var _lead4 = dikPass(`<
+var _lead4 = dugPass(`<
  - [2 3 - 4] 
  - [5 4 - 3]
  - [2 3 - 4]
@@ -109,7 +110,7 @@ var _pad5 = padPass(`<
  [- - 4 3 4 - 2 -]
  [- - 0 1 2 - 3 -]
  [4 0 3 0]
- [5 0 <4 6> <3 7>]
+ [5 0 <4 6> <3 - 7 ->]
 >`)
 var _cell5 = cellPass(`<
  [0,2,4]
@@ -165,7 +166,7 @@ $: arrange(
     _drum1,
     _lead4, _cell4.gain(.7), _pad4.transpose(-12), _synth4,
   )],
-  [M*4,stack( // Section 5
+  [1*4,stack( // Section 5
     _lead5, _cell5.transpose(-12).gain(.3), _pad5, _synth5.transpose("-12,0,12"),
   )],  
   [1*8,stack( // Section 5
@@ -178,15 +179,16 @@ $: arrange(
     _drum1,
     _dik2.clip(.3), _dik2.late(1/16).transpose(12).gain(.3),
     _lead5, 
-    _cell5.transpose(-12).gain(.3), _pad5, _synth5.transpose("-12,0,12"),
+    _cell5.transpose(-12).gain(.3), _pad5.gain(.3), _synth5.transpose("-12,0,12"),
   )],  
   [1*8,stack( // Opening
     _drum1.lpf(500),
-    _synth1, _synth1x, _pad1.transpose(-12), _pad6,
+    _synth1, _synth1x, _pad1.transpose(-12), _pad6.transpose(-12),
   )],
   [1*8,stack(
+    _drumOut,
     _drum1.lpf(500),
-    _synth2, _synth2x, _pad2.transpose(-12), _pad6,
+    _synth2, _synth2x, _pad2.transpose(-12), _pad6.transpose(-12),
   )],
   
 ).punchcard()
