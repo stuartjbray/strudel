@@ -1,0 +1,11 @@
+$: sound("bd*4").sometimes(x => x.ply(2));
+$: sound("rim*2").sometimes(x => x.ply(2));
+
+
+all(x =>  x.lpf(slider(1257.1,100,2000)));
+all(x =>  x.hpf(slider(100,100,2000)));
+all(x =>  x.gain(slider(0.544,0,4)));
+// all(x =>  x.fast(.5));
+
+$: chord("<C F Am G>").voicing().arp("<[0,1,2,3]>").sound("piano")
+$: chord("<C F Am G>").voicing().arp("<[0 0 3 0 2 0 1 0]>").sound("piano").transpose(-12)
