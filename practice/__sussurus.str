@@ -12,7 +12,7 @@ var _drumIntro = stack(_d1, _d2, _d3).color("white")
 var _drum1 = stack( _d1, _d2, _d3, _d4).color("white")
 var _drum2 = stack(  _d2x, _d3, _d5).color("white")
 var _df1 = sound("<-@3 [[oh hh*2 oh hh*2],[rim - cp -]]>")
-var _drumOut = sound("[hh oh hh <rim hh>]*2")
+var _drumOut = sound("[hh oh hh oh],[- - cp -]")
 
 
 var leadPass = (x) => n(x).sound("gm_lead_7_fifths").scale("c3:minor").room(4).color("red")
@@ -177,7 +177,7 @@ $: arrange(
   )],  
   [1*8,stack( // Section 5
     _drum1,
-    _dik2.clip(.3), _dik2.late(1/16).transpose(12).gain(.3),
+    _dik2.clip(.3), _dik2.late(1/16).transpose(12).gain(.6),
     _lead5, 
     _cell5.transpose(-12).gain(.3), _pad5.gain(.3), _synth5.transpose("-12,0,12"),
   )],  
