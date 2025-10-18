@@ -5,11 +5,11 @@
 setcpm(30)
 
 // -------------- Drums
-const drumsPass = (x) => x.gain(slider(1)).color("white");
+const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bossdr110_bd").struct(  "1 0 0 1 1 0 0 0")
-var d2 = sound("oh").struct("0 0 1 0 0 0 0 0")
-var d3 = sound("oh").struct("0 0 0 0 0 0 1 0")
+var d2 = sound("jd990_oh:2").struct("0 0 1 0 0 0 1 0").gain(".4 .6")
+var d3 = sound("oh").struct("0 0 0 0 0 0 0 0")
 var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
@@ -22,6 +22,7 @@ var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red")
 var bassPass = (x) => x.scale("c3:major").sound("piano").color("orange")
 var leadPass = (x) => x.sound("steinway").scale("c3:major").color("yellow")
 var guitPass = (x) => x.scale("c3:major").sound('gm_electric_guitar_clean').color("green")
+var danPass = (x) => x.scale("c3:major").sound('dantranh_vibrato').color("blue")
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(n(`<
@@ -56,110 +57,44 @@ var _guit2 = guitPass(n(`<
  1 2 3 2
 >`))
 
+var _tune1 = danPass(n(`<
+ [ - [5 4 ]]
+ [ - [3 2 ]]
+>`))
+var _tune2 = danPass(n(`<
+ [ - [1 2 ]]
+ [ - [2 1 ]]
+>`))
 
 var M = 0;
 $: arrange(
   [M*4, stack(    
     _drums_intro,
-    _chords1, 
-    _bass1,
+    _chords1,     _bass1,
   )],
   [M*4, stack(
     _drums1,
-    _chords2,
-    _bass2,
+    _chords2,    _bass2,
   )],
-  [1*4, stack(    
-    _drums1,
-    _chords1,     _bass1,    _lead1,
-    _guit1,
-  )],
-  [1*4, stack(
-    _drums1,
-    _chords2,    _bass2,    _lead2,
-    _guit2,
-  )],
-  ).punchcard()
-  //@title Template
-//@by Stuart Bray
-//@url https://soundcloud.com/stuart-j-bray
-
-setcpm(30)
-
-// -------------- Drums
-const drumsPass = (x) => x.gain(slider(1)).color("white");
-
-var d1 = sound("bossdr110_bd").struct(  "1 0 0 1 1 0 0 0")
-var d2 = sound("oh").struct("0 0 1 0 0 0 0 0")
-var d3 = sound("oh").struct("0 0 0 0 0 0 1 0")
-var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
-
-var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
-
-
-// Define pass functions for each instrument
-var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red")
-var bassPass = (x) => x.scale("c3:major").sound("piano").color("orange")
-var leadPass = (x) => x.sound("steinway").scale("c3:major").color("yellow")
-var guitPass = (x) => x.scale("c3:major").sound('gm_electric_guitar_clean').color("green")
-
-// Apply pass functions to patterns
-var _chords1 = chordsPass(n(`<
- [0,2,5]  -
- [-2,2,4] -
->`))
-var _chords2 = chordsPass(n(`<
- [-3,0,1] -
- [-4,0,2] -
->`))
-
-var _bass1 = bassPass(n(`<
- - [- - [- 0] [2 3] ] 
- - [- - [- 0] [2 1]] 
->`))
-var _bass2 = bassPass(n(`<
- - [- - [- 0] [2 3] ]
- - [- - [- 0] [2 1]] 
->`))
-
-var _lead1 = leadPass(n(`<
- [5 - - 5] - [4 - - 4] -
->`))
-var _lead2 = leadPass(n(`<
-  [3 - - 3] - [2 - - 2] -
->`))
-
-var _guit1 = guitPass(n(`<
- 5 4 3 2
->`))
-var _guit2 = guitPass(n(`<
- 1 2 3 2
->`))
-
-
-var M = 0;
-$: arrange(
   [M*4, stack(    
-    _drums_intro,
-    _chords1, 
-    _bass1,
+    _drums1,
+    _chords1,     _bass1,    _lead1,    _guit1,
   )],
   [M*4, stack(
     _drums1,
-    _chords2,
-    _bass2,
+    _chords2,    _bass2,    _lead2,    _guit2,
   )],
   [1*4, stack(    
     _drums1,
-    _chords1,     _bass1,    _lead1,
-    _guit1,
+    _chords1,     _bass1,    _lead1,    _guit1,
+    _tune1,
   )],
   [1*4, stack(
     _drums1,
-    _chords2,    _bass2,    _lead2,
-    _guit2,
+    _chords2,    _bass2,    _lead2,    _guit2,
+    _tune2,
   )],
-  ).punchcard()
+
+
+).punchcard()
   
