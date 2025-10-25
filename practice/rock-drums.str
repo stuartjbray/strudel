@@ -5,15 +5,21 @@
 setcpm(30)
 
 // -------------- Drums
-const drumsPass = (x) => x.color("white");
+const drumsPass = (x) => x.bank("tr909").color("white");
 
-var d1 = sound("bd").struct(  "0 0 0 0 0 0 0 0")
-var d2 = sound("rim").struct("0 0 0 0 0 0 0 0")
+var d1 = sound("bd").struct(  "1 0 0 0 0 0 0 0")
+var d2 = sound("dpm48_oh").struct("0 0 0 0 0 0 0 0")
 var d3 = sound("hh").struct("0 0 0 0 0 0 0 0")
 var d4 = sound("cr").struct(  "0 0 0 0 0 0 0 0")
 
-var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums_intro = drumsPass(stack( 
+  sound("[hh:1 hh:2]*4").struct("<[1!8] - [1!8] ->"),
+  sound("sd,bd").struct("<- [1!3 -@2 1!3] - [1!3 -@2 1!3]>"),
+  sound("cr").struct("<- [1@3 -@2 1@3] - [1@3 -@2 1@3]>")
+))
+var _drums1 =      drumsPass(stack(  
+  d1,  d2,  d3,  d4
+))  
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
@@ -53,7 +59,7 @@ $: arrange(
     _chords1, 
     _bass1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _chords2,
     _bass2,

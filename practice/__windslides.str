@@ -4,7 +4,7 @@
 
 /*
 */
-setcpm(40)
+setcpm(35)
 
 // -------------- Drums
 var d1 = sound("compurhythm8000_bd").struct("1 0 0 0 1 0 0 1")
@@ -18,7 +18,7 @@ var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
 var pianoPass = (x) => n(x).sound("piano").scale("c4:major").color("red")
 var steinPass = (x) => n(x).sound("steinway").scale("<c3>:major").color("orange")
-var saxPass = (x) => n(x).scale("c3:major").sound("vibraphone").color("yellow").release(.5).echo(4,1/8,.7)
+var saxPass = (x) => n(x).scale("<c3, c4>:major").sound("gm_clavinet, gm_cello").color("yellow").release(1)
 
 var chordsArp = "[0,1,2] 0 [1,2] -"
 var chordsArp2 = "[2 1 0 2] [1 0 2 -]"
