@@ -1,7 +1,7 @@
 //@title ntharps
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
+setCpm(30)
 var _drumIntro = stack(
   sound("rim!2 - rim!2 -@3").room(2).gain("[.7 .2]!4"),
   sound("oh!8")
