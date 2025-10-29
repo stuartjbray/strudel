@@ -18,11 +18,11 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("gm_fretless_bass").color("red").release(1.2)
+var chordsPass = (x) => n(x).scale("<c3,c4>:major").sound("gm_acoustic_bass").color("red").release(1.2)
 var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange").room(2)
-var dugPass = (x)    => n(x).scale("<c2,c3>:major").sound("gm_fretless_bass").color("yellow").room(2)
+var dugPass = (x)    => n(x).scale("<c2,c3>:major").sound("gm_synth_brass_1").color("yellow").room(4)
 var leadPass = (x)   => n(x).scale("c4:major").sound("piano").color("green")
-var runPass = (x)    => n(x).scale("c4:major").ply(12).clip(".3").gain("[.4 .3 .2 .1]").room(3).sound("square ").color("blue")
+var runPass = (x)    => n(x).scale("c4:major").ply(12).clip(".3").gain("[.2 .15 .1 .05]").room(3).sound("square ").color("blue")
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -61,35 +61,30 @@ var _run1 = runPass(`<
  [0,2]
 >`)
 
-var M = 0; 
+var M = 1; 
 $: arrange(
-  [1*8, stack(    
+  [M*8, stack(    
     _drums_intro,
-    _chords1, 
-    _bass1,
-    _dug1,
-    _lead1,
-    _run1,
-  )],
-  [1*8, stack(
-    _drums1,
-    _chords2,
-    _bass2,
-    _dug2,
-    _lead2,
-    _run1,
+    _chords1,     _bass1,
   )],
   [M*8, stack(    
     _drums1,
-    _chords1, 
-    _bass1,
-    _lead1,
+    _chords1,     _bass1,    _lead1,    _dug1,    _run1,
   )],
   [M*8, stack(
     _drums1,
-    _chords2,
-    _bass2,
-    _lead2,
+    _chords2,    _bass2,    _lead2,    _dug2,    _run1,
   )],
-  ).punchcard()
+  [M*8, stack(    
+    _drums1,
+    _chords1,     _bass1,    _lead1,    _dug1,    _run1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,    _bass2,    _lead2,    _dug2,    _run1,
+  )],
+
+  
+ [4,silence]
+).punchcard()
   
