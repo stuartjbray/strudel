@@ -1,0 +1,72 @@
+//@title wheeziana
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(20)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("oh,bd").struct(  "1 0 0 1 1 0 0 0").gain(.4)
+var d2 = sound("rim").struct("0 0 1 0 0 0 1 0")
+var d3 = sound("gm_woodblock:4").struct("0 1 0 1 0 <1 1*2> 0 1")
+var d4 = sound("cp").struct(  "0 0 0 0 0 0 0 0")
+
+var _drums_intro = drumsPass(stack( 
+  sound("rim").struct("1 - - 1 - - - -"),
+  sound("gm_woodblock:3").struct("- - 1 - - - 1 <- 1>")
+))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:minor").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("<c2,c3>:minor").sound("gm_harmonica:<1 2>").release(1.2).color("orange")
+var cellPass = (x)   => n(x).scale("c3:minor").sound("gm_cello").orbit(2).color("yellow").clip(.5).release(1.3)
+var leadPass = (x)   => n(x).scale("c4:minor").sound("gm_banjo:<1 2>").orbit(1).color("green").release(2)
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ [0 2 4 6 7 5 4 2] 0
+ [-1 0 1 3 4 3 1 0] -1 
+>`)
+var _chords2 = chordsPass(`<
+ [-1 6 5 4 5 4 3 1] -1
+ [-2 0 1 2 1 0 -2 -3] -2
+>`)
+
+var _bass1 = bassPass(`< [0 - - 0][2 - - -] [3 - - 3][1 - - -]>`)
+var _bass2 = bassPass(`< [2 - - 2][4 - - -] [3 - - 3][5 - - -]>`)
+
+var _cell1 = cellPass(`< [0,2] [2,5]  [-1,3] [-4,1] >`)
+var _cell2 = cellPass(`< [2,4] [4,6]  [3,5] [5,7] >`)
+
+var leadArp = "[3 0 1 2 3 2 1 - ]!2"
+var _lead1 = leadPass(`<
+ [0,2,3,4]
+ [0,2,4,6]
+ [-1,1,3,4]
+ [-1,0,1,3]
+>`).arp(leadArp)
+var _lead2 = leadPass(`<
+ [-1,4,5,6]
+ [2,4,5,6]
+ [-2,0,2,4]
+ [-3,-2,0,2]
+>`).arp(leadArp)
+var M = 1;
+$: arrange(
+  [M*8, stack(    _drums_intro,    _chords1,     _bass1,  )],
+  [M*8, stack(    _drums1,    _chords2,    _bass2,  )],
+  [M*8, stack(    _drums1,    _chords1.transpose(12),    _bass1,    _cell1,  )],
+  [M*8, stack(    _drums1,    _chords2.transpose(12),    _bass2,    _cell2,  )],
+  [M*8, stack(    _drums1,    _chords1,    _bass1,    _cell1,    _lead1,  )],
+  [M*8, stack(    _drums1,    _chords2,    _bass2,    _cell2,    _lead2,  )],
+  [M*8, stack(    
+    _drums1,    _chords1.transpose(12),    _bass1.transpose(12),    _cell1.transpose(-12),    _lead1.transpose(-12),  )],
+  [M*8, stack(    
+    _drums1,    _chords2.transpose(12),    _bass2.transpose(12),    _cell2.transpose(-12),    _lead2.transpose(-12),  )],
+
+).punchcard()
+  
