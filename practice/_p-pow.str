@@ -42,10 +42,10 @@ var _chords2 = chordsPass(`<
  [- -2 - -3 - - <-2 -> -]
 >`)
 var _chords1x = chordsPass(`<
- [- 7@2 9@2 - - -]
+ [-]
  [-@6 11 10]
- [9 7@2 8@2 - - -]
- [-@6 12 11]
+ [9 7@2 8@2 - 5 6]
+ [7 - 8 - 9 12 10 9]
 >`)
 var _chords2x = chordsPass(`<
  [- 7@2 8@2 - - -]
@@ -78,23 +78,30 @@ var _lead2 = leadPass(`<
 
 var _aah1 = aahPass(`< 7 6 7 4 >`).clip(.5).release(1)
 
+var _pianFall = pianPass(`<
+ -
+ [- [3 2 1 0]]
+ -
+ [- [3 2 3 4]]
+>`)
 var _pian1 = pianPass(`<
  [- [0,3,5] [0,2,4] -]
- -
+ [- [3 2 1 0]]
  [- [-1,1,3] [-3,0,2] -]
- -
+ [- [1 0 1 2]]
 >`)
 
 var M = 1; 
 $: arrange(
   [M*2, stack(    
-    _drums_intro,    _bass1,
+    _drums_intro,    _bass1, _pianFall,
   )],
   [M*4, stack(    
     _drums1,    _chords1, _chords1x,     _bass1,
   )],
   [M*8, stack(
     _drums1,    _chords2, _chords2x,    _bass2.transpose("<0@4 12@4>"),
+    _pianFall,
   )],
   [M*4, stack(    // open choral section - less drums
     _drums2,
