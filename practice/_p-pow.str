@@ -29,7 +29,7 @@ var _drums2 =      drumsPass(stack(  d1x, d2x, d4x, d5x  ))      // break down
 var chordsPass = (x) => n(x).scale("c3:major").sound("gm_electric_bass_pick:6, gm_kalimba").color("red").release(.8)
 var bassPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_pick:<1 2>").color("orange")
 var leadPass = (x)   => n(x).scale("c3:major").sound("gm_overdriven_guitar:3").color("yellow").release(1)
-var aahPass = (x)   => n(x).scale("c4:major").sound("gm_choir_aahs:3").color("green")
+var aahPass = (x)   => n(x).scale("c3:major").sound("gm_choir_aahs:3").color("green").gain(.8)
 var pianPass = (x)   => n(x).scale("c4:major").sound("gm_piano:5").color("cyan").room(2)
 
 // Apply pass functions to patterns
@@ -63,13 +63,13 @@ var _bass2 = bassPass(`<
  [-2!7 0 -4!7 0]
 >`)
 
-var _lead1 = leadPass(`<
+var _lead1a = leadPass(`<
  [[0 3 5 7] - - -]
  [[3 4 7 9] - - -]
  [[7 9 11 14] - 11 9]
  [[9 12 14 16] - 14 -]
 >`)
-var _lead2 = leadPass(`<
+var _lead1b = leadPass(`<
  [[3 4 5 7] -@3]
  [[4 7 9 11] -@3]
  [[7 9 13 14] -@3]
@@ -91,6 +91,18 @@ var _pian1 = pianPass(`<
  [- [1 0 1 2]]
 >`)
 
+// Section 2
+var _pian2a = pianPass(`<
+ [0 1 0 -1     0 - - 0    2 - - 2    3 - - 3     ]
+ [-2 -1 -2 -3  -2 - - -5  -4 - - -4  -4 -5 -6 -7 ]
+ [0 1 0 -1     0 - - 0    2 - - 2     4 - 4 - ]
+ [3 4 3 2    3 2 1 0 -2   -4 -2 -1   0 2 1 -1 ]
+>`)
+
+var _lead2a = leadPass(`<
+ 3 2 1 0
+>`).clip(.1)
+
 var M = 1; 
 $: arrange(
   [M*2, stack(    
@@ -105,13 +117,24 @@ $: arrange(
   )],
   [M*4, stack(    // open choral section - less drums
     _drums2,
-    _bass1,    _lead1,
-    _aah1,
+    _bass1,    _lead1a,    _aah1,
   )],
   [M*8, stack(
     _drums1,    _chords2, _chords2.transpose(12).late(1/64).phaser(3),
-    _bass2,    _lead2,
-    _pian1,
+    _bass2,    _lead1b,    _pian1,
   )],
+  [1*8, stack( // Section 2
+    _drums1,
+    _bass1,    _pian2a, _lead2a,
+  )],
+  [M*8, stack(
+    _drums1,
+    _bass2,
+  )],
+
+
+
+
+  
   ).punchcard()
   
