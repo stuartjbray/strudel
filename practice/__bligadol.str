@@ -11,11 +11,17 @@ var d1 = sound("bossdr110_bd").struct(  "1 0 0 1 1 0 0 0")
 var d2 = sound("jd990_oh:2").struct("0 0 1 0 0 0 1 0").gain(".2 .4")
 var d3 = sound("yamahary30_ht:1").struct("1 0 0 0 1 0 0 0")
 var d4 = sound("sp12_hh:<1 2>").struct("1*8").gain("[.2 .5]*2")
+var d5 = sound("yamahary30_cr:2").struct("0 0 0 0 1 0 0 0")
+var d6 = sound("yamahary30_oh:3").struct("0 0 0 1 0 <0 0 0 1> 0 0")
+var d7 = sound("yamahatg33_sd:3").struct("0 0 1 0 0 0 1 <0 1>")
+
+
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // start
 var _drums1 =      drumsPass(stack(  d1,  d2,  ))  // normal
 var _drums2 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // more 
-var _drums3 =      drumsPass(stack(  d1, d2  ))           // break down
+var _drums3 =      drumsPass(stack(  d1, d2, d3, d4, d5, d6, d7  ))           // break down
+var _drums4 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
@@ -73,7 +79,7 @@ var _lead8 = leadPass(`<
   [- 4 3 -][2 - - 1 ][- -2 0 -][2 - - -]
 >`)
 
-var _guit1 = guitPass(`< 5 4 5 2>`)
+var _guit1 = guitPass(`< 5 4 0 2>`)
 var _guit2 = guitPass(`< 1 2 1 2>`)
 
 var _tune1 = danPass(`<
@@ -89,7 +95,7 @@ var _tune2 = danPass(`<
  [4 3 2 1 2 - - -]
 >`)
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4, stack(    
     _drums_intro,
@@ -115,39 +121,39 @@ $: arrange(
     _drums1,
     _chords2,    _bass2,    _guit2,       _lead4,
   )],
-  [M*4, stack(    
-    _drums2,
+  [1*4, stack(    
+    _drums2, d7,
     _chords1,     _bass1,    _guit1,      _lead3,    _lead3x,
   )],
-  [M*4, stack(
-    _drums2,
+  [1*4, stack(
+    _drums2, d7,
     _chords2,    _bass2,    _guit2,       _lead4,    _lead4x,
   )],
-  [M*4, stack(    // ---------------- Part 2
-    _drums2,
+  [1*4, stack(    // ---------------- Part 2
+    _drums3,
     _chords1,     _bass1,    _guit1,      _lead5,
   )],
-  [M*4, stack(
-    _drums2,
+  [1*4, stack(
+    _drums3,
     _chords2,    _bass2,    _guit2,       _lead6,
   )],
-  [M*4, stack(    
-    _drums3,
+  [M*4, stack( // ----------------- Echo Up Section   
+    _drums4,
     _chords1.transpose(12).clip(.5).struct("1 1 - 1").lpf(500).room(2),     _bass1,    _guit1,      
     echoUpPass(_lead7), 
   )],
-  [M*4, stack(
-    _drums3,
+  [M*4, stack( 
+    _drums4,
     _chords2.transpose(12).clip(.5).struct("1 1 - 1").lpf(500).room(2),    _bass2,    _guit2,
     echoUpPass(_lead8), 
   )],
   [1*4, stack(    
-    _drums3,
+    _drums4,
     _chords1.transpose(12).clip(.5).struct("1 1 - 1").lpf(500).room(2),     _bass1,    _guit1,      
     echoUpPass(_lead7.rev()),
   )],
   [1*4, stack(
-    _drums3,
+    _drums4,
     _chords2.transpose(12).clip(.5).struct("1 1 - 1").lpf(500).room(2),    _bass2,    _guit2,
     echoUpPass(_lead8.rev()),
   )],

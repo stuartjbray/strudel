@@ -21,8 +21,8 @@ var _drums_intro = drumsPass(stack( // build up
   sound("oh").struct( "- - 1 - - 1 1 <- 1>"),
   sound("cr").struct( "<- [- - - - - - 1 1*2]> ")
 ))
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))  // normal
-var _drums2 =      drumsPass(stack(  d1x, d2x, d4x, d5x  ))           // break down
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))     // normal
+var _drums2 =      drumsPass(stack(  d1x, d2x, d4x, d5x  ))      // break down
 
 
 // Define pass functions for each instrument
@@ -30,7 +30,7 @@ var chordsPass = (x) => n(x).scale("c3:major").sound("gm_electric_bass_pick:6, g
 var bassPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_pick:<1 2>").color("orange")
 var leadPass = (x)   => n(x).scale("c3:major").sound("gm_overdriven_guitar:3").color("yellow").release(1)
 var aahPass = (x)   => n(x).scale("c4:major").sound("gm_choir_aahs:3").color("green")
-var pianPass = (x)   => n(x).scale("c4:major").sound("piano").color("cyan")
+var pianPass = (x)   => n(x).scale("c4:major").sound("gm_piano:5").color("cyan").room(2)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -108,7 +108,7 @@ $: arrange(
     _bass1,    _lead1,
     _aah1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,    _chords2, _chords2.transpose(12).late(1/64).phaser(3),
     _bass2,    _lead2,
     _pian1,
