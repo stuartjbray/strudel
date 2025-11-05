@@ -9,7 +9,7 @@ const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bossdr110_bd").struct(    "[1 0 0 1 0 0 1 0],<0@3 [0 0 0 1*2 ]>")
 var d2 = sound("yamahatg33_sd:3").struct(      "0 0 1 0 0 0 1 0").gain(".2 .4")
-var d3 = sound("yamahary30_ht:1").struct( "1 0 0 1 0 0 1 0").gain(.3)
+var d3 = sound("yamahary30_ht:1").struct( "1 0 0 1 0 0 1 0").gain(.7)
 var d4 = sound("sp12_hh:<1 2>").struct("1*8").gain("[.2 .5]*2")
 var d5 = sound("gm_woodblock:3").struct( "0 1 0 1 0 1 0 1 ")
 
@@ -18,18 +18,23 @@ var d6 = sound("yamahary30_oh:3").struct( "0 0 0 1 0 <0 0 0 1> 0 0")
 var d7 = sound("yamahatg33_sd:3").struct( "0 0 1 0 0 0 1 <0 1>")
 // jd990_oh:2
 
-var _drums_intro = drumsPass(stack( d1, d2, d3, d4, d5 ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums_intro = drumsPass(stack(   d3, d4, d5 ))            // build up
+var _drums1 =      drumsPass(stack(  d1, d2, d3, d4, d5 ))  // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
-var leadPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
 
-var bassPass = (x)   => n(x).scale("c3:major").sound("gm_electric_bass_pick:5").color("orange")
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_banjo:3").color("orange").room(2)
 var bass2Pass = (x)   => n(x).scale("c2:major").sound("gm_lead_5_charang:<3>").color("yellow")
 var bass3Pass = (x)   => n(x).scale("c2:major").sound("gm_koto:5").color("yellow")
+var leadPass = (x) => n(x).scale("c4:major").sound("gm_tenor_sax:3").color("red").room(1)
+var oohPass = (x) => n(x).scale("c5:major").sound("gm_voice_oohs:3").color("green").room(1)
+var trumPass = (x) => n(x).scale("c3:major").sound("gm_alto_sax:2").color("green").clip(.5).release(1)
+
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+
+var t = (x, oct) => x.transpose(oct*12)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -46,46 +51,86 @@ var _bass1 = bassPass(`<
  [- [2@2 3 4] ]
 >`)
 var _bass2 = bassPass(`<
--
+ [3 [3@2 2 3] ]
+ [- [4@2 3 2] ]
+ [3 [3@2 2 3] ]
+ [- [2@2 3 4] ]
+>`)
+var _bass3 = bassPass(`<
+ [4 [4@2 3 4] ]
+ [- [3@2 2 3] ]
+ [4 [4@2 5 4] ]
+ [- [3@2 2 1] ]
 >`)
 
+var offBeats =  `<- [- 1 - 1 - 1 - 1] - [- 1 - 1 - 1 - 1] >`
 var _bass1x = bass2Pass(`< 0 - 0 - >`)
-var _bass1y = bass3Pass(`<- [- 0 - 0 - 0 - 0] - [- 0 - 0 - 0 - 0] >`)
-var _lead2 = leadPass(`<
--
->`)
+var _bass1y = bass3Pass(`0`).struct(offBeats)
+
+var _bass2x = bass2Pass(`< 3 - 3 - >`)
+var _bass2y = bass3Pass(`3`).struct(offBeats)
+
+var _bass3x = bass2Pass(`< 4 - 4 - >`)
+var _bass3y = bass3Pass(`4`).struct(offBeats)
+
+
 var _lead1 = leadPass(`<
--
+ [-@4 - [0,9] - [0,9]]
+ [- [0,9] - - -@4]
+ [-@4 - [1,10] - [0,9]]
+ [- [0,9] - - -@4]
 >`)
 var _lead2 = leadPass(`<
+-
+>`)
+var _lead3 = leadPass(`<
 -
 >`)
 
-var M = 0;
+var _ooh1 = oohPass(`<
+ -@3 [4 2 3 2]
+>`)
+var _trum1 = trumPass(`< 4 3 2 1>`)
+var _trum2 = trumPass(`< 0 1 2 3>`)
+var _trum3 = trumPass(`< 1 2 3 4>`)
+
+var M = 1;
 $: arrange(
-  [1*8, stack(    
+  [M*2, stack(    
     _drums_intro,
-    _chords1, 
+  )],
+  [M*8, stack(
+    _drums1,
     _bass1, _bass1x, _bass1y,
-    _lead1,
+    _lead1, _trum1,
   )],
-  [M*8, stack(
+  [M*4, stack(    
     _drums1,
-    _chords2,
-    _bass2,
-    _lead2,
+    _bass2, _bass2x, _bass2y,
+    _lead1, _trum2,
   )],
-  [M*8, stack(    
+  [M*4, stack(    
     _drums1,
-    _chords1, 
-    _bass1,
-    _lead1,
+    _bass3, _bass3x, _bass3y,
+    _lead1, _trum3, _ooh1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
-    _chords2,
-    _bass2,
-    _lead2,
+    t(stack(_bass1, _bass1x, ),1), _bass1y,
+    t(stack(_lead1, _trum1),-1),
   )],
+  [1*4, stack(    
+    _drums1,
+    t(stack(_bass2, _bass2x, ),1), _bass2y,
+    t(stack(_lead1, _trum2),-1),
+  )],
+  [1*4, stack(    
+    _drums1,
+    t(stack(_bass3, _bass3x, ),1), _bass3y,
+    t(stack(_lead1, _trum3),-1),
+    _ooh1,
+  )],
+
+  
   ).punchcard()
   
