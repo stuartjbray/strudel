@@ -11,9 +11,9 @@ var d1 = sound("bossdr110_bd").struct(  "1 0 0 1 1 0 0 0")
 var d2 = sound("jd990_oh:2").struct("0 0 1 0 0 0 1 0").gain(".2 .4")
 var d3 = sound("yamahary30_ht:1").struct("1 0 0 0 1 0 0 0")
 var d4 = sound("sp12_hh:<1 2>").struct("1*8").gain("[.2 .5]*2")
-var d5 = sound("yamahary30_cr:2").struct("0 0 0 0 1 0 0 0")
-var d6 = sound("yamahary30_oh:3").struct("0 0 0 1 0 <0 0 0 1> 0 0")
-var d7 = sound("yamahatg33_sd:3").struct("0 0 1 0 0 0 1 <0 1>")
+var d5 = sound("yamahary30_cr:2").struct("0 0 0 0 1 0 0 0").gain(.3)
+var d6 = sound("gm_woodblock:4").struct("0 0 0 1 0 <0 0 0 1*2> 0 0")
+var d7 = sound("yamahatg33_sd:3").struct("0 0 1 0 0 0 1 <0 1>").gain(.3)
 
 
 
@@ -96,7 +96,7 @@ var _tune2 = danPass(`<
  [4 3 2 1 2 - - -]
 >`)
 
-var M = 1;
+var M = 0;
 $: arrange(
   [M*4, stack(    
     _drums_intro,
@@ -122,11 +122,11 @@ $: arrange(
     _drums1,
     _chords2,    _bass2,    _guit2,       _lead4,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums2, d7,
     _chords1,     _bass1,    _guit1,      _lead3,    _lead3x,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums2, d7,
     _chords2,    _bass2,    _guit2,       _lead4,    _lead4x,
   )],
