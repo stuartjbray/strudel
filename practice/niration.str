@@ -71,10 +71,8 @@ var _lead2 = leadPass(n(`<
 -
 >`))
 
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 0; // change to M=1 to unmute all stacks with an M.
+var M = 1; 
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
   [1*4, stack(    
     _drums1,
     _chords1, 
@@ -101,4 +99,5 @@ $: arrange(
     _lead2,
   )],
   ).punchcard()
+  
   

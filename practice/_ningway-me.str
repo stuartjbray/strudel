@@ -7,8 +7,8 @@ setcpm(20)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "1 - - - 1 - - - 1 - - - ")
-var d2 = sound("rim").struct( "- - - - - - - 1 - - - - ")
+var d1 = sound("bd").struct(  "1 - - 1 - - 1 - - 1 - <- 1> ")
+var d2 = sound("rim").struct( "- - - - - 1 1 - - - 1 <- 1> ")
 var d3 = sound("oh").struct(  "- - - - - - 1 - - - - - ")
 var d4 = sound("hh").struct(  "- - 1 - - 1 - - 1 - - 1 ")
 
