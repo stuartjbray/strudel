@@ -7,9 +7,9 @@ setcpm(20)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "1 - - 1 - - 1 - - 1 - <- 1> ")
-var d2 = sound("rim").struct( "- - - - - 1 1 - - - 1 <- 1> ")
-var d3 = sound("oh").struct(  "- - - - - - 1 - - - - - ")
+var d1 = sound("bd").struct(  "1 - - 1 - - 1 1 - 1 - - ")
+var d2 = sound("sr16_rim").struct( "- - - 1 - - - - - 1 - - ")
+var d3 = sound("oh").struct(  "- - - - - 1 - - - - 1 - ")
 var d4 = sound("hh").struct(  "- - 1 - - 1 - - 1 - - 1 ")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
@@ -61,7 +61,7 @@ var _run1 = runPass(`<
  [0,2]
 >`)
 
-var M = 1; 
+var M = 0; 
 $: arrange(
   [M*8, stack(    
     _chords1,     _bass1,    _lead1,
@@ -69,10 +69,10 @@ $: arrange(
   [M*8, stack(
     _chords2,    _bass2,    _lead2,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _chords1,     _bass1,    _dug1,    _lead1,    _run1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _chords2,    _bass2,    _dug2,    _lead2,    _run1,
   )],
   [1*8, stack(    

@@ -18,7 +18,7 @@ var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
 var pianoPass = (x) => n(x).sound("piano").scale("c4:major").color("red")
 var steinPass = (x) => n(x).sound("steinway").scale("<c3>:major").color("orange")
-var saxPass = (x) => n(x).scale("<c3, c4>:major").sound("gm_clavinet, gm_cello").color("yellow").release(1)
+var saxPass = (x) => n(x).scale("<c3, c4>:major").sound("gm_clavinet, gm_cello").color("yellow").release(1).room(2).gain(.5)
 
 var chordsArp = "[0,1,2] 0 [1,2] -"
 var chordsArp2 = "[2 1 0 2] [1 0 2 -]"
