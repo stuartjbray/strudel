@@ -30,7 +30,8 @@ var bass2Pass = (x)   => n(x).scale("c2:major").sound("gm_lead_5_charang:2").col
 var bass3Pass = (x)   => n(x).scale("c2:major").sound("gm_koto:5").color("yellow")
 var leadPass = (x) => n(x).scale("c4:major").sound("gm_tenor_sax:3").color("red").room(1)
 var oohPass = (x) => n(x).scale("c5:major").sound("gm_voice_oohs:3").color("green").room(1)
-var trumPass = (x) => n(x).scale("c3:major").sound("gm_electric_guitar_clean:2").color("green").clip(.5).release(1).room(3).gain(1.3)
+var trumPass = (x) => n(x).scale("c3:major").sound("gm_electric_guitar_clean:2").color("green")
+  .clip(.5).release(1).room(3).gain(.8)
 
 var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
 
@@ -109,7 +110,7 @@ var _trum2a = trumPass(`< - 4 - 3 - 2 - 1 >`)
 var _trum2b = trumPass(`< - 0 - 1 - 2 - 3 >`)
 var _trum2c = trumPass(`< - 1 - 2 - 3 - 4 >`)
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*2, stack(    
     _drums_intro,
