@@ -13,6 +13,11 @@ var d3 = sound("yamahary30_ht:1").struct( "1 0 0 1 0 0 1 0").gain(.7)
 var d4 = sound("sp12_hh:<1 2>").struct("1*8").gain("[.2 .5]*2")
 var d5 = sound("gm_woodblock:3").struct( "0 1 0 1 0 1 0 1 ")
 
+var d1x = sound("bossdr110_bd").struct(    "[1 1 1 1 - - - -]")
+var d2x = sound("yamahatg33_sd:3").struct( "1 - - - - - - - -").gain(".2 .4")
+var d3x = sound("yamahary30_ht:1").struct( "- - - - 1 1 - <1 ->").gain(.7)
+var d4x = sound("sp12_hh:<1 2>").struct(   "- - - - 1 1 - 1")
+var d5x = sound("gm_woodblock:3").struct(  "-")
 
 var d6 = sound("yamahary30_oh:3").struct( "0 0 0 1 0 <0 0 0 1> 0 0")
 var d7 = sound("yamahatg33_sd:3").struct( "0 0 1 0 0 0 1 <0 1>")
@@ -20,7 +25,7 @@ var d7 = sound("yamahatg33_sd:3").struct( "0 0 1 0 0 0 1 <0 1>")
 
 var _drums_intro = drumsPass(stack(   d3, d4, d5 ))            // build up
 var _drums1 =      drumsPass(stack(  d1, d2, d3, d4, d5 ))  // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+var _drums2 =      drumsPass(stack(  d1x, d2x, d3x, d4x, d5x  ))           // off rhythm
 
 
 // Define pass functions for each instrument
@@ -30,7 +35,8 @@ var bass2Pass = (x)   => n(x).scale("c2:major").sound("gm_lead_5_charang:2").col
 var bass3Pass = (x)   => n(x).scale("c2:major").sound("gm_koto:5").color("yellow")
 var leadPass = (x) => n(x).scale("c4:major").sound("gm_tenor_sax:3").color("red").room(1)
 var oohPass = (x) => n(x).scale("c5:major").sound("gm_voice_oohs:3").color("green").room(1)
-var trumPass = (x) => n(x).scale("c3:major").sound("gm_electric_guitar_clean:2").color("green")
+var pianPass = (x) => n(x).scale("c4:major").sound("piano").color("cyan").gain(1.2)
+var trumPass = (x) => n(x).scale("c3:major").sound("gm_electric_guitar_clean:2").color("blue")
   .clip(.5).release(1).room(3).gain(.8)
 
 var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
@@ -110,6 +116,24 @@ var _trum2a = trumPass(`< - 4 - 3 - 2 - 1 >`)
 var _trum2b = trumPass(`< - 0 - 1 - 2 - 3 >`)
 var _trum2c = trumPass(`< - 1 - 2 - 3 - 4 >`)
 
+var _pian1x = pianPass(`<
+ - [-@4 3 2 1 [0,2] ]
+ - [-@4 3 2 3 [4,6] ]
+>`)
+var _pian2x = pianPass(`<
+ - [-@4 0 1 2 [0,3] ]
+ - -
+>`)
+
+// ----------------- Part 5
+var _pian5 = pianPass(`<
+ [5 3 0 - [5,7]@4]
+ [- - - - 5 - 6 -]
+ [7 5 3 - 6 4 2 -]
+ [5 3 1 - 4 2 0 -3]
+>`)
+// [6 4 1 - [6,8]@4]
+
 var M = 1;
 $: arrange(
   [M*2, stack(    
@@ -124,30 +148,52 @@ $: arrange(
     _drums1,
     _bass2, _bass2x, _bass2y,
     _lead1, _trum1b,
+    _pian1x,
   )],
   [M*4, stack(    
-    _drums1,
+    _drums1.mask("<1@3 ->"),
     _bass3, _bass3x, _bass3y,
     _lead1, _trum1c, _ooh1,
+    _pian2x,
   )],
-  [1*8, stack(
-    _drums1,
+  [M*8, stack(
+    _drums2,
     _bass1, _bass1x, _bass1y,
     _lead2a,
     _trum1a,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums1,
     _bass2, _bass2x, _bass2y,
     _lead2b, 
     _trum1b,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums1,
     _bass3, _bass3x, _bass3y,
     _lead2c, 
     _trum1c,  _ooh1,
   )],
+  
+  [1*8, stack( // --------------- Part 5
+    _drums1,
+    stack(_bass1, _bass1x, _bass1y),
+    _pian5,
+    // _lead2a,
+    // _trum1a,
+  )],
+  [1*4, stack(    
+    _drums1,
+    _bass2, _bass2x, _bass2y,
+    // _lead2b, 
+    // _trum1b,
+  )],
+  [1*4, stack(    
+    _drums1,
+    _bass3, _bass3x, _bass3y,
+    // _lead2c, 
+    // _trum1c,  _ooh1,
+  )],  
 
 
   
