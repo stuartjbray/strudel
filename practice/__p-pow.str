@@ -1,7 +1,7 @@
 //@title P-Pow
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
- 
+
 setcpm(20)
 
 // -------------- Drums
@@ -92,16 +92,19 @@ var _pian1 = pianPass(`<
 >`)
 
 // Section 2
-var _pian2a = pianPass(`<
+var _pian3a = pianPass(`<
  [0 1 0 -1     0 - - 0    2 - - 2    3 - - 3     ]
  [-2 -1 -2 -3  -2 - - -5  -4 - - -4  -4 -5 -6 -7 ]
  [0 1 0 -1     0 - - 0    2 - - 2     4 - 4 - ]
  [3 4 3 2    3 2 1 0 -2   -4 -2 -1   0 2 1 -1 ]
 >`)
 
-var _lead2a = leadPass(`<
- 3 2 1 0
->`).clip(.1)
+var _chord3a = chordsPass(`<
+ [ [0,2,4]]
+ [ [0,3,5]]
+ [ [0,2,6]]
+ [ [0,3,7]]
+>`).struct("[- - - 1 - - 1 - ]").gain(.7)
 
 var M = 1; 
 $: arrange(
@@ -123,9 +126,9 @@ $: arrange(
     _drums1,    _chords2, _chords2.transpose(12).late(1/64).phaser(3),
     _bass2,    _lead1b,    _pian1,
   )],
-  [1*8, stack( // Section 2
+  [1*8, stack( // Section 3
     _drums1,
-    _bass1,    _pian2a, _lead2a,
+    _bass1,    _pian3a.transpose(-12), _chord3a,
   )],
   [M*8, stack(
     _drums1,
@@ -136,5 +139,5 @@ $: arrange(
 
 
   
-  ).punchcard()
+  )._punchcard()
   
