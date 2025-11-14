@@ -8,9 +8,9 @@ setcpm(40)
 const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bossdr110_bd").struct(    "[1 0 0 1 0 0 1 0],<0@3 [0 0 0 1*2 ]>")
-var d2 = sound("yamahatg33_sd:3").struct(      "0 0 1 0 0 0 1 0").gain(".4 1")
+var d2 = sound("yamahatg33_sd:3").struct(      "0 0 1 0 0 0 1 0").gain(".4 .8")
 var d3 = sound("yamahary30_ht:1").struct( "1 0 0 1 0 0 1 0").gain(.7)
-var d4 = sound("sp12_hh:<1 2>").struct("1*8").gain("[.2 .5]*2")
+var d4 = sound("sp12_hh:<1 2>").struct("1*8").gain("[.2 .4]*2")
 var d5 = sound("gm_woodblock:3").struct( "0 1 0 1 0 1 0 1 ")
 
 var d1x = sound("bossdr110_bd").struct(    "[1 1 - - - - 1 -]")
@@ -43,7 +43,6 @@ var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
 
 var t = (x, oct) => x.transpose(oct*12)
 
-// Apply pass functions to patterns
 var _chords1 = chordsPass(`<
 -
 >`)
@@ -202,6 +201,9 @@ $: arrange(
   )],
   
   // --------------- Part 5
+  [M*2, stack( 
+    _drums1,
+  )],
   [M*8, stack( 
     _drums1,
     _bass1x.gain(.5),     _pian5a,    _lead5a,

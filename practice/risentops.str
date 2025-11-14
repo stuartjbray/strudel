@@ -20,8 +20,8 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("<c3,c2>:major").sound("piano").color("red").room(1.5)
 var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_electric_guitar_clean:3").color("orange").room(2)
-var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
-var rumPass = (x)   => n(x).scale("c4:major").sound("gm_pan_flute").color("yellow")
+var leadPass = (x)   => n(x).scale("c3:major").sound("gm_koto:1").color("yellow").release(.8)
+var rumPass = (x)   => n(x).scale("c4:major").sound("gm_pan_flute").color("green")
 
 // Apply pass functions to patterns
 var arp1 = "[0 - - 0 - - 0 - ]"
@@ -46,10 +46,16 @@ var _bass2 = bassPass(`<
 >`)
 
 var _lead1 = leadPass(`<
--
+ [- - - [0 1]] [2 - - -]
+ [- - - [0 1]] [-1 - - -]
+ [- - - 0] [2 - - -]
+ [- - - 3] [2 - - -]
 >`)
-var _lead2 = leadPass(`<
--
+var _lead1x = leadPass(`<
+ [- - - -] [- - 2 3 4 3 2 - ]
+ [- - - -] [- - 0 1 2 1 0 -]
+ [- - - -] [- - 1 0 1 0 1 0]
+ [- - - -] [- - 2 4 5 4 2  -]
 >`)
 
 var _rum1 = rumPass(`<
@@ -59,35 +65,28 @@ var _rum2 = rumPass(`<
  3 2 1 2 0 1 5 6
 >`)
 
-
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 0; // change to M=1 to unmute all stacks with an M.
+var M = 0; 
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
-  [1*8, stack(    
-    _drums1,
-    _chords1, 
-    _bass1,
-    _rum1,
+  [M*8, stack(    
+    _drums1,    _chords1,     _rum1,
   )],
-  [1*8, stack(
-    _drums1,
-    _chords2,
-    _bass2,
-    _rum2,
+  [M*8, stack(
+    _drums1,    _chords2,    _rum2,
   )],
   
   [M*8, stack(    
-    _drums1,
-    _chords1, 
-    _bass1,
-    _lead1,
+    _drums1,    _chords1,     _bass1,    _rum1,
   )],
   [M*8, stack(
-    _drums1,
-    _chords2,
-    _bass2,
-    _lead2,
+    _drums1,    _chords2,    _bass2,    _rum2,
   )],
+
+  [1*8, stack(    
+    _drums1,    _chords1,     _bass1,    _lead1,_lead1x,    _rum1,
+  )],
+  [1*8, stack(
+    _drums1,    _chords2,    _bass2,    _lead1,_lead1x,    _rum2,
+  )],
+  
   ).punchcard()
   
