@@ -22,6 +22,7 @@ var chordsPass = (x) => n(x).scale("<c3,c2>:major").sound("piano").color("red").
 var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_electric_guitar_clean:3").color("orange").room(2)
 var leadPass = (x)   => n(x).scale("c3:major").sound("gm_koto:1").color("yellow").release(.8)
 var rumPass = (x)   => n(x).scale("c4:major").sound("gm_pan_flute").color("green")
+var padPass = (x) => n(x).scale("c4:major").sound("gm_fx_soundtrack:3").color("blue").release(1)
 
 // Apply pass functions to patterns
 var arp1 = "[0 - - 0 - - 0 - ]"
@@ -54,8 +55,8 @@ var _lead1 = leadPass(`<
 var _lead1x = leadPass(`<
  [- - - -] [- - 2 3 4 3 2 - ]
  [- - - -] [- - 0 1 2 1 0 -]
- [- - - -] [- - 1 0 1 0 1 0]
- [- - - -] [- - 2 4 5 4 2  -]
+ [- - - -] [- - 1 0 1 0 - -]
+ [- - - -] [- - 2 4 3 2 -  -]
 >`)
 
 var _rum1 = rumPass(`<
@@ -65,7 +66,17 @@ var _rum2 = rumPass(`<
  3 2 1 2 0 1 5 6
 >`)
 
-var M = 0; 
+var _pad1 = padPass(`<
+ [0,3,5] -
+ [-3,-1,1] -
+ [-2,0,2] -
+ [0,5,7] -
+>`)
+var _pad2 = padPass(`<
+ [0 1 2 3]
+>`)
+
+var M = 1; 
 $: arrange(
   [M*8, stack(    
     _drums1,    _chords1,     _rum1,
@@ -75,17 +86,17 @@ $: arrange(
   )],
   
   [M*8, stack(    
-    _drums1,    _chords1,     _bass1,    _rum1,
+    _drums1,    _chords1,     _bass1,    _rum1, _pad1,
   )],
   [M*8, stack(
-    _drums1,    _chords2,    _bass2,    _rum2,
+    _drums1,    _chords2,    _bass2,    _rum2, _pad1,
   )],
 
   [1*8, stack(    
-    _drums1,    _chords1,     _bass1,    _lead1,_lead1x,    _rum1,
+    _drums1,    _chords1.trans(12),     _bass1,    _lead1,_lead1x,    _rum1.trans(-12),
   )],
   [1*8, stack(
-    _drums1,    _chords2,    _bass2,    _lead1,_lead1x,    _rum2,
+    _drums1,    _chords2.trans(12),    _bass2,    _lead1,_lead1x,    _rum2.trans(-12),
   )],
   
   ).punchcard()

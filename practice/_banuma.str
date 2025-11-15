@@ -1,0 +1,94 @@
+//@title banuma
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+setcpm(30)
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "1 - 1 - 1 - 1 -") //.lpf("<[100 300 500 700]>")
+var d2 = sound("AkaiMPC60_rim").struct("- - 1 - - 1 <0@3 1> -").room(2).clip(".04 .08")
+var d3 = sound("hh").struct("0 0 0 1 0 0 0 <1 1*2>").gain("<[.4 .8]>")
+var d3a = sound("AlesisSR16_hh").struct("1*8").gain("<[.4 .8]>")
+var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 <0@3 1>").gain(.3)
+var d5 = sound("sd").struct("- - 1 -").gain(.6)
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack( d1,  d2,  d3,  d4, d5))  // normal
+var _drums2 =      drumsPass(stack( d1, d2, d3a , d5 ))           // break down
+var _drums3 =      drumsPass(stack( d1, d3  ))          
+
+var chordsNPass = (x) => x.arp("0 1 0*2 - 1 0 - -").ply(2)
+var chordsPass = (x) => n(x).sound("sine").scale("c4:major").color("red").gain(.6)
+var bassNPass = (x) => x
+var bassPass = (x) => n(x).scale("c2:major").sound("gm_guitar_harmonics:3").color("orange").gain(.6)
+var leadPass = (x) => n(x).scale("c3:major").sound("piano").color("yellow")
+var dugPass = (x) => n(x).scale("c2:major").sound("gm_acoustic_bass:2").color("green").gain(1.2)
+var fidPass = (x) => n(x).scale("c4:major").sound("gm_fiddle").color("purple").release(1)
+
+var _chords1 = chordsPass(chordsNPass(`<
+ [0,2] [0,3] [-2,0] [-1,0]
+>`))
+var _chords2 = chordsPass(chordsNPass(`<
+-
+>`))
+
+var _bass1 = bassPass(bassNPass(`<
+ [0 - 1 - ]
+ [-2 - 2 - ]
+ [0 - 1 - ]
+ [-1 - -3 - ]
+>`))
+var _bass2 = bassPass(bassNPass(`<
+ [2 - 0 -]
+ [3 - 1 -]
+ [2 - 0 -]
+ [3 - 4 -]
+>`))
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+var _dug1 = dugPass(`<
+ [0*2 [- 0] - -] 
+ [3*2 [- 3] - -] 
+ [0*2 [- 0] - -] 
+ [- -3 -2 -3 -1 -3 0 -3]
+>`)
+var _dug2 = dugPass(`<
+-
+>`)
+
+var _fid1 = fidPass(`<
+ [3 _ _ 2][4 _ _ -]
+ [2 _ _ 3][1 - - -]
+>`)
+var _fid2 = fidPass(`<
+ [3 _ _ 2][1 _ _ -]
+ [0 _ _ 4][1 - - -]
+>`)
+
+var M = 1; 
+$: arrange(
+  [M*1, stack(    
+    _drums_intro,
+  )],
+  [M*4, stack(    
+    _drums1,    _chords1,     _bass1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords1.transpose(12).rev(),
+    _chords1.transpose(12).fast(2),
+    _bass2,
+  )],
+  [1*4, stack(    
+    _drums3,    _chords1,     _bass1,    _dug1,    _fid1,
+  )],
+  [1*4, stack(
+    _drums2,    _chords2,    _bass2,    _dug1.transpose(12),    _fid2,
+  )],
+  ).punchcard()
+  
