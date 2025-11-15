@@ -2,8 +2,6 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-// Re-Record!!!
-
 setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");

@@ -2,8 +2,6 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-// Re Record!!!
-
 setCpm(35)
 var _d1 = sound("hh hh*2 - <- oh>").color("white").gain(1.3)
 var _d2 = sound("[bd - - bd] [- <bd ->]").color("white")

@@ -1,7 +1,6 @@
 //@title ounce-ounce
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-// RERECORD - a bit
 setcpm(30)
 
 // -------------- Drums
@@ -222,5 +221,5 @@ $: arrange(
   )],    
 
   [1*4,silence]
-)._punchcard()
+).punchcard()
   

@@ -13,12 +13,12 @@ var d3 = sound("yamahary30_ht:1").struct( "1 0 0 1 0 0 1 0").gain(.7)
 var d4 = sound("sp12_hh:<1 2>").struct("1*8").gain("[.2 .4]*2")
 var d5 = sound("gm_woodblock:3").struct( "0 1 0 1 0 1 0 1 ")
 
-var d1x = sound("bossdr110_bd").struct(    "[1 1 - - - - 1 -]")
-var d2x = sound("yamahatg33_sd:3").struct( "- - - - - - 1 -").gain(".7")
-var d3x = sound("yamahary30_ht:1").struct( "1 1 - - - - <1 -> -").gain(.7)
+var d1x = sound("bossdr110_bd").struct(    "[1 1 - - <1 -> - - -]")
+var d2x = sound("yamahatg33_sd:3").struct( "- - - - <1 -> - - -").gain(".7")
+var d3x = sound("yamahary30_ht:1").struct( "1 1 - - <1 -> - - -").gain(.7)
 var d4x = sound("sp12_hh:<1 2>").struct(   "- - - - - - - -")
 var d5x = sound("gm_woodblock:3").struct(  "-")
-var d6x = sound("yamahary30_oh:3").struct("- - - - - - <1 -> - ")
+var d6x = sound("yamahary30_oh:3").struct("- - - - <1 -> - - - ")
 
 var d7 = sound("yamahatg33_sd:3").struct( "- - - - 1 - - -")
 // jd990_oh:2
@@ -169,7 +169,7 @@ var _lead5c = leadPass(`<
 >`)
 
 
-var M = 1;
+var M = 1
 $: arrange(
   [M*2, stack(    
     _ooh1.early(2),
@@ -183,15 +183,15 @@ $: arrange(
     _drums1,
     _bass2, _bass2x, _bass2y,    _lead1, _trum1b,    _pian1x,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums1.mask("<1@3 ->"),
     _bass3, _bass3x, _bass3y,    _lead1, _trum1c, _ooh1,    _pian2x,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums2,
     _bass1, _bass1x, _bass1y,    _lead2a,    _trum1a,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums1,
     _bass2, _bass2x, _bass2y,    _lead2b,     _trum1b,
   )],

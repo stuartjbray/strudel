@@ -2,8 +2,6 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-// ReRecord !!!
-
 setcpm(30)
 
 // -------------- Drums
@@ -22,9 +20,6 @@ var d6 = sound("gm_melodic_tom").struct("1 0 1 1 0 1 0 0")
 var _drums_intro = stack( d1, d2  )          .color("white") // build up
 var _drums1 =     stack(  d1,  d2,  d3,  d4, d4_fill, d5    ) .color("white") // normal
 var _drums2 =     stack(  d2a, d6  )          .color("white") // break down
-
-_$: _drums1.punchcard();
-
 
 // Define pass functions for each instrument
 var chordsPass = (x) => x.sound("gm_brass_section").scale("c3:minor").color("red").room(1)
