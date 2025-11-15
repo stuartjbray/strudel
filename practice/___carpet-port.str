@@ -18,7 +18,7 @@ var d2x = sound("yamahatg33_sd:3").struct( "- - - - - - <1 - > -").gain(".7")
 var d3x = sound("yamahary30_ht:1").struct( "1 1 - - - - <1 -> -").gain(.7)
 var d4x = sound("sp12_hh:<1 2>").struct(   "- - - - - - - -")
 var d5x = sound("gm_woodblock:3").struct(  "-")
-var d6x = sound("yamahary30_oh:1").struct("- - - - - - <- - - 1> - ")
+var d6x = sound("yamahary30_oh:1").struct("- - - - - - - <- - - 1> ")
 
 var d7 = sound("yamahatg33_sd:3").struct( "- - - - <- - - 1> - - -")
 // jd990_oh:2
@@ -81,7 +81,7 @@ var _bass3y = bass3Pass(`4`).struct(offBeats)
 
 
 var _lead1 = leadPass(`<
- [- - - - - [0,9] - [0,9]]
+ [- - - - - [0,<9 8>] - [0,9]]
  [- [0,9] - - - - - -]
  [- - - - - [1,10] - [0,9]]
  [- [0,9] - - - - - -]
@@ -229,6 +229,6 @@ $: arrange(
     _bass3x, _bass3y,     _pian5c.transpose(-12),    _lead5c,     _ooh1,
   )],    
 
-  
-  ).punchcard()
+  [4,silence]
+).punchcard()
   
