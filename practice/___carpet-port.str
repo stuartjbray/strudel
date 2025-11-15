@@ -13,19 +13,19 @@ var d3 = sound("yamahary30_ht:1").struct( "1 0 0 1 0 0 1 0").gain(.7)
 var d4 = sound("sp12_hh:<1 2>").struct("1*8").gain("[.2 .4]*2")
 var d5 = sound("gm_woodblock:3").struct( "0 1 0 1 0 1 0 1 ")
 
-var d1x = sound("bossdr110_bd").struct(    "[1 1 - - <1 -> - - -]")
-var d2x = sound("yamahatg33_sd:3").struct( "- - - - <1 -> - - -").gain(".7")
-var d3x = sound("yamahary30_ht:1").struct( "1 1 - - <1 -> - - -").gain(.7)
+var d1x = sound("bossdr110_bd").struct(    "[1 1 - - - - <1 -> -]")
+var d2x = sound("yamahatg33_sd:3").struct( "- - - - - - <1 - > -").gain(".7")
+var d3x = sound("yamahary30_ht:1").struct( "1 1 - - - - <1 -> -").gain(.7)
 var d4x = sound("sp12_hh:<1 2>").struct(   "- - - - - - - -")
 var d5x = sound("gm_woodblock:3").struct(  "-")
-var d6x = sound("yamahary30_oh:3").struct("- - - - <1 -> - - - ")
+var d6x = sound("yamahary30_oh:1").struct("- - - - - - <- - - 1> - ")
 
-var d7 = sound("yamahatg33_sd:3").struct( "- - - - 1 - - -")
+var d7 = sound("yamahatg33_sd:3").struct( "- - - - <- - - 1> - - -")
 // jd990_oh:2
 
 var _drums_intro = drumsPass(stack(   d3, d4, d5 ))            // build up
 var _drums1 =      drumsPass(stack(  d1, d2, d3, d4, d5 ))  // normal
-var _drums2 =      drumsPass(stack(  d1x, d2x, d6x, d3x, ))           // off rhythm
+var _drums2 =      drumsPass(stack(  d1x, d2x,  d3x, d6x))           // off rhythm
 
 
 // Define pass functions for each instrument
@@ -200,34 +200,33 @@ $: arrange(
     _bass3, _bass3x, _bass3y,    _lead2c,     _trum1c,  _ooh1,
   )],
   
-  // --------------- Part 5
-  [M*2, stack( 
+  [M*2, stack(  // --------------- Part 5
     _drums1,
   )],
   [M*8, stack( 
     _drums1,
-    _bass1x.gain(.5),     _pian5a,    _lead5a,
+    _bass1x.gain(.7),     _pian5a,    _lead5a,
   )],
   [M*4, stack(    
     _drums1,
-    _bass2x.gain(.5),     _pian5b,    _lead5b, 
+    _bass2x.gain(.7),     _pian5b,    _lead5b, 
   )],
   [M*4, stack(    
     _drums1.mask("<1@3 ->"),
-    _bass3x.gain(.5),     _pian5c,    _lead5c,     _ooh1,
+    _bass3x.gain(.7),     _pian5c,    _lead5c,     _ooh1,
   )],  
 
-  [M*8, stack( 
+  [M*8, stack( // ----------------- Part 7
     _drums1,
-    _bass1, _bass1x, _bass1y,     _pian5a.transpose(-12),    _lead5a,
+    _bass1x,     _bass1y,     _pian5a.transpose(-12),    _lead5a,
   )],
   [M*4, stack(    
     _drums1,
-    _bass2, _bass2x, _bass2y,     _pian5b.transpose(-12),    _lead5b, 
+    _bass2x, _bass2y,     _pian5b.transpose(-12),    _lead5b, 
   )],
   [M*4, stack(    
     _drums1.mask("<1@3 ->"),
-    _bass3, _bass3x, _bass3y,     _pian5c.transpose(-12),    _lead5c,     _ooh1,
+    _bass3x, _bass3y,     _pian5c.transpose(-12),    _lead5c,     _ooh1,
   )],    
 
   
