@@ -1,9 +1,7 @@
 //@title P-Pow
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
 setcpm(20)
-
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
@@ -187,24 +185,23 @@ $: arrange(
     _drums1,    
     _chords2, _chords2.trans(12).late(1/64).phaser(3),
     _bass2.clip(.5).trans(12).room(1.5),    
-    _lead1b,    _pian1,
+    _lead1b,    
+    _pian1.trans(-12).room(2),
   )],
   [M*8, stack(
     _chords2, 
     _bass2.clip(.5).trans(12).room(1.5),    
-    _lead1b,    _pian1,
+    _lead1b,
+    _pian1.trans(-12).room(2),
   )],
   
  [M*8, stack(
     _drums2,    
     _chords2,
     _bass2,    
-    // _lead1b,    
    _pian6,
     _chords6.phaser(8).gain(.7),
   )],
-
-
 
 
   [4,silence]  

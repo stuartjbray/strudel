@@ -18,7 +18,7 @@ var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
 var pianoPass = (x) => n(x).sound("piano").scale("c4:major").color("red")
 var steinPass = (x) => n(x).sound("steinway").scale("<c3>:major").color("orange")
-var saxPass = (x) => n(x).scale("<c3, c4>:major").sound("gm_clavinet, gm_cello").color("yellow").release(1).room(2).gain(.5)
+var saxPass = (x) => n(x).scale("<c3, c4>:major").sound("gm_harmonica").color("yellow").release(1).room(2).gain(.7)
 
 var chordsArp = "[0,1,2] 0 [1,2] -"
 var chordsArp2 = "[2 1 0 2] [1 0 2 -]"
@@ -67,10 +67,16 @@ var _lead2 = saxPass(`<
  [6  <[- 4] [6,8]>]
  [<5 [3,7]>]
 >`)
-var _lead3 = saxPass(`< 3 2 1 0>`)
-var _lead3x = saxPass(`<2 0 2 4>`).clip(.5).transpose(-12)
-var _lead4 = saxPass(`< 1 2 4 3>`)
-var _lead4x = saxPass(`<4 7 6 4>`).clip(.5).transpose(-12)
+var _lead3 = saxPass(`< 3 2 1 0>`).clip(.5)
+var _lead3x = saxPass(`<
+ [[3,7] -] -
+ [3, 5] [4, [6 5]] 
+>`).trans(12)
+var _lead4 = saxPass(`< 1 2 4 3>`).clip(.5)
+var _lead4x = saxPass(`<
+ [[0,2] -] -
+ [[4,2] -] [3,[5 6] ]
+>`).trans(12)
 
 var M = 1; 
 $: arrange(
@@ -118,11 +124,15 @@ $: arrange(
   )],
   [1*4, stack(    
     _drums1,
-    _chords3,     _base3,    _lead3,_lead3x,
+    // _chords3,    
+    _base3,    
+    _lead3,_lead3x.gain(.5),
   )],
   [1*4, stack(
     _drums1,
-    _chords4,    _base4,    _lead4,_lead4x,
+    // _chords4,
+    _base4,    
+    _lead4,_lead4x.gain(.5),
   )],
 
 ).punchcard()
