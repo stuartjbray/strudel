@@ -1,10 +1,11 @@
 //@title homozygote
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
+// ---------------- RERECORD
 setcpm(30)
 // -------------- Drums
 var d1 = sound("AkaiLinn_bd").struct(  "1 0 0 1  1 0 0 0").gain("[.8 .3 .8 1]")
-var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0  0 0 1 0").room(".1 1")
+var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0  0 0 1 0").room(".1 .6")
 var d3 = sound("AlesisSR16_hh").struct("1*16").lpf("400*3 1000*3 400*6 1000*3")
 var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 0")
 

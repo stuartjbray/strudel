@@ -1,6 +1,7 @@
 //@title P-Pow
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
+// ------------------------ RERECORD
 setcpm(20)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
@@ -10,10 +11,10 @@ var d1x = sound("bd").struct( "1 1 0 0 0 0 0 0")
 var d2 = sound("rim").struct("0 1 0 0 0 1 0 0 ")
 var d2x = sound("rim").struct("0 0 0 0 1 0 0 0 ")
 var d3 = sound("hh").struct( "1*16")
-var d4 = sound("oh").struct( "- - 1 - - 1 1 -")
-var d4x = sound("oh").struct( "1 - - [- 1] - - - 1")
-var d5 = sound("cr").struct( "0 1 0 0 0 0 0 0")
-var d5x = sound("cr").struct( "0 0 0 0 1 0 0 0")
+var d4 = sound("oh").struct( "- - 1 - - 1 1 -").gain(.8)
+var d4x = sound("oh").struct( "1 - - [- 1] - - - 1").gain(.8)
+var d5 = sound("cr").struct( "0 1 0 0 0 0 0 0").gain(.6)
+var d5x = sound("cr").struct( "0 0 0 0 1 0 0 0").gain(.6)
 
 var _drums_intro = drumsPass(stack( // build up
   sound("oh").struct( "- - 1 - - 1 1 <- 1>"),
@@ -26,7 +27,7 @@ var _drums3 =      drumsPass(stack(  d1x, d2x,  d5x  ))      // break down
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:major").sound("gm_electric_bass_pick, gm_kalimba").color("red").release(.8)
-var bassPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_pick:<1 2>").color("orange")
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_pick:<1 2>").color("orange").gain(1.2)
 var leadPass = (x)   => n(x).scale("c3:major").sound("gm_overdriven_guitar:3").color("yellow").release(1)
 var aahPass = (x)   => n(x).scale("c3:major").sound("gm_choir_aahs:3").color("green").gain(.8)
 var pianPass = (x)   => n(x).scale("c4:major").sound("gm_piano:5").color("cyan").room(2)
