@@ -2,12 +2,7 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-
-// ------------------------ RERECORD
-
-
 setcpm(20)
-
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
