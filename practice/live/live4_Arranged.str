@@ -1,0 +1,34 @@
+var drums = stack(
+  sound("<bd bd*2> <sd sd*2 sd*4>").fast(2),
+  sound("rim").struct("- 1 - -"),
+  sound("hh*16").gain(".4 1 .6 _"),
+).color("red").delay("0, .3").bank("<9000 ace circuitstom>")
+
+
+var bars1 = stack(
+  n("[0 2 4 <5 7>]*4").scale("c3:major").sound("supersaw").room(2),
+  n("[0 2 4 <5 7>]*2").scale("c2:major").sound("saw").room(2),
+).color("green")
+var bars2 = stack(
+  n(`<
+   [5 - 3 0]
+   [2 4 - [0 2]]
+   >`).scale("<c4 c2 c3>:major").sound("gm_celesta").ply(4)
+).trans("<0 2 5 7>")
+.color("yellow")
+
+var bars3 = stack(
+ n("<[0 2 - [- 4]][[3 2] -2 <0 1> <1 0>]>").sound("gm_fx_echoes").scale("c4:major")
+).color("cyan")
+
+$: arrange(
+  [4,stack(
+    drums, bars1
+  )],
+  [4,stack(
+    drums, bars2
+  )],
+  [4,stack(
+    drums, bars3
+  )],
+).punchcard()
