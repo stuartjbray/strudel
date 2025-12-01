@@ -24,6 +24,9 @@ var bassPass = (x) => n(x).scale("c2:major").sound("gm_guitar_harmonics:3").colo
 var leadPass = (x) => n(x).scale("c3:major").sound("piano").color("yellow")
 var dugPass = (x) => n(x).scale("c2:major").sound("gm_acoustic_bass:2").color("green").gain(1.2)
 var fidPass = (x) => n(x).scale("c4:major").sound("gm_fiddle").color("purple").release(1)
+var aahPass = (x) => n(x).scale("c3:major").sound("gm_choir_aahs:2").color("cyan")
+
+
 
 var _chords1 = chordsPass(chordsNPass(`<
  [0,2] [0,3] [-2,0] [-1,0]
@@ -67,8 +70,24 @@ var _fid1 = fidPass(`<
 >`)
 var _fid2 = fidPass(`<
  [3 _ _ 2][1 _ _ -]
- [0 _ _ 4][1 - - -]
+ [0 _ _ -][1 - - -]
 >`)
+
+var _fid3 = fidPass(`<
+ [- - 2 [1 0]] [1 _ -2 _ ]
+ [- - 0 [1 2]] [1 _ - - ]
+>`)
+var _fid4 = fidPass(`<
+ [- - 0 [1 2]] [3 _ 5 _ ]
+ [- - 4 [2 0]] [1 _ - - ]
+>`)
+
+var _aah1 = aahPass(`<
+ 0 3 4 3
+>`).clip(.5).release(1)
+var _aah2 = aahPass(`<
+ 2 3 0 -3 
+>`).clip(.5).release(1)
 
 var M = 1; 
 $: arrange(
@@ -84,11 +103,19 @@ $: arrange(
     _chords1.transpose(12).fast(2),
     _bass2,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums3,    _chords1,     _bass1,    _dug1,    _fid1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums2,    _chords2,    _bass2,    _dug1.transpose(12),    _fid2,
   )],
-  ).punchcard()
+  [1*4, stack(    
+    _drums3,    _chords1,     _bass1,    _dug1, _fid3, _aah1,
+  )],
+  [1*4, stack(
+    _drums2,    _chords2,    _bass2,    _dug1.transpose(12), _fid4, _aah2,
+  )],
+
+  [4,silence],
+).punchcard()
   

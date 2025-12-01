@@ -1,0 +1,101 @@
+//@title here-sugar
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(25)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "1 - - - 1 - - -").echo(3,1/16,.4).room(1.5) //.duckorbit(2).duckattack(.5).duckdepth(.2)
+var d2 = sound("sd").struct( "- - <- 1> - - - - 1").room(2).gain(.5)
+var d3 = sound("hh").struct(  "1*8").gain("[.4 .8]*2")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+
+var _drums_intro = drumsPass(stack( d1, d2, d3  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("supersaw").color("red").release(.2).gain(.8).orbit(2)
+var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_synth_bass_2:1").color("orange").release(.9).gain(1).orbit(2)
+var leadPass = (x)   => n(x).scale("c4:major").sound("gm_synth_strings_2:2").color("yellow").gain(1).room(2).early(.01).orbit(2)
+var tingPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang:5").color("green").room(3)
+var padPass = (x) => n(x).scale("c3:major").sound("gm_fx_atmosphere").gain(1.5).color("blue")
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ [-3,0,2] [0,2,4]
+ [-2,0,3] [0,3,5]
+ [0,3,5] [3,5,7]
+ [0,2,4] [2,4,7]
+ 
+>`)
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ [0 0 1 0 - 0 1 0]!2
+ [3 3 4 3 - 3 4 3]!2
+ [-2 -2 -1 -2 - -2 -1 -2]!2
+ [0 0 1 0 - 0 1 0]!2
+>`)
+var _bass2 = bassPass(`<
+ -
+>`)
+
+var _lead1 = leadPass(`<
+ [3 2 0 3 2 0 5 4]
+ [3 2 0 3 2 0 5 4]
+>`)
+var _lead2 = leadPass(`<
+ [0 2 3 0 2 3 5 4]
+ [0 2 3 0 2 3 5 4]
+>`)
+
+var _ting1 = tingPass(`<
+ [0 [2 4] 4 7] -
+ [0 [3 5] 5 7] -
+ [5 [3 0] 0 7] -
+ [4 [2 0] 0 7] -
+>`)
+
+var _pad1 = padPass(`<
+ - [0 2 4 7] 
+ - [0 3 5 7] 
+ - [0 3 5 7] 
+ - [0 2 4 7] 
+>`)
+
+var M = 1;
+$: arrange(
+  [M*2, stack(    
+    _drums1,
+  )],
+  [M*8, stack(    
+    _drums1,
+    stack(_chords1, _bass1).gain("<[.4 .6 .8 1]/8>"),
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1,     _bass1,    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1.fm("<1 2 3 4 5 4 3 2>"), 
+    _bass1.trans(12),
+    _lead1.trans(12),
+  )],
+  [1*8, stack(    
+    _drums1,
+    stack(_chords1,  _lead1,  ).gain(.5),
+    _bass1,
+    _ting1, 
+    _pad1
+  )],
+  
+
+).punchcard()
+  
