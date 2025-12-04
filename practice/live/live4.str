@@ -1,0 +1,22 @@
+$: stack(
+  sound("<bd bd*2> <sd sd*2 sd*4>").fast(2),
+  sound("rim").struct("- 1 - -"),
+  sound("hh*16").gain(".4 1 .6 _"),
+).color("red").delay("0, .3").bank("9000|ace|circuitstom")
+
+$: stack(
+  n("[0 2 4 <5 7>]*4").scale("c3:major").sound("supersaw").room(2),
+  n("[0 2 4 <5 7>]*2").scale("c2:major").sound("saw").room(2),
+
+  n(`<
+   [5 5 - -]
+   [- 4 4 0]
+   >`).scale("<c4 c2 c3>:major").sound("gm_celesta").ply(4)
+).trans("0|2|5")
+.color("yellow")
+
+$: stack(
+ n("0 0 0 0 1 0 0 0 2 0 0 0 3 0 2 0 1").sound("gm_shakuhachi").scale("c4:major")
+).color("green")
+
+all(x => x.punchcard())

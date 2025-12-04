@@ -35,9 +35,9 @@ var guitPass = (x) => n(x).scale("c3:major").sound('gm_electric_guitar_jazz').co
 var danPass = (x) => n(x).scale("<c2,c3,c4>:major").sound('dantranh_vibrato').color("blue").room(2)
 var echoUpPass = (x) => stack(  
   x, 
-  x.late(1/32).transpose(12).gain(.6),
-  x.late(2/32).transpose(24).gain(.4),
-  x.late(3/32).transpose(36).gain(.2),
+  x.late(1/16).transpose(12).gain(.3),
+  x.late(2/16).transpose(24).gain(.2),
+  x.late(3/16).transpose(36).gain(.1),
   )
 
 
@@ -99,7 +99,7 @@ var _tune2 = danPass(`<
  [4 3 2 1 2 - - -]
 >`)
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4, stack(    
     _drums_intro,
@@ -146,23 +146,23 @@ $: arrange(
     _chords1.transpose(12).clip(.5).struct("1 1 - 1").lpf(500).room(2),     _bass1,    _guit1,      
     echoUpPass(_lead7), 
   )],
-  [M*4, stack( // ----------------- Echo Up Section   
+  [1*4, stack( // ----------------- Echo Up Section   
     _drums4,
     _chords1.transpose(12).clip(.5).struct("1 1 - 1").lpf(500).room(2),     _bass1,    _guit1,      
     echoUpPass(_lead7), 
   )],
-  [M*4, stack( 
+  [1*4, stack( 
     _drums4,
     _chords2.transpose(12).clip(.5).struct("1 1 - 1").lpf(500).room(2),    _bass2,    _guit2,
-    echoUpPass(_lead8), 
+    echoUpPass(_lead8),
   )],
   
-  [M*4, stack(    
+  [1*4, stack(    
     _drums4,
     _chords1.transpose(12).clip(.5).struct("1 1 - 1").lpf(500).room(2),     _bass1,    _guit1,      
     echoUpPass(_lead7.rev()),
   )],
-  [M*4, stack(
+  [1*4, stack(
     _drums4,
     _chords2.transpose(12).clip(.5).struct("1 1 - 1").lpf(500).room(2),    _bass2,    _guit2,
     echoUpPass(_lead8.rev()),

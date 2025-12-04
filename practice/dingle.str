@@ -1,0 +1,110 @@
+//@title dingle
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "1 - - - 1 1 - -")
+var d2 = sound("sd").struct(  "- - 1 - - - - -")
+var d3 = sound("hh").struct(  "1 1 1 - 1 1 1 -")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+var d5 = sound("rim").struct( "- - 1 - - 1 - 1")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("saw").color("red")
+var bassPass = (x)   => n(x).scale("c3:major").sound("gm_lead_8_bass_lead:4").color("orange")
+var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
+var banPass = (x)   => n(x).scale("c4:major").sound("gm_banjo:1").color("green").delay("0,.1").release(1)
+var wavPass = (x)  => n(x).scale("c3:major").sound("wt_digital").color("cyan")
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ 0 5 7 9
+>`).ply(8).fm("<[2 10 30]>")
+var _chords2 = chordsPass(`<
+ 0 5 0 -4
+>`).ply(16).fm("<[10 100]*4>")
+
+var _bass1 = bassPass(`<
+ 0*4 1*4 [-2 2 -2 -3] [3 _ <2 -> -]
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ [2 1 2 - - - - -]
+ [3 2 3 - - - 3 4]
+ <[2 1 0 - - - 2 -] [5 6 7 - - - 5 -]>
+ <[-2 - 0 - -@4] [5 - 7 - -@4]>
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var _ban1 = banPass(`<
+ [- - - - 2 1 2 -]
+ [- - - - 3 2 3 -]
+ <- [- - - - 2 - 4 -]>
+ <- [- - - - 3 - 0 -]>
+>`)
+var _ban2 = banPass(`<
+ [- -  0 2 - - 4 3]
+ [- - -2 0 - - 2 -]
+ [- - -2 0 - - -3 -]
+ <[- - -4 - 3 2 3 -] [- - -4 - 0 1 2 -]>
+>`)
+
+var _wav1 = wavPass(`<
+ [0,2,4]
+ [0,3,5]
+ [-2,2,4]
+ [-2,0,3]
+>`)
+var _wavBuild = wavPass(`<
+ - [0 1 2 _] - [0 1 -2 _]
+ - - [0 -1 2 1][3 2 4 3]
+>`)
+
+var M = 1;
+$: arrange(
+  [M*8, stack(
+    _drums1.bank("xr10"),
+    _chords2,
+    _bass2,
+    _lead2,
+    _ban2,
+  )],
+  [M*8, stack(    
+    _drums1.bank("yamahary30"),
+    _chords1, 
+    _bass1,
+    _lead1,
+    _ban1,
+    _wav1.fm(0),
+  )],
+  [M*8, stack(    
+    _drums1,
+    _bass1.trans(12),
+    _lead1.trans("0, -12"),
+    _wav1.fm("5 10 2").struct("1 - 1 - - - - 1 ").release(.8),
+  )],
+  [1*8, stack(
+    _drums1.bank("xr10"),
+    _chords2.trans(-12),
+    _chords2.fast(.5),
+    _chords2.fast(2).trans(12).gain(.5),
+    _wavBuild,
+    _bass2,
+    _lead2,
+  )],
+  ).punchcard()
+  

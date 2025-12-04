@@ -5,12 +5,12 @@
 setcpm(30)
 
 // -------------- Drums
-const drumsPass = (x) => x.color("white");
+const drumsPass = (x) => x.color("white").bank("yamahary30");
 
-var d1 = sound("bd").struct(  "0 0 0 0 0 0 0 0")
-var d2 = sound("rim").struct("0 0 0 0 0 0 0 0")
-var d3 = sound("hh").struct("0 0 0 0 0 0 0 0")
-var d4 = sound("cr").struct(  "0 0 0 0 0 0 0 0")
+var d1 = sound("bd").struct(  "1 - - - - 1 - -").gain(.5)
+var d2 = sound("sd").struct(  "- - 1 - - - 1 -")
+var d3 = sound("hh").struct(  "1*8").gain("[.2 .6]*2")
+var d4 = sound("oh").struct(  "- - - - - - <- 1> <- 1*2>")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
@@ -18,9 +18,10 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
-var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
-var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
+var chordsPass = (x) => n(x).scale("c3:dorian").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_distortion_guitar:5").color("orange").release(.5)
+var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_distortion_guitar:3").color("yellow")
+var sitPass = (x)   => n(x).scale("c3:dorian").sound("gm_sitar:3").color("green")
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -31,17 +32,28 @@ var _chords2 = chordsPass(`<
 >`)
 
 var _bass1 = bassPass(`<
--
+ [0 [- 0] 0 -] -
 >`)
 var _bass2 = bassPass(`<
--
+ [2 [- 2] 2 -] -
 >`)
 
 var _lead1 = leadPass(`<
--
+ - [0 _ 1 0 2 - 3 4]
+ - [0 _ 1 0 -1 - -2 0]
 >`)
 var _lead2 = leadPass(`<
--
+ - [2 _ 3 2 4 - 5 4]
+ - [2 _ 3 2 1 - 0 2]
+>`)
+
+var _sit1 = sitPass(`<
+ [0 1 - [2 3]]
+ [0 1 - [-2 -3]]
+>`)
+var _sit2 = sitPass(`<
+ [2 3 - [4 3]]
+ [2 3 - [0 -1]]
 >`)
 
 // Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
@@ -49,14 +61,18 @@ var M = 0; // change to M=1 to unmute all stacks with an M.
 $: arrange(
   // Change 1 to be M to conditionally mute this stack.
   [1*8, stack(    
-    _drums_intro,
+    _drums1,
     _chords1, 
     _bass1,
+    _lead1,
+    _sit1,
   )],
   [1*8, stack(
     _drums1,
     _chords2,
     _bass2,
+    _lead2,
+    _sit2,
   )],
   [M*8, stack(    
     _drums1,
