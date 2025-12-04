@@ -9,7 +9,7 @@ const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bd").struct(  "1 - - - - - - <1 ->")
 var d2 = sound("rim").struct( "- - - 1 - <- 1> - -")
-var d3 = sound("hh").struct(  "1 - 1 - 1 <- 1> 1 -")
+var d3 = sound("hh").struct(  "1 - 1 - 1 <- 1> 1 -").gain("[.3 1]*2")
 var d4 = sound("oh").struct(  "- - - - - - <- 1> - ")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
@@ -21,7 +21,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 var chordsPass = (x) => n(x).scale("<c3,c2>:major").sound("piano").color("red").room(1.5)
 var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_electric_guitar_clean:3").color("orange").room(2)
 var leadPass = (x)   => n(x).scale("c3:major").sound("gm_koto:3").color("yellow").release(.8)
-var rumPass = (x)   => n(x).scale("c4:major").sound("gm_pan_flute").color("green")
+var rumPass = (x)   => n(x).scale("c4:major").sound("gm_pan_flute").color("green").gain(1.3)
 var padPass = (x) => n(x).scale("c4:major").sound("gm_fx_soundtrack:3").color("blue").release(1)
 
 // Apply pass functions to patterns
@@ -53,11 +53,11 @@ var _lead1 = leadPass(`<
  [- - - 3] [2 - - -]
 >`)
 var _lead1x = leadPass(`<
- [- - - -] [- - 2 3 4 3 - - ]
- [- - - -] [- - 0 1 2 1 - - ]
- [- - - -] [- - 1 0 1 0 - - ]
- [- - - -] [- - 2 4 3 2 -  -]
->`).clip(.2).ply(3)
+ [- - - -] [- - 2 - 3 - 4 - ]
+ [- - - -] [- - 0 - 1 - 2 - ]
+ [- - - -] [- - 3 - 4 - 5 - ]
+ [- - - -] [- - 5 4 3 2 1 0]
+>`).clip(.5).ply(2).gain(.5).trans(12)
 
 var _rum1 = rumPass(`<
  3 2 1 2 0 1 5 0
@@ -99,10 +99,10 @@ $: arrange(
     _leadDown,
   )],
   [M*8, stack(    
-    _drums1,    _chords1.trans(12),     _bass1,    _lead1,_lead1x,    _rum1.trans(-12),
+    _drums1,    _chords1.trans(12),     _bass1,    _lead1,_lead1x,    _rum1.gain(.6),
   )],
   [M*8, stack(
-    _drums1,    _chords2.trans(12),    _bass2,    _lead1,_lead1x,    _rum2.trans(-12),
+    _drums1,    _chords2.trans(12),    _bass2,    _lead1,_lead1x,    _rum2.gain(.6),
   )],
   
   ).punchcard()
