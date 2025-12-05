@@ -20,7 +20,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:major").sound("supersaw").color("red").release(.2).gain(.8).orbit(2)
 var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_synth_bass_2:1").color("orange").release(.9).gain(1).orbit(2)
-var leadPass = (x)   => n(x).scale("c4:major").sound("gm_synth_strings_2:2").color("yellow").gain(1).room(2).early(.01).orbit(2)
+var leadPass = (x)   => n(x).scale("c4:major").sound("gm_synth_strings_2:2").color("yellow").gain(1).room(2).early(0).orbit(2)
 var tingPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang:5").color("green").room(3)
 var padPass = (x) => n(x).scale("c3:major").sound("gm_fx_atmosphere").gain(1.5).color("blue")
 
@@ -63,16 +63,16 @@ var _ting1 = tingPass(`<
 >`)
 
 var _pad1 = padPass(`<
- - [0 [2 4] [4 2] 7] 
- - [0 [3 5] [5 3] 7] 
- - [0 [3 5] [5 3] 7] 
- - [0 [2 4] [4 2] 7] 
+ - [0 [2 0] [4 0] 7] 
+ - [0 [3 0] [5 3] 7] 
+ - [0 [3 0] [5 0] 7] 
+ - [0 [2 0] [4 0] 7] 
 >`)
 
 var M = 1;
 $: arrange(
   [M*2, stack(    
-    _drums1,
+    _drums1.lpf("[300 500 700 900]/2").velocity("[.3 .5 .7 .9]*2"),
   )],
   [M*8, stack(    
     _drums1,

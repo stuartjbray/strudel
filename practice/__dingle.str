@@ -10,12 +10,13 @@ const drumsPass = (x) => x.color("white");
 var d1 = sound("bd").struct(  "1 - - - 1 1 - -")
 var d2 = sound("sd").struct(  "- - 1 - - - - -")
 var d3 = sound("hh").struct(  "1 1 1 - 1 1 1 -")
-var d4 = sound("cr").struct(  "- - - - - - - -")
+var d3x = sound("hh").struct(  "1*16").gain("[.3 .8]*4")
+var d4 = sound("oh").struct(  "- - - - - <1 -> - 1")
 var d5 = sound("rim").struct( "- - 1 - - 1 - 1")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))  // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+var _drums1 =      drumsPass(stack(  d1, d2,  d3,  d4, d5))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2,  d3x, d4, d5))  
 
 
 // Define pass functions for each instrument
@@ -84,7 +85,7 @@ $: arrange(
     _ban2,
   )],
   [M*8, stack(    
-    _drums1.bank("yamahary30"),
+    _drums2.bank("yamahary30"),
     _chords1, 
     _bass1,
     _lead1,
@@ -98,7 +99,7 @@ $: arrange(
     _wav1.fm("5 10 2").struct("1 - 1 - - - - 1 ").release(.8),
   )],
   [1*8, stack(
-    _drums1.bank("xr10"),
+    _drums2.bank("xr10"),
     _chords2.trans(-12),
     _chords2.fast(.5),
     _chords2.fast(2).trans(12).gain(.5),

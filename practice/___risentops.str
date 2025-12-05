@@ -99,10 +99,14 @@ $: arrange(
     _leadDown,
   )],
   [M*8, stack(    
-    _drums1,    _chords1.trans(12),     _bass1,    _lead1,_lead1x,    _rum1.gain(.6),
+    _drums1,    _chords1.trans(12),     _bass1,    _lead1,_lead1x,    
   )],
   [M*8, stack(
-    _drums1,    _chords2.trans(12),    _bass2,    _lead1,_lead1x,    _rum2.gain(.6),
+    _drums1,
+    stack(
+      _chords2.trans(12),    _bass2,    _lead1,_lead1x,          
+    ).mask("<1@7 0>"),
+    _leadDown,
   )],
   
   ).punchcard()

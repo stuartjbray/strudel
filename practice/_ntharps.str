@@ -69,8 +69,8 @@ var _dik2 = dikPass(`<
 >`)
 
 var _cell1 = cellPass(`<
- [- 7 6 -] [- 9 - -]
- [- 7 6 -] [- 5 - -]
+ [- 7 6 -] [- 5 <4 6> -]
+ [- 3 4 5] [- <4 6> <3 7> -]
 >`)
 
 var M = 1;
@@ -103,7 +103,7 @@ $: arrange(
     _whoosh1,
     _dik1.transpose(-12).rev(), _dik1.late(1/8).gain(1.5),
   )],  
-  [M*8,stack(
+  [1*8,stack(
     _d3,
     _synth1.ply(2).clip(.4),
     _dik1, _dik1.rev(),
