@@ -35,7 +35,7 @@ var _chords2 = chordsPass(`<
 >`).ply(16).fm("<[10 100]*4>")
 
 var _bass1 = bassPass(`<
- 0*4 1*4 [-2 2 -2 -3] [3 _ <2 -> -]
+ 0*4 1*4 [-2 _ 2 _ -2 _ -3 -] [3 _ 2 _]
 >`)
 var _bass2 = bassPass(`<
 -
@@ -78,7 +78,7 @@ var _wavBuild = wavPass(`<
 var M = 1;
 $: arrange(
   [M*8, stack(
-    _drums1.bank("xr10"),
+    _drums1.bank("alesissr16"),
     _chords2,
     _bass2,
     _lead2,
@@ -93,13 +93,13 @@ $: arrange(
     _wav1.fm(0),
   )],
   [M*8, stack(    
-    _drums1,
-    _bass1.trans(12),
+    _drums1.bank("alesissr16"),
+    _bass1,
     _lead1.trans("0, -12"),
     _wav1.fm("5 10 2").struct("1 - 1 - - - - 1 ").release(.8),
   )],
   [1*8, stack(
-    _drums2.bank("xr10"),
+    _drums2.bank("yamahary30"),
     _chords2.trans(-12),
     _chords2.fast(.5),
     _chords2.fast(2).trans(12).gain(.5),
