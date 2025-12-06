@@ -54,5 +54,16 @@
 
     [+] Have downloaded the 3 repos (vscl, tidal-drum-machines, webaudiofontdata) to LenLoq Source Github.
 
+    [+] Have downloaded these to Overcloak
+https://github.com/tidalcycles/Dirt-Samples
+https://github.com/sgossner/VCSL
+https://github.com/geikha/tidal-drum-machines
+
+  I can only get dough-samples/piano-zz to work locally though. That has a piano-zz.json file containing: 
+  {  "piano-zz": {    "A0": "A0v8.mp3", etc
+
+
+
+
     npx http-server C:\Source_GitHub\strudel-samples -p 8000 --cors
     
