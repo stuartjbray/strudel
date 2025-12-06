@@ -18,7 +18,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 var _drumFill1 = sound("<-@3 [rim oh rim oh rim oh rim oh]>").gain("[.4 .6 1 1.3]")
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:dorian").sound("piano").color("red").gain(.3)
+var chordsPass = (x) => n(x).scale("c3:dorian").sound("piano").color("red").gain(.4)
 var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_distortion_guitar:5").color("orange").release(.5)
 var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_distortion_guitar:3").color("yellow")
 var sitPass = (x)   => n(x).scale("c3:dorian").sound("gm_sitar:3").color("green")
@@ -29,10 +29,10 @@ var gitPass = (x)   => n(x).scale("c3:dorian").sound("gm_electric_guitar_clean:4
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
- [0,2,4]
+ [[0,2,4] [2,4,8]]*2
 >`).struct("<[- 1]*4>").clip(.4)
 var _chords2 = chordsPass(`<
- [2,4,6]
+ [[2,4,6] [4,6,9]]*2
 >`).struct("<[- 1]*4>").clip(.4)
 
 var _bass1 = bassPass(`<
@@ -98,6 +98,28 @@ var _vibDown = vibPass(`<
  - - [7 6 5 6 5 4 3 4] [2 1 2 3 4 3 2 1]
 >`)
 
+// ----------------------- Section 4
+var arp4 = "[- [0,1,2] - [[0,1] 2] ]"
+var _chords4 = chordsPass(`<
+ [0,2,4,7]
+ [1,3,5,8]
+ [-2,0,3,5]
+ [-4,-2,0,3]
+>`).slow(2).arp(arp4)
+
+var _vib4 = vibPass(`<
+ - [- [0,3] - [0,3] - 2 3 [0,4]]
+ - [[0,5] -]
+ - [- [0,2] - [0,2] - 1 2 [0,3]]
+ - [[0,4] -]
+>`)
+var _lead4 = leadPass(`<
+ [- [3 2 ]]
+ [- [1 0 ]]
+ [- [5 3 ]]
+ [- [2 3 ]]
+>`)
+
 
 var M = 1;
 $: arrange(
@@ -135,6 +157,19 @@ $: arrange(
     _dum2,    _git1,
   )],
 
+  [M*8, stack(    // ------------------- Section 4
+    _drums1,    _drumFill1,
+    _chords4,
+    _git1,
+    _vib4,
+    _lead4.trans(-12),
+  )],
+  [0*8, stack(
+    _drums1,    _drumFill1,
+    _chords4,
+    _org1,
+  )],
+  
   
   ).punchcard()
   
