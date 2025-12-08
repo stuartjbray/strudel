@@ -162,7 +162,7 @@ $: arrange(
     _chords4,
     _git1,
     _vib4,
-    _lead4.trans(-12),
+    //_lead4.trans(-12),
   )],
   [0*8, stack(
     _drums1,    _drumFill1,
