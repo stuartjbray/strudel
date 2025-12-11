@@ -99,19 +99,19 @@ var _vibDown = vibPass(`<
 >`)
 
 // ----------------------- Section 4
-var arp4 = "[[- - 0 _] [1 _ 2 3] [- 2 _ 3 ] [3 2 1 0] ]"
+var arp4 = "<[- [0,2] - [1,3]]>"
 var _chords4 = chordsPass(`<
  [0,2,4,7]
  [1,3,5,8]
  [-2,0,3,5]
  [-4,-2,0,3]
->`).slow(2).arp(arp4)
+>`).slow(2).arp("0 1 2 0 3 2 1 2") //arp4
 
 var _vib4 = vibPass(`<
- - [- [3 2] - [2 1] ]
- - [- [5 4] - [4 3] ]
- - [- [0 1] - [1 2] ]
- - [[0,4] ]
+ [0 2 4 7] -
+ [6 4 7 6] -
+ [5 3 0 7] -
+ [9 7 8 6 7 4 3 2] -
 >`)
 var _lead4 = leadPass(`<
  [- [3 2 ]]
@@ -157,14 +157,13 @@ $: arrange(
     _dum2,    _git1,
   )],
 
-  [M*8, stack(    // ------------------- Section 4
-    _drums1,    _drumFill1,
-    _chords4,
-    _git1,
+  [1*8, stack(    // ------------------- Section 4
+    // _drums1,    _drumFill1,
+    _chords4.trans("[0 12]"),
     _vib4,
-    //_lead4.trans(-12),
+    _org1.trans(12),
   )],
-  [M*8, stack(
+  [0*8, stack(
     _drums1,    _drumFill1,
     _chords4,
     _org1,
