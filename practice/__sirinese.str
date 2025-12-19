@@ -1,0 +1,112 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(40)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white").bank("yamaharm50");
+
+var d1 = sound("bd").struct(  "1 - - - - - - -").gain(.5)
+var d2 = sound("sd").struct( "- - - 1 - - <- 1> -").gain(.3)
+var d3 = sound("hh").struct(  "1*8").gain(.1)
+var d4 = sound("oh").struct(  "- - - - <1 -> - - -").gain(.3)
+
+var _drums_intro = drumsPass(stack( d1, d2, d3, d4  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:minor").sound("piano").color("red").gain(.5)
+var bassPass = (x)   => n(x).scale("c2:minor").sound("gm_electric_bass_finger").color("orange").release(1)
+var bass2Pass = (x)   => n(x).scale("c3:minor").sound("gm_electric_guitar_jazz:4").color("yellow").release(1)
+var leadPass = (x)   => n(x).scale("c3:minor").sound("gm_guitar_harmonics").color("green")
+
+// Apply pass functions to patterns
+var chordArp = "0 [1 2] 0 [2 1]"
+var _chords1 = chordsPass(`<
+ [0,6,7]
+ [0,6,7]
+ [-3,8,7]
+ [-3,6,7]
+ [2,6,7]
+ [2,6,7]
+ [4,9,8]
+ [4,7,6]
+>`).arp(chordArp)
+var _chords2 = chordsPass(`<
+ [0,6,7]
+ [0,6,7]
+ [1,8,7]
+ [1,6,7]
+ [0,6,7]
+ [0,6,7]
+ [2,9,8]
+ [2,7,6]
+>`).arp(chordArp)
+
+var bassArp = "1 - 1 [- 1]"
+var _bass1 = bassPass(`<
+ 0 0 -3 -3 
+ 0 0 -2 -3
+>`).arp(bassArp)
+var _bass2 = bassPass(`<
+ 2 2 3 0
+ 5 5 4 6
+>`).arp(bassArp)
+
+var _bass1a = bass2Pass(`<
+ [- - - - - 4 3 -]
+ [3 - - - - 2 - -]
+ [- - - - - 2 3 -]
+ [3 - - - 0 2 - -]
+ [- - - - -1 -1 0 -]
+ [2 - 0 -]
+ [- - - - - 2 3 2]
+ [3 - - - 0 - - -]
+>`)
+var _bass2a = bass2Pass(`<
+ [- - - - - 4 3 -]
+ [5 - - - 4 - - -]
+ [- - - - - 4 3 -]
+ [5 4 - 3 - 2 - 6]
+ [- - - 4 - 4 - 2]
+ [5 - - - 4 - - -]
+ [- - - 3 - 2 - -]
+ [0 - - - 3 - - -]
+>`)
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var M = 0; 
+$: arrange(
+  [1*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1, _bass1a
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords2,
+    _bass2, _bass2a
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+    _lead2,
+  )],
+  ).punchcard()
+  
