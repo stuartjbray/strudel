@@ -21,8 +21,8 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 var chordsPass = (x) => n(x).scale("c3:major").sound("supersaw").color("red").release(.2).gain(.8).orbit(2)
 var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_synth_bass_2:1").color("orange").release(.9).gain(1).orbit(2)
 var leadPass = (x)   => n(x).scale("c4:major").sound("gm_synth_strings_2:2").color("yellow").gain(1).room(2).early(0).orbit(2)
-var tingPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang:5").color("green").room(3)
-var padPass = (x) => n(x).scale("c3:major").sound("gm_fx_atmosphere").gain(1.5).color("blue")
+var tingPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang:1").color("green").room(3).release(2)
+var padPass = (x) => n(x).scale("c3:major").sound("gm_fx_atmosphere:13").gain(1.5).release(1).color("blue")
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -56,17 +56,23 @@ var _lead2 = leadPass(`<
 >`)
 
 var _ting1 = tingPass(`<
- [0 [2 4] 4 7] -
- [0 [3 5] 5 -] -
- [5 [3 0] 0 7] -
- [4 [2 0] 0 -] -
+ [- 5 _ -] [- 4 _ -]
+ [- 5 _ -] [- - - -]
+ [- 9 _ -] [- 5 _ -]
+ [- 3 _ -] [- 2 - -]
+>`)
+var _ting1a = tingPass(`<
+ [- - 7 _] [- 6 _ -]
+ [- - 7 _] [- - - -]
+ [- - 10 _] [- 7 _ -]
+ [- - 5 _] [- 4 - -]
 >`)
 
 var _pad1 = padPass(`<
- - [0 2 4 -] 
- - [0 3 5 -] 
- - [0 3 5 -] 
- - [0 2 4 7] 
+ - [0, 2, 4] 
+ - [0, 3, 5] 
+ - [0, 3, 5] 
+ - [0, 2, 4, 7] 
 >`)
 
 var M = 1;
@@ -88,11 +94,15 @@ $: arrange(
     _bass1.trans(12),
     _lead1.trans(12),
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums1,
     stack(_chords1,  _lead1,  ).gain(.5),
-    _bass1,
-    _ting1, 
+    _bass1,    _ting1,     _pad1
+  )],
+  [1*8, stack(    
+    _drums1,
+    _bass1.gain(1.4),
+    stack(_ting1, _ting1a).trans(-12),
     _pad1
   )],
   
