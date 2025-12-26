@@ -126,14 +126,14 @@ var _lead2a = bass2Pass(`<
 >`)
 
 var _lead1b = bass2Pass(`<
- [- 6 - 6 - 4 7 -]
- -
- [- 6 - 6 - 2 8 -]
- -
- [- 7 - 7 -1 -1 9 -]
- -
- [- 6 - <6 8> - 2 10 2]
- -
+ [- 6 - 6 - - 13 -]
+ [- 7 - 7 - - - -]
+ [- 6 - 6 - - 12 -]
+ [- 7 - 7 - - - -]
+ [- 6 - 6 - - 11 -]
+ [- 7 - 7 - - - -]
+ [- 6 - 6 - - 10 -]
+ [- 7 - 7 - - - -]
 >`).late(.25)
 var _lead2b = bass2Pass(`<
  [- - - - - 4 3 -]
@@ -304,12 +304,14 @@ $: arrange(
     _chords6a,    
     _bass1.trans(12),
     _bass1b,
-    _lead1,    _lead1b.lpf(600),
+    _lead1,    
+    _lead1b.lpf(600),
   )],
   [M*8, stack(
+    _lead1b.lpf(600),
     _drums2,
     _chords5.trans(12),
-    _bass5,   _pad5.trans(12).gain(.6),
+    _bass5,   _pad5.trans(12).gain(.6), 
   )],
   [M*8, stack(
     _drums2,
@@ -332,6 +334,6 @@ $: arrange(
     _lead2.delay("0, 1"),
   )],
 
-  [4,silence]
+  [M*4,silence]
   ).punchcard()
   
