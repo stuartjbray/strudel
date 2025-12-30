@@ -1,4 +1,4 @@
-//@title Template
+//@title resiler
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -21,6 +21,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 var chordsPass = (x) => n(x).scale("c3:dorian").sound("piano").color("red")
 var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_slap_bass_2:4").color("orange")
 var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_electric_bass_pick").color("yellow").release(1)
+var tunePass = (x)   => n(x).scale("c4:dorian").sound("gm_soprano_sax").color("green").release(.7)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -51,7 +52,13 @@ var _lead2 = leadPass(`<
 -
 >`)
 
-var M = 0; 
+var _tune1 = tunePass(`<
+ [4] [3 _ 2 _ - 1 _ _] [2 _ 4 3] [2 [- 6] [- 5] -]
+ [0] [1 _ 2 _ - 3 _ _] [0 _ 7 6] [2 [- 6] [- 5] -]
+>`)
+
+var M = 1; 
+M = 0; 
 $: arrange(
   [1*8, stack(    
     _drums1,
@@ -59,11 +66,12 @@ $: arrange(
     _bass1,
     _lead1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
-    _chords2,
-    _bass2,
+    _chords1,
+    _bass1,
     _lead1,
+    _tune1,
   )],
   [M*8, stack(    
     _drums1,

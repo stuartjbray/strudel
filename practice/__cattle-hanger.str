@@ -23,7 +23,7 @@ var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_distortion_guitar:5").
 var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_distortion_guitar:3").color("yellow")
 var sitPass = (x)   => n(x).scale("c4:dorian").sound("gm_sitar:1").color("green")
 var orgPass = (x)   => n(x).scale("c3:dorian").sound("gm_drawbar_organ").color("blue")
-var vibPass = (x)   => n(x).scale("c3:dorian").sound("gm_vibraphone").color("cyan").room(3).gain(.3)
+var vibPass = (x)   => n(x).scale("c3:dorian").sound("gm_vibraphone").color("cyan").room(1).gain(.3)
 var dumPass = (x)   => n(x).scale("c3:dorian").sound("gm_electric_guitar_muted:4").color("brown").room(1.5)
 var gitPass = (x)   => n(x).scale("c3:dorian").sound("gm_electric_guitar_clean:4").color("grey").room(1.5)
 
@@ -144,15 +144,15 @@ var _vib5 = vibPass(`<
  [5 - - - - 2 - 1 ] 
 >`)
 var _org4 = orgPass(`<
- [0,2,4 ]
- [0,3,5 ]
- [0,4,6 ] 
+ [-3,0,2,4 ]
+ [-2,0,3,5 ]
+ [-1,0,4,6 ] 
  [0,3,5,7 ]
  [0,2,4,7 ]
  [0,3,5,8 ]
  [0,4,6,9 ] 
  [0,3,5,10 ] 
->`).arp("- [0,1,2,3] - [0,1,2,3]")
+>`).arp("0 _ 1 - 2 - 3 _ 2 - 1 -")
 var _bass4 = bassPass(`<
  [0 - - 2]
  [1 -]
@@ -160,7 +160,8 @@ var _bass4 = bassPass(`<
  [3 -]
 >`)
 
-var M = 0;
+var M = 1;
+// M = 0;
 $: arrange(
   [M*2, stack(
     _org1, _bass1
@@ -216,7 +217,6 @@ $: arrange(
     _bass4.gain(.3),    
     // _lead1,    
     _org4.room(2),
-    // _vib1,
     _vib5,
   )],
   [0*8, stack(

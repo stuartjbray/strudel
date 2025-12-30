@@ -8,7 +8,7 @@ setcpm(40)
 const drumsPass = (x) => x.color("white").bank("yamaharm50");
 
 var d1 = sound("bd").struct(  "1 - - - - - - -").gain(.5)
-var d2 = sound("sd").struct( "- - - 1 - - <- 1> -").gain(.3)
+var d2 = sound("sd").struct( "- - - 1 - - <- 1> -").gain(.5)
 var d3 = sound("hh").struct(  "1*8").gain(.1)
 var d4 = sound("oh").struct(  "- - - - <1 -> - - -").gain(.3)
 
@@ -21,7 +21,7 @@ var _drum_fill1 = drumsPass(stack(
   sound("<-@7 [sd*2 oh sd bd]>").gain("[.5 1]")
 ))
 var _drum_fill2 = drumsPass(stack(
-  sound("<-@6 [bd sd bd sd] [sd bd bd*2 bd]>").gain(".5 [.5 1]")
+  sound("<-@6 [bd sd bd sd] [sd bd bd*2 bd]>").gain(".5 [.5 .7]")
 ))
 
 var _drums_intro = drumsPass(stack( d1, d2, d3, d4))            // build up
@@ -30,12 +30,12 @@ var _drums2 =      drumsPass(stack(  d1a, d2a, d3a, d4a, _drum_fill2 ))         
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:minor").sound("piano").color("red").gain(.5)
-var bassPass = (x)   => n(x).scale("c2:minor").sound("gm_electric_bass_finger").color("orange").release(1).delay("0,0.2")
-var bass2Pass = (x)   => n(x).scale("c4:minor").sound("gm_electric_guitar_jazz:4").color("yellow").release(1).room(2)
+var chordsPass = (x) => n(x).scale("c3:minor").sound("piano").color("red").gain(.7).orbit(2)
+var bassPass = (x)   => n(x).scale("c2:minor").sound("gm_electric_bass_finger").color("orange").release(1).delay("0,0.2").orbit(2)
+var bass2Pass = (x)   => n(x).scale("c4:minor").sound("gm_electric_guitar_jazz:<4,6>").color("yellow").release(.7).room(1).gain(.6)
 var leadPass = (x)   => n(x).scale("c3:minor").sound("gm_guitar_harmonics").color("green")
-var padPass = (x)   => n(x).scale("c3:minor").sound("gm_pad_warm:<[1 2]>").color("cyan").gain(0.6).ply(2).release(1)
-var dugPass = (x)  => n(x).scale("c3:minor").sound("wt_digital_echoes:2").color("blue").release(.8)
+var padPass = (x)   => n(x).scale("c3:minor").sound("gm_pad_warm:<[1 2]>").color("cyan").gain(0.6).ply(2).release(1).orbit(2)
+var dugPass = (x)  => n(x).scale("c3:minor").sound("wt_digital_echoes:2").color("blue").release(.8).orbit(2)
 
 
 // Apply pass functions to patterns
@@ -85,9 +85,9 @@ var _lead1 = bass2Pass(`<
  [- - - - - 4 3 -]
  [3 - - - - <2 4> - -]
  [- - - - - 2 3 -]
- [3 - - - 0 <2 -1> - -]
+ [3 - - - 0 2 - -]
  [- - - - -1 -1 0 -]
- [2 - <0 3> -]
+ [2 - 0 -]
  [- - - - - 2 3 2]
  [3 - - - <0 4> - - -]
 >`)
@@ -126,14 +126,14 @@ var _lead2a = bass2Pass(`<
 >`)
 
 var _lead1b = bass2Pass(`<
- [- 6 - 6 - - 13 -]
- [- 7 - 7 - - - -]
- [- 6 - 6 - - 12 -]
- [- 7 - 7 - - - -]
- [- 6 - 6 - - 11 -]
- [- 7 - 7 - - - -]
- [- 6 - 6 - - 10 -]
- [- 7 - 7 - - - -]
+ [- 6 - 7 - - 13 -]
+ [- 8 - 7 - - - -]
+ [- 6 - 7 - - 12 -]
+ [- 9 - 8 - - - -]
+ [- 6 - 7 - - 11 -]
+ [- 8 - 7 - - - -]
+ [- 6 - 7 - - 10 -]
+ [- 9 - 8 - - - -]
 >`).late(.25)
 var _lead2b = bass2Pass(`<
  [- - - - - 4 3 -]
@@ -324,14 +324,14 @@ $: arrange(
     _bass5.gain(1.2), 
     _pad5.trans(12).gain(.3),
     _lead6.gain(.7),
-    _lead1.delay("0, 1"),
+    _lead1.delay("0, 1").gain(.5),
   )],
   [M*8, stack(
     _chords5, 
     _bass5.gain(1.2), 
     _pad5.trans(12).gain(.3),
     _lead6.gain(.7),
-    _lead2.delay("0, 1"),
+    _lead2.delay("0, 1").gain(.5),
   )],
 
   [M*4,silence]
