@@ -161,7 +161,7 @@ var _bass4 = bassPass(`<
 >`)
 
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
   [M*2, stack(
     _org1, _bass1
@@ -197,7 +197,7 @@ $: arrange(
     _dum2,    _git1,
   )],
 
-  [M*8, stack(    // ------------------- Section 4
+  [M*8, stack(    // ------------------- Section 4 - Sitar
     d3,
     _chords4.gain(1),
     _vib4.gain(.6),
@@ -211,13 +211,7 @@ $: arrange(
     _sit4,
   )],
 
-  [M*8, stack(    
-    _drums1.lpf(300),    _drumFill1,
-    _chords1,
-    _bass4.gain(.3),    
-    _org4.room(2).mask("<0@4 1@4>"),
-    _vib5,
-  )],  
+
 
   [1*8, stack(    
     _drums1,    _drumFill1,
@@ -233,6 +227,8 @@ $: arrange(
     ).mask("<1@6 - ->"),
     _vibDown
   )],
-  
+
+
+  [4,silence]
   ).punchcard()
   
