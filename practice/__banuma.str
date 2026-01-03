@@ -12,9 +12,9 @@ var d3a = sound("AlesisSR16_hh").struct("1*8").gain("<[.4 .8]>")
 var d4 = sound("AkaiLinn_cr").struct(  "0 0 0 0 0 0 0 <0@3 1>").gain(.3)
 var d5 = sound("sd").struct("- - 1 -").gain(.6)
 
-var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums_intro = drumsPass(stack( d1, d2  ))               // build up
 var _drums1 =      drumsPass(stack( d1,  d2,  d3,  d4, d5))  // normal
-var _drums2 =      drumsPass(stack( d1, d2, d3a , d5 ))           // break down
+var _drums2 =      drumsPass(stack( d1, d2, d3a , d5 ))      // break down
 var _drums3 =      drumsPass(stack( d1, d3  ))          
 
 var chordsNPass = (x) => x.arp("0 1 0*2 - 1 0 - -").ply(2)
@@ -23,17 +23,21 @@ var bassNPass = (x) => x
 var bassPass = (x) => n(x).scale("c2:major").sound("gm_guitar_harmonics:3").color("orange").gain(.6)
 var leadPass = (x) => n(x).scale("c3:major").sound("piano").color("yellow")
 var dugPass = (x) => n(x).scale("c2:major").sound("gm_acoustic_bass:2").color("green").gain(1.2)
-var fidPass = (x) => n(x).scale("c4:major").sound("gm_fiddle").color("purple").release(1)
-var aahPass = (x) => n(x).scale("c3:major").sound("gm_choir_aahs:2").color("cyan")
+var fidPass = (x) => n(x).scale("c3:major").sound("gm_lead_5_charang:2").color("purple").release(1).gain(.5)
+var aahPass = (x) => n(x).scale("c3:major").sound("gm_pad_sweep:3").color("cyan").room(3)
 
 
 
+/* C F Am G */
 var _chords1 = chordsPass(chordsNPass(`<
  [0,2] [0,3] [-2,0] [-1,0]
 >`))
-var _chords2 = chordsPass(chordsNPass(`<
--
->`))
+var _chords2a = leadPass(`<
+ - [- - - [2,4,7]] [[3,5,9] - [6,8] -] -
+>`)
+var _chords2b = leadPass(`<
+ - [- - - [3,5]] [[0,2] - [0,5,7] -] -
+>`)
 
 var _bass1 = bassPass(bassNPass(`<
  [0 - 1 - ]
@@ -90,30 +94,33 @@ var _aah2 = aahPass(`<
 >`).clip(.5).release(1)
 
 var M = 1; 
+// M = 0;
 $: arrange(
   [M*1, stack(    
     _drums_intro,
   )],
   [M*4, stack(    
     _drums1,    _chords1,     _bass1,
+    _chords2a,
   )],
   [M*4, stack(
     _drums1,
     _chords1.transpose(12).rev(),
     _chords1.transpose(12).fast(2),
+    _chords2b,
     _bass2,
   )],
   [M*4, stack(    
     _drums3,    _chords1,     _bass1,    _dug1,    _fid1,
   )],
   [M*4, stack(
-    _drums2,    _chords2,    _bass2,    _dug1.transpose(12),    _fid2,
+    _drums2,    _bass2,    _dug1.transpose(12),    _fid2,
   )],
   [1*4, stack(    
     _drums3,    _chords1,     _bass1,    _dug1, _fid3, _aah1,
   )],
   [1*4, stack(
-    _drums2,    _chords2,    _bass2,    _dug1.transpose(12), _fid4, _aah2,
+    _drums2,    _bass2,    _dug1.transpose(12), _fid4, _aah2,
   )],
 
   [4,silence],
