@@ -25,7 +25,7 @@ var _drums2 =      drumsPass(stack(  d1a, d2a, d3a, d4a  ))  // break down
 
 // Define pass functions for each instrument
 var bassPass = (x)   => n(x).scale("c3:major").sound("gm_fx_brightness:2").color("orange").gain("<[1.7 2 1 1.7]>")
-var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red").release(.8)
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red").release(.8).gain(1)
 var chords2Pass = (x) => n(x).scale("c3:major").sound("steinway").color("purple")
 var leadPass = (x)   => n(x).scale("c4:major").sound("gm_fx_echoes:3").color("yellow").release(.8)
 var accPass = (x)   => n(x).scale("c4:major").sound("gm_fiddle:2").color("green").gain(1).release(.7)
@@ -149,19 +149,24 @@ var _stein7 = chords2Pass(`<
 
 var _stein8 = chords2Pass(`<
  - [ - - 2]
- [0 - -] -
+ [[0,3] - -] -
  - [ - - -1]
- [-3 - -] -
+ [[-3,2] - -] -
 >`).trans(12)
 var _stein9 = chords2Pass(`<
  - [- - 2 3 4 5]
  - [- [0,2] [1,3]]
- - [- - 2 0 2 -]
- - [- - 3 1 3 -]
+ [[2,4] -] [- - 2 0 2 -]
+ [[2,4] -] [- - 3 1 3 -]
 >`)
 
+var _lastChord = stack(
+  chords2Pass(`<[0,7,14]>`),
+  leadPass(`[0,7,14]`),
+).trans(-12)
+
 var M = 1;
-// M = 0;
+M = 0;
 $: arrange(
   [M*4, stack(    // intro
     _drums1,
@@ -231,7 +236,6 @@ $: arrange(
   )],  
 
   [M*8, stack(    // harpsichord & fiddle
-    // _drums1,
     _chords1, 
     _bass1.ply(2).room(2),
     _lead1.trans(-12),
@@ -239,13 +243,14 @@ $: arrange(
     _stein8,
   )],
   [M*8, stack(
-    // _drums1,
     _chords2,
     _bass2.ply(2).room(2),
     _lead2,    
     _acc2.trans(12).gain(.4), 
     _stein9,
   )],
+  [M*1, _lastChord],
   
+  [4, silence]
   ).punchcard()
   

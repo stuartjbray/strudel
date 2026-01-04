@@ -5,12 +5,12 @@
 setcpm(30)
 
 // -------------- Drums
-const drumsPass = (x) => x.color("white")
+const drumsPass = (x) => x.color("white").bank("9000")
 
-var d1 = sound("yamahary30_bd").struct(  "<[1 - - - - 1 - -] [1]>")
-var d2 = sound("yamahary30_rim").struct( "<[- - - 1 - - <- 1> -]>")
-var d3 = sound("yamahary30_hh").struct(  "1*16").gain("<[.3 _ .6 .3]>")
-var d4 = sound("yamahary30_lt").struct(  "<[- 1]!3 [- 1 [- 1] -]>")
+var d1 = sound("bd").struct(  "<[1 - - - - 1 - -] [1]>")
+var d2 = sound("rim").struct( "<[- - - 1 - - - -]>").gain(.4)
+var d3 = sound("hh").struct(  "1*16").gain("<[.2 _ .4 .2]>")
+var d4 = sound("sd").struct(  "<[- 1]!3 [- 1 [- 1] -]>")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal

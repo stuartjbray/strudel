@@ -8,7 +8,7 @@ setcpm(25)
 const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bd").struct(  "1 - - - 1 - - -").echo(3,1/16,.4).room(1.5) //.duckorbit(2).duckattack(.5).duckdepth(.2)
-var d2 = sound("sd").struct( "- - <- 1> - - - - 1").room(2).gain(.5)
+var d2 = sound("sd").struct( "- - <- - - 1> - - - - 1").room(2).gain(.7)
 var d3 = sound("hh").struct(  "1*8").gain("[.4 .8]*2")
 var d4 = sound("cr").struct(  "- - - - - - - -")
 
@@ -24,7 +24,7 @@ var leadPass = (x)   => n(x).scale("c4:major").sound("gm_synth_strings_2:2").col
 var tingPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang:1").color("green").room(3).release(2)
 var padPass = (x) => n(x).scale("c3:major").sound("gm_fx_atmosphere:13").gain(1.5).release(1).color("blue")
 
-// Apply pass functions to patterns
+// C D F C
 var _chords1 = chordsPass(`<
  [-3,0,2] [0,2,4]
  [-2,0,3] [0,3,5]
@@ -42,9 +42,7 @@ var _bass1 = bassPass(`<
  [-2 -2 -1 -2 - -2 -1 -2]!2
  [0 0 1 0 - 0 1 0]!2
 >`)
-var _bass2 = bassPass(`<
- -
->`)
+
 
 var _lead1 = leadPass(`<
  [3 2 0 3 2 0 5 4]
@@ -56,16 +54,16 @@ var _lead2 = leadPass(`<
 >`)
 
 var _ting1 = tingPass(`<
- [- 5 _ -] [- 4 _ -]
+ [- 5 _ _] [- 4 _ -]
  [- 5 _ -] [- - - -]
- [- 9 _ -] [- 5 _ -]
- [- 3 _ -] [- 2 - -]
+ [- 9 _ _] [- 7 _ -]
+ [- 4 _ -] [- 2 _ -]
 >`)
 var _ting1a = tingPass(`<
  [- - 7 _] [- 6 _ -]
  [- - 7 _] [- - - -]
- [- - 10 _] [- 7 _ -]
- [- - 5 _] [- 4 - -]
+ [- - 11 _] [- 5 _ -]
+ [- - 6 _] [- 4 - -]
 >`)
 
 var _pad1 = padPass(`<
@@ -75,7 +73,33 @@ var _pad1 = padPass(`<
  - [0, 2, 4, 7] 
 >`)
 
+/* -------------- Part 4 */
+var _bass4 = bassPass(`<
+ [0 4 1 0 0 5 1 0][0 6 2# 0 0 5 1 0]
+ [0 4 1 0 0 5 1 0][0 6 2# 0 0 5 1 0]
+ [0 5 1 0 0 6 1 0][0 7 2# 0 0 6 1 0]
+ [0 4 1 0 0 6 1 0][0 7 2# 0 0 6 1 0]
+>`).trans(12)
+var _chords4 = chordsPass(`<
+ [[0,4]@3 [3 2]]  [ 3 2 _ 0 _ 2 _ _]
+ [[3,5]@3 [6 5]] [[3,7]]
+ [[5,7]@3 [8 7]]  [ 9 7 _ 5 _ 7 _ _]
+ [[4#,7]@3 [8 7]]  [ 8# 7 _ 4# _ 4 _ 3]
+>`).trans(12)
+var _pad4 = padPass(`<
+ 0 3 0 3 0 0 2# 0
+>`)
+
+var _chords5 = chordsPass(`<
+ [0,2] [2,4] [-3,-1] [-1,1]
+ [-2,0] [-3,0] [-4,0] [-5,0]
+>`).trans(12)
+var _pad5 = padPass(`<
+ 0 2 -1 3 0 0 2# 0
+>`)
+
 var M = 1;
+ M=0
 $: arrange(
   [M*2, stack(    
     _drums1.lpf("[300 500 700 900]/2").velocity("[.3 .5 .7 .9]*2"),
@@ -99,13 +123,20 @@ $: arrange(
     stack(_chords1,  _lead1,  ).gain(.5),
     _bass1,    _ting1,     _pad1
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums1,
     _bass1.gain(1.4),
     stack(_ting1, _ting1a).trans(-12),
     _pad1
   )],
-  
+  [1*8, stack(
+    _drums1,
+    _bass4,    _chords4,    _pad4,
+  )],
+  [1*8, stack(
+    _drums1,
+    _bass4,    _chords5.fm("<1 2 3 4 5 4 3 2>"),    _pad5,
+  )],
 
 ).punchcard()
   

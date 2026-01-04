@@ -1,0 +1,100 @@
+//@title suddenleese
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(40)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "[- 1] - [- 1] - - - - -")
+var d2 = sound("cp").struct( "<[- - - - [- 1] - [- 1] -]!3 [1]>").gain("[1 1 1 .4]")
+var d3 = sound("hh").struct(  "- 1 - 1 - 1 - 1")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:pentatonic").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_slap_bass_1:1, gm_synth_bass_1:6").color("orange").release(.5).gain(.6)
+var leadPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_recorder").color("yellow").gain(.6)
+var tingPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_dulcimer").color("green").gain(.5)
+var trumPass = (x)   => n(x).scale("c4:pentatonic").sound("gm_trumpet").color("blue")
+  
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+-
+>`)
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ [0 1 _ 0 _ - 0 1 _ 0 _ -]
+ [3 4 _ 3 _ - 3 4 _ 3 _ -]
+ [0 1 _ 0 _ - 0 1 _ 0 _ -]
+ [-3 -2 _ -3 _ -@7]
+>`).trans("<[0 -12]>")
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ 0 3 2 -1
+>`)
+var _lead1a = leadPass(`<
+ 2 5 6 7
+ 6 9 5 4 
+>`).late(1/8).clip(.8)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var _ting1 = tingPass(`<
+ [7,9,11] [7,9,12]
+ [7,9,10] [7,9,11]
+>`).arp("[0,1,2]*2 -")
+
+var _trum1 = trumPass(`<
+ [- 7 _ 8 _ 5]
+ [- 2 _ 3 _ 1]
+ [-2 - 0 -2][[2,4] - - -]
+>`)
+
+
+var M = 1;
+// M=0
+$: arrange(
+  [M*8, stack(    
+    _drums1,
+    _lead1,
+    _bass1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _lead1,
+    _lead1a,
+    _bass1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _lead1,
+    _lead1a,
+    _bass1,
+    _ting1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _lead1,
+    _lead1a,
+    _bass1,
+    _ting1,
+    _trum1,
+  )],
+
+  ).punchcard()
+  

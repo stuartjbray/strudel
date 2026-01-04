@@ -12,9 +12,14 @@ var d2 = sound("rim").struct( "- - - - - - <- 1> -")
 var d3 = sound("hh").struct(  "- - - 1 - - - -")
 var d4 = sound("sd").struct(  "- - - - 1 - - -")
 
+var d1a = sound("bd").struct(  "1 1 - 1 - - - 1")
+var d2a = sound("rim").struct( "- - - - - - 1 -")
+var d3a = sound("hh").struct(  "- 1 - - - - - -")
+var d4a = sound("sd").struct(  "- - - - 1 - 1 -")
+
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+var _drums2 =      drumsPass(stack(  d1a, d2a, d3a, d4a  ))    // intense
 
 
 // Define pass functions for each instrument
@@ -22,7 +27,8 @@ var chordsPass = (x) => n(x).scale("c3:dorian").sound("piano").color("red")
 var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_slap_bass_2:4").color("orange").gain(1.5)
 var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_electric_bass_pick").color("yellow").release(1)
 var tunePass = (x)   => n(x).scale("c4:dorian").sound("gm_soprano_sax").color("green").release(.7)
-var tune2Pass = (x)   => n(x).scale("c4:dorian").sound("gm_flute").color("blue").release(.7).vib(8).gain(.5)
+var tune2Pass = (x)  => n(x).scale("c4:dorian").sound("gm_flute").color("blue").release(.7).vib(8).gain(.5)
+var dugPass = (x)    => n(x).scale("c3:dorian").sound("gm_electric_guitar_clean").color("purple")
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -62,8 +68,15 @@ var _tune1a = tune2Pass(`<
  [11 _ _ 10] [9 -] [- 8 7 _] [- 9 5 _]
 >`)
 
+var _dug1 = dugPass(`<
+ [0 [1 0] 2 -] -
+ [4 [3 2] 4 -] -
+ [3 [4 3] 2 -] -
+ [2 [1 0] -1 _] -
+>`)
+
 var M = 1; 
- M = 0; 
+// M = 0; 
 $: arrange(
   [M*8, stack(    
     _chords1,     _bass1,    _lead1,
@@ -72,11 +85,43 @@ $: arrange(
     _chords1,    _bass1,    _lead1,    _tune1,
   )],
   [M*8, stack(    
-    _chords1,     _bass1,    _lead1, _tune1, _tune1a
+    _chords1,     _bass1,    _lead1, _tune1, _tune1a,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,     _bass1,    _lead1, _tune1, _tune1a,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,     _bass1,    _lead1, 
+    _dug1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _tune1, _tune1a,
+    _dug1,
+  )],
+  [1*2, stack(
+    _drums2,
   )],
   [1*8, stack(
-    _drums1,
-    _chords1,     _bass1,    _lead1, _tune1, _tune1a
+    _drums2,
+    _chords1,     _bass1,    _lead1,
+    _tune1, _tune1a,
+    _dug1,
+  ).trans(2)],
+  [1*8, stack(
+    _drums2,
+    _chords1.trans(12),     
+    _bass1,
+    _tune1.trans(-12),
+    _dug1.trans(12),
   )],
+  [1*2, stack(
+    _drums2,
+  )],
+
+
+  
   ).punchcard()
   

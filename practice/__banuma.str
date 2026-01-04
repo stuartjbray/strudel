@@ -93,6 +93,15 @@ var _aah2 = aahPass(`<
  2 3 0 -3 
 >`).clip(.5).release(1)
 
+// ----------------------- Part 5
+var _fid5 = fidPass(`<
+ [- - 3 _ 5 - - 5]
+ [- - 4 _ 6 - - 6]
+>`)
+var _fid6 = fidPass(`<
+ [-]
+>`)
+
 var M = 1; 
 // M = 0;
 $: arrange(
@@ -116,13 +125,28 @@ $: arrange(
   [M*4, stack(
     _drums2,    _bass2,    _dug1.transpose(12),    _fid2,
   )],
-  [1*4, stack(    
+  [M*4, stack(    
     _drums3,    _chords1,     _bass1,    _dug1, _fid3, _aah1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums2,    _bass2,    _dug1.transpose(12), _fid4, _aah2,
   )],
 
+  /* ------------ Part 5*/
+  [0*4, stack(    
+    _drums3,    
+    _chords1,     _bass1,    _dug1, 
+    _fid5, 
+    _aah1,
+  )],
+  [0*4, stack(
+    _drums2,    
+    _bass2,    _dug1.transpose(12), 
+    _fid6,
+    _aah2,
+  )],
+
+  
   [4,silence],
 ).punchcard()
   
