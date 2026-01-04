@@ -5,11 +5,11 @@
 setcpm(35)
 
 // -------------- Drums
-const drumsPass = (x) => x.color("white").bank("d110");
+const drumsPass = (x) => x.color("white").bank("linndrum");
 
 var d1 = sound("bd").struct(  "1 - - - - - - <- 1>")
 var d2 = sound("rim").struct( "- - - - - - <- 1> -")
-var d3 = sound("oh").struct(  "- - - 1 - - - -")
+var d3 = sound("hh").struct(  "- - - 1 - - - -")
 var d4 = sound("sd").struct(  "- - - - 1 - - -")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
@@ -63,7 +63,7 @@ var _tune1a = tune2Pass(`<
 >`)
 
 var M = 1; 
-// M = 0; 
+ M = 0; 
 $: arrange(
   [M*8, stack(    
     _chords1,     _bass1,    _lead1,

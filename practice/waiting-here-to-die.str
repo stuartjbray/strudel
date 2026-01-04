@@ -1,0 +1,70 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "- - - - - - - -")
+var d2 = sound("rim").struct( "- - - - - - - -")
+var d3 = sound("hh").struct(  "- - - - - - - -")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var chords2Pass = (x) => n(x).scale("c2:major").sound("gm_synth_bass_2:2").color("orange")
+var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
+var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
+
+// Apply pass functions to patterns
+var chords1 = (`<
+ [0,3,5]
+ [0,2,5]
+ [1,3,5]
+ [0,3,5]
+ [-2#,1,3] 
+ [-1,1,3]
+ [0,2,4]
+ [0,2,4]
+>`)
+var _chords1 = chordsPass(chords1).arp("[0,1,2] 0 [0,1,2] 2")
+var _chords1a = chords2Pass(chords1).arp("[0 1 2 1] [0 1 2 1]").trans("<[0 12 24 12]@2>")
+
+var _bass1 = bassPass(`<
+-
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var M = 1; 
+//M=0;
+$: arrange(
+  [0*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords1,
+    _chords1a, 
+    _bass2,
+  )],
+
+  ).punchcard()
+  
