@@ -67,8 +67,11 @@ var _trum1 = trumPass(`<
 
 
 var M = 1;
-// M=0
+M=0
 $: arrange(
+  [M*2, stack(    
+    _drums1,
+  )],
   [M*8, stack(    
     _drums1,
     _lead1,
@@ -80,7 +83,7 @@ $: arrange(
     _lead1a,
     _bass1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _lead1,
     _lead1a,
@@ -92,7 +95,6 @@ $: arrange(
     _lead1,
     _lead1a,
     _bass1,
-    _ting1,
     _trum1,
   )],
 
