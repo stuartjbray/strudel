@@ -67,9 +67,9 @@ var _chords1c = chords2Pass(`<
 
 var _chords2a = chords2Pass(`<
  [- -  [5,7]]
- [- [6,<4 8>] -]
+ [[7 8] [6,<4 8>] -]
  [- -  [4,6 8]]
- [- [5,7] [5,<11 12>]]
+ [[6 7] [5,7] [5,<11 12>]]
 >`)
 var _chords2c = chords2Pass(`<
  [- 5 4 -2*2 9 7]  [8 -1*2 5 6 7 6]
@@ -166,7 +166,7 @@ var _lastChord = stack(
 ).trans(-12)
 
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
   [M*4, stack(    // intro
     _drums1,
@@ -179,7 +179,7 @@ $: arrange(
     _chords2d,
     _bass1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _chords2,    _chords2a.trans(12), 
     _bass2,
@@ -249,7 +249,7 @@ $: arrange(
     _acc2.trans(12).gain(.4), 
     _stein9,
   )],
-  [M*1, _lastChord],
+  [M*1, _lastChord.clip(1/4)],
   
   [4, silence]
   ).punchcard()

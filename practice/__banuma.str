@@ -95,12 +95,25 @@ var _aah2 = aahPass(`<
 
 // ----------------------- Part 5
 var _fid5 = fidPass(`<
- [- - 3 _ 5 - - 5]
- [- - 4 _ 6 - - 6]
+ [- [4,6] _ -][- [5,7] _ -]
+ [- 4 _ [2 0]][ [1.3] -]
 >`)
 var _fid6 = fidPass(`<
- [-]
+ [- [2,4] _ -][- [3,5] _ -]
+ [- 2 _ [4 5]][ [4,6] -]
 >`)
+
+// ----------------------- Part 7
+var arp7a = "< [ - [0,1,2] _ -] [ [- [0,1,2] ]!3 -]>"
+var arp7b = "< [ - [0,1,2] _ -] [ [- [0,1,2] ]!3 -]>"
+
+var chords7 = `< [3,5,7] [2,4,7] [3,5,7] [2,4,7]>`
+var chords8 = `< [3,5,7] [2,4,6] [3,5,7] [4,6,8]>`
+
+var _dug7 = dugPass(chords7).arp(arp7)
+var _dug8 = dugPass(chords8).arp(arp7)
+var _chords7 = chordsPass(chords7).arp(arp7)
+var _chords8 = chordsPass(chords8).arp(arp7)
 
 var M = 1; 
 // M = 0;
@@ -133,20 +146,29 @@ $: arrange(
   )],
 
   /* ------------ Part 5*/
-  [0*4, stack(    
+  [M*4, stack(    
     _drums3,    
     _chords1,     _bass1,    _dug1, 
     _fid5, 
     _aah1,
   )],
-  [0*4, stack(
+  [M*4, stack(
     _drums2,    
     _bass2,    _dug1.transpose(12), 
     _fid6,
     _aah2,
   )],
 
+  /* ------------ Part 7*/
+  [1*4, stack(    
+    _drums3,    
+    _chords7, _dug7,
+  )],
+  [1*4, stack(
+    _drums2,    
+    _chords8, _dug8,
+  )],
   
-  [4,silence],
+  [M*4,silence],
 ).punchcard()
   

@@ -19,6 +19,8 @@ var _drums2 =     stack(  d1, d2  ).color("white") // break down
 var pianoPass = (x) => n(x).sound("piano").scale("c4:major").color("red")
 var steinPass = (x) => n(x).sound("steinway").scale("<c3>:major").color("orange")
 var saxPass = (x) => n(x).scale("c4:major").sound("gm_trumpet:3").color("yellow").release(.6).room(2).gain(.7) 
+var humPass = (x) => n(x).scale("c4:major").sound("gm_shanai".color("green")).release(.8)
+var bassPass = (x) => n(x).scale("c3:major").sound("gm_english_horn:2").color("blue").gain(1)
 
 var chordsArp = "[0,1,2] 0 [1,2] -"
 var chordsArp2 = "[2 1 0 2] [1 0 2 -]"
@@ -69,10 +71,20 @@ var _lead2 = saxPass(`<
 >`)
 var _lead3  = saxPass(`< 0 3 -2 1>`).clip(.5)
 var _lead3x = saxPass(`< 2 5 0 4>`).arp("- [- 0] - [- 0]")
+
+// ----------------- Part 4
+
 var _lead4  = saxPass(`< 1 2 4 3>`).clip(.5)
 var _lead4x = saxPass(`< 2 5 4 7>`).arp("- [- 0] - [- 0]")
 
+var _hum4 = humPass(`<2 5 0 3>`).arp("<[1 [- - - 1]]>")
+var _hum5 = humPass(`<2 4 6 5>`).arp("<[1 [- - - 1]]>")
+
+var _bass4 = bassPass(`< 0 3 -2 1>`).arp("1 - 1 _ - - 1 _")
+var _bass5 = bassPass(`< 0 0 4 -3>`).arp("1 - 1 _ - - 1 _")
+
 var M = 1; 
+// M=0
 $: arrange(
   [M*4, stack(    
     _drums_intro,
@@ -116,18 +128,20 @@ $: arrange(
     _drums1,
     _chords4,    _base4,    _lead4,
   )],
-  [M*4, stack(    
+  [1*4, stack( // --------------- Part 4   
     _drums1,
-    // _chords3,    
     _base3,    
     _lead3,
     _lead3x.gain(.5),
+    _hum4,
+    _bass4,
   )],
-  [M*4, stack(
+  [1*4, stack( 
     _drums1,
-    // _chords4,
     _base4,    
     _lead4,_lead4x.gain(.5),
+    _hum5,
+    _bass5,
   )],
 
 ).punchcard()
