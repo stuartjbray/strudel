@@ -104,16 +104,24 @@ var _fid6 = fidPass(`<
 >`)
 
 // ----------------------- Part 7
-var arp7a = "< [ - [0,1,2] _ -] [ [- [0,1,2] ]!3 -]>"
-var arp7b = "< [ - [0,1,2] _ -] [ [- [0,1,2] ]!3 -]>"
+var arp7a = "< [ - [0,1,2] _ _] [ [- [0,1,2] ]!3 -]>"
+var arp7b = "< [ - - [0,1,2] -] [ [0 1 2 1] [- 1 2 <1 ->]  ]>"
 
 var chords7 = `< [3,5,7] [2,4,7] [3,5,7] [2,4,7]>`
 var chords8 = `< [3,5,7] [2,4,6] [3,5,7] [4,6,8]>`
 
-var _dug7 = dugPass(chords7).arp(arp7)
-var _dug8 = dugPass(chords8).arp(arp7)
-var _chords7 = chordsPass(chords7).arp(arp7)
-var _chords8 = chordsPass(chords8).arp(arp7)
+var _dug7 = dugPass(chords7).arp(arp7a)
+var _dug8 = dugPass(chords8).arp(arp7a)
+var _lead7 = leadPass(chords7).arp(arp7b)
+var _lead8 = leadPass(chords8).arp(arp7b)
+var _chords7 = chordsPass(`<
+ [-@5 2*2 3 2] [-@5 0*2 1 0]
+>`)
+var _chords8 = chordsPass(`<
+ [-@5 2*2 3 2] [-@5 4*2 5 4]
+ [-@5 3*2 4 3] [-@5 4*2 5 4]
+>`)
+
 
 var M = 1; 
 // M = 0;
@@ -148,7 +156,7 @@ $: arrange(
   /* ------------ Part 5*/
   [M*4, stack(    
     _drums3,    
-    _chords1,     _bass1,    _dug1, 
+    _bass1,    _dug1, 
     _fid5, 
     _aah1,
   )],
@@ -162,11 +170,11 @@ $: arrange(
   /* ------------ Part 7*/
   [1*4, stack(    
     _drums3,    
-    _chords7, _dug7,
+    _lead7, _dug7, _chords7,
   )],
   [1*4, stack(
     _drums2,    
-    _chords8, _dug8,
+    _lead8, _dug8, _chords8,
   )],
   
   [M*4,silence],

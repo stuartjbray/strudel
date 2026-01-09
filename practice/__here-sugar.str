@@ -62,8 +62,8 @@ var _ting1 = tingPass(`<
 var _ting1a = tingPass(`<
  [- - 7 _] [- 6 _ -]
  [- - 7 _] [- - - -]
- [- - 11 _] [- 5 _ -]
- [- - 6 _] [- 4 - -]
+ [- - 10 7] [- 5 _ -]
+ [- - 7 _] [- 4 - -]
 >`)
 
 var _pad1 = padPass(`<
@@ -75,8 +75,8 @@ var _pad1 = padPass(`<
 
 /* -------------- Part 4 */
 var _bass4 = bassPass(`<
- [0 4 1 0 0 5 1 0][0 6 2# 0 0 5 1 0]
- [0 4 1 0 0 5 1 0][0 6 2# 0 0 5 1 0]
+ [0 4 1 0 0 5 1 0][0 4 1 0 0 5 1 0]
+ [0 4 1 0 0 5 1 0][0 4 1 0 0 5 1 0]
  [0 5 1 0 0 6 1 0][0 7 2# 0 0 6 1 0]
  [0 4 1 0 0 6 1 0][0 7 2# 0 0 6 1 0]
 >`).trans(12)
@@ -87,15 +87,22 @@ var _chords4 = chordsPass(`<
  [[4#,7]@3 [8 7]]  [ 8# 7 _ 4# _ 4 _ 3]
 >`).trans(12)
 var _pad4 = padPass(`<
- 0 3 0 3 0 0 2# 0
+ 0 4 0 5 0 0 2# 0
 >`)
 
+
+var _bass5 = bassPass(`<
+ [0 4 1 0 0 5 1 0][0 6 2# 0 0 5 1 0]
+ [0 4 1 0 0 5 1 0][0 6 2# 0 0 5 1 0]
+ [0 5 1 0 0 6 1 0][0 7 2# 0 0 6 1 0]
+ [0 4 1 0 0 6 1 0][0 7 2# 0 0 6 1 0]
+>`).trans(12)
 var _chords5 = chordsPass(`<
  [0,2] [2,4] [-3,-1] [-1,1]
  [-2,0] [-3,0] [-4,0] [-5,0]
 >`).trans(12)
 var _pad5 = padPass(`<
- 0 2 -1 3 0 0 2# 0
+ 0 4 -1 3 0 0 2# 0
 >`)
 
 var M = 1;
@@ -129,14 +136,24 @@ $: arrange(
     stack(_ting1, _ting1a).trans(-12),
     _pad1
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _bass4,    _chords4,    _pad4,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
-    _bass4,    _chords5.fm("<1 2 3 4 5 4 3 2>"),    _pad5,
+    _bass5,    _chords5.fm("<1 2 3 4 5 4 3 2>"),    _pad5,
+  )],
+  [M*8, stack(
+    _drums1,
+    _bass4.trans(12),    _chords4.trans(-12),    _pad4,
+  )],
+  [M*8, stack(
+    _drums1,
+    _bass5.trans(12),    _chords5.trans(-12).fm("<1 2 3 4 5 4 3 2>"),    _pad5,
   )],
 
+
+  
 ).punchcard()
   

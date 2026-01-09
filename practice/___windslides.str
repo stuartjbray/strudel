@@ -77,14 +77,14 @@ var _lead3x = saxPass(`< 2 5 0 4>`).arp("- [- 0] - [- 0]")
 var _lead4  = saxPass(`< 1 2 4 3>`).clip(.5)
 var _lead4x = saxPass(`< 2 5 4 7>`).arp("- [- 0] - [- 0]")
 
-var _hum4 = humPass(`<2 5 0 3>`).arp("<[1 [- - - 1]]>")
-var _hum5 = humPass(`<2 4 6 5>`).arp("<[1 [- - - 1]]>")
+var _hum4 = humPass(`<2 5 0 4>`).arp("<[1 [- - - 1]]>")
+var _hum5 = humPass(`<4 5 6 5>`).arp("<[1 [- - - 1]]>")
 
 var _bass4 = bassPass(`< 0 3 -2 1>`).arp("1 - 1 _ - - 1 _")
 var _bass5 = bassPass(`< 0 0 4 -3>`).arp("1 - 1 _ - - 1 _")
 
 var M = 1; 
-// M=0
+M=0
 $: arrange(
   [M*4, stack(    
     _drums_intro,

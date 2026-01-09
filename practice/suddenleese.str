@@ -19,10 +19,10 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:pentatonic").sound("piano").color("red")
-var bassPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_slap_bass_1:1, gm_synth_bass_1:6").color("orange").release(.5).gain(.6)
+var bassPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_slap_bass_1:1").color("orange").release(.5).gain(.6)
 var leadPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_recorder").color("yellow").gain(.6)
-var tingPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_dulcimer").color("green").gain(.5)
-var trumPass = (x)   => n(x).scale("c4:pentatonic").sound("gm_trumpet").color("blue")
+var tingPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_dulcimer").color("green").gain(.7).release(.8)
+var trumPass = (x)   => n(x).scale("c4:pentatonic").sound("gm_trumpet").color("blue").release(.7)
   
 
 // Apply pass functions to patterns
@@ -47,9 +47,16 @@ var _lead1 = leadPass(`<
  0 3 2 -1
 >`)
 var _lead1a = leadPass(`<
- 2 5 6 7
- 6 9 5 4 
+ 2 5 6 [7  6 5]
+ 6 9 5 [4  3 2] 
 >`).late(1/8).clip(.8)
+var _lead1b = leadPass(`<
+ 2 5 6 [7  8 9]
+ 6 9 5 [4  5 6] 
+>`).late(1/8).clip(.8)
+
+
+
 var _lead2 = leadPass(`<
 -
 >`)
@@ -60,9 +67,10 @@ var _ting1 = tingPass(`<
 >`).arp("[0,1,2]*2 -")
 
 var _trum1 = trumPass(`<
- [- 7 _ 8 _ 5]
- [- 2 _ 3 _ 1]
- [-2 - 0 -2][[2,4] - - -]
+ [- 2 3 2]
+ -
+ [- 2 1 0]
+ -
 >`)
 
 
@@ -74,28 +82,19 @@ $: arrange(
   )],
   [M*8, stack(    
     _drums1,
-    _lead1,
-    _bass1,
+    _lead1,    _bass1,
   )],
   [M*8, stack(
     _drums1,
-    _lead1,
-    _lead1a,
-    _bass1,
+    _lead1,    _lead1a,    _bass1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _lead1,    _lead1b,    _bass1,    _ting1,
   )],
   [1*8, stack(
     _drums1,
-    _lead1,
-    _lead1a,
-    _bass1,
-    _ting1,
-  )],
-  [1*8, stack(
-    _drums1,
-    _lead1,
-    _lead1a,
-    _bass1,
-    _trum1,
+    _lead1,    _lead1a,    _bass1,    _trum1,
   )],
 
   ).punchcard()
