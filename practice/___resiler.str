@@ -12,10 +12,10 @@ var d2 = sound("rim").struct( "- - - - - - <- 1> -")
 var d3 = sound("hh").struct(  "- - - 1 - - - -")
 var d4 = sound("sd").struct(  "- - - - 1 - - -")
 
-var d1a = sound("bd").struct(  "1 1 - 1 - - - 1")
-var d2a = sound("rim").struct( "- - - - - - 1 -")
-var d3a = sound("hh").struct(  "- 1 - - - - - -")
-var d4a = sound("sd").struct(  "- - - - 1 - 1 -")
+var d1a = sound("bd").struct(  "1 1 - - 1 - - -")
+var d2a = sound("rim").struct( "- - - - - 1 - -")
+var d3a = sound("hh").struct(  "- 1 1 - 1 - - -")
+var d4a = sound("sd").struct(  "- - - - 1 - <- 1> -")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
@@ -75,6 +75,18 @@ var _dug1 = dugPass(`<
  [2 [1 0] -1 _] -
 >`)
 
+// -------------- Part 4
+var _chords4 = chordsPass(`<
+ [0 0 1 0 2 0 3 4]
+ [0 7 6 5 6 5 4 3]
+ [2 2 3 2 4 3 2 1]
+ [3 3 4 3 5 4 3 2]
+>`)
+var _tune4 = tune2Pass(`<
+ [7@3 9] [6 -] 5 4
+ [7@3 6] [9 -] 8 9
+>`)
+
 var M = 1; 
 // M = 0; 
 $: arrange(
@@ -101,23 +113,28 @@ $: arrange(
     _tune1, _tune1a,
     _dug1,
   )],
-  [1*2, stack(
+  [M*2, stack(
     _drums2,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums2,
     _chords1,     _bass1,    _lead1,
     _tune1, _tune1a,
     _dug1,
   ).trans(2)],
-  [1*8, stack(
+  [M*8, stack(
     _drums2,
     _chords1.trans(12),     
     _bass1,
     _tune1.trans(-12),
     _dug1.trans(12),
   )],
-  [1*2, stack(
+  [1*8, stack(
+    _drums2,
+    _chords4,
+    _tune4,
+  )],
+  [M*2, stack(
     _drums2,
   )],
 

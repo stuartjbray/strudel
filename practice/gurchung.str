@@ -1,0 +1,66 @@
+//@title gurchung
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(40)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = stack(sound("yamaharm50_sd").struct(  "<[- 1] - [- 1] - - - - ->"),
+               sound("yamaharm50_sd").struct(  "<- [<[-@5  [- 1] [- 1] [- 1]]>]>"))
+// [- - - - - [- 1] [- 1] [- 1]]
+var d2 = sound("tr707_cp").struct( "- - - - [- 1] - - -").gain("[.5@3 .3]")
+var d3 = sound("hh").struct(  "1 - 1 - 1 - 1 -").gain(2)
+var d4 = sound("sds400_sd").struct(  "<-@3 [ - [- 1] - - - - -]>").gain(.7)
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:pentatonic").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c2:pentatonic").sound("gm_slap_bass_1:<4>").color("orange").release(.5).gain(1.5)
+var leadPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_recorder").color("yellow").gain(.6)
+var tingPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_dulcimer").color("green").gain(.7).release(.8)
+var trumPass = (x)   => n(x).scale("c4:pentatonic").sound("gm_trumpet").color("blue").release(.7)
+  
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+-
+>`)
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ [ 0 0 _]
+ [ 1 1 _]
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ [[0 2] [2,4] _ ]
+ [[0 ] -  [3,5]]
+ [[0 4] [4,6] _ ]
+ [[0 ] _ [3,5] ]
+ 
+>`).fast(2)
+
+var M = 1;
+// M=0
+$: arrange(
+  [0*2, stack(    
+    _drums1,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _lead1,    _bass1,
+  )],
+
+  ).punchcard()
+  

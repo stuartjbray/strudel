@@ -8,7 +8,7 @@ setcpm(40)
 const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bd").struct(  "[- 1] - [- 1] - - - - -")
-var d2 = sound("cp").struct( "<[- - - - [- 1] - [- 1] -]!3 [1]>").gain("[1 1 1 .4]")
+var d2 = sound("cp").struct( "<[- - - - [- 1] - [- 1] -]!3 [1]>").gain("[.5@3 .3]")
 var d3 = sound("hh").struct(  "- 1 - 1 - 1 - 1")
 var d4 = sound("cr").struct(  "- - - - - - - -")
 
@@ -19,7 +19,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:pentatonic").sound("piano").color("red")
-var bassPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_slap_bass_1:1").color("orange").release(.5).gain(.6)
+var bassPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_slap_bass_1:<1,3>").color("orange").release(.5).gain(1.5)
 var leadPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_recorder").color("yellow").gain(.6)
 var tingPass = (x)   => n(x).scale("c3:pentatonic").sound("gm_dulcimer").color("green").gain(.7).release(.8)
 var trumPass = (x)   => n(x).scale("c4:pentatonic").sound("gm_trumpet").color("blue").release(.7)
@@ -69,13 +69,13 @@ var _ting1 = tingPass(`<
 var _trum1 = trumPass(`<
  [- 2 3 2]
  -
- [- 2 1 0]
+ <[- 2 1 0] [- 5 4 3]>
  -
 >`)
 
 
 var M = 1;
-M=0
+// M=0
 $: arrange(
   [M*2, stack(    
     _drums1,
