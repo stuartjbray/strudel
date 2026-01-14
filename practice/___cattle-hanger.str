@@ -116,11 +116,18 @@ var _vib4 = vibPass(`<
 var _dum4 = dumPass(`<
  0 1 2 3
 >`).arp("<[0 - - 0]>").gain(.6).release(1)
+
 var _sit4 = sitPass(`<
- [4@3 - 3 2 _ -]
+ [4@3 - 3 2  _ -]
  [1@3 - 2 1 _ - ]
  [0@3 - 1 2 _ - ]
  [3@5 - - - ]
+>`).release(.3).gain(1)
+var _sit5 = sitPass(`<
+ [4@3 - 3 4 _ -]
+ [5@3 - 4 5 _ - ]
+ [6@3 - 5 6 _ - ]
+ [7@5 - - - ]
 >`).release(.3).gain(1)
 
 
@@ -211,24 +218,25 @@ $: arrange(
     _sit4,
   )],
 
-
-
   [1*8, stack(    
     _drums1,    _drumFill1,
-    _chords1,     _bass1,    
-    _org1,
+    _chords1,
+    _bass1.trans(12),    
+    _org1.gain(1.3),
     _vib1,
+    _sit4,
   )],
   [1*8, stack(
     stack(
       _drums1,    _drumFill1,
-      _chords2,    _bass2,    
-      _vib2,    _org1,
+      _chords2,    _bass2.trans(12),    
+      _vib2,    _org1.gain(1.3),
     ).mask("<1@6 - ->"),
-    _vibDown
+    _vibDown,
+    _sit5,
   )],
 
 
-  [4,silence]
-  ).punchcard()
+  [M*4,silence]
+).punchcard()
   
