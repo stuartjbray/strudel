@@ -88,7 +88,7 @@ var _tune4 = tune2Pass(`<
 >`)
 
 var M = 1; 
-// M = 0; 
+M = 0; 
 $: arrange(
   [M*8, stack(    
     _chords1,     _bass1,    _lead1,
@@ -116,20 +116,20 @@ $: arrange(
   [M*2, stack(
     _drums2,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums2,
     _chords1,     _bass1,    _lead1,
     _tune1, _tune1a,
     _dug1,
   ).trans(2)],
-  [M*8, stack(
+  [1*8, stack(
     _drums2,
     _chords1.trans(12),     
     _bass1,
-    _tune1.trans(-12),
     _dug1.trans(12),
+    _dug1.late(1).trans(0),
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums2,
     _chords4,
     _tune4,
