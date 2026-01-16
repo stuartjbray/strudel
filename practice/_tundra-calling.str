@@ -1,0 +1,112 @@
+//@title tundra-calling
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white").bank("yamahary30");
+
+var d1 = sound("bd").struct(  "1 1 - - - - - -")
+var d2 = sound("lt").struct(  "- - - - - 1 - <-@3 1>").room(1.5)
+var d3 = sound("hh").struct(  "1*8").gain(".2 .8 .2 .8")
+var d4 = sound("sd").struct(  "- - - - - - - <1 1*2>")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1, d2, d4))         // normal
+var _drums2 =      drumsPass(stack(  d1, d2, d3, d4  ))   // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red")
+var bassPass = (x)   => x.scale("c3:major").sound("piano").color("orange").transpose(-12).delay("0,.1").gain(1)
+var leadPass = (x)   => n(x).scale("c5:major").sound("gm_dulcimer:3, gm_flute:3").color("yellow").release(.4)
+var padPass = (x)   => x.scale("c3:major").sound("gm_pad_halo:5").color("green").release(.3)
+
+var chords1 = "<Am _ F _ Am C Dm Fm>"
+var chords2 = "<D E F G>"
+
+var arp1a = "[0 1 2 3 4 3 2 1]"
+var arp1b = "[0 0 1 0 - - 3 2]"
+var arp1c = "[[0,2] - 1]"
+var arp2a = "[[- [0,1,2]] 4 3 2]"
+var arp2b = "[0 1 2 _ - 0 3 0]"
+var arp2c = "[[0,1,2]]"
+
+var _chords_intro = chordsPass(chord(chords1).voicing().fast(2).arp(arp1a)).mask("<1@3 [1@5 -@3]>")
+var _chords1_1 = chordsPass(chord(chords1).voicing().arp(arp1a))
+var _chords2_1 = chordsPass(chord(chords2).voicing().arp(arp1a))
+var _chords1_2 = chordsPass(chord(chords1).voicing().arp(arp2a))
+var _chords2_2 = chordsPass(chord(chords2).voicing().arp(arp2a))
+
+var _bass1_1 = bassPass(chord(chords1).voicing().arp(arp1b))
+var _bass2_1 = bassPass(chord(chords2).voicing().arp(arp1b))
+var _bass1_2 = bassPass(chord(chords1).voicing().arp(arp2b))
+var _bass2_2 = bassPass(chord(chords2).voicing().arp(arp2b))
+
+var _lead1_1 = leadPass(`<
+ [2 _ _ 3 2@4] [- [2 1 0 -1] ]
+ [-2 1] [-]
+ [2 _ _ 3 4@4] [- [2 1 0 -1] ]
+ [-2 -4][0 -1] 
+>`)
+var _lead1_2 = leadPass(`<
+ [3@8 2@7 1] [2 -]
+ [-@7 [0 1]] [2 1 0 -1 0 -1 0 1]
+ [3 _ _ 4] [2 0]
+ [6 _ 5 - 7 _ 6 -] [5 4 2 3 2 0 5 4]
+>`)
+var _lead2_1 = leadPass(`<
+ [-2 _ - -3] [0 _ -1 -]
+ [-2 _ - -3] [-1 -]
+ [-2 _ - -3] [0 _ 1 -]
+ [2 _ _ 1 _ _ 0 -] [0 _ 1 2 0 _ -1 -2 ]
+>`)
+var _lead2_2 = leadPass(`<
+ [-2 _ - -3] [0 _ -1 -]
+ [3 _ 4 -] [0 _ 1 -]
+ [-2 _ - -3] [-5 _ - [-3 -2]]
+ [0 _ [-1 -2] -] [2 _ 1 -]
+>`)
+
+var _pad1_1 = padPass(chord(chords1).voicing().arp(arp1c))
+var _pad2_1 = padPass(chord(chords2).voicing().arp(arp1c))
+var _pad1_2 = padPass(chord(chords1).voicing().arp(arp2c))
+var _pad2_2 = padPass(chord(chords2).voicing().arp(arp2c))
+
+
+var M = 1;
+// M = 0;
+$: arrange(
+  
+  [M*4, stack(    
+    _chords_intro, 
+  )],
+  [M*8, stack(    
+    _drums1,    _chords1_1,     _bass1_1,    _lead1_1,   _pad1_1
+  )],
+  [M*8, stack(
+    _drums1,    _chords1_1,    _bass1_1,    _lead1_2,    _pad1_1
+  )],
+  [M*8, stack(    
+    _drums2,    _chords2_1,     _bass2_1,    _lead2_1,   _pad2_1
+  )],
+  [M*8, stack(
+    _drums2,    _chords2_1,    _bass2_1,  _lead2_2,   _pad2_1
+  )],
+  
+  [M*8, stack(    
+    _drums1,    _chords1_2,     _bass1_2,    _lead1_1.trans("-12,12"),   _pad1_2
+  )],
+  [M*8, stack(
+    _drums1,    _chords1_2,    _bass1_2,    _lead1_2.trans("-12,12"),    _pad1_2
+  )],
+  [M*8, stack(    
+    _drums2,    _chords2_2,     _bass2_2,    _lead2_1.trans("-12,12"),   _pad2_2
+  )],
+  [M*8, stack(
+    _drums2,    _chords2_2,    _bass2_2,  _lead2_2.trans("-12,12"),   _pad2_2
+  )],
+  
+).punchcard()
+  
