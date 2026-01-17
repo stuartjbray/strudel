@@ -1,0 +1,76 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(25)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "- - - - - - - -")
+var d2 = sound("rim").struct( "- - - - - - - -")
+var d3 = sound("hh").struct(  "- - - - - - - -")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c3:major").sound("gm_electric_guitar_jazz:2").color("orange").release(.5).crush(5).room(1.2)
+var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+-
+>`)
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ [0 - 0 1 2 - 2 -] [-2 - -2 - -3 - -3 -]
+ [0 - 0 1 2 - 2 -] [3 - 3 - -2 - -2 -]
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
+var M = 1; // change to M=1 to unmute all stacks with an M.
+M = 0;
+$: arrange(
+  // Change 1 to be M to conditionally mute this stack.
+  [1*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+    _lead2,
+  )],
+  ).punchcard()
+  
