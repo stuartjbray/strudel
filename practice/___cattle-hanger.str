@@ -218,18 +218,18 @@ $: arrange(
     _sit4,
   )],
 
-  [1*8, stack(    
+  [M*8, stack(    
     _drums1,    _drumFill1,
     _chords1,
-    _bass1.trans(12),    
+    _bass1.trans(12).gain(.4),    
     _org1.gain(1.3),
     _vib1,
     _sit4,
   )],
-  [1*8, stack(
+  [M*8, stack(
     stack(
       _drums1,    _drumFill1,
-      _chords2,    _bass2.trans(12),    
+      _chords2,    _bass2.gain(.4).trans(12),    
       _vib2,    _org1.gain(1.3),
     ).mask("<1@6 - ->"),
     _vibDown,

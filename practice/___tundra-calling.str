@@ -1,0 +1,171 @@
+//@title tundra-calling
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white").bank("yamahary30");
+
+var d1 = sound("bd").struct(  "1 1 - - - - - -").room(1)
+var d2 = sound("lt").struct(  "- - - - - 1 - <-@3 1>").room(1.5)
+var d3 = sound("hh").struct(  "1*8").gain(".1 .3 .1 .3").room(1)
+var d4 = sound("ht").struct(  "- - - - - - - <1 1*2>")
+
+var d1a = sound("bd").struct(  "1 1 - - 1 1 - -")
+var d2a = sound("lt").struct(  "1 - - - - 1 - 1").room(1.5).gain(".4")
+var d3a = sound("hh").struct(  "-")
+var d4a = sound("ht").struct(  "- - - - - - - <1 1*2>")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1, d2, d4))         // normal
+var _drums2 =      drumsPass(stack(  d1, d2, d3, d4  ))   // break down
+var _drums3 =      drumsPass(stack(  d1a, d2a, d3a, d4a  ))   // break down
+
+// Define pass functions for each instrument
+var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red").room(1)
+var bassPass = (x)   => x.scale("c3:major").sound("piano").color("orange").transpose(-12).delay("0,.1").gain(1)
+var leadPass = (x)   => n(x).scale("c5:major").sound("gm_dulcimer:3, gm_flute:3").color("yellow").release(.4)
+var padPass = (x)   => x.scale("c3:major").sound("gm_pad_halo:5").color("green").release(.3)
+var tingPass = (x) => n(x).scale("c3:major").sound("steinway").color("blue").room(1).release(1.1).delay("0,.1").gain(.4)
+
+var chords1 = "<Am _ F _ Am C Dm Fm>"
+var chords2 = "<D E F G>"
+var chords3 = "<Am C F Fm  G [Am G] F Fm>"
+
+var arp1a = "[0 1 2 3 4 3 2 1]"
+var arp1b = "[0 0 1 0 - - 3 2]"
+var arp1c = "[[0,2] - - 1]"
+var arp2a = "[0 _ 1 2 _ 3 - -]"
+var arp2b = "[0 1 2 _ - 0 3 0]"
+var arp2c = "[[0,1,2]]"
+var arp3b = "[0 - - 0]"
+var arp3a = `<
+ [- [0,1,2] - [1,2,3] - - - -]
+ [- [0,1,2] - [1,2,3] - [1,2,3] - -]
+ [- [0,1,2] - [1,2,3] - - - -]
+ [- 3 2 1 0 - - -]
+>`
+var arp3c = `<
+ [[0,1,2] -] - [[1,2,3] -] -
+>`
+
+var _chords_intro = chordsPass(chord(chords1).voicing().fast(2).arp(arp1a)).mask("<1@3 [1@5 -@3]>")
+var _chords1_1 = chordsPass(chord(chords1).voicing().arp(arp1a))
+var _chords2_1 = chordsPass(chord(chords2).voicing().arp(arp1a))
+var _chords1_2 = chordsPass(chord(chords1).voicing().arp(arp2a))
+var _chords2_2 = chordsPass(chord(chords2).voicing().arp(arp2a))
+var _chords3_1 = chordsPass(chord(chords3).voicing().arp(arp3a))
+
+var _bass1_1 = bassPass(chord(chords1).voicing().arp(arp1b))
+var _bass2_1 = bassPass(chord(chords2).voicing().arp(arp1b))
+var _bass1_2 = bassPass(chord(chords1).voicing().arp(arp2b))
+var _bass2_2 = bassPass(chord(chords2).voicing().arp(arp2b))
+var _bass3_1 = bassPass(chord(chords3).voicing().arp(arp3b))
+
+/* Trills to fill the gaps */
+var _ting1_1 = tingPass(`<
+ [-] [- [0,2] [2,4] _ - [-1,4] - - ]
+ [-] [- [1,3] [1,5] _ - [2,5] - -]
+ [-] [- [2,4] [2,6] _ - [1,6] - -]
+ [-] [- [3,5] [3,7] _ - [2,7] - -]
+>`)
+var _ting1_2 = tingPass(`<
+ [-] [-@4 2 1 0 -1] [0 - - -] [0 -1 -2 -3 -2 - - -]
+->`)
+var _ting2_1 = tingPass(`<
+ - [- - - - 1 2 1 2]
+ - [- - - - 2 3 2 3]
+ - [- - - - 1 2 1 2]
+ [0 1 2 3 - 2 3 4] [2 3 4 5 - 4 5 6]
+>`)
+var _ting2_2 = tingPass(`<
+ [[[1,3] _ - [1,3]] [0,2]]
+ [-@4 0 1 2 3]
+ [[[2,4] _ - [2,4]] [1,4]]
+ [-@4 3 2 1 0]
+>`)
+
+var _lead1_1 = leadPass(`<
+ [2 _ _ 3 2@4] [- [2 1 0 -1] ]
+ [-2 1] [-]
+ [2 _ _ 3 4@4] [- [2 1 0 -1] ]
+ [-2 -4][0 -1] 
+>`)
+var _lead1_2 = leadPass(`<
+ [3@8 2@7 1] [2 -]
+ [-@7 [0 1]] [2 1 0 -1 0 -1 0 1]
+ [3 _ _ 4] [2 0]
+ [6 _ 5 - 7 _ - -] [5 4 2 - 2 _ - -]
+>`)
+var _lead2_1 = leadPass(`<
+ [-2 _ - -3] [0 _ -1 -]
+ [-2 _ - -3] [-1 -]
+ [-2 _ - -3] [0 _ 1 -]
+ [2 _ _ 1 _ _ 0 -] [0 _ 1 2 0 _ - - ]
+>`)
+var _lead2_2 = leadPass(`<
+ [-2 _ - -3] [0 _ -1 -]
+ [3 _ 4 -] [0 _ 1 -]
+ [-2 _ - -3] [-5 _ - [-3 -2]]
+ [0 _ [-1 -2] -] [2 _ 1 -]
+>`)
+
+var _lead3_1 = leadPass(`<
+ [- - - 2] [1 - - 1][0 - - -] -
+ [- - - 0] [-1 - - -1][-2 - - -] -
+>`)
+var _lead3_2 = leadPass(`<
+ [- - - 2] [3 - - 0][1 - - -] -
+ [- - - 0] [1 - - -1][-2 - - -] -
+>`)
+
+var _pad1_1 = padPass(chord(chords1).voicing().arp(arp1c))
+var _pad2_1 = padPass(chord(chords2).voicing().arp(arp1c))
+var _pad1_2 = padPass(chord(chords1).voicing().arp(arp2c))
+var _pad2_2 = padPass(chord(chords2).voicing().arp(arp2c))
+var _pad3_1 = padPass(chord(chords3).voicing().arp(arp3c))
+
+
+var M = 1;
+// M = 0;
+$: arrange(
+  
+  [M*4, stack(     _chords_intro,   )],
+  [M*8, stack(    _drums1,    _chords1_1,     _bass1_1,    _lead1_1,   _pad1_1  )],
+  [M*8, stack(    _drums1,    _chords1_1,    _bass1_1,    _lead1_2,    _pad1_1  )],
+  [M*8, stack(    _drums2,    _chords2_1,     _bass2_1,    _lead2_1,   _pad2_1  )],
+  [M*8, stack(    _drums2,    _chords2_1,    _bass2_1,  _lead2_2,   _pad2_1  )],
+  
+  [M*8, stack(    _drums1,    _chords1_2,     _bass1_2,    _lead1_1.trans("-12,12"),   _pad1_2, _ting1_1  )],
+  [M*8, stack(    _drums1,    _chords1_2,    _bass1_2,    _lead1_2.trans("-12,12"),    _pad1_2, _ting1_2  )],
+  [M*8, stack(    _drums2,    _chords2_2,     _bass2_2,    _lead2_1.trans("-12,12"),   _pad2_2, _ting2_1  )],
+  [M*8, stack(    _drums2,    _chords2_2,    _bass2_2,  _lead2_2.trans("-12,12"),      _pad2_2, _ting2_2  )],
+  
+  [M*8, stack(    _drums3,    _chords3_1,     _bass3_1,    _pad3_1,   _lead3_1,  )],
+  [M*8, stack(    _drums3,    _chords3_1,     _bass3_1,    _pad3_1,   _lead3_2,  )],
+
+  [M*8, stack(    
+    _bass1_1.trans(12),    
+    _lead1_1.trans("-24,12"),
+    _pad1_1.trans(12)
+  )],
+  [M*8, stack(    
+    _bass1_1.trans(12),
+    _lead1_2.trans("-24,12"),
+    _pad1_1.trans(12)
+  )],
+  [M*8, stack(    
+    _bass2_1.trans(12),
+    _lead2_1.trans("-24,12"),
+    _pad2_1.trans(12)
+  )],
+  [M*8, stack(    
+    _bass2_1.trans(12),
+    _lead2_2.trans("-24,12"),
+    _pad2_1.trans(12)
+  )],
+
+  
+).punchcard()
+  

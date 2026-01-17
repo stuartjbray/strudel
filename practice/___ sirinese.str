@@ -32,7 +32,7 @@
   // Define pass functions for each instrument
   var chordsPass = (x) => n(x).scale("c3:minor").sound("piano").color("red").gain(.7).orbit(2)
   var bassPass = (x)   => n(x).scale("c2:minor").sound("gm_electric_bass_finger").color("orange").release(1).delay("0,0.2").orbit(2)
-  var bass2Pass = (x)   => n(x).scale("c4:minor").sound("gm_electric_guitar_jazz:<4,6>").color("yellow").release(.7).room(1).gain(.6)
+  var bass2Pass = (x)   => n(x).scale("c4:minor").sound("gm_electric_guitar_jazz:<4,6>").color("yellow").release(.7).room(.7).gain(.4)
   var leadPass = (x)   => n(x).scale("c3:minor").sound("gm_guitar_harmonics").color("green")
   var padPass = (x)   => n(x).scale("c3:minor").sound("gm_pad_warm:<[1 2]>").color("cyan").gain(0.6).ply(2).release(1).orbit(2)
   var dugPass = (x)  => n(x).scale("c3:minor").sound("wt_digital_echoes:2").color("blue").release(.8).orbit(2)

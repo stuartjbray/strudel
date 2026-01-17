@@ -24,7 +24,7 @@ var _drums2 =      drumsPass(stack(  d1a, d2a, d3a, d4a  ))    // intense
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:dorian").sound("piano").color("red")
-var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_slap_bass_2:4").color("orange").gain(1.5)
+var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_slap_bass_2:4").color("orange").gain(1.5).release(.3)
 var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_electric_bass_pick").color("yellow").release(1)
 var tunePass = (x)   => n(x).scale("c4:dorian").sound("gm_soprano_sax").color("green").release(.7)
 var tune2Pass = (x)  => n(x).scale("c4:dorian").sound("gm_flute").color("blue").release(.7).vib(8).gain(.5)
@@ -88,7 +88,7 @@ var _tune4 = tune2Pass(`<
 >`)
 
 var M = 1; 
-M = 0; 
+// M = 0; 
 $: arrange(
   [M*8, stack(    
     _chords1,     _bass1,    _lead1,
@@ -116,7 +116,7 @@ $: arrange(
   [M*2, stack(
     _drums2,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums2,
     _chords1,     _bass1,    _lead1,
     _tune1, _tune1a,
@@ -125,16 +125,16 @@ $: arrange(
   [1*8, stack(
     _drums2,
     _chords1.trans(12),     
-    _bass1,
+    _bass1.trans("0,12"),
     _dug1.trans(12),
-    _dug1.late(1).trans(0),
+    _dug1.late(1/2).gain(.5),
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums2,
     _chords4,
     _tune4,
   )],
-  [M*2, stack(
+  [1*2, stack(
     _drums2,
   )],
 

@@ -1,0 +1,98 @@
+//@title ferenaciously
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "- - - - - - - -")
+var d2 = sound("rim").struct( "- - - - - - - -")
+var d3 = sound("hh").struct(  "- - - - - - - -")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_slap_bass_2:5").color("orange").room(1.2).release(.5)
+var leadPass = (x)   => n(x).scale("c4:major").sound("piano").color("yellow")
+var aahPass = (x)   => n(x).scale("c3:major").sound("gm_synth_strings_2:2").color("green")
+
+var arp1 = "[[0,1,2] - - [0,1,2]]"
+var arp2 = "[[0 0 ] - [2 0] [0,1,2]]"
+var chords1 =   `<
+ [0,2,4,7]
+ [0,3,5,7]
+ [-2,0,2,7]
+ [-2,0,3,7]
+>`
+var _chords1 = chordsPass(chords1).arp(arp2)
+var _chords2 = chordsPass(chords1).arp(arp2)
+
+var _bass1 = bassPass(`<
+ [0 - 0 1 0 - 1 -]
+ [0 - 0 2 0 - 1 -]
+>`)
+var _bass2 = bassPass(`<
+ [2 - 0 1 0 - 1 -]
+ [3 - 0 1 0 - 1 -]
+>`)
+
+var _lead1 = leadPass(`<
+ [  0 - 0 1 - 2 0 - ]
+ [  3 - 3 2 - 1 0 - ]
+ [  3 - 3 2 - 1 0 - ]
+ [  1 - - 1 2 1 0 - ]
+>`)
+var _lead2 = leadPass(`<
+ [  2 - - 3 - 4 2 - ]
+ [  5 - - 4 - 5 7 - ]
+ [  9 - - 7 - 5 4 - ]
+ [  10 - - 9 - 8 7 - ]
+>`)
+
+var _aah1 = aahPass(`<
+ 0 3 2 1
+>`)
+var _aah2 = aahPass(`<
+ 2 3 5 3
+>`)
+
+// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
+var M = 1; // change to M=1 to unmute all stacks with an M.
+M = 0;
+$: arrange(
+  // Change 1 to be M to conditionally mute this stack.
+  [1*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+    _aah1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+    _lead2,
+    _aah2,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+    _lead2,
+  )],
+  ).punchcard()
+  
