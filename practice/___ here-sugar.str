@@ -7,10 +7,10 @@ setcpm(25)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "1 - - - 1 - - -").echo(3,1/16,.5).room(1.5)
-var d1a = sound("bd").struct(  "- - 1 - - 1 - 1").echo(3,1/16,.5).room(1)
-var d2 = sound("sd").struct( "- - <- - - 1> - - - - 1").room(2).gain(.9)
-var d2a = sound("sd").struct( "- -  1 - 1 - 1 -").room(2).gain(.9)
+var d1 = sound("bd").struct(  "1 - - - 1 - - -").echo(3,1/16,.5).room(1.5).pan(.7)
+var d1a = sound("bd").struct(  "- - 1 - - 1 - 1").echo(3,1/16,.5).room(1).pan(.7)
+var d2 = sound("sd").struct( "- - <- - - 1> - - - - 1").room(2).gain(.9).pan(.3)
+var d2a = sound("sd").struct( "- -  1 - 1 - 1 -").room(2).gain(.9).pan(.3)
 var d3 = sound("hh").struct(  "1*8").gain("[.4 .8]*2")
 var d4 = sound("cr").struct(  "- - - - - - - 1")
 
@@ -20,12 +20,12 @@ var _drums2 =      drumsPass(stack(  d1, d1a, d2a, d3, d4  ))
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("supersaw").color("red").release(.2).gain(.8).orbit(2)
-var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_synth_bass_2:1").color("orange").release(.9).gain(1).orbit(2)
-var leadPass = (x)   => n(x).scale("c4:major").sound("gm_synth_strings_2:2").color("yellow").gain(1).room(2).early(0).orbit(2)
-var tingPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang:1").color("green").room(3).release(2)
-var padPass = (x) => n(x).scale("c3:major").sound("gm_fx_atmosphere:13").gain(1.5).release(1).color("blue")
-var sawPass = (x) => n(x).scale("c3:major").sound("square").color("purple").release(.4)
+var chordsPass = (x) => n(x).scale("c3:major").sound("supersaw").color("red").release(.2).gain(.8).orbit(2).pan(.7)
+var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_synth_bass_2:1").color("orange").release(.9).gain(1).orbit(2).pan(.3)
+var leadPass = (x)   => n(x).scale("c4:major").sound("gm_synth_strings_2:2").color("yellow").gain(1).room(2).early(0).orbit(2).pan(.7)
+var tingPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang:1").color("green").room(3).release(2).pan(.3)
+var padPass = (x) => n(x).scale("c3:major").sound("gm_fx_atmosphere:13").gain(1.5).release(1).color("blue").pan(.7)
+var sawPass = (x) => n(x).scale("c3:major").sound("square").color("purple").release(.4).pan(.3)
 
 // C D F C
 var _chords1 = chordsPass(`<
@@ -197,7 +197,7 @@ $: arrange(
     _chords7.gain(.5),
   )],
   
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _bass4.trans(12),    
     _chords4.trans(-12).fm(2),    
@@ -206,7 +206,7 @@ $: arrange(
     _chords7_up,
     _lead1.gain(.6),    
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _lead1,    
     _bass5.trans(12),    _chords5.trans(-12).fm("<1 2 3 4 5 4 3 2>"),    _pad5,
@@ -214,31 +214,31 @@ $: arrange(
     _chords7_up,
   )],
   
-  [1*8, stack( // Faster drums
+  [M*8, stack( // Faster drums
     _drums2,
     _bass4.trans(12),    _chords4.trans(12).gain(.9),    _pad4,
     _chords7.trans(12).gain(.5),
-    _ting1.trans(-12),
+    _ting1.trans("-12,0"),
     _chords7_up,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums2,
     _bass5.trans(12),    _chords5.trans(12).fm("<1 2 3 4 5 4 3 2>").gain(.8),    _pad5,
-    _chords8.trans("0,12").gain(.3),
-    _ting1.trans(-12),
+    _chords8.trans("0,12,24").gain(.3),
+    _ting1.trans("-12,0"),
     _chords7_up,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums2.lpf("<1400 1000 600 200 100@4>"),
     _chords5.trans(-12).fm("<1 2 3 4 5 4 3 2>"),    
     _pad5,
-    _chords8.trans("0,12").gain(.3),
+    _chords8.trans("0,12,24").gain(.3),
     _ting9.trans("0,-12").fm(5),
-    _chords9,
+    _chords9.room(2),
   )],
-  [M*1,stack(
-    _ting10,
-    _chords10,
+  [M*4,stack(
+    _ting10.room(2),
+    _chords10.room(2),
   )],
 
   [M*4,silence]

@@ -24,12 +24,12 @@ var _drums2 =      drumsPass(stack(  d1, d2, d3, d4  ))   // break down
 var _drums3 =      drumsPass(stack(  d1a, d2a, d3a, d4a  ))   // break down
 
 // Define pass functions for each instrument
-var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red").room(1)
-var bassPass = (x)   => x.scale("c3:major").sound("piano").color("orange").transpose(-12).delay("0,.1").gain(1)
-var leadPass = (x)   => n(x).scale("c5:major").sound("gm_dulcimer:3, gm_flute:3").color("yellow").release(.4)
-var padPass = (x)   => x.scale("c3:major").sound("gm_pad_halo:5").color("green").release(.3)
-var tingPass = (x) => n(x).scale("c3:major").sound("steinway").color("blue").room(1).release(1.1).delay("0,.1").gain(.6)
-var stringPass = (x) => n(x).scale("c3:major").sound("gm_string_ensemble_1:2").color("pink").gain(1.5).room(1.2).release(.7)
+var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red").room(1).pan(.7)
+var bassPass = (x)   => x.scale("c3:major").sound("piano").color("orange").transpose(-12).delay("0,.1").gain(1).pan(.3)
+var leadPass = (x)   => n(x).scale("c5:major").sound("gm_dulcimer:3, gm_flute:3").color("yellow").gain(1).release(.4).pan(.7)
+var padPass = (x)   => x.scale("c3:major").sound("gm_pad_halo:5").color("green").release(.3).pan(.3)
+var tingPass = (x) => n(x).scale("c3:major").sound("steinway").color("blue").room(1).release(1.1).delay("0,.1").gain(.6).pan(.7)
+var stringPass = (x) => n(x).scale("c3:major").sound("gm_string_ensemble_1:2").color("pink").gain(1.5).room(1.2).release(.7).pan(.3)
 
 var chords1 = "<Am _ F _ Am C Dm Fm>"
 var chords2 = "<D E F G>"
@@ -148,45 +148,45 @@ var M = 1;
 // M = 0;
 $: arrange(
   
-  // [M*4, stack(     _chords_intro,   )],
-  // [M*8, stack(    _drums1,    _chords1_1,     _bass1_1,    _lead1_1,   _pad1_1  )],
-  // [M*8, stack(    _drums1,    _chords1_1,    _bass1_1,    _lead1_2,    _pad1_1  )],
-  // [M*8, stack(    _drums2,    _chords2_1,     _bass2_1,    _lead2_1,   _pad2_1  )],
-  // [M*8, stack(    _drums2,    _chords2_1,    _bass2_1,  _lead2_2,   _pad2_1  )],
+  [M*4, stack(     _chords_intro,   )],
+  [M*8, stack(    _drums1,    _chords1_1,     _bass1_1,    _lead1_1,   _pad1_1  )],
+  [M*8, stack(    _drums1,    _chords1_1,    _bass1_1,    _lead1_2,    _pad1_1  )],
+  [M*8, stack(    _drums2,    _chords2_1,     _bass2_1,    _lead2_1,   _pad2_1  )],
+  [M*8, stack(    _drums2,    _chords2_1,    _bass2_1,  _lead2_2,   _pad2_1  )],
   
-  // [M*8, stack(    _drums1,    _chords1_2,     _bass1_2,    _lead1_1.trans("-12,12"),   _pad1_2, _ting1_1  )],
-  // [M*8, stack(    _drums1,    _chords1_2,    _bass1_2,    _lead1_2.trans("-12,12"),    _pad1_2, _ting1_2  )],
-  // [M*8, stack(    _drums2,    _chords2_2,     _bass2_2,    _lead2_1.trans("-12,12"),   _pad2_2, _ting2_1  )],
+  [M*8, stack(    _drums1,    _chords1_2,     _bass1_2,    _lead1_1.trans("-12,12"),   _pad1_2, _ting1_1  )],
+  [M*8, stack(    _drums1,    _chords1_2,    _bass1_2,    _lead1_2.trans("-12,12"),    _pad1_2, _ting1_2  )],
+  [M*8, stack(    _drums2,    _chords2_2,     _bass2_2,    _lead2_1.trans("-12,12"),   _pad2_2, _ting2_1  )],
   [M*8, stack(    _drums2,    _chords2_2,    _bass2_2,  _lead2_2.trans("-12,12"),      _pad2_2, _ting2_2  )],
   
-  // [M*8, stack(    _drums3,    _chords3_1,     _bass3_1,    _pad3_1,   _lead3_1,  )],
-  // [M*8, stack(    _drums3,    _chords3_1,     _bass3_1,    _pad3_1,   _lead3_2,  )],
+  [M*8, stack(    _drums3,    _chords3_1,     _bass3_1,    _pad3_1,   _lead3_1,  )],
+  [M*8, stack(    _drums3,    _chords3_1,     _bass3_1,    _pad3_1,   _lead3_2,  )],
 
-  // [M*8, stack(    
-  //   _bass1_1.trans(12),    
-  //   _lead1_1.trans("-24,12"),
-  //   _pad1_1.trans(12),
-  //   _string4_1,
-  // )],
-  // [M*8, stack(    
-  //   _bass1_1.trans(12),
-  //   _lead1_2.trans("-24,12"),
-  //   _pad1_1.trans(12),
-  //   _string4_2,
-  // )],
-  // [M*8, stack(    
-  //   _bass2_1.trans(12),
-  //   _lead2_1.trans("-24,12"),
-  //   _pad2_1.trans(12),
-  //   _string4_3,
-  // )],
-  // [M*8, stack(    
-  //   _bass2_1.trans(12),
-  //   _lead2_2.trans("-24,12"),
-  //   _pad2_1.trans(12),
-  //   _string4_4,
-  // )],
+  [M*8, stack(    
+    _bass1_1.trans(12),    
+    _lead1_1.trans("-24,12"),
+    _pad1_1.trans(12),
+    _string4_1,
+  )],
+  [M*8, stack(    
+    _bass1_1.trans(12),
+    _lead1_2.trans("-24,12"),
+    _pad1_1.trans(12),
+    _string4_2,
+  )],
+  [M*8, stack(    
+    _bass2_1.trans(12),
+    _lead2_1.trans("-24,12"),
+    _pad2_1.trans(12),
+    _string4_3,
+  )],
+  [M*8, stack(    
+    _bass2_1.trans(12),
+    _lead2_2.trans("-24,12"),
+    _pad2_1.trans(12),
+    _string4_4,
+  )],
 
-  
+  [M*4,silence]
 ).punchcard()
   

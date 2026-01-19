@@ -2,21 +2,22 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-setcpm(20)
+setcpm(30)
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("oh,bd").struct(  "1 0 0 1 1 0 0 0")
+var d1 = sound("bd").struct(  "1 0 0 1 1 0 0 0").room(.4)
 var d2 = sound("alesissr16_rim").struct("0 0 1 0 0 0 1 0")
 var d3 = sound("gm_woodblock:4").struct("0 1 0 1 0 <1 1*2> 0 1")
-var d4 = sound("cp").struct(  "0 0 0 0 0 0 0 0")
+var d4 = sound("dmx_sd").struct(  "- - - - - - 1 -")
+var d5 = sound("lm2_oh").struct(  "1 - - - - 1 - -").room("0 1.2")
 
 var _drums_intro = drumsPass(stack( // build up
-  sound("alesissr16_rim,oh").struct("1 - - 1 1 - - <- 1>"),
+  sound("akaixr10_rim,oh").struct("1 - - 1 1 - - <- 1>"),
   sound("gm_woodblock:3").struct("- 1 1 - - <1*2 -> 1 <- 1>")
 ))            
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))  // normal
 var _drums2 =      drumsPass(stack(  
   sound("oh,bd").struct(  "< [1 - - 1 1 - - -] >").gain(.4),
   sound("gm_woodblock:4").struct(  "< [- 1 - - - 1 - -] >"),
