@@ -7,9 +7,9 @@ setcpm(25)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "1 - - - 1 - - -").echo(3,1/16,.5).room(1.5).pan(.7)
-var d1a = sound("bd").struct(  "- - 1 - - 1 - 1").echo(3,1/16,.5).room(1).pan(.7)
-var d2 = sound("sd").struct( "- - <- - - 1> - - - - 1").room(2).gain(.9).pan(.3)
+var d1 = sound("bd").struct(  "1 - - - 1 - - -").echo(3,1/16,.5).room(1.3).pan(.7)
+var d1a = sound("bd").struct(  "- - 1 - - 1 - 1").echo(3,1/16,.5).room(.8).pan(.7)
+var d2 = sound("sd").struct( "- - <- - - 1> - - - - 1").room(1.5).gain(.9).pan(.3)
 var d2a = sound("sd").struct( "- -  1 - 1 - 1 -").room(2).gain(.9).pan(.3)
 var d3 = sound("hh").struct(  "1*8").gain("[.4 .8]*2")
 var d4 = sound("cr").struct(  "- - - - - - - 1")
@@ -20,12 +20,12 @@ var _drums2 =      drumsPass(stack(  d1, d1a, d2a, d3, d4  ))
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("supersaw").color("red").release(.2).gain(.8).orbit(2).pan(.7)
-var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_synth_bass_2:1").color("orange").release(.9).gain(1).orbit(2).pan(.3)
-var leadPass = (x)   => n(x).scale("c4:major").sound("gm_synth_strings_2:2").color("yellow").gain(1).room(2).early(0).orbit(2).pan(.7)
-var tingPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang:1").color("green").room(3).release(2).pan(.3)
-var padPass = (x) => n(x).scale("c3:major").sound("gm_fx_atmosphere:13").gain(1.5).release(1).color("blue").pan(.7)
-var sawPass = (x) => n(x).scale("c3:major").sound("square").color("purple").release(.4).pan(.3)
+var chordsPass = (x) => n(x).scale("c3:major").sound("supersaw").color("red").release(.2).gain(.5).orbit(2).pan(.6)
+var bassPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_synth_bass_2:1").color("orange").release(.9).gain(1).orbit(2).pan(.4)
+var leadPass = (x)   => n(x).scale("c4:major").sound("gm_synth_strings_2:2").color("yellow").gain(1.3).room(2).early(0).orbit(2).pan(.6)
+var tingPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang:1").color("green").gain(1.5).room(3).release(2).pan(.4)
+var padPass = (x) => n(x).scale("c3:major").sound("gm_fx_atmosphere:13").gain(1.5).release(1).color("blue").pan(.6)
+var sawPass = (x) => n(x).scale("c3:major").sound("square").color("purple").release(.4).pan(.4)
 
 // C D F C
 var _chords1 = chordsPass(`<
@@ -242,5 +242,5 @@ $: arrange(
   )],
 
   [M*4,silence]
-).punchcard()
+)._punchcard()
   
