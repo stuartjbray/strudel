@@ -5,17 +5,17 @@
 setcpm(35)
 
 // -------------- Drums
-const drumsPass = (x) => x.color("white").bank("linndrum");
+const drumsPass = (x) => x.color("white").bank("yamaharx21");
 
 var d1 = sound("bd").struct(  "1 - - - - - - <- 1>")
 var d2 = sound("rim").struct( "- - - - - - <- 1> -")
-var d3 = sound("hh").struct(  "- - - 1 - - - -")
-var d4 = sound("sd").struct(  "- - - - 1 - - -")
+var d3 = sound("lt").struct(  "- - - 1 - - - -").release(2).gain(.6)
+var d4 = sound("sd").struct(  "- - - - 1 - - -").room(1.2)
 
-var d1a = sound("bd").struct(  "1 1 - - 1 - - -")
+var d1a = sound("bd").struct(  "1 - 1 - 1 - 1 -")
 var d2a = sound("rim").struct( "- - - - - 1 - -")
-var d3a = sound("hh").struct(  "- 1 1 - 1 - - -")
-var d4a = sound("sd").struct(  "- - - - 1 - <- 1> -")
+var d3a = sound("lt").struct(  "- 1 - 1 - - 1 -").release(2).gain(.6)
+var d4a = sound("sd").struct(  "- - - - 1 - - <- 1>").room(1.2)
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
@@ -28,7 +28,7 @@ var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_slap_bass_2:4").color(
 var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_electric_bass_pick").color("yellow").release(1)
 var tunePass = (x)   => n(x).scale("c4:dorian").sound("gm_soprano_sax").color("green").release(.7)
 var tune2Pass = (x)  => n(x).scale("c4:dorian").sound("gm_flute").color("blue").release(.7).vib(8).gain(.5)
-var dugPass = (x)    => n(x).scale("c3:dorian").sound("gm_electric_guitar_clean").color("purple")
+var dugPass = (x)    => n(x).scale("c3:dorian").sound("gm_electric_guitar_clean:2").color("purple").delay("0,.1").gain(.7).release(1.2).crush(4.5)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -69,9 +69,9 @@ var _tune1a = tune2Pass(`<
 >`)
 
 var _dug1 = dugPass(`<
- [0 [1 0] 2 -] -
- [4 [3 2] 4 -] -
- [3 [4 3] 2 -] -
+ [0 [1 0] 2 _] -
+ [4 [3 2] 4 _] -
+ [3 [4 3] 2 _] -
  [2 [1 0] -1 _] -
 >`)
 
@@ -97,18 +97,26 @@ $: arrange(
     _chords1,    _bass1,    _lead1,    _tune1,
   )],
   [M*8, stack(    
+    _chords1,     _bass1,    _lead1, _tune1, _tune1a, // + blue warble
+  )],
+  [M*8, stack( // + drums
+    _drums1, 
     _chords1,     _bass1,    _lead1, _tune1, _tune1a,
   )],
-  [M*8, stack(
-    _drums1,
-    _chords1,     _bass1,    _lead1, _tune1, _tune1a,
-  )],
-  [M*8, stack(
+  [M*8, stack( // bassline
     _drums1,
     _chords1,     _bass1,    _lead1, 
     _dug1,
   )],
+
   [M*8, stack(
+    _drums2,
+    _chords1.trans("12,24"),     
+    _bass1.trans("0,12"),
+    _dug1,
+  )],
+  
+  [M*8, stack( // ?? Add new melody
     _drums1,
     _tune1, _tune1a,
     _dug1,
@@ -122,19 +130,13 @@ $: arrange(
     _tune1, _tune1a,
     _dug1,
   ).trans(2)],
-  [1*8, stack(
-    _drums2,
-    _chords1.trans(12),     
-    _bass1.trans("0,12"),
-    _dug1.trans(12),
-    _dug1.late(1/2).gain(.5),
-  )],
-  [1*8, stack(
+
+  [M*8, stack( // ?? Needs work...
     _drums2,
     _chords4,
     _tune4,
   )],
-  [1*2, stack(
+  [M*2, stack(
     _drums2,
   )],
 

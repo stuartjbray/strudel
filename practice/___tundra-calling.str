@@ -24,12 +24,12 @@ var _drums2 =      drumsPass(stack(  d1, d2, d3, d4  ))   // break down
 var _drums3 =      drumsPass(stack(  d1a, d2a, d3a, d4a  ))   // break down
 
 // Define pass functions for each instrument
-var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red").room(1).pan(.7)
-var bassPass = (x)   => x.scale("c3:major").sound("piano").color("orange").transpose(-12).delay("0,.1").gain(1).pan(.3)
-var leadPass = (x)   => n(x).scale("c5:major").sound("gm_dulcimer:3, gm_flute:3").color("yellow").gain(1).release(.4).pan(.7)
-var padPass = (x)   => x.scale("c3:major").sound("gm_pad_halo:5").color("green").release(.3).pan(.3)
-var tingPass = (x) => n(x).scale("c3:major").sound("steinway").color("blue").room(1).release(1.1).delay("0,.1").gain(.6).pan(.7)
-var stringPass = (x) => n(x).scale("c3:major").sound("gm_string_ensemble_1:2").color("pink").gain(1.5).room(1.2).release(.7).pan(.3)
+var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red").room(1).pan(.6)
+var bassPass = (x)   => x.scale("c3:major").sound("piano").color("orange").transpose(-12).delay("0,.1").gain(.6).pan(.4)
+var leadPass = (x)   => n(x).scale("<c4,c5>:major").sound("gm_dulcimer:3, gm_flute:3").color("yellow").gain(1.2).release(.4).pan(.6)
+var padPass = (x)   => x.scale("c3:major").sound("gm_pad_halo:5").color("green").release(.3).pan(.4)
+var tingPass = (x) => n(x).scale("c3:major").sound("steinway").color("blue").room(1).release(1.1).delay("0,.1").gain(.6).pan(.6)
+var stringPass = (x) => n(x).scale("<c3,c4>:major").sound("gm_string_ensemble_1:2").color("pink").gain(1.5).room(1.2).release(.7).pan(.4)
 
 var chords1 = "<Am _ F _ Am C Dm Fm>"
 var chords2 = "<D E F G>"
@@ -130,13 +130,13 @@ var _pad3_1 = padPass(chord(chords3).voicing().arp(arp3c))
 
 var stringArp = "1 _ [<1 ->] -"
 var _string4_1 = stringPass(`<
- [2 3][1 -][0 1][-2 ]
+ [2 4][2 -][0 1][-2 ]
 >`).arp(stringArp)
 var _string4_2 = stringPass(`<
- [-2 -3][-1 -][0 -1][1 ]
+ [-2 -3][-2 -][0 -1][0 ]
 >`).arp(stringArp)
 var _string4_3 = stringPass(`<
- [-2 -3][-1 -][0 1][-1 ]
+ [-2 -3][0 -][0 1][0 ]
 >`).arp(stringArp)
 var _string4_4 = stringPass(`<
  [-2 -3][0 -][2 3][1 ]
