@@ -1,0 +1,104 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(35)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "- - - - - - - -")
+var d2 = sound("rim").struct( "- - - - - - - -")
+var d3 = sound("hh").struct(  "- - - - - - - -")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
+var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
+var stringPass = (x)   => n(x).scale("c3:major").sound("gm_synth_strings_2:4").color("green").room(2).release(1)
+
+// Apply pass functions to patterns
+var arp1 = "<[ [0,1,2] < [0 1 2] [0,1,2] > ]>"
+var arp2 = "[- 1 - 1]"
+// F Fs4 C F C
+// Dm Dm7 [Am G F Am]
+var _chords1 = chordsPass(`<
+ [0,3,5] [0,3,5#] 
+ [0,2,4] [ [0,3,5] [0,2,4] ]
+ [-2,1,3] [-1,1,5]
+ [-2,0,2] [-3,0,2]
+ 
+ [0,3,5] [0,3,5#] 
+ [0,2,4] [ [0,3,5] [0,2,4] ]
+ [-2,1,3] [-1,1,5] 
+ [[-2,0,2] [-3,0,2]] [[-4,-2,0][-5,-2,0]]
+>`).arp(arp1)
+var _chords2 = chordsPass(`<
+ [1,3,5] [-1,1,3]
+ [1,3,7] [1,4,6]
+>`).arp(arp1)
+// Dm Dms4
+var _chords3 = chordsPass(`<
+ [0,3,5] [1,3,5#]
+ [1,3,5] [0,2,4]
+>`).arp(arp1)
+
+var _string1 = stringPass(`<
+ 0 3 2 5
+ -2 -1 <-2 [-2 -3]><-3 [-4 -5]>
+>`).arp(arp2)
+var _string2 = stringPass(`<
+ 1 -1 3 4
+>`).arp(arp2)
+var _string3 = stringPass(`<
+ 0 1 3 2
+>`).arp(arp2)
+
+
+var _bass1 = bassPass(`<
+-
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var M = 1;
+// M = 0;
+$: arrange(
+  [1*16, stack(    // Verse
+    _drums1,
+    _chords1, 
+    _bass1,
+    _string1,
+  )],
+  [1*4, stack(     // Lead in
+    _drums1,
+    _chords2 ,
+    _bass2,
+    _string2,
+  )],
+  /* Look what you done */
+  [1*16, stack(    // Chorus
+    _drums1,
+    _chords3,
+    _string3,
+    // _bass2,
+  )],
+
+
+  
+  ).punchcard()
+  
