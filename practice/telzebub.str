@@ -1,4 +1,4 @@
-//@title Template
+//@title telzebub
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -18,14 +18,14 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var chordsPass = (x) => n(x).scale("c3:major").sound("gm_acoustic_bass:<2 3>").color("red")
 var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
-var stringPass = (x)   => n(x).scale("c3:major").sound("gm_synth_strings_2:4").color("green").room(2).release(1)
+var stringPass = (x)   => n(x).scale("c3:major").sound("gm_contrabass:<2 3>").color("green").room(2).release(1)
 
 // Apply pass functions to patterns
 var arp1 = "<[ [0,1,2] < [0 1 2] [0,1,2] > ]>"
-var arp2 = "[- 1 - 1]"
+var arp2 = "[- 1 _ 1]"
 // F Fs4 C F C
 // Dm Dm7 [Am G F Am]
 var _chords1 = chordsPass(`<
