@@ -1,0 +1,96 @@
+//@title dug
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white").bank("yamahary30");
+
+var d1 = sound("bd").struct(  "1 1 - - 1 1 - -")
+var d2 = sound("lt").struct(  "<[- - - - - 1 - 1]!3 [- - - - 1 1 - 1]>")
+var d3 = sound("rim").struct( "<[- - 1 - - - - -]!3 [- - 1 - - 1 1 -]>")
+var d4 = sound("sd").struct(  "- - - - - 1 1 -")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:minor").sound("gm_shamisen").color("red").release(.5).gain(1.2)
+var bassPass = (x)   => n(x).scale("c4:minor").sound("gm_synth_strings_1:2").color("orange").release(.5)
+var bass2Pass = (x)   => n(x).scale("c2:minor").sound("gm_music_box").color("green").release(.5).room(1).ply(4).gain(.5)
+var leadPass = (x)   => n(x).scale("c3:minor").sound("bytebeat").color("yellow")
+var tonePass = (x)   => n(x).scale("c3:minor").sound("gm_lead_1_square").color("blue").gain(.4)
+
+// Apply pass functions to patterns
+var arp2 = "<[0 1 2 1]*2>"
+// C D EM7 E
+var chords1 = (`<
+ [0,2,4,7]
+ [1,3,5,8]
+ [2,3,6,9]
+ [2,4,6,9]
+>`)
+var chords2 = (`<
+ [0,3,5,7]
+ [1,3,5,8]
+ [0,3,6,7]
+ [1,3,5,8]
+>`)
+var _chords0 = chordsPass(chords1).arp(`<
+ [[0,1,2] - - [3 2 1 0]]
+>`)
+
+var _chords1 = chordsPass(chords1).arp(arp2).trans("<[0 12]>")
+var _chords2 = chordsPass(chords2).arp(arp2).trans("<[0 12]>")
+
+var _bass1 = bassPass(`<
+ [0 - 7 - - - 7 7]
+ [6 - 6 - - - 6 7]
+ [5 - 5 - - 4 - 4 ]
+ [3 2 3 4 3 2 1 0]
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var arp1 = ("1 - - 1")
+var _lead1 = leadPass(`<
+ 0 3 5 4
+>`).arp(arp1)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var _dug1 = bass2Pass(`<
+ [0 - 0 - 2 0 - 3] - - -
+ [3 - 3 - 2 1 - 2] - - -
+>`)
+
+var _tone1 = tonePass(`<
+ [[0 7]!8]
+ [[1 8]!8]
+ [[3 6]!8]
+ [[6 9]!8]
+>`)
+
+var M = 1;
+// M = 0;
+$: arrange(
+  [M*4, stack(    
+    _chords0,
+    _tone1.trans("[-12 0 12 24]"),
+  )],
+  [M*8, stack(
+    _drums1,    _chords1,     _lead1,    _dug1,    _tone1,
+  )],
+  [1*8, stack(    
+    _drums1,    _chords1,     _bass1,    _lead1,    _dug1,
+  )],
+  [1*8, stack(
+    _drums1,   _chords2,
+  )],
+  ).punchcard()
+  

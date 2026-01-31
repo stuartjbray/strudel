@@ -7,10 +7,10 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "- - - - - - - -")
-var d2 = sound("rim").struct( "- - - - - - - -")
+var d1 = sound("bd").struct(  "1 - - - 1 [- 1] - -")
+var d2 = sound("lt").struct(  "- - - - 1 - <- 1> -")
 var d3 = sound("hh").struct(  "- - - - - - - -")
-var d4 = sound("cr").struct(  "- - - - - - - -")
+var d4 = sound("sd").struct(  "- - - - - - <-@3 1> 1").room(2).gain(.5)
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
@@ -18,21 +18,23 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:minor").sound("gm_synth_strings_2:2").color("red").pan("<[.2 .8]*4>")
+var chordsPass = (x) => n(x).scale("c3:minor").sound("saw").color("red").pan("<[.2 .8]*4>").fm("8 4 2 0").room("2 0")
 var bassPass = (x)   => n(x).scale("c3:minor").sound("gm_synth_strings_1:1").color("orange").release(.5)
 var leadPass = (x)   => n(x).scale("c3:minor").sound("gm_synth_strings_1:6").color("yellow").release(.8)
+var fluPass = (x)   => n(x).scale("c3:minor").sound("gm_flute").color("green").release(.8)
+
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`< 0 5 4 3 >`).ply(8)
 var _chords2 = chordsPass(`< 0 5 6 2 >`).ply(8)
 
 var _bass1 = bassPass(`<
- [0 1 - 0 -1 - 0 -] -
- [2 3 - 2 1 - 2  -] -
+ [0 1 - 0 -1 - - -] -
+ [2 3 - 2 1 - - -] -
 >`)
 var _bass2 = bassPass(`<
- [3 4 - 3 2 - 3 -] -
- [2 3 - 2 1 - 2 -] -
+ [3 4 - 3 2 - - -] -
+ [2 3 - 2 1 - - -] -
 >`)
 
 var _lead1 = leadPass(`<
@@ -43,33 +45,27 @@ var _lead2 = leadPass(`<
  - [[0,2,5] -]
  - [[1,3,6,8] -] 
 >`)
+var _flu1 = fluPass(`<
+ [0 2] [7 <- 5>] [2 4] [8 <6 ->]
+>`)
+var _flu2 = fluPass(`<
+ -
+>`)
 
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 1; // change to M=1 to unmute all stacks with an M.
-M = 0;
+var M = 1;
+// M = 0;
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
   [M*8, stack(    
-    _drums1,
-    _chords1, 
-    _bass1,
+    _drums1,    _chords1,     _bass1,
   )],
   [M*8, stack(
-    _drums1,
-    _chords2,
-    _bass2,
+    _drums1,    _chords2,    _bass2,
   )],
   [1*8, stack(    
-    _drums1,
-    _chords1, 
-    _bass1,
-    _lead1,
+    _drums1,    _chords1,     _bass1,    _lead1, _flu1,
   )],
   [1*8, stack(
-    _drums1,
-    _chords2,
-    _bass2,
-    _lead2,
+    _drums1,    _chords2,    _bass2,    _lead2, _flu1,
   )],
   ).punchcard()
   

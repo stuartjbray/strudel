@@ -26,12 +26,21 @@ var bass3Pass = (x)   => n(x).scale(sc3).sound("wt_digital:6").color("green")
 var leadPass = (x)   => n(x).scale(sc3).sound("piano").color("yellow")
 
 // Apply pass functions to patterns
-var _chords1 = chordsPass(`<
--
+// F C Am G
+var chords1 = (`<
+ [0,3,5,7]
+ [0,2,4,7]
+ [-2,0,2,5]
+ [-3,-1,1,4]
 >`)
-var _chords2 = chordsPass(`<
--
+var chords2 = (`<
+ [0,3,5,7]
+ [0,2,4,7]
+ [-2,0,2,5]
+ [-3,-1,1,4]
 >`)
+var _chords1 = chordsPass(chords1).arp("<[[0,2] - [1,3]]>")
+var _chords2 = chordsPass(chords2).arp("<[[0,2] - [1,3]]>")
 
 var _bass1 = bassPass(`<
  [0 0 3 0 4 0 3 0]
@@ -56,40 +65,36 @@ var _lead2 = leadPass(`<
  [0 1 2 3]
 >`)
 
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 1; // change to M=1 to unmute all stacks with an M.
-M = 0;
+var M = 1;
+// M = 0;
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
   [M*4, stack(    
-    _drums1,
-    _bass1,
+    _drums1,    _bass1,
   )],
   [M*4, stack(
-    _drums1,
-    _chords2,
-    _bass1,
-    _bass1a,
+    _drums1,    _chords2,    _bass1,    _bass1a,
   )],
   [M*4, stack(    
-    _drums1,
-    _bass1a,
-    _bass1b,
+    _drums1,    _bass1a,    _bass1b,
   )],
-  [1*8, stack(
-    _drums1,
-    _chords2,
+  [M*8, stack(
+    _drums1,    _chords2,
     _bass1.slow(2).trans(-12),
-    _bass1a,
-    _lead1,
+    _bass1a,    _lead1,
   )],
   [1*8, stack(
-    _drums1,
-    _chords2,
+    _drums1,    _chords2,
     _bass1a.slow(2).trans(-12),
     _bass1.trans(-12),
     _bass1b.slow(4).trans(12),
     _lead2,
   )],
+  [1*8, stack(
+    _drums1,    _chords2,
+    _lead2,
+  )],
+
+
+  
   ).punchcard()
   
