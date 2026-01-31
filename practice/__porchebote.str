@@ -20,7 +20,7 @@ var _drums3 =      drumsPass(stack(  d1, d2, d3  ))     // just bd
 // Define pass functions for each instrument
 var chordsPass = (x) => x.sound("gm_brass_section").scale("c3:minor").color("red").release(1.2)
 var bassPass = (x) => x.sound("gm_pad_warm").release(.5).scale("c2:minor").color("orange")
-var leadPass = (x) => x.sound("gm_shanai").scale("c4:minor").color("yellow").room(1.5)
+var leadPass = (x) => x.sound("gm_shanai").scale("c4:minor").color("yellow").room(1.5).release(.5)
 var thumPass = (x) => x.sound("gm_alto_sax").scale("c4:minor").color("green").room(1.5)
 var dinkPass = (x) => x.sound("piano").scale("c4:minor").color("cyan")
 
@@ -49,7 +49,7 @@ var _bass2 = bassPass(n(`<
 
 var _lead1 = leadPass(n(`<
  [6 [- 5] - 4 4 - 6 -]
- [<2 9> -]
+ [2 -]
  [- - - - <0 3> [- 2] - 3 ]
  [3 -]
 >`))

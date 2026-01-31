@@ -19,6 +19,7 @@ var chords2 = n(`<
 var _chords1 =chords1.sound("piano"        ).scale("c3:major").release(1.2).gain(.5)
 var _chords2 =chords2.sound("piano"        ).scale("c3:major").release(1.2).gain(.5)
 
+var bassPass = (x) => x.sound("gm_pad_warm").release(.5).scale("c3:minor").color("orange")
 
 
 var tune1 = n(`<
@@ -75,8 +76,13 @@ var bip1 = n(`<
 >`)
 var _bip1 = bip1.sound("square ").scale("c3:major").clip(.3).color("#ff8888").delay(2,.5,.5).gain(.5)
 
+var _bass1 = bassPass(`<
+ 0 1 0 -3
+>`).arp("<[1 - - 1]>")
+
 /* .delay(1, .5, .5) */
 var M = 1;
+// M=0;
 $: arrange(
   [M*4, stack(    
     _chords1, 
@@ -104,6 +110,7 @@ $: arrange(
     _chords1.fast("0,2"),
     _mel1.fast("2"),
     _trill1.fast(-2),
+    _bass1,
   )],
   [1*4, stack(
     _chords1.fast("0,2"),
@@ -111,22 +118,23 @@ $: arrange(
     _trill1.fast(-2),
     _lead1, // trumpet
     _bip1, 
+    _bass1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _chords2.fast("0,2"),
     _mel2.fast("2"),
     _trill2.fast(-2),
     _lead2,
     _bip1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _chords1.fast("0,2"),
     _mel1.fast("2"),
     _trill1.fast(-2),
     _lead1,
     _bip1,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _chords2.fast("0,2"),
     _mel2.fast("2"),
     _trill2.fast(-2),

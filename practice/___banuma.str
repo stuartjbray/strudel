@@ -25,6 +25,7 @@ var leadPass = (x) => n(x).scale("c3:major").sound("piano").color("yellow")
 var dugPass = (x) => n(x).scale("c2:major").sound("gm_acoustic_bass:2").color("green").gain(1.2)
 var fidPass = (x) => n(x).scale("c3:major").sound("gm_lead_5_charang:2").color("purple").release(1).gain(.5)
 var aahPass = (x) => n(x).scale("c3:major").sound("gm_pad_sweep:3").color("cyan").room(3)
+var orgPass = (x) => n(x).scale("c3:major").sound("gm_drawbar_organ").color("grey")
 
 
 
@@ -122,6 +123,16 @@ var _chords8 = chordsPass(`<
  [-@5 3*2 4 3] [-@5 4*2 5 4]
 >`)
 
+var _fid7 = fidPass(`<
+ [- - - 1 0 _ _ -] -
+ [- - - 1 2 _ _ -] -
+>`)
+var _org7 = orgPass(`<
+ - [0,2,<4 7>] - -
+>`)
+var _org8 = orgPass(`<
+ - [0,2,<4 6>] - -
+>`)
 
 var M = 1; 
 // M = 0;
@@ -168,14 +179,43 @@ $: arrange(
   )],
 
   /* ------------ Part 7*/
-  [1*4, stack(    
+  [M*4, stack(    
     _drums3,    
     _lead7, _dug7, _chords7,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums2,    
     _lead8, _dug8, _chords8,
   )],
+  [1*4, stack(    
+    _drums3.lpf(800).room(1.2),    
+    _lead7.trans("-12"),
+    _chords7.trans("12").velocity(.6),
+    _dug7.velocity(.4),
+    _fid7, _org7,
+  )],
+  [1*4, stack(
+    _drums2.lpf(800),    
+    _lead8.trans("-12"),
+    _chords8.trans("12").velocity(.6),
+    _dug8.velocity(.4),
+    _fid7, _org8,
+  )],
+
+
+  [1*4, stack(    
+    _drums3,    _chords1,     _bass1,    _dug1,    _fid1,
+  )],
+  [1*4, stack(
+    _drums2,    _bass2,    _dug1.transpose(12),    _fid2,
+  )],
+  [1*4, stack(    
+    _drums3,    _chords1,     _bass1,    _dug1, _fid3, _aah1,
+  )],
+  [1*4, stack(
+    _drums2,    _bass2,    _dug1.transpose(12), _fid4, _aah2,
+  )],
+  
   
   [M*4,silence],
 ).punchcard()
