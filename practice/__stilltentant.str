@@ -19,7 +19,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 // Define pass functions for each instrument
 var sc3 = "c3:pentatonic"
-var chordsPass = (x) => n(x).scale(sc3).sound("piano").color("red")
+var chordsPass = (x) => n(x).scale(sc3).sound("piano").color("red").gain(1.5)
 var bassPass = (x)   => n(x).scale(sc3).sound("wt_digital:<2 3>").color("orange").fm("<1 2 3 4>")
 var bass2Pass = (x)   => n(x).scale(sc3).sound("wt_digital:<4 5>").color("yellow").fm("<4 3 2 1 >")
 var bass3Pass = (x)   => n(x).scale(sc3).sound("wt_digital:6").color("green")
@@ -39,8 +39,8 @@ var chords2 = (`<
  [-2,0,2,5]
  [-3,-1,1,4]
 >`)
-var _chords1 = chordsPass(chords1).arp("<[[0,2] - [1,3]]>")
-var _chords2 = chordsPass(chords2).arp("<[[0,2] - [1,3]]>")
+var _chords1 = chordsPass(chords1).arp("<[[0,2] - - [1,3]]>")
+var _chords2 = chordsPass(chords2).arp("<[[0,2] - - [1,3]]>")
 
 var _bass1 = bassPass(`<
  [0 0 3 0 4 0 3 0]
