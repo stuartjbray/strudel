@@ -29,7 +29,7 @@ var bassPass = (x)   => x.scale("c3:major").sound("piano").color("orange").trans
 var leadPass = (x)   => n(x).scale("<c4,c5>:major").sound("gm_dulcimer:3, gm_flute:3").color("yellow").gain(1.2).release(.4).pan(.6)
 var padPass = (x)   => x.scale("c3:major").sound("gm_pad_halo:5").color("green").release(.3).pan(.4)
 var tingPass = (x) => n(x).scale("c3:major").sound("steinway").color("blue").room(1).release(1.1).delay("0,.1").gain(.5).pan(.6)
-var stringPass = (x) => n(x).scale("<c3,c4>:major").sound("gm_string_ensemble_1:2").color("pink").gain(1.5).room(1.2).release(.7).pan(.4)
+var stringPass = (x) => n(x).scale("<c3,c4>:major").sound("gm_pad_poly:2").color("pink").gain(1.5).room(1.2).release(.7).pan(.4)
 
 var chords1 = "<Am _ F _ Am C Dm Fm>"
 var chords2 = "<D E F G>"
@@ -188,5 +188,5 @@ $: arrange(
   )],
 
   [M*4,silence]
-).punchcard()
+)//._punchcard()
   
