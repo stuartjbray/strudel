@@ -19,8 +19,10 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 var steinPass = (x) => n(x).scale("c2:minor").sound("steinway").color("red").gain(.7)
 var pianoPass = (x) => n(x).scale("c2:minor").sound("piano").color("green").gain(1)
-var guitPass = (x) => n(x).scale("c3:minor").sound("gm_overdriven_guitar:<2,3>").color("orange").gain(1).release(.2).room(2)
+var guitPass = (x) => n(x).scale("c3:minor").sound("gm_overdriven_guitar:<2,3>").color("orange").gain(.7).release(.2).room(1.5)
 var aahPass = (x) => n(x).scale("c3:minor").sound("gm_pad_new_age:4").color("yellow").gain(.7)
+var harpPass = (x) => n(x).scale("c4:minor").sound("gm_harpsichord:2").color("green").release(.7)
+var dugPass = (x) => n(x).scale("c2:minor").sound("gm_slap_bass_2:<3,4>").color("blue").release(.5).gain(1.5).room(.6)
 
 
 
@@ -65,24 +67,41 @@ var _guit2 = guitPass(`<
  [3@4 - - - -]
 >`)
 
+var _harp1 = harpPass(`<
+ - [4 5 4 5 -@4 3 4 3 4 -@4]
+ - [4 5 6 7 -@4 4 3 2 3 -@4]
+>`)
+var _harp2 = harpPass(`<
+ - [7 4 3 2 -@4 2 3 4 5 -@4]
+ - [5 4 3 2 4 3 2 1 3 2 1 0 2 1 0 -1]
+>`)
+
+var _dug1 = dugPass(`<
+ [- - 4 - - - 2 -] [- 4 - 5 6 - - -]
+ [- - 4 - - - 2 -] [- 4 - 5 3 - - -]
+>`)
+var _dug2 = dugPass(`<
+ [- - 4 - - - 2 -] [- 4 - 1 6 - - -]
+ [- - 4 - - - 2 -] [- 4 - 0 3 - - -]
+>`)
+
 var _aah1 = aahPass(chords1.arp("[0,2 1]*4"))
 
 var trans1 = "[0 12 0 [12 0]]"
 var trans2 = "[0 12 24 36]"
 var trans3 = "[36 24 12 0]"
 var M=1;
+// M=0;
 $: arrange(
-  [0*4, stack(
-    _drums1,
-  // _aah1,
-    _guit1,
+  [M*4, stack(
+    _drums1,    _aah1,
   )],
   [M*4, stack(
-    _drums1,    _guit1,    _aah1,
+    _drums1,        _harp1,    _aah1,
     _piano1.trans(trans1)
   )],
   [M*4, stack(
-    _drums1,    _guit2,    _aah1,
+    _drums1,        _harp2,    _aah1,
     _piano2.trans(trans1)
   )],
   [M*4, stack(
@@ -93,7 +112,7 @@ $: arrange(
     _drums1,    _guit2,    _aah1.trans(trans1),
     _stein2.trans(trans1)
   )],
-  [M*4, stack(
+  [M*4, stack( /* Full Blast! */
     _drums1,    _guit1.trans(12),    _aah1.trans(trans3),
     _stein1x.trans(trans2)
   )],
@@ -102,5 +121,18 @@ $: arrange(
     _stein2x.trans(trans2)
   )],
 
+  [1*4, stack(
+    _drums1,
+    _aah1, //.trans(trans1),
+    // _stein1.trans(trans1),
+    _dug1,
+  )],
+  [1*4, stack(
+    _drums1,
+    _aah1, //.trans(trans1),
+    // _stein2.trans(trans1),
+    _dug2,
+  )],
+
   
-).punchcard()
+)//.punchcard()
