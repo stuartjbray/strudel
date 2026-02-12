@@ -65,7 +65,7 @@ var _aah2 = aahPass(`<
 
 // Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
 var M = 1; // change to M=1 to unmute all stacks with an M.
-M = 0;
+//M = 0;
 $: arrange(
   // Change 1 to be M to conditionally mute this stack.
   [1*8, stack(    
