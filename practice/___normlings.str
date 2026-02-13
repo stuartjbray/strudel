@@ -173,56 +173,56 @@ var _lastChord = stack(
 var M = 1;
 // M = 0;
 $: arrange(
-  // [M*4, stack(    // intro
-  //   _drums1,
-  //   _chords1a.trans(12), 
-  //   _bass1,
-  // )],
-  // [M*8, stack(    
-  //   _drums1,
-  //   _chords1,     _chords1a.trans(12), 
-  //   _chords2d,
-  //   _bass1,
-  // )],
-  // [M*8, stack(
-  //   _drums1,
-  //   _chords2,    _chords2a.trans(12), 
-  //   _bass2,
-  // )],
-  // [M*8, stack(    // harpsichord & fiddle
-  //   _drums1,
-  //   _chords1, 
-  //   _bass1,    _lead1,    _acc1, 
-  // )],
-  // [M*8, stack(
-  //   _drums1,
-  //   _chords2,
-  //   _bass2,    _lead2,    _acc2,
-  // )],
-  // [M*8, stack(    
-  //   _drums1,
-  //   _chords1,     _chords1a.trans(12),     _chords1b, 
-  //   _chords2d,
-  //   _bass1,
-  // )],
-  // [M*8, stack(
-  //   _drums1,
-  //   _chords2,    _chords2a.trans(12),     _chords1b,
-  //   _chords2d,
-  //   _bass2,
-  // )],
-  // [M*8, stack(    
-  //   _drums1,
-  //   _chords1,
-  //   _chords1c.trans("12"),
-  //   _bass1,    _lead3 //.trans(-12),
-  // )],
-  // [M*8, stack(
-  //   _drums1,
-  //   _chords2,
-  //   _chords2c.trans("12"),
-  //   _bass2,    _lead4 //.trans(-12),
-  // )],
+  [M*4, stack(    // intro
+    _drums1,
+    _chords1a.trans(12), 
+    _bass1,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1,     _chords1a.trans(12), 
+    _chords2d,
+    _bass1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,    _chords2a.trans(12), 
+    _bass2,
+  )],
+  [M*8, stack(    // harpsichord & fiddle
+    _drums1,
+    _chords1, 
+    _bass1,    _lead1,    _acc1, 
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,    _lead2,    _acc2,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1,     _chords1a.trans(12),     _chords1b, 
+    _chords2d,
+    _bass1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,    _chords2a.trans(12),     _chords1b,
+    _chords2d,
+    _bass2,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1,
+    _chords1c.trans("12"),
+    _bass1,    _lead3 //.trans(-12),
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _chords2c.trans("12"),
+    _bass2,    _lead4 //.trans(-12),
+  )],
 
   /* ------------------ Section 6 */
   [M*8, stack(    
@@ -240,22 +240,22 @@ $: arrange(
     _stein7,
   )],  
 
-  // [M*8, stack(    // harpsichord & fiddle
-  //   _chords1, 
-  //   _bass1.ply(2).room(2),
-  //   _lead1.trans(-12),
-  //   _acc1.trans(12).gain(.4), 
-  //   _stein8,
-  // )],
-  // [M*8, stack(
-  //   _chords2,
-  //   _bass2.ply(2).room(2),
-  //   _lead2,    
-  //   _acc2.trans(12).gain(.4), 
-  //   _stein9,
-  // )],
-  // [M*1, _lastChord],
+  [M*8, stack(    // harpsichord & fiddle
+    _chords1, 
+    _bass1.ply(2).room(2),
+    _lead1.trans(-12),
+    _acc1.trans(12).gain(.4), 
+    _stein8,
+  )],
+  [M*8, stack(
+    _chords2,
+    _bass2.ply(2).room(2),
+    _lead2,    
+    _acc2.trans(12).gain(.4), 
+    _stein9,
+  )],
+  [M*1, _lastChord],
   
-  // [M*8, silence]
-  ) //._punchcard()
+  [M*8, silence]
+).punchcard()
   
