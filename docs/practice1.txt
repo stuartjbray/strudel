@@ -138,3 +138,5 @@ let _ch = n("[1 2 3 - 5 7 - <4 2>]!2").chord(ch).voicing().sound("fmpiano");  //
 $: _ch.fast(.8);
 
  
+ // To make louder without using gain.
+ cubic crush diode

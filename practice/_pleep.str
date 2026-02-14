@@ -30,7 +30,7 @@ var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
 var humPass = (x)   => n(x).scale("c2:major").sound("pipeorgan_loud").color("yellow").release(.7).gain(1).pan(.4)
 
-var harmPass = (x)   => n(x).scale("c2:major").sound("harmonica").color("green").release(1).gain(.6).pan(.6)
+var harmPass = (x)   => n(x).scale("c3:major").sound("gm_trumpet").color("green").release(1).gain(1).pan(.6)
 
 
 // Apply pass functions to patterns
@@ -71,11 +71,11 @@ var _hum3 = humPass(`<-2 -3 -4 -5>`)
 var _hum4 = humPass(`<-4 -4 -3 -3>`)
 var _hum5 = humPass(`<-2>`)
 
-var harmArp = "[- 1]"
-var _harm1 = harmPass(`< 0 1 2 3 >`).arp(harmArp)
+var harmArp = "[- 1 _ -]"
+var _harm1 = harmPass(`< <0 3> 1 2 0 >`).arp(harmArp)
 var _harm2 = harmPass(`< 3 4 3 2 >`).arp(harmArp)
-var _harm3 = harmPass(`< 2 0 1 2 >`).arp(harmArp)
-var _harm4 = harmPass(`< 0 3 0 3 >`).arp(harmArp)
+var _harm3 = harmPass(`< <2 4> 0 1 2 >`).arp(harmArp)
+var _harm4 = harmPass(`< 0 3 0 2 >`).arp(harmArp)
 var _harm5 = harmPass(`< 2 3 4 5 >`).arp(harmArp)
 
 var _bass1 = bassPass(`<
