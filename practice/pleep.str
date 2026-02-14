@@ -1,0 +1,138 @@
+//@title pleep
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+var bank = "yamahary30_"
+const drumsPass = (x) => x.color("white").room(1.3).gain(.4);
+
+var d1 = stack(
+  sound("yamahary30_bd").struct(  "1 - - - - - - -"),
+  sound("yamahary30_bd").struct(  "1 1 - 1 - - - -").mask("<-@3 1>")
+)
+var d2 = sound("yamahary30_sd").struct(  "- - - - 1 - - -")
+var d3 = sound("shaker_large:1").struct(  "- - - - - 1 - <- 1>")
+var d4 = stack(
+  sound("yamahary30_lt").struct(  "- - - - - - - -"),
+  sound("yamahary30_lt").struct(  "- - - - - - 1 [1 -]").mask("<-@3 1>")
+)
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red").gain(.5)
+var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
+var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
+var humPass = (x)   => n(x).scale("c2:major").sound("pipeorgan_loud").color("yellow").release(.7).gain(1).pan(.4)
+
+var harmPass = (x)   => n(x).scale("c2:major").sound("harmonica").color("green").release(1).gain(.6).pan(.6)
+
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ [0 4 0 4]
+ [-1 4 -1 4]
+ [-2 4 -2 4]
+ [-3 4 -3 4]
+>`)
+var _chords2 = chordsPass(`<
+ [3 7 3 7]
+ [2 7 2 7]
+ [1 7 1 7]
+ [0 7 0 7]
+>`)
+var _chords3 = chordsPass(`<
+ [-2 2 -2 2]
+ [-3 2 -3 2]
+ [-4 2 -4 2]
+ [-5 2 -5 2]
+>`)
+var _chords4 = chordsPass(`<
+ [-4 7 -4 7]
+ [-4 6 -4 6]
+ [-3 7 -3 7]
+ [-3 8 -3 8]
+>`)
+var _chords5 = chordsPass(`<
+ [-2 2 -2 2]
+ [-2 3 -2 3]
+ [-2 4 -2 4]
+ [-2 5 -2 5]
+>`)
+
+var _hum1 = humPass(`<0 -1 -2 -3>`)
+var _hum2 = humPass(`<3 2 1 0>`)
+var _hum3 = humPass(`<-2 -3 -4 -5>`)
+var _hum4 = humPass(`<-4 -4 -3 -3>`)
+var _hum5 = humPass(`<-2>`)
+
+var harmArp = "[- 1]"
+var _harm1 = harmPass(`< 0 1 2 3 >`).arp(harmArp)
+var _harm2 = harmPass(`< 3 4 3 2 >`).arp(harmArp)
+var _harm3 = harmPass(`< 2 0 1 2 >`).arp(harmArp)
+var _harm4 = harmPass(`< 0 3 0 3 >`).arp(harmArp)
+var _harm5 = harmPass(`< 2 3 4 5 >`).arp(harmArp)
+
+var _bass1 = bassPass(`<
+-
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var M = 1;
+// M = 0;
+$: arrange(
+  [1*8, stack(    
+    _drums1,
+    _chords1, 
+    _hum1, 
+    _bass1,
+    _harm1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _hum2, 
+    _bass2,
+    _harm2,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords3,
+    _hum3, 
+    _bass2,
+    _harm3,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords4,
+    _hum4, 
+    _bass2,
+    _harm4,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords5,
+    _hum5, 
+    _bass2,
+    _harm5,
+  )],
+
+
+
+  
+  ).punchcard()
+  

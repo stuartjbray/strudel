@@ -22,6 +22,7 @@ var chordsPass = (x) => n(x).scale("c3:major").sound("gm_electric_bass_finger").
 var bassPass = (x)   => n(x).scale("c3:major").sound("sin").color("orange").release(.4)
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
 var triPass = (x)   => n(x).scale("c4:major").sound("triangle").color("green").release(.4).room(2)
+var sirPass = (x)   => n(x).scale("c3:major").sound("kawai:5").color("green").gain(1)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -71,23 +72,35 @@ var _tri2 = triPass(`<
 -
 >`)
 
+var _sir1 = sirPass(`<
+ [0 1 0 1][2 - 0 1]
+ [2 - 0 1][0 - 0 1]
+>`)
+var _sir2 = sirPass(`<
+ [2 - 0 -][3 - 2 1]
+ [2 - 0 -][1 - 0 1]
+>`)
+
+
 var M = 1;
 // M = 0;
 $: arrange(
-  [M*4, stack(    
+  [M*4, stack(        
     _drums1,     _chords1,     _bass1,
   )],
   [M*8, stack(
     _drums1,    _chords1,    _bass1,
   )],
   [M*8, stack(    
-    _drums1,    _chords1,     _bass1,    _lead1,    _tri1,
+    _drums1,    _chords1.lpf(400),     _bass1,    _lead1,    _tri1,
   )],
-  [1*8, stack(
-    _drums1,    _chords2,    _bass2,    _lead2,    _tri2,
+  [M*8, stack(
+    _drums1,    _chords2.lpf(400),    _bass2,    _lead2,    _tri2,
+    _sir1,
   )],
   [1*8, stack(
     _drums1,    _chords3,  //  _bass2,    _lead2,    _tri2,
+    _sir2,
   )],
 
 

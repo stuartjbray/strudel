@@ -139,13 +139,14 @@ var _dug4 = dugPass(`<
  [10 9 8 7 11 10 9 -] [0 1 2 3 7 6 5 4]
 >`)
 
-var _aah1 = aahPass(chords1.arp("[0,2 1]*4"))
+var _aah1 = aahPass(chords1.arp("<[ 0, [2 1]!3 -]>"))
+var _aah2 = aahPass(chords1.arp("<[ 0, [2 1]!7 -]>"))
 
 var trans1 = "[0 12 0 [12 0]]"
 var trans2 = "[0 12 24 36]"
 var trans3 = "[36 24 12 0]"
 var M=1;
-// M=0;
+M=0;
 $: arrange(
   [M*4, stack(
     _drums1,    _aah1,
@@ -175,11 +176,11 @@ $: arrange(
     _stein2x.trans(trans2)
   )],
   
-  [1*6, stack( 
+  [M*6, stack( 
     _drums1,    _piano3.trans(trans1),
     _guit5,
   )],
-  [1*6, stack( 
+  [M*6, stack( 
     _drums1,    _stein3.trans(trans2),
     _guit6,
   )],
@@ -209,11 +210,11 @@ $: arrange(
     _pianoTrill.trans(36),
   )],
 
-  [M*4, stack( 
-    _drums1,    _aah1.trans(trans2),
+  [1*4, stack( 
+    _drums1,    _aah2.trans(trans1),
   )],
-  [M*4, stack(
-    _drums1,    _aah1.trans(trans2),
+  [1*4, stack(
+    _drums1,    _aah2.trans(trans1),
   )],
 
   

@@ -6,26 +6,28 @@ setcpm(35)
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
+var m4 = (x) => x.mask("<-@3 1>")
 
-var d1 = sound("bd").struct(  "- - - - - - - -")
-var d2 = sound("rim").struct( "- - - - - - - -")
-var d3 = sound("hh").struct(  "- - - - - - - -")
-var d4 = sound("cr").struct(  "- - - - - - - -")
+var d1 = stack(sound("bd sd"), m4(sound("- - bd*2 sd")))
+var d2 = sound("lt").struct(    "1 - - - - - - 1")
+var d3 = sound("hh").struct(    "1*8").gain(.4)
+var d4 = stack(  sound("<oh oh*2>"),  m4(sound("- gm_reverse_cymbal"))).clip(".2 1")
+var d5 = sound("- handchimes")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))  // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("gm_acoustic_bass:<2 3>").color("red")
+var chordsPass = (x) => n(x).scale("c3:major").sound("z_tan").color("red").release(1).gain(.2)
 var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
-var stringPass = (x)   => n(x).scale("c3:major").sound("gm_contrabass:<2 3>").color("green").room(2).release(1)
+var stringPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_pick:2").color("green").room(2).release(1)
 
 // Apply pass functions to patterns
-var arp1 = "<[ [0,1,2] < [0 1 2] [0,1,2] > ]>"
-var arp2 = "[- 1 _ 1]"
+var arp1 = "<[ [0,1,2] < <[0 1 0 ] -> [0,1,2] > ]>"
+var arp2 = "[1 [- 1] [- 1] <1 ->]"
 // F Fs4 C F C
 // Dm Dm7 [Am G F Am]
 var _chords1 = chordsPass(`<
@@ -84,14 +86,14 @@ $: arrange(
     _bass1,
     _string1,
   )],
-  [1*4, stack(     // Lead in
+  [M*4, stack(     // Lead in
     _drums1,
-    _chords2 ,
+    _chords2,
     _bass2,
     _string2,
   )],
   /* Look what you done */
-  [1*16, stack(    // Chorus
+  [M*16, stack(    // Chorus
     _drums1,
     _chords3,
     _string3,
