@@ -55,12 +55,9 @@ var _chords3 = chordsPass(`<
  [1,3,5] [0,2,4]
 >`).arp(arp1)
 
-var _string_intro = stringPass(`<
- 0 3 2 5
- >`).arp(arp2)
 var _string1 = stringPass(`<
  0 3 2 5
- -2 -1 <-2 [-2 -3]><-3 [-4 -5]>
+ -2 -1 <0 [-2 -]><1 0>
 >`).arp(arp2)
 var _string2 = stringPass(`<
  1 -1 3 4
@@ -109,7 +106,7 @@ var M = 1;
 $: arrange(
   [M*4, stack(    // intro
     _drums1,
-    _string_intro,
+    // _chords1,
   )],  
   [M*16, stack(    // Verse
     _drums1,
