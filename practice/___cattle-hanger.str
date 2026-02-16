@@ -124,6 +124,14 @@ var _sit4 = sitPass(`<
  [0@3 - 1 2 _ - ]
  [3@5 - - - ]
 >`).release(.3).gain(1)
+var _sit4x = sitPass(`<
+ [- - - - -3 0 -3 0]
+ [- - - - -2 1 -2 1]
+ [- - - - -1 2 -1 2]
+ [1 0 1 2 1 0 1 2 ]
+>`).release(.5).gain(1).clip(.6)
+
+
 var _sit5 = sitPass(`<
  [4@3 - 3 4 _ -]
  [5@3 - 4 5 _ - ]
@@ -216,7 +224,7 @@ $: arrange(
     _chords4.gain(.8).trans(12),
     _vib4.gain(.5),
     _dum4,
-    _sit4,
+    _sit4, _sit4x,
   )],
 
   [M*8, stack(    
@@ -238,6 +246,6 @@ $: arrange(
   )],
 
 
-  [M*4,silence]
+ [M*4,silence]
 ).punchcard()
    

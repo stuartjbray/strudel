@@ -73,8 +73,8 @@ var _tri2 = triPass(`<
 >`)
 
 var _sir1 = sirPass(`<
- [0 1 0 1][2 - 0 1]
- [2 - 0 1][0 - 0 1]
+ [0 1 0 1][2 - 3 1]
+ [2 - 0 1][-1 - 0 1]
 >`)
 var _sir2 = sirPass(`<
  [2 - 0 -][3 - 2 1]
@@ -92,15 +92,16 @@ $: arrange(
     _drums1,    _chords1,    _bass1,
   )],
   [M*8, stack(    
-    _drums1,    _chords1.lpf(400),     _bass1,    _lead1,    _tri1,
+    _drums1,    _chords1.lpf(400),     _bass1,    _lead1,    _tri1.echo(4,1/2,.5),
   )],
+  
   [M*8, stack(
     _drums1,    _chords2.lpf(400),    _bass2,    _lead2,    _tri2,
-    _sir1,
+    _sir1.echo(4,1/2,.5),
   )],
   [1*8, stack(
-    _drums1,    _chords3,  //  _bass2,    _lead2,    _tri2,
-    _sir2,
+    _drums1,    _chords3.lpf(400),    _bass2,    _lead2,    _tri2,
+    _sir2.echo(4,1/2,.5),
   )],
 
 

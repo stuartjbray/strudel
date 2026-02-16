@@ -34,7 +34,7 @@ var pianoPass = (x) => n(x).scale("c2:minor").sound("piano").color("green").gain
 var guitPass = (x) => n(x).scale("c3:minor").sound("gm_overdriven_guitar:<2,3>").color("orange").gain(.7).release(.2).room(1.5)
 var aahPass = (x) => n(x).scale("c3:minor").sound("gm_pad_new_age:4").color("yellow").gain(.7).release(.7)
 var harpPass = (x) => n(x).scale("c4:minor").sound("gm_harpsichord:2").color("green").release(.7)
-var dugPass = (x) => n(x).scale("c2:minor").sound("gm_slap_bass_2:<3,4>").color("blue").release(.5).gain(1.5).room(.6)
+var dugPass = (x) => n(x).scale("c2:minor").sound("gm_slap_bass_2:<3,4>").color("blue").release(.5).cubic(1).room(.6)
 var stickPass = (x) => n(x).scale("c4:minor").sound("gm_orchestral_harp").color("purple")
 
 
@@ -155,7 +155,7 @@ var _dug4 = dugPass(`<
  [10 9 8 7 11 10 9 -] [0 1 2 3 7 6 5 4]
 >`)
 
-var _aah1 = aahPass(chords1.arp("<[ [0@3 -], [2 1]!3 -]>"))
+var _aah1 = aahPass(chords1.arp("<[ [0!3 -], [2 1]!3 -]>"))
 var _aah2 = aahPass(chords1.arp("<[ [0,1,2]*2, [0 1 0 1]*2 ]>"))
 
 var trans1 = "[0 12 0 [12 0]]"
@@ -229,19 +229,19 @@ $: arrange(
     _stein1x.trans(trans2),
     _pianoTrill.trans(36),
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums2,    
     _guit4.trans(12),
     _stein2x.trans(trans2),
     _pianoTrill.trans(36),
   )],
 
-  [1*2, stack( 
+  [M*2, stack( 
     _drums3.lpf(500).mask("1@3 -"),
     _guit4_x,
     _pianoTrill2.trans(24),
   )],
-  [1*4, stack( 
+  [M*4, stack( 
     _drums3,    _aah2.trans(trans1).lpf(500),
     _dug3.trans("0,12").velocity(.6),
     _stick1,
@@ -249,19 +249,21 @@ $: arrange(
   [M*4, stack(
     _drums3,    _aah2.trans(trans1).lpf(500),
     _dug4.trans("0,12").velocity(.6),
-    _stick2,
+    _stick2, 
   )],
 
-  [M*4, stack( /* Full Blast! */
+  [1*4, stack( /* Full Blast! */
     _drums2,    _guit1.trans(24),    _aah1.trans(trans3),
     _stein1x.trans(trans2),
     _pianoTrill.trans(36),
+    _dug3, _aah2,
   )],
-  [M*4, stack(
+  [1*4, stack(
     _drums2, _drums_outro,    _guit2.trans(24),    _aah1.trans(trans3),
     _stein2x.trans(trans2),
     _pianoTrill.trans(36),    
+    _dug4, _aah2,
   )],
   
-  [1*8, silence],
+  [M*8, silence],
 ).punchcard()
