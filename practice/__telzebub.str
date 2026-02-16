@@ -5,27 +5,32 @@
 setcpm(35)
 
 // -------------- Drums
-const drumsPass = (x) => x.color("white").cubic(.6);
+const drumsPass = (x) => x.color("white").cubic(.4);
 var m4 = (x) => x.mask("<-@3 1>")
+var m2 = (x) => x.mask("<- 1>")
 
-var d1 = stack(sound("bd sd"), m4(sound("- - bd*2 sd")))
+var d1 = stack(
+  sound("bd sd"), 
+  m4(sound("- - bd*2 sd")
+  ))
+var d1x = m2(sound("- oh oh [sd bd] "))
 var d2 = sound("lt").struct(    "1 - - - - - - 1")
 var d3 = sound("hh").struct(    "1*8").gain(.4)
 var d4 = stack(  sound("<oh oh*2>"),  m4(sound("- gm_reverse_cymbal"))).clip(".2 1")
 var d5 = sound("- handchimes")
 
-var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))  // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+var _drums_intro = drumsPass(stack(  d1, d1x, d2,  d3,  d4, d5  ))            // build up
+var _drums1 =      drumsPass(stack(  d1, d2,  d3,  d4))
+var _drums2 =      drumsPass(stack(  d1, d2, d3,  d4,   ))
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("z_tan").color("red").release(1).gain(.6).pan(.6)
-var bassPass = (x)   => n(x).scale("c4:major").sound("supersaw").color("orange").attack(.01).release(.3).gain(.8).pan(.4)
-var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow").pan(.6)
-var stringPass = (x)   =>   n(x).scale("c3:major").sound("gm_electric_bass_pick:3").color("green").room(2).release(.6).cubic(1.2).pan(.4) 
-var sawPass = (x)   => n(x).scale("c2:major").sound("supersaw").color("blue").room(2).pan(.4) //.release(1)
-var sinPass = (x)   => n(x).scale("c5:major").sound("sin").color("purple").gain(.7).pan(.6)
+var chordsPass = (x) => n(x).scale("c2:major").sound("z_tan").color("red").release(1).gain(.8).pan(.7)
+var synthPass = (x)   => n(x).scale("c4:major").sound("saw").color("orange").attack(.01).release(.3).gain(.8).pan(.3)
+var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow").pan(.7)
+var bassPass = (x)   =>   n(x).scale("c3:major").sound("gm_electric_bass_pick:4").color("green").room(2).release(.6).cubic(.7).pan(.5) 
+var sawPass = (x)   => n(x).scale("c2:major").sound("supersaw").color("blue").room(2).pan(.7) //.release(1)
+var sinPass = (x)   => n(x).scale("c5:major").sound("sin").color("purple").gain(.7).pan(.3)
 
 
 
@@ -55,31 +60,31 @@ var _chords3 = chordsPass(`<
  [1,3,5] [0,2,4]
 >`).arp(arp1)
 
-var _string1 = stringPass(`<
+var _bass1 = bassPass(`<
  0 3 2 5
  -2 -1 <0 [-2 -]><1 0>
 >`).arp(arp2)
-var _string2 = stringPass(`<
+var _bass2 = bassPass(`<
  1 -1 3 4
 >`).arp(arp2)
-var _string3 = stringPass(`<
+var _bass3 = bassPass(`<
  0 1 3 2
 >`).arp(arp2)
 
 
-var _bass1 = bassPass(`<
+var _synth1 = synthPass(`<
  [3 -] [5# 5] [0 -] [3 2]
  [-2 -] [1 -] [-2 -] [-3 -]
  [3 -] [5# 5] [0 -] [3 4]
  [5 -] [6 -] [2 -] [3 -]
 >`)
-var _bass2 = bassPass(`<
+var _synth2 = synthPass(`<
  [ [1,3] -]
  [ [-1,3] -]
  [ [1,7] -]
  [ [-1,6] -]
 >`)
-var _bass3 = bassPass(`<
+var _synth3 = synthPass(`<
  - [- - - - 3 2 1 4] [3 _ _ -] [2 _ _ -]  
  - [- - - - 1 2 3 1] [3 _ _ -] [4 _ _ -]  
 >`)
@@ -95,7 +100,7 @@ var _lead2 = leadPass(`<
 var _saw1 = sawPass(`<
  -
 >`)
-
+/* wiggly purple sin */
 var _sin1 = sinPass(`<
  [3 2 3 2 0 2 3 2]
  [4 3 4 3 1 3 4 3]
@@ -105,35 +110,36 @@ var M = 1;
 // M = 0;
 $: arrange(
   [M*4, stack(    // intro
-    _drums1,
+    _drums_intro,
     // _chords1,
   )],  
   [M*16, stack(    // Verse
     _drums1,
     _chords1, 
+    _synth1,
     _bass1,
-    _string1,
     _saw1,
   )],
   [M*4, stack(     // Lead in
     _drums1,
     _chords2,
+    _synth2.ply(4).clip(.1),
     _bass2,
-    _string2,
   )],
   /* Look what you done */
   [1*16, stack(    // Chorus
     _drums1,
     _chords3,
-    _string3,
     _bass3,
+    _synth3,
+    _synth3.trans(-12),
     _sin1,
   )],
   [1*16, stack(    // Chorus
     _drums1,
     _chords3,
-    _string3,
     _bass3,
+    _synth3,
     _sin1.trans(12),
   )],
 
