@@ -1,4 +1,4 @@
-//@title Stilltentant
+//@title Stilltennant
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -65,8 +65,12 @@ var _lead2 = leadPass(`<
  [0 1 2 3]
 >`)
 
+var _donk = bass2Pass(`<
+ [7 6 7 _ - 6 5 3 _ 4 _]
+>`)
+
 var M = 1;
-// M = 0;
+M = 0;
 $: arrange(
   [M*4, stack(    
     _drums1,    _bass1,
@@ -82,19 +86,29 @@ $: arrange(
     _bass1.slow(2).trans(-12),
     _bass1a,    _lead1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,    _chords2,
     _bass1a.slow(2).trans(-12),
     _bass1.trans(-12),
     _bass1b.slow(4).trans(12),
     _lead2,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,    _chords2,
+    _lead2,
+  )],
+  [1*1, stack(
+    _donk,
+  )],
+  [1*8, stack(
+    _drums1.fast(2),    _chords2,
+    _bass1a.slow(2),
+    _bass1.trans(-12),
+    _bass1b.slow(2).trans(24),
     _lead2,
   )],
 
 
   
-  ).punchcard()
+  )//.punchcard()
   
