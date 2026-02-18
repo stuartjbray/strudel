@@ -28,7 +28,7 @@ var _drums2 =      drumsPass(stack(  d1, d2, d3,  d4,   ))
 var chordsPass = (x) => n(x).scale("c2:major").sound("z_tan").color("red").release(1).gain(.8).pan(.7)
 var synthPass = (x)   => n(x).scale("c4:major").sound("saw").color("orange").attack(.01).release(.3).gain(1).pan(.5)
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow").pan(.7)
-var bassPass = (x)   =>   n(x).scale("c3:major").sound("gm_electric_bass_pick:4").color("green").room(2).release(.6).cubic(.7).pan(.5) 
+var bassPass = (x)   =>   n(x).scale("c3:major").sound("gm_electric_bass_pick:2").color("green").room(1).release(.6).cubic(.5).pan(.5) 
 var sawPass = (x)   => n(x).scale("c2:major").sound("supersaw").color("blue").room(2).pan(.7) //.release(1)
 var sinPass = (x)   => n(x).scale("c5:major").sound("sin").color("purple").gain(.7).pan(.3)
 var fidPass = (x)   => n(x).scale("<c3,c4>:major").sound("gm_fiddle").color("magenta").cubic(.5).pan(.7).release(.3)
@@ -154,7 +154,7 @@ $: arrange(
   [1*16, stack(    
     // _drums1,
     _chords3.clip(.3),
-    _bass3.trans(12),
+    _bass3.trans("0,12"),
     _synth3.trans(-12),
     _fid3x,
     _sin1.trans(-12),
