@@ -1,0 +1,89 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "- - - - - - - -")
+var d2 = sound("rim").struct( "- - - - - - - -")
+var d3 = sound("hh").struct(  "- - - - - - - -")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c4:major").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
+var leadPass = (x)   => n(x).scale("c3:major").sound("saw").color("yellow").release(.4).attack(0)
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ [4 4 4 4] [4 5 4 3 2 1 2 3]
+ [4 4 4 4] [4 5 4 3 2 - - -]
+>`)
+var _chords1x = chordsPass(`<
+ [0 0 -1 -1] [-2 -2 -3 -3]
+ [0 0 -1 -1] [-2 -2 -3 -3]
+>`)
+var _chords2 = chordsPass(`<
+ [2 2 2 2] [2 3 4 2 0 1 2 0]
+ [2 2 2 2] [2 3 4 2 0 - - -]
+>`)
+var _chords2x = chordsPass(`<
+ [-2 -2 -3 -3] [-4 -4 -4 -4]
+ [-2 -2 0 0] [-5 -5 -4 -4 ]
+>`)
+
+var _bass1 = bassPass(`<
+-
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ [4 _ _ 3 - - 2 _] [2 _ 1 - 0 _ 1 -]
+ [4 _ _ 3 - - 2 _] [2 _ _ _ _ - - -]
+>`)
+var _lead2 = leadPass(`<
+ [0 _ _ 1 - - 2 _] [2 _ 3 - 4 _ 7 -]
+ [6 _ _ 7 - - 4 _] [2 _ 4 _ _ _ - - ]
+>`)
+
+var M = 1;
+M = 0;
+$: arrange(
+  [1*4, stack(    
+    _drums1,
+    _chords1, 
+    _chords1x, 
+    _bass1,
+    _lead1,
+  )],
+  [1*4, stack(
+    _drums1,
+    _chords2,
+    _chords2x,
+    _bass2,
+    _lead2,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+    _lead2,
+  )],
+  ).punchcard()
+  
