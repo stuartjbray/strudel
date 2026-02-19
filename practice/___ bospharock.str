@@ -8,7 +8,7 @@ const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bd").struct(  "1 - 1 - 1 - 1 -")
 var d2 = sound("rim").struct( "- - - - - [- 1] - -")
-var d3 = sound("hh").struct(  "[- - 1 1]*4")
+var d3 = sound("hh").struct(  "[- - 1 1]*4").gain("<[.4@3 1.3]>")
 var d4 = sound("sd").struct(  "- - - [- 1] - - - -")
 
 var d1x = sound("bd").struct(  "1 1 1 - - 1 [- 1] -")
@@ -134,8 +134,17 @@ var _pianoTrill = pianoPass(`<
  - - - [6 5 4 3 5 4 3 2 4 3 2 1 3 2 1 0]
 >`)
 var _pianoTrill2 = pianoPass(`<
- - [0 1 2 3 4 5 6 7 2 3 4 5 6 7 8 9]
+ - [0 1 2 3 4 - - - 1 2 3 4 5 - - -]
 >`)
+var _piano6 = pianoPass(`<
+ - [0 1 2 3]
+ - [1 2 3 4]
+>`)
+var _piano7 = pianoPass(`<
+ - [6 5 4 5]
+ - [7 6 7 8]
+>`)
+
 
 var _harp1 = harpPass(`<
  - [4 5 4 5 -@4 3 4 3 4 -@4]
@@ -172,7 +181,7 @@ var _stick2 = stickPass(`<
 
 
 var M=1;
-// M=0;
+M=0;
 $: arrange(
   [M*4, stack(
     _drums1,    _aah1,
@@ -245,20 +254,23 @@ $: arrange(
     _drums3,    _aah2.trans(trans1).lpf(500),
     _dug3.trans("0,12").velocity(.6),
     _stick1,
+    _piano6.trans(36),
   )],
   [M*4, stack(
     _drums3,    _aah2.trans(trans1).lpf(500),
     _dug4.trans("0,12").velocity(.6),
     _stick2, 
+    _piano6.trans(36),
+    _piano7.trans(36),
   )],
 
-  [1*4, stack( /* Full Blast! */
+  [M*4, stack( /* Full Blast! */
     _drums2,    _guit1.trans(24),    _aah1.trans(trans3),
     _stein1x.trans(trans2),
     _pianoTrill.trans(36),
     _dug3, _aah2,
   )],
-  [1*4, stack(
+  [M*4, stack(
     _drums2, _drums_outro,    _guit2.trans(24),    _aah1.trans(trans3),
     _stein2x.trans(trans2),
     _pianoTrill.trans(36),    
@@ -266,4 +278,4 @@ $: arrange(
   )],
   
   [M*8, silence],
-).punchcard()
+)//.punchcard()
