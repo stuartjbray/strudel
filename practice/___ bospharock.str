@@ -2,7 +2,6 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 setCpm(25)
-
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
@@ -27,8 +26,6 @@ var _drums_outro = drumsPass(stack(
   sound("yamahary30_cr").struct("< - - - [1 1*2 - 1*2]>")
 ))
 
-
-
 var steinPass = (x) => n(x).scale("c2:minor").sound("steinway").color("red").gain(.7)
 var pianoPass = (x) => n(x).scale("c2:minor").sound("piano").color("green").gain(1)
 var guitPass = (x) => n(x).scale("c3:minor").sound("gm_overdriven_guitar:<2,3>").color("orange").gain(.7).release(.2).room(1.5)
@@ -36,8 +33,6 @@ var aahPass = (x) => n(x).scale("c3:minor").sound("gm_pad_new_age:4").color("yel
 var harpPass = (x) => n(x).scale("c4:minor").sound("gm_harpsichord:2").color("green").release(.7)
 var dugPass = (x) => n(x).scale("c2:minor").sound("gm_slap_bass_2:<3,4>").color("blue").release(.5).cubic(1).room(.6)
 var stickPass = (x) => n(x).scale("c4:minor").sound("gm_orchestral_harp").color("purple")
-
-
 
 // Cm Gm F# F (in C minor scale)
 var chords1 = `<
@@ -181,7 +176,7 @@ var _stick2 = stickPass(`<
 
 
 var M=1;
-M=0;
+//M=0;
 $: arrange(
   [M*4, stack(
     _drums1,    _aah1,
@@ -278,4 +273,4 @@ $: arrange(
   )],
   
   [M*8, silence],
-)//.punchcard()
+).punchcard()

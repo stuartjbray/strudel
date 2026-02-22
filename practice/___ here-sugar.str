@@ -1,9 +1,7 @@
 //@title here-sugar
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
 setcpm(25)
-
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
@@ -17,7 +15,6 @@ var d4 = sound("cr").struct(  "- - - - - - - 1")
 var _drums_intro = drumsPass(stack( d1, d2, d3  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3))  // normal
 var _drums2 =      drumsPass(stack(  d1, d1a, d2a, d3, d4  ))           
-
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:major").sound("supersaw").color("red").release(.2).gain(.7).orbit(2).pan(.6)
@@ -33,20 +30,14 @@ var _chords1 = chordsPass(`<
  [-2,0,3] [0,3,5]
  [0,3,5] [3,5,7]
  [0,2,4] [2,4,7]
- 
->`)
-var _chords2 = chordsPass(`<
--
->`)
-
+ >`)
+var _chords2 = chordsPass(`<->`)
 var _bass1 = bassPass(`<
  [0 0 1 0 - 0 1 0]!2
  [3 3 4 3 - 3 4 3]!2
  [-2 -2 -1 -2 - -2 -1 -2]!2
  [0 0 1 0 - 0 1 0]!2
 >`)
-
-
 var _lead1 = leadPass(`<
  [3 2 0 3 2 0 5 4]
  [3 2 0 3 2 0 5 4]
@@ -153,7 +144,7 @@ var _chords10 = chordsPass(`<
 
 
 var M = 1;
- M=0
+ // M=0
 $: arrange(
   [M*2, stack(    
     _drums1.lpf("[300 500 700 900]/2").velocity("[.3 .5 .7 .9]*2"),

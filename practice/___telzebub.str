@@ -1,14 +1,11 @@
 //@title telzebub
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
 setcpm(35)
-
 // -------------- Drums
 const drumsPass = (x) => x.color("white").cubic(.4);
 var m4 = (x) => x.mask("<-@3 1>")
 var m2 = (x) => x.mask("<- 1>")
-
 var d1 = stack(
   sound("bd sd"), 
   m4(sound("- - bd*2 sd")
@@ -23,7 +20,6 @@ var _drums_intro = drumsPass(stack(  d1, d1x, d2,  d3,  d4, d5  ))            //
 var _drums1 =      drumsPass(stack(  d1, d2,  d3,  d4))
 var _drums2 =      drumsPass(stack(  d1, d2, d3,  d4,   ))
 
-
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c2:major").sound("z_tan").color("red").release(1).gain(.8).pan(.7)
 var synthPass = (x)   => n(x).scale("c4:major").sound("saw").color("orange").attack(.01).release(.3).gain(1).pan(.5)
@@ -32,8 +28,6 @@ var bassPass = (x)   =>   n(x).scale("c3:major").sound("gm_electric_bass_pick:2"
 var sawPass = (x)   => n(x).scale("c2:major").sound("supersaw").color("blue").room(2).pan(.7) //.release(1)
 var sinPass = (x)   => n(x).scale("c5:major").sound("sin").color("purple").gain(.7).pan(.3)
 var fidPass = (x)   => n(x).scale("<c3,c4>:major").sound("gm_fiddle").color("magenta").cubic(.5).pan(.7).release(.3)
-
-
 
 // Apply pass functions to patterns
 var arp1 = "<[ [0,1,2] < <[0 1 0 1] -> [0,1,2] > ]>"
@@ -126,7 +120,7 @@ var _sin1 = sinPass(`<
 >`)
 
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
   [M*4, stack(    // intro
     _drums_intro,

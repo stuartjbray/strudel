@@ -1,10 +1,7 @@
 //@title normlings
 //@by Stuart Bray
-//@url https://soundcloud.com/stuart-j-bray
-// s t
-
+//@url https://soundcloud.com/stuart-j-bray // s t
 setcpm(30)
-
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
@@ -18,11 +15,9 @@ var d2a = sound("rim").struct( "1 - - - 1 - - - - - - -")
 var d3a = sound("hh").struct(  "1*12").gain(.6)
 var d4a = sound("sd").struct(  "1 - - - 1 - - - - - - -")
 
-
 var _drums_intro = drumsPass(stack( d1, d2  ))               // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4   ))  // normal
 var _drums2 =      drumsPass(stack(  d1a, d2a, d3a, d4a  ))  // break down
-
 
 // Define pass functions for each instrument
 var bassPass = (x)   => n(x).scale("c3:major").sound("gm_fx_brightness:2").color("orange").gain("<[1.7 2 1 1.7]>")

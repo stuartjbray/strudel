@@ -1,9 +1,7 @@
 //@title digit-elle
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
 setcpm(30)
-
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
@@ -26,7 +24,6 @@ var _drums4 = drumsPass(stack(
   sound("rim").struct("1 - 1 1"),
   sound("oh").struct("1 1 1 -"),
 ))
-
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:major").sound("saw").color("red")
