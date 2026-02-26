@@ -124,12 +124,12 @@ var _sit4 = sitPass(`<
  [0@3 - 1 2 _ - ]
  [3@5 - - - ]
 >`).release(.3).gain(1)
-var _sit4x = sitPass(`<
- [- - - - -3 0 -3 0]
- [- - - - -2 1 -2 1]
- [- - - - -1 2 -1 2]
- [1 0 1 2 1 0 1 2 ]
->`).release(.5).gain(1).clip(.6)
+// var _sit4x = gitPass(`<
+//  [- - - - -3 0 -3 -]
+//  [- - - - -2 -1 -2 -]
+//  [- - - - -1 2 -1 -]
+//  [1 0 1 2 1 0 1 2 ]
+// >`).trans(12).release(.5).gain(.6).clip(.6)
 
 
 var _sit5 = sitPass(`<
@@ -219,12 +219,12 @@ $: arrange(
     _vib4.gain(.6),
     _dum4,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,    _drumFill1,
     _chords4.gain(.8).trans(12),
     _vib4.gain(.5),
     _dum4,
-    _sit4, _sit4x,
+    _sit4, //_sit4x,
   )],
 
   [M*8, stack(    

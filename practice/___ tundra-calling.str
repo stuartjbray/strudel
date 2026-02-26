@@ -26,7 +26,8 @@ var bassPass = (x)   => x.scale("c3:major").sound("piano").color("orange").trans
 var leadPass = (x)   => n(x).scale("<c4,c5>:major").sound("gm_dulcimer:3, gm_flute:3").color("yellow").gain(1.2).release(.4).pan(.6)
 var padPass = (x)   => x.scale("c3:major").sound("gm_pad_halo:5").color("green").release(.3).pan(.4)
 var tingPass = (x) => n(x).scale("c3:major").sound("steinway").color("blue").room(1).release(1.1).delay("0,.1").gain(.5).pan(.6)
-var stringPass = (x) => n(x).scale("<c3>:major").sound("gm_synth_brass_1").color("pink").gain(1.5).room(1.2).attack(.2).release(.7).pan(.4)
+var stringPass = (x) => n(x).scale("<c3>:major").sound("gm_synth_strings_2").color("pink").gain(1.5).room(1.2).attack(.2).release(.7).pan(.4)
+var harpPass = (x) => n(x).scale("c3:major").sound("gm_orchestral_harp").color("grey").ply(8).trans("<[12 0 - 12]>").attack(.01).release(1)
 
 var chords1 = "<Am _ F _ Am C Dm Fm>"
 var chords2 = "<D E F G>"
@@ -163,6 +164,12 @@ var _string4_4 = stringPass(`<
  [-2 -3][0 -][2 3][1 ]
 >`).arp(stringArp)
 
+var _harp1_1 = harpPass(`<0 2 0 -1>`)
+var _harp1_2 = harpPass(`<-2 -3 -2 0>`)
+var _harp2_1 = harpPass(`<-2 0 0 1>`)
+var _harp2_2 = harpPass(`<-2 0 2 1>`)
+
+
 var _string4_lastChord = stringPass(`<[[0,4] [0,2]]>`)
 
 var M = 1;
@@ -188,24 +195,28 @@ $: arrange(
     _lead1_1b,
     _pad1_1.trans(12),
     _string4_1,
+    _harp1_1,
   )],
   [M*8, stack(    
     _bass1_1.trans(12),
     _lead1_2b,
     _pad1_1.trans(12),
     _string4_2,
+    _harp1_2,
   )],
   [M*8, stack(    
     _bass2_1.trans(12),
     _lead2_1b,
     _pad2_1.trans(12),
     _string4_3,
+    _harp2_1,
   )],
   [M*8, stack(    
     _bass2_1.trans(12),
     _lead2_2b,
     _pad2_1.trans(12),
     _string4_4,
+    _harp2_2,
   )],
   [M*1, stack(
     _lead_lastChord,
