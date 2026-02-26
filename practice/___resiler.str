@@ -97,11 +97,11 @@ $: arrange(
     _chords1,    _bass1,    _lead1,    _tune1,
   )],
   [M*8, stack(    
-    _chords1,     _bass1,    _lead1, _tune1, _tune1a, // + blue warble
+    _chords1,     _bass1.trans(-12),    _lead1, _tune1, _tune1a, // + blue warble
   )],
   [M*8, stack( // + drums
     _drums1, 
-    _chords1,     _bass1,    _lead1, _tune1, _tune1a,
+    _chords1,     _bass1,    _lead1.lpf(500), _tune1, _tune1a,
   )],
   [M*8, stack( // bassline
     _drums1,
