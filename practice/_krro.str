@@ -1,0 +1,152 @@
+//@title krro
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(40)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "1 <- 1> - -")
+var d1x = s("bd*4")
+var d2 = stack(
+  sound("sd").struct( "- - - - 1 - - -"),
+  sound("sd").struct("<-@3 [[1 1 -] <- 1> - -]>")
+).room(2).gain(.6)
+var d2x = s("sd*3")
+var d3 = sound("oh").struct(  "- - - - - - <-@3 1> - ")
+var d4 = sound("casiorz1_ht").struct(  "1*3").gain(".3 1 .6")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1, d2, d3, d4))  // normal
+var _drums2 =      drumsPass(stack(  d1x, d2x, d3, d4,   ))           // x2
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("bytebeat").color("red")
+var bassPass = (x)   => n(x).scale("c3:major").sound("gm_lead_8_bass_lead").color("orange")
+var leadPass = (x)   => n(x).scale("c4:major").sound("square").color("yellow").attack(.2).sus(2)
+var glockPass = (x)   => n(x).scale("c3:major").sound("gm_synth_bass_2").color("green").release(.8).cubic(.5)
+var rumPass = (x)   => n(x).scale("c3:major").sound("piano").color("blue")
+var trillPass = (x)   => n(x).scale("c4:major").sound("steinway").color("purple")
+
+
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ [1 1 1] [1 - -]
+>`).lpf("<200 400 600 800 - ->*3")
+var _chords2 = chordsPass(`<
+ [4 3# <1 5>] -
+>`).struct("<[- 1 - 1 - 1]>")
+
+var _bass1 = bassPass(`<
+ 2 3# 4 6
+ 7 6 4 5
+>`).struct("1 1 - - 1 -")
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ 0 -1 -3 -1
+>`).struct("[[- 1][- 1][- 1]]")
+var _lead1x = leadPass(`<
+ 0 -1 -3 -1
+>`).struct("1 1 1").trans(-12)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var _glock1 = glockPass(`<
+ - [7 _ 4 1] 4 - 
+ - [5 _ 1 6] <1 4> - 
+>`)
+var _glock2 = glockPass(`<
+ - [5 _ 4 2] 6 - 
+ - [6# _ 6 5] 6# - 
+>`)
+var _rum1 = rumPass(`<
+ [4,6,8]
+ [1,3#,5]
+ [4,6,9]
+ [1,3#,8]
+>`).struct("1 - 1").trans("<12 12 0 0>")
+var _rum2 = rumPass(`<
+ [3,5,7]
+ [1,3,6]
+ [3,5,8]
+ [1,3,5]
+>`).struct("1 - 1") //.trans("<12 12 0 0>")
+
+var _trill1 = trillPass(`<
+ - - - [6 7 6 5 _ 6 ]
+ - - - [6 7 6 - - - ]
+>`)
+var _trill2 = trillPass(`<
+ - - - [4 5 6 7 - 8]
+ - - - [8 - 6 - 5 -]
+>`)
+var _trill3 = trillPass(`<
+ - - [ [-3,-1] [-1,1] 2] 1
+ - - [ [-2,0]  [-2,2] 1] -1
+>`)
+
+var M = 1;
+// M = 0;
+$: arrange(
+  [M*4, stack(    
+    _drums1,
+    _chords1,     _bass1.gain(.3),
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1,     _bass1.gain(.5),    _lead1.gain(.4),
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,    _bass1.gain(.7),    _lead1,
+    _lead1x.gain(.4),
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,    _bass1.gain(.9),    _lead1.gain(.6),
+    _lead1x.gain(.8),
+    _glock1,
+    _rum1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,    _bass1,    _lead1.gain(.2),
+    _lead1x,
+    _glock2,
+    _rum1,
+    _trill1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1.trans(12),
+    _glock2,
+    _rum2,
+    _trill2,
+  )],  
+  [1*8, stack(
+    _drums1,
+    _chords1,
+    _lead1.trans(0).fm("<1 6 8 12 8 6>*3").gain(.5),
+    _lead1x,
+    _glock2,
+    _rum1,
+    _trill3,
+  )],
+  [1*8, stack(
+    _drums2,
+    _chords2.trans(12),
+    _lead1x,
+    _rum1.trans(12),
+  )],
+
+
+  
+  ).punchcard()
+  

@@ -24,6 +24,7 @@ var bassPass = (x)   => n(x).scale(sc3).sound("wt_digital:<2 3>").color("orange"
 var bass2Pass = (x)   => n(x).scale(sc3).sound("wt_digital:<4 5>").color("yellow").fm("<4 3 2 1 >")
 var bass3Pass = (x)   => n(x).scale(sc3).sound("wt_digital:6").color("green")
 var leadPass = (x)   => n(x).scale(sc3).sound("piano").color("blue").trans(12)
+var sawPass = (x)   => n(x).scale(sc3).sound("saw").color("blue").trans(-12)
 
 // Apply pass functions to patterns
 // F C Am G
@@ -41,6 +42,7 @@ var chords2 = (`<
 >`)
 var _chords1 = chordsPass(chords1).arp("<[[0,2] - - [1,3]]>")
 var _chords2 = chordsPass(chords2).arp("<[[0,2] - - [1,3]]>")
+var _chords2x = chordsPass(chords2).arp("<[0 1 2 3]*2>")
 
 var _bass1 = bassPass(`<
  [0 0 3 0 4 0 3 0]
@@ -68,6 +70,20 @@ var _lead2 = leadPass(`<
 var _donk = bass2Pass(`<
  [7 6 7 _ - 6 5 3 _ 4 _]
 >`)
+
+var _saw1 = sawPass(`<
+ [0 1 [- 2] 3]/2
+>`)
+var _saw1x = sawPass(`<
+ - - [[4,6] [5,7]] -
+>`).struct("[1 -]*6")
+var _saw2 = sawPass(`<
+ [2 0 [- 3] 1]/2
+>`)
+var _saw2x = sawPass(`<
+ - - [[7,9] [6,8]] -
+>`).struct("[1 -]*6")
+
 
 var M = 1;
 M = 0;
@@ -97,18 +113,30 @@ $: arrange(
     _drums1,    _chords2,
     _lead2,
   )],
-  [1*1, stack(
+  [M*1, stack(
     _donk,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1.fast(2),    _chords2,
     _bass1a.slow(2),
     _bass1.trans(-12),
     _bass1b.slow(2).trans(24),
     _lead2,
   )],
+  [1*4, stack(
+    _drums1.fast(2),    _chords2x,
+    _saw1,
+    _saw1x.trans(24),
+    _lead2,
+  )],
+  [1*4, stack(
+    _drums1.fast(2),    _chords2x,
+    _saw2,
+    _saw2x.trans(24),
+    _lead2,
+  )],
 
 
   
-  )//.punchcard()
+  ).punchcard()
   
