@@ -7,18 +7,19 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "- - - - - - - -")
-var d2 = sound("rim").struct( "- - - - - - - -")
-var d3 = sound("hh").struct(  "- - - - - - - -")
-var d4 = sound("cr").struct(  "- - - - - - - -")
+var d1 = sound("bd").struct(  "1*4 - - <- [1 1 1 -]> - - - -").gain(.5)
+var d2 = sound("rim").struct( "- - - - 1 - <- 1> <- 1>")
+var d3 = sound("hh").struct(  "- 1 - 1*2 - 1 - 1*2")
+var d4 = sound("sd").struct(  "<[- - - - 1 - - -]!3 [- - - - 1 1 1*2 1]>").gain(".5@3 1")
 
-var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums_intro = drumsPass(stack( s("bd bd*2 bd*3 bd*4")  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c2:major").sound("gm_electric_guitar_jazz:2").color("red") 
+var chordsPass = (x) => n(x).scale("c2:major").sound("gm_electric_guitar_jazz:2").color("red").cubic(.2)
+var pipePass = (x)   => n(x).scale("c2:major").sound("gm_bandoneon").color("red").clip(.1).release(3)
 var bassPass = (x)   => n(x).scale("c2:major").sound("piano").color("orange")
 var leadPass = (x)   => n(x).scale("c5:major").sound("piano").color("yellow")
 
@@ -26,7 +27,10 @@ var leadPass = (x)   => n(x).scale("c5:major").sound("piano").color("yellow")
 var chords1 = `<
  [3,5,7] [5,7,9] [9,11,13] [4,6,8]
 >`
-var _chords1 = chordsPass(chords1.slow(2)).arp("<[0 1 _ 2 _ 1 _ 0]>")
+var _chords1 = stack(
+  pipePass(chords1.slow(2)),
+  chordsPass(chords1.slow(2)).arp("<[0 1 _ 2 _ 1 _ 0]>"),
+  )
 var _chords2 = chordsPass(`<
 -
 >`)
@@ -46,12 +50,11 @@ var _lead2 = leadPass(`<
 -
 >`)
 
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 1; // change to M=1 to unmute all stacks with an M.
-M = 0;
+var M = 1; 
+// M = 0;
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
-  [1*8, stack(    
+  [M*1, _drums_intro],
+  [M*8, stack(    
     _drums1,
     _chords1, 
     _lead1,
