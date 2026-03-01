@@ -56,14 +56,8 @@ $: arrange(
   [M*1, _drums_intro],
   [M*8, stack(    
     _drums1,
-    _chords1, 
-    _lead1,
     _bass1,
-  )],
-  [M*8, stack(
-    _drums1,
-    _chords2,
-    _bass2,
+    _chords1, 
   )],
   [M*8, stack(    
     _drums1,

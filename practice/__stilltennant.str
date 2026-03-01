@@ -46,8 +46,8 @@ var _chords2 = chordsPass(chords2).arp("<[[0,2] - - [1,3]]>")
 var _chords2x = chordsPass(chords2).arp("<[0 1 2 3]*2>")
 
 var _bass1 = bassPass(`<
- [0 0 3 0 4 0 3 0]
- [0 0 4 0 5 0 4 0]
+ [0 0 3 0 4 0 3 <0 ->]
+ [0 0 4 0 5 0 4 <0 ->]
 >`)
 var _bass1a = bass2Pass(`<
  [7 7 6 5 4 3 2 1]
@@ -96,31 +96,31 @@ var _clav2 = clavPass(`<
 var M = 1;
 // M = 0;
 $: arrange(
-  [M*4, stack(    
-    _drums1,    _bass1,
-  )],
-  [M*4, stack(
-    _drums1,    _chords2,    _bass1,    _bass1a,
-  )],
-  [M*4, stack(    
-    _drums1,    _bass1a,    _bass1b,
-  )],
-  [M*8, stack(
-    _drums1,    _chords2,
-    _bass1.slow(2).trans(-12),
-    _bass1a,    _lead1,
-  )],
-  [M*8, stack(
-    _drums1,    _chords2,
-    _bass1a.slow(2).trans(-12),
-    _bass1.trans(-12),
-    _bass1b.slow(4).trans(12),
-    _lead2,
-  )],
-  [M*8, stack(
-    _drums1,    _chords2,
-    _lead2,
-  )],
+  // [M*4, stack(    
+  //   _drums1,    _bass1,
+  // )],
+  // [M*4, stack(
+  //   _drums1,    _chords2,    _bass1,    _bass1a,
+  // )],
+  // [M*4, stack(    
+  //   _drums1,    _bass1a,    _bass1b,
+  // )],
+  // [M*8, stack(
+  //   _drums1,    _chords2,
+  //   _bass1.slow(2).trans(-12),
+  //   _bass1a,    _lead1,
+  // )],
+  // [M*8, stack(
+  //   _drums1,    _chords2,
+  //   _bass1a.slow(2).trans(-12),
+  //   _bass1.trans(-12),
+  //   _bass1b.slow(4).trans(12),
+  //   _lead2,
+  // )],
+  // [M*8, stack(
+  //   _drums1,    _chords2,
+  //   _lead2,
+  // )],
   [M*1, stack(
     _donk,
   )],
@@ -149,14 +149,14 @@ $: arrange(
     _donk.trans(2),
   )],
   [1*4, stack(
-    _drums1.fast(2),    _chords2.gain(.5),
+    _drums1.fast(1),    _chords2.gain(.5),
     _saw1,
     _saw1x.trans(24),
     _lead2,
     _clav1,
   ).trans(2)],
   [1*4, stack(
-    _drums1.fast(2),    _chords2.gain(.5),
+    _drums1.fast(1),    _chords2.gain(.5),
     _saw2,
     _saw2x.trans(24),
     _lead2,

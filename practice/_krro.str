@@ -59,12 +59,12 @@ var _lead2 = leadPass(`<
 >`)
 
 var _glock1 = glockPass(`<
- - [7 _ 4 1] 4 - 
- - [5 _ 1 6] <1 4> - 
+ - [7 [- 4] 1] 4 - 
+ - [5 [- 1] 6] <1 4> - 
 >`)
 var _glock2 = glockPass(`<
- - [5 _ 4 2] 6 - 
- - [6# _ 6 5] 6# - 
+ - [5 [- 4] 2] 6 - 
+ - [6# [- 6] 5] 4 - 
 >`)
 var _rum1 = rumPass(`<
  [4,6,8]
@@ -95,6 +95,7 @@ var _trill3 = trillPass(`<
 var M = 1;
 // M = 0;
 $: arrange(
+  [M*2, _drums1],
   [M*4, stack(    
     _drums1,
     _chords1,     _bass1.gain(.3),
@@ -108,10 +109,10 @@ $: arrange(
     _chords1,    _bass1.gain(.7),    _lead1,
     _lead1x.gain(.4),
   )],
-  [M*8, stack(
+  [M*8, stack( // introduce blue and green
     _drums1,
     _chords1,    _bass1.gain(.9),    _lead1.gain(.6),
-    _lead1x.gain(.8),
+    _lead1x.gain(.2),
     _glock1,
     _rum1,
   )],

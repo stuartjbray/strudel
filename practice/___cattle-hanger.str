@@ -179,39 +179,39 @@ var _bass4 = bassPass(`<
 var M = 1;
 // M = 0;
 $: arrange(
-  [M*2, stack(
-    _org1, _bass1
-  )],
-  [M*8, stack(    
-    _drums1,    _drumFill1,
-    _bass1,    _org1,    _dum1,   _git1,
-  )],
-  [M*8, stack(
-    _drums1,    _drumFill1,
-    _bass2,    _org2,    _dum2,    _git1,
-  )],
-  [M*8, stack(    
-    _drums1,    _drumFill1,
-    _chords1,     _bass1,    _lead1,    _org1,
-    _vib1,
-  )],
-  [M*8, stack(
-    stack(
-      _drums1,    _drumFill1,
-      _chords2,    _bass2,    _lead2,    _vib2,    _org1,
-    ).mask("<1@6 - ->"),
-    _vibDown
-  )],
-  [M*8, stack(    
-    _drums1,    _drumFill1,
-    stack( _chords1, _bass1, _org1, ).trans(12),
-    _dum1,    _git1,
-  )],
-  [M*8, stack(
-    _drums1,    _drumFill1,
-    stack( _chords2, _bass2, _org2, ).trans(12),    
-    _dum2,    _git1,
-  )],
+  // [M*2, stack(
+  //   _org1, _bass1
+  // )],
+  // [M*8, stack(    
+  //   _drums1,    _drumFill1,
+  //   _bass1,    _org1,    _dum1,   _git1,
+  // )],
+  // [M*8, stack(
+  //   _drums1,    _drumFill1,
+  //   _bass2,    _org2,    _dum2,    _git1,
+  // )],
+  // [M*8, stack(    
+  //   _drums1,    _drumFill1,
+  //   _chords1,     _bass1,    _lead1,    _org1,
+  //   _vib1,
+  // )],
+  // [M*8, stack(
+  //   stack(
+  //     _drums1,    _drumFill1,
+  //     _chords2,    _bass2,    _lead2,    _vib2,    _org1,
+  //   ).mask("<1@6 - ->"),
+  //   _vibDown
+  // )],
+  // [M*8, stack(    
+  //   _drums1,    _drumFill1,
+  //   stack( _chords1, _bass1, _org1, ).trans(12),
+  //   _dum1,    _git1,
+  // )],
+  // [M*8, stack(
+  //   _drums1,    _drumFill1,
+  //   stack( _chords2, _bass2, _org2, ).trans(12),    
+  //   _dum2,    _git1,
+  // )],
 
   [M*8, stack(    // ------------------- Section 4 - Sitar
     d3,

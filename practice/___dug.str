@@ -23,6 +23,9 @@ var bassPass = (x)   => n(x).scale("c4:minor").sound("gm_synth_strings_1:2").col
 var bass2Pass = (x)   => n(x).scale("c2:minor").sound("gm_music_box").color("green").release(.5).room(1).ply(4).gain(.5)
 var leadPass = (x)   => n(x).scale("c3:minor").sound("bytebeat").color("yellow")
 var tonePass = (x)   => n(x).scale("c3:minor").sound("gm_lead_1_square").color("blue").gain(.4)
+var padPass = (x)   => n(x).scale("c3:minor").sound("gm_pad_warm").color("purple")
+
+
 
 // Apply pass functions to patterns
 var arp2 = "<[0 1 2 1]*2>"
@@ -33,6 +36,7 @@ var chords1 = (`<
  [2,3,6,9]
  [2,4,6,9]
 >`)
+// F Dm Fsus Dm
 var chords2 = (`<
  [0,3,5,7]
  [1,3,5,8]
@@ -76,6 +80,11 @@ var _tone1 = tonePass(`<
  [[6 9]!8]
 >`)
 
+var _pad1 = padPass(`<
+ - [[1 3 1 _] [- 0]]
+ - [[3 6 3 _] [- 2]]
+>`)
+
 var M = 1;
 // M = 0;
 $: arrange(
@@ -86,11 +95,11 @@ $: arrange(
   [M*8, stack(
     _drums1,    _chords1,     _lead1,    _dug1,    _tone1,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums1,    _chords1,     _bass1,    _lead1,    _dug1,
   )],
   [1*8, stack(
-    _drums1,   _chords2,
+    _drums1,   _chords2, _pad1,
   )],
   ).punchcard()
   

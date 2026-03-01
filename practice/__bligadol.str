@@ -33,7 +33,7 @@ var bassPass = (x) => n(x).scale("c3:major").sound("piano").color("orange")
 var leadPass = (x) => n(x).sound("steinway").scale("c3:major").color("yellow")
 var guitPass = (x) => n(x).scale("c3:major").sound('gm_electric_guitar_jazz').color("green").gain(2)
 var danPass = (x) => n(x).scale("<c2,c3,c4>:major").sound('dantranh_vibrato').color("blue").room(2)
-var aahPass = (x) => n(x).scale("c3:major").sound("gm_choir_aahs:4, gm_synth_strings_2").color("purple").release(.9)
+var aahPass = (x) => n(x).scale("c3:major").sound("gm_choir_aahs:4, gm_synth_strings_2").color("purple").release(.9).gain(.5)
 
 var echoUpPass = (x) => stack(  
   x, 
@@ -95,8 +95,8 @@ var _tune2 = danPass(`<
  [4 3 2 1 2 - - -]
 >`)
 
-var _aah1 = aahPass(`< 2 1 0 2 >`)
-var _aah2 = aahPass(`< 1 2 0 _ >`)
+var _aah1 = aahPass(`< 2 1 0 2 >`).clip(.5)
+var _aah2 = aahPass(`< 1 2 0 _ >`).clip(.5)
 
 /* ------------------- Part 7*/
 var _lead7 = leadPass(`<
@@ -147,14 +147,14 @@ $: arrange(
   //   _drums1,
   //   _chords2,    _bass2,    _lead2,    _guit2,
   // )],
-  [M*4, stack(    
-    _drums1,
-    _chords1,     _bass1,    _guit1,      _lead3,
-  )],
-  [M*4, stack(
-    _drums1,
-    _chords2,    _bass2,    _guit2,       _lead4,
-  )],
+  // [M*4, stack(    
+  //   _drums1,
+  //   _chords1,     _bass1,    _guit1,      _lead3,
+  // )],
+  // [M*4, stack(
+  //   _drums1,
+  //   _chords2,    _bass2,    _guit2,       _lead4,
+  // )],
   [M*4, stack(    
     _drums2, d7,
     _chords1,     _bass1,    _guit1,      _lead3,    _lead3x,
