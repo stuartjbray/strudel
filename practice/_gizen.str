@@ -21,7 +21,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 var chordsPass = (x) => n(x).scale("c2:major").sound("gm_electric_guitar_jazz:2").color("red").cubic(.2)
 var pipePass = (x)   => n(x).scale("c2:major").sound("gm_bandoneon").color("red").clip(.1).release(3)
 var bassPass = (x)   => n(x).scale("c2:major").sound("piano").color("orange")
-var leadPass = (x)   => n(x).scale("c5:major").sound("piano").color("yellow")
+var leadPass = (x)   => n(x).scale("c5:major").sound("piano").color("yellow").gain(1.3)
 
 // Fm Am C G
 var chords1 = `<

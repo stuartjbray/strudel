@@ -6,6 +6,7 @@ setcpm(35)
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white").bank("<krz linn9000 rm50>")
+ //.compressor("-20:00:10:.01:.01")
 
 var d1 = sound("bd").struct(  "<[1 - - 1 - - - -]>")
 var d2 = sound("rim").struct( "<[- 1 - - - - - -]>")
@@ -15,7 +16,6 @@ var d4 = sound("sd").struct(  "<[- - - - 1 - - -]>")
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
-
 
 // Define pass functions for each instrument
 var sc3 = "c3:pentatonic"
@@ -96,31 +96,31 @@ var _clav2 = clavPass(`<
 var M = 1;
 // M = 0;
 $: arrange(
-  // [M*4, stack(    
-  //   _drums1,    _bass1,
-  // )],
-  // [M*4, stack(
-  //   _drums1,    _chords2,    _bass1,    _bass1a,
-  // )],
-  // [M*4, stack(    
-  //   _drums1,    _bass1a,    _bass1b,
-  // )],
-  // [M*8, stack(
-  //   _drums1,    _chords2,
-  //   _bass1.slow(2).trans(-12),
-  //   _bass1a,    _lead1,
-  // )],
-  // [M*8, stack(
-  //   _drums1,    _chords2,
-  //   _bass1a.slow(2).trans(-12),
-  //   _bass1.trans(-12),
-  //   _bass1b.slow(4).trans(12),
-  //   _lead2,
-  // )],
-  // [M*8, stack(
-  //   _drums1,    _chords2,
-  //   _lead2,
-  // )],
+  [M*4, stack(    
+    _drums1,    _bass1,
+  )],
+  [M*4, stack(
+    _drums1,    _chords2,    _bass1,    _bass1a,
+  )],
+  [M*4, stack(    
+    _drums1,    _bass1a,    _bass1b,
+  )],
+  [M*8, stack(
+    _drums1,    _chords2,
+    _bass1.slow(2).trans(-12),
+    _bass1a,    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,    _chords2,
+    _bass1a.slow(2).trans(-12),
+    _bass1.trans(-12),
+    _bass1b.slow(4).trans(12),
+    _lead2,
+  )],
+  [M*8, stack(
+    _drums1,    _chords2,
+    _lead2,
+  )],
   [M*1, stack(
     _donk,
   )],
@@ -145,25 +145,26 @@ $: arrange(
     _lead2,
     _clav2,
   )],
-  [1*1, stack(
+  [M*1, stack(
     _donk.trans(2),
   )],
   [1*4, stack(
-    _drums1.fast(1),    _chords2.gain(.5),
+    _drums1.lpf(300),    
+    _chords2.gain(.5),
     _saw1,
     _saw1x.trans(24),
     _lead2,
-    _clav1,
+    _clav1.trans(-12),
   ).trans(2)],
   [1*4, stack(
-    _drums1.fast(1),    _chords2.gain(.5),
+    _drums1.lpf("<500 800 1200 1800>"),    
+    _chords2.gain(.5),
     _saw2,
     _saw2x.trans(24),
     _lead2,
-    _clav2,
+    _clav2.trans(-12),
   ).trans(2)],
-
-  
-  
+ 
+  [4,silence]
   ).punchcard()
   
