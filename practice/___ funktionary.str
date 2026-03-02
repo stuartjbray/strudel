@@ -28,7 +28,7 @@ var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
 var wooPass = (x)   => stack(
   n(x).scale("c4:major").sound("gm_synth_strings_2").color("yellow").release(2).gain(.8),
   n(x).scale("c4:major").sound("gm_lead_2_sawtooth").color("yellow").adsr(0,.1,0,0).gain(.3).vib(32),
-  )
+  ).late(-.001)
 var hornPass = (x)   => n(x).scale("c4:major").sound("gm_french_horn").color("yellow").release(1).cubic(.5)
 var orgPass = (x)   => n(x).scale("c5:major").sound("sine, saw").color("green").release(1).gain(.2)
 var didlPass = (x)   => n(x).scale("c4:major").sound("saw").color("purple")
@@ -85,10 +85,10 @@ var _woo1 = wooPass(`<
  <[1 0 1@2 -@4] [1 2 3 -]>
 >`)
 var _woo2 = wooPass(`<
- [0 1 2 3] [0 -]
- [4 3 2 1] [3 -]
- [0 1 2 3] [4 -]
- [7 4 2 7] [6 -]
+ [[- 0] 1 2 3] [0 -]
+ [[- 4] 3 2 1] [3 -]
+ [[- 0] 1 2 3] [4 -]
+ [[- 7] 4 2 7] [6 -]
 >`)
 
 var _horn1 = hornPass(`<
@@ -116,7 +116,7 @@ var _gob1 = gobPass(`<- - - [5 4 3 2] [1 -] -@3>`)
 var _gob2 = gobPass(`<- - - [1 2 3 4] [1 -] -@3>`)
 
 var M = 1;
-// M = 0;
+M = 0;
 $: arrange(
   [M*1, _drums_intro],
   [M*4, stack(    
@@ -125,14 +125,14 @@ $: arrange(
   [M*4, stack(
     _drums1, dAccent,   _chords2,    _bass2,
   )],
-  [M*8, stack(    
+  [1*8, stack(    
     _drums1, dAccent,    _chords1,     _bass1,    _woo1,
   )],
-  [M*8, stack(
-    _drums1, dAccent,    _chords2,    _bass2,    _woo2,
+  [1*8, stack(
+    _drums1, dAccent,    _chords2,    _bass2,    _woo2, //.mask("<[1@31 -]>"),
   )],
   
-  [M*1, _drums_intro],
+  [1*1, _drums_intro],
   [M*8, stack(    
     _drums1,    _chords1,     _bass1, _horn1, _org1,
   )],
