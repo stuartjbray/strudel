@@ -23,7 +23,7 @@ var bassPass = (x)   => n(x).scale("c4:minor").sound("gm_synth_strings_1:2").col
 var bass2Pass = (x)   => n(x).scale("c2:minor").sound("gm_music_box").color("green").release(.5).room(1).ply(4).gain(.5)
 var leadPass = (x)   => n(x).scale("c3:minor").sound("bytebeat").color("yellow")
 var tonePass = (x)   => n(x).scale("c3:minor").sound("gm_lead_1_square").color("blue").gain(.4)
-var padPass = (x)   => n(x).scale("c3:minor").sound("gm_pad_warm").color("purple")
+var padPass = (x)   => n(x).scale("c3:minor").sound(" gm_slap_bass_2").color("purple").cubic(.5)
 
 
 
@@ -81,12 +81,13 @@ var _tone1 = tonePass(`<
 >`)
 
 var _pad1 = padPass(`<
- - [[1 3 1 _] [- 0]]
- - [[3 6 3 _] [- 2]]
+ - [0 1 1# 3] [4] [3 1# 1 _ _ _ _ _]
+ - [1# 3 4 7] [6#] [5 4]
+ 
 >`)
 
 var M = 1;
-// M = 0;
+M = 0;
 $: arrange(
   [M*4, stack(    
     _chords0,
