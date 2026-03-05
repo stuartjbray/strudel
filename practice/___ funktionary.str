@@ -8,7 +8,7 @@ const drumsPass = (x) => x.color("white").bank("mc303")
  // .compressor("-20:20:10:.002:.02")
 
 var d1 = sound("bd").struct(  "1 - - - - 1*2 - -")
-var d2 = sound("rim").struct( "- - - - - - - <- 1>")
+var d2 = sound("rim").struct( "- - - - - - - <- 1>").late(-.005)
 var d3 = sound("hh").struct(  "- - - - - - - -")
 var d4 = sound("sd").struct(  "- - 1 - - - 1 -")
 var d5 = sound("cp").struct(  "- - - - - 1 <- 1> -")
@@ -23,7 +23,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c4:major").sound("gm_electric_guitar_muted:4").color("red").release(.5)
-var bassPass = (x)   => n(x).scale("c2:major").sound("gm_slap_bass_1:3").color("orange").cubic(.8)
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_slap_bass_1:3").color("orange").cubic(1)
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
 var wooPass = (x)   => stack(
   n(x).scale("c4:major").sound("gm_synth_strings_2").color("yellow").release(2).gain(.8),
@@ -104,7 +104,7 @@ var _org1 = orgPass(`<
  [- - 0 1 2 - 3 -] [4 - - -] - -
  [- - 2 1 0 - 3 -] [2 - - -] - -
 >`)
-
+var _org_trill = didlPass(`<- [-@4 0 1 2 1] - [-@4 2 1 0 1]>`)
 var _didl1 = didlPass(`<
  - [7 6 7 6 7 6 - - -@8] - -
 >`)
@@ -116,7 +116,8 @@ var _gob1 = gobPass(`<- - - [5 4 3 2] [1 -] -@3>`)
 var _gob2 = gobPass(`<- - - [1 2 3 4] [1 -] -@3>`)
 
 var M = 1;
-M = 0;
+// M = 0;
+
 $: arrange(
   [M*1, _drums_intro],
   [M*4, stack(    
@@ -126,7 +127,7 @@ $: arrange(
     _drums1, dAccent,   _chords2,    _bass2,
   )],
   [1*8, stack(    
-    _drums1, dAccent,    _chords1,     _bass1,    _woo1,
+    _drums1, dAccent,    _chords1,     _bass1,    _woo1, _org_trill,
   )],
   [1*8, stack(
     _drums1, dAccent,    _chords2,    _bass2,    _woo2, //.mask("<[1@31 -]>"),
