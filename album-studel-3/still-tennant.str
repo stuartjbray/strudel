@@ -1,4 +1,4 @@
-//@title Stilltennant
+//@title still-tennant
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -41,6 +41,13 @@ var chords2 = (`<
  [-2,0,2,5]
  [-3,-1,1,4]
 >`)
+var chords3 = (`<
+ [4,6,8,10]
+ [3,5,7,9]
+ [2,4,6,8]
+ [1,3,5,7]
+>`)
+  
 var _chords1 = chordsPass(chords1).arp("<[[0,2] - - [1,3]]>")
 var _chords2 = chordsPass(chords2).arp("<[[0,2] - - [1,3]]>")
 var _chords2x = chordsPass(chords2).arp("<[0 1 2 3]*2>")
@@ -67,23 +74,34 @@ var _lead1 = leadPass(`<
 var _lead2 = leadPass(`<
  [0 1 2 3]
 >`)
+var _lead3 = leadPass(chords3).arp(`<[0 [0,1][2,3] 3]>`)
+var _lead3x = leadPass(chords3).arp(`<[3 2 1 0 3 2 1 0]>`)
 
+var _donk_start = bass2Pass(`<
+ [3 - 3 5 3 5 6# _ _] [6# 6]*8
+>`).color("cyan")
 var _donk = bass2Pass(`<
  [7 6 7 _ - 6 5 3 _ 4 _]
->`)
+>`).color("cyan")
+var _donk2 = bass2Pass(`<
+ [7 6# 6 5 [4# 4]*2!4]
+>`).color("cyan")
+var _donk3 = bass2Pass(`<
+ [5 5 - 5 - 3 5 -][7 _ _ - 0 _ _ -]
+>`).color("cyan")
 
 var _saw1 = sawPass(`<
  [0 1 [- 2] 3]/2
 >`)
 var _saw1x = sawPass(`<
  - - [[4,6] [5,7]] -
->`).struct("[1 -]*6")
+>`).struct("[1 -]*6").gain("<[1 .6 .2 0]*2>")
 var _saw2 = sawPass(`<
  [2 0 [- 3] 1]/2
 >`)
 var _saw2x = sawPass(`<
  - - [[7,9] [6,8]] -
->`).struct("[1 -]*6")
+>`).struct("[1 -]*6").gain("<[1 .6 .2 0]*2>")
 
 var _clav1 = clavPass(`<
  [- 2] [1 0 2 -]
@@ -96,6 +114,7 @@ var _clav2 = clavPass(`<
 var M = 1;
 // M = 0;
 $: arrange(
+  [M*2, _donk_start],
   [M*4, stack(    
     _drums1,    _bass1,
   )],
@@ -125,7 +144,7 @@ $: arrange(
     _donk,
   )],
   [M*8, stack(
-    _drums1.fast(2),    _chords2,
+    _drums1.fast(2),    _chords2.gain(.6),
     _bass1a.slow(2),
     _bass1.trans(-12),
     _bass1b.slow(2).trans(24),
@@ -148,7 +167,7 @@ $: arrange(
   [M*1, stack(
     _donk.trans(2),
   )],
-  [1*4, stack(
+  [M*4, stack( // Mellower
     _drums1.lpf(300),    
     _chords2.gain(.5),
     _saw1,
@@ -156,14 +175,49 @@ $: arrange(
     _lead2,
     _clav1.trans(-12),
   ).trans(2)],
-  [1*4, stack(
-    _drums1.lpf("<500 800 1200 1800>"),    
+  [M*4, stack(
+    _drums1.lpf("<500 800 1200 1800>"),    // unmuffle drums.
     _chords2.gain(.5),
     _saw2,
     _saw2x.trans(24),
     _lead2,
     _clav2.trans(-12),
   ).trans(2)],
+  [M*8, stack(
+    _drums1,    
+    _chords1.gain(.5),
+    _saw1.gain(1),
+    _lead3,
+    _lead3x,
+    _clav1.trans(-12),    
+  ).trans(2)],
+  [1*8, stack(
+    _drums1,    
+    _chords1.gain(1),
+    _saw1.gain(1),
+    _lead3.trans(-12),
+    _lead3x.trans(-12),
+    _clav2.trans(0),    
+  ).trans(2)],
+  [1*2, stack(
+    _donk3
+  )],
+  [1*4, stack(
+    _drums2,    _bass1,    _bass1a,
+    _bass1b.slow(4).trans("0,12"),
+    _saw2,
+    _saw2x.trans(24),
+  )],
+  [1*4, stack(    
+    _drums2,    _bass1a,    _bass1b,
+    _bass1b.slow(4).trans("0,12,24"),
+    _saw2,
+    _saw2x.trans(24),
+  )],
+  [M*1, stack(
+    _donk2
+  )],
+  
  
   [4,silence]
   ).punchcard()

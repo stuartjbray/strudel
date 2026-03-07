@@ -123,7 +123,7 @@ $: arrange(
     _glock1,
     _rum1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _chords1,    _bass1,    _lead1.gain(.2),
     _lead1x,
@@ -139,7 +139,7 @@ $: arrange(
     _trill2,
   )],  
   [1*8, stack(
-    _drums1,
+    _drums2,
     _chords1,
     _lead1.trans(0).fm("<1 6 8 12 8 6>*3").gain(.5),
     _lead1x,
@@ -147,7 +147,7 @@ $: arrange(
     _rum1,
     _trill3,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums2,
     _chords2.trans(12),
     _lead1x,

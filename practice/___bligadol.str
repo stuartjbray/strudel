@@ -33,7 +33,7 @@ var bassPass = (x) => n(x).scale("c3:major").sound("piano").color("orange")
 var leadPass = (x) => n(x).sound("steinway").scale("c3:major").color("yellow")
 var guitPass = (x) => n(x).scale("c3:major").sound('gm_electric_guitar_jazz').color("green").gain(2)
 var danPass = (x) => n(x).scale("<c2,c3,c4>:major").sound('dantranh_vibrato').color("blue").room(2)
-var aahPass = (x) => n(x).scale("c3:major").sound("gm_choir_aahs:4, gm_synth_strings_2").color("purple").release(.9).gain(.5)
+var aahPass = (x) => n(x).scale("c3:major").sound("gm_choir_aahs:4, gm_synth_strings_2").color("purple").attack(1).release(.9).gain(1)
 
 var echoUpPass = (x) => stack(  
   x, 
@@ -131,30 +131,30 @@ var _chords10 = chordsPass(`<
 var M = 1;
 // M = 0;
 $: arrange(
-  // [M*4, stack(    
-  //   _drums_intro,
-  //   _chords1,     _bass1,
-  // )],
-  // [M*4, stack(
-  //   _drums1,
-  //   _chords2,    _bass2,
-  // )],
-  // [M*4, stack(    
-  //   _drums1,
-  //   _chords1,     _bass1,    _lead1,    _guit1,
-  // )],
-  // [M*4, stack(
-  //   _drums1,
-  //   _chords2,    _bass2,    _lead2,    _guit2,
-  // )],
-  // [M*4, stack(    
-  //   _drums1,
-  //   _chords1,     _bass1,    _guit1,      _lead3,
-  // )],
-  // [M*4, stack(
-  //   _drums1,
-  //   _chords2,    _bass2,    _guit2,       _lead4,
-  // )],
+  [M*4, stack(    
+    _drums_intro,
+    _chords1,     _bass1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,    _bass2,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1,     _bass1,    _lead1,    _guit1,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,    _bass2,    _lead2,    _guit2,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1,     _bass1,    _guit1,      _lead3,
+  )],
+  [M*4, stack(
+    _drums1,
+    _chords2,    _bass2,    _guit2,       _lead4,
+  )],
   [M*4, stack(    
     _drums2, d7,
     _chords1,     _bass1,    _guit1,      _lead3,    _lead3x,
@@ -188,15 +188,15 @@ $: arrange(
     _chords8,
   )],
   [1*4, stack(    
-    // _drums2, d7,
+    _drums2,     d7,
     _chords1,     _bass1,    _guit1,
-    stack(_lead3, _lead3x).trans(-12).gain(.3),    
+    stack(_lead3, _lead3x,).gain(.3),
     _aah1, _chords9,
   )],
   [1*4, stack(
-    // _drums2, d7,
+    _drums2, d7,
     _chords2,    _bass2,    _guit2,       
-    stack(_lead4x, _lead4).trans(-12).gain(.3),    
+    stack(_lead4x, _lead4).gain(.3),
     _aah2, _chords10,
   )],  
 

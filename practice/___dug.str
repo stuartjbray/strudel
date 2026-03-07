@@ -19,8 +19,8 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:minor").sound("gm_shamisen").color("red").release(.5).gain(1.2)
-var bassPass = (x)   => n(x).scale("c4:minor").sound("gm_synth_strings_1:2").color("orange").release(.5)
-var bass2Pass = (x)   => n(x).scale("c2:minor").sound("gm_music_box").color("green").release(.5).room(1).ply(4).gain(.5)
+var bassPass = (x)   => n(x).scale("c4:minor").sound("gm_synth_strings_1:1, gm_sitar:2").color("orange").release(.5)
+var bass2Pass = (x)   => n(x).scale("c2:minor").sound("gm_music_box").color("green").release(.5).room(1).ply(4).gain(1.2)
 var leadPass = (x)   => n(x).scale("c3:minor").sound("bytebeat").color("yellow")
 var tonePass = (x)   => n(x).scale("c3:minor").sound("gm_lead_1_square").color("blue").gain(.4)
 var padPass = (x)   => n(x).scale("c3:minor").sound(" gm_slap_bass_2").color("purple").cubic(.5)
@@ -51,10 +51,14 @@ var _chords1 = chordsPass(chords1).arp(arp2).trans("<[0 12]>")
 var _chords2 = chordsPass(chords2).arp(arp2).trans("<[0 12]>")
 
 var _bass1 = bassPass(`<
- [0 - 7 - - - 7 7]
- [6 - 6 - - - 6 7]
+ [9 - 7 - - - 7 4]
+ [6 - 7 - - - 6 7]
  [5 - 5 - - 4 - 4 ]
  [3 2 3 4 3 2 1 0]
+ [10 - 9 _ - - 7 4]
+ [11 - 10 _ - - 6 7]
+ [12 - 11 _ - 9 - 10 ]
+ [5 4 5 6 5 4 3 2]
 >`)
 var _bass2 = bassPass(`<
 -
@@ -87,7 +91,7 @@ var _pad1 = padPass(`<
 >`)
 
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
   [M*4, stack(    
     _chords0,
@@ -102,5 +106,7 @@ $: arrange(
   [1*8, stack(
     _drums1,   _chords2, _pad1,
   )],
-  ).punchcard()
+
+  [4,silence],
+).punchcard()
   

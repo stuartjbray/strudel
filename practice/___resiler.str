@@ -28,7 +28,7 @@ var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_slap_bass_2:4").color(
 var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_electric_bass_pick").color("yellow").release(1)
 var tunePass = (x)   => n(x).scale("c4:dorian").sound("gm_soprano_sax").color("green").release(.7)
 var tune2Pass = (x)  => n(x).scale("c4:dorian").sound("gm_flute").color("blue").release(.7).vib(8).gain(.5)
-var dugPass = (x)    => n(x).scale("c3:dorian").sound("gm_electric_guitar_clean:2").color("purple").delay("0,.1").gain(.7).release(1.2).crush(4.5)
+var dugPass = (x)    => n(x).scale("c3:dorian").sound("gm_electric_guitar_clean:2").color("purple").delay("0,.1").gain(.7).release(1.2).crush(4.9)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -67,6 +67,10 @@ var _tune1a = tune2Pass(`<
  [7] [8 _ _ 7 _ _  - - ] [- - 9 _] [10 _ 3 4]
  [11 _ _ 10] [9 -] [- 8 7 _] [- 9 5 _]
 >`)
+var _tune1b = tune2Pass(`<
+ [7] [6 _ _ 7 _ _  - - ] [- - 9 8] [10 _ 12 -]
+ [11 _ _ 7] [9 -] [- 6 7 _] [- 9 10 _]
+>`)
 
 var _dug1 = dugPass(`<
  [0 [1 0] 2 _] -
@@ -83,9 +87,22 @@ var _chords4 = chordsPass(`<
  [3 3 4 3 5 4 3 2]
 >`)
 var _tune4 = tune2Pass(`<
- [7@3 9] [6 -] 5 4
- [7@3 6] [9 -] 8 9
+ [- 7 - 8] [6 -] [5 6] [4 -]
+ [- 6 - 7] [9 -] [8 9] [7 -]
 >`)
+var _tune5 = tune2Pass(`<
+ - [-2 -1 0 1] 
+ - [-1 -2 -3 -1] 
+>`).trans(12)
+var _dug4 = dugPass(`<
+ - [-2 1 2 3] 
+ - [-2 1 2 0] 
+>`)
+var _dug5 = dugPass(`<
+ - [-2 -3 -4 -2] 
+ - [-1 -2 -3 -1] 
+>`)
+
 
 var M = 1; 
 // M = 0; 
@@ -127,17 +144,21 @@ $: arrange(
   [M*8, stack(
     _drums2,
     _chords1,     _bass1,    _lead1,
-    _tune1, _tune1a,
+    _tune1, _tune1b,
     _dug1,
   ).trans(2)],
 
-  [M*8, stack( // ?? Needs work...
+  [M*8, stack( 
     _drums2,
-    _chords4,
+    _chords4.gain(1.2),
     _tune4,
+    _dug4.gain(.4),
   )],
   [M*2, stack(
     _drums2,
+    _chords4.gain(1.2),
+    _tune5,
+    _dug5.gain(.4),
   )],
 
 
