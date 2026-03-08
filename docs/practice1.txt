@@ -140,3 +140,18 @@ $: _ch.fast(.8);
  
  // To make louder without using gain.
  cubic crush diode
+
+
+
+ // Same drum beat 5 ways
+_$: sound("bd - sd - - bd sd -")
+_$: sound("[bd sd] [- bd sd -]")
+_$: sound("bd sd [- bd] sd")
+_$: stack(
+  sound("bd").struct("1 - - - - 1 - -"),
+  sound("sd").struct("- - 1 - - - 1 -"),
+)
+_$: stack(
+  sound("bd").beat("1,6",8),
+  sound("sd").beat("3,7",8)
+)

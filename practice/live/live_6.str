@@ -1,0 +1,27 @@
+
+setCpm(30)
+
+
+$: stack(
+  sound("bd").struct("1 - - - 1 1 - <- 1> "),
+  sound("hh*16").gain("<[.2 .7 .1 .5]>"),
+  sound("sd").struct("- - 1 - [- 1] - 1 -"),
+  sound("oh").struct("- - - - - - <- - - 1>").gain(.7),
+).bank("<korgm1>").color("red")
+
+
+var tune1 = "0 1 - 1 - 0 4 -"
+var tune2 = "- 0 4 - - 0 4 -"
+var tune3 = "0 1 - 2 - 3 - 1"
+var tune4 = "0 1 4 - 1 0 4 -"
+var tuneA = randcat(tune1,tune2,tune3,tune4)
+
+$: stack(
+  n(tuneA).sound("saw").scale("c3:major"),
+  n(tuneA).sound("saw").scale("c2:major").release(1.2).mask("<- 1>*4"),
+  n(tune1).sound("z_sine").scale("<c4 c5>:major"),
+  
+).color("green")
+
+
+all(x => x.punchcard())

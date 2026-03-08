@@ -1,0 +1,8 @@
+
+How to do live.
+
+Don't use arrange. Don't put everything in variables.
+Use several $: entry points.
+all => all.punchcard()
+
+randcat to pick random vars.
