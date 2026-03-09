@@ -92,6 +92,12 @@ var _tune2 = tunePass(`<
 var M = 1;
 // M = 0;
 $: arrange(
+  [M*4, stack(    
+    _drums1,
+    _bass1,
+    _bass1x,
+    _lead1,
+  )],
   [M*8, stack(    
     _drums1,
     _bass1,
@@ -105,17 +111,16 @@ $: arrange(
     _chords1.trans(-12), 
     _bass1,
     _bass1x,
-    _lead1,
     _synth1,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums1,
     _chords1, 
     _bass1,
     _bass1x,
     _tune1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _chords1, 
     _bass1,
