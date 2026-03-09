@@ -28,7 +28,7 @@ var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_slap_bass_2:4").color(
 var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_electric_bass_pick").color("yellow").release(1)
 var tunePass = (x)   => n(x).scale("c4:dorian").sound("gm_soprano_sax").color("green").release(.7)
 var tune2Pass = (x)  => n(x).scale("c4:dorian").sound("gm_flute").color("blue").release(.7).vib(8).gain(.5)
-var dugPass = (x)    => n(x).scale("c3:dorian").sound("gm_electric_guitar_clean:2").color("purple").delay("0,.1").gain(.7).release(1.2).crush(4.9)
+var dugPass = (x)    => n(x).scale("c3:dorian").sound("gm_electric_guitar_clean:3").color("purple").delay("0,.1").gain(.7).release(1.2).crush(5.6)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<

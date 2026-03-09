@@ -121,14 +121,14 @@ $: arrange(
     _bass1.trans(12), 
     _lead4.gain(.7).trans(12),
     _chordsPre1,
-    _chords6.gain(1).lpf(500),
+    _chords6.gain(.3).lpf(500),
   )],
   [M*4, stack(    
     _chords5,
     _bass1, 
     _lead5,
     // _chordsPre1,
-    _chords6.gain(.7),
+    _chords6.gain(.5),
   )],
 
   
