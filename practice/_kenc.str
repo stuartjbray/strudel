@@ -1,4 +1,4 @@
-//@title Template
+//@title kenc
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -65,7 +65,10 @@ var _lead2 = leadPass(`<
 var M = 1;
 // M = 0;
 $: arrange(
-  [1*8, stack(    
+  [1*4, stack(    
+    _drums1,    _lead1,
+  )],
+  [M*8, stack(    
     _drums1,
     _chords1,     _bass1,    _lead1,
     _chan1,
