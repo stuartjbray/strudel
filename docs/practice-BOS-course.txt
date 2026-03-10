@@ -1,0 +1,27 @@
+// $: n(`<
+//  [0 0 1 - 2 0 - -1] [1 1 - 2 0 - -1 0]
+//  [0 0 1 - 2 - 2 -1] [- 2 0 - -1 0 2 -]
+//  >`).scale("c2:major").s("sawtooth").crush(4).release(.2).clip(".5 | .1").fast(2)
+
+// $: n(`<
+//  [0 0 1 - 2 0 - -1] 
+// >`).scale("c3:major").s("triangle")
+
+// $: note("c3").s("square").struct("1 0 1 1 0 1 0 1").vowel("a|e|i|o").trans(rand*16)
+
+// $:s("<brown>").cubic(2).ply(16).struct("1 - 1 1 - - 1 - ").release(.3).clip(.1)
+
+// $: s("crackle*4").density("<0.01 0.04 0.2 0.5>".slow(2))._scope().cubic(2)
+
+
+// Low FM = subtle warmth
+// $: note(run(8)).scale("c3:major").fm("1 2 4 8").fmh("<1 2 4 8>")
+// $: note("0 2 4 2 0 3 5 3").scale("c3:major").fm("1 .5 .2 .1").fmh("<3 4>").release(.9).attack(.9).slow(1)
+
+// Medium FM = organ-like harmonics
+_$: note("c3").fm(3)._scope()
+
+// High FM = metallic, bell-like
+$: note("c3 d f g - c f -").fm(1).fmh(2).scope().attack(.5).release(1).room(3)
+
+//   https://github.com/vakofmaya/BreathOfStrudle/blob/main/modules/Module_03_Synths_Oscillators.md
