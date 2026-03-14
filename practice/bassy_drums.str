@@ -1,0 +1,128 @@
+//@title BassyDrums
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+setcpm(25)
+// -------------- Drums
+var d_hats = s("white*16").decay(.03).sustain(0).gain(".4 1 .4 _")
+var d_snare = s("~ brown ~ <brown [pink pink - brown]>").decay(.1).sustain(0).gain(4.5)
+var d_kick = note("c1!4").s("sine") // Kick
+  .penv(24).pdecay(.06)
+  .decay(.4).sustain("0@3 .5")
+  .gain(.6)//.late(1/8)
+
+const drumsPass = (x) => x.color("white");
+var d1 = s("sine")
+  .fm(3).fmh(1).attack(0).decay(1).sustain(.1).gain(.4)
+  .struct(  "1*2")
+
+var d_bass1 = note("<c1!3 c2*4>").s("sine")
+  .fm(1).fmh(1).fmdecay(0.05).fmsustain(0)
+  .decay(0).sustain(0.5)
+  .cubic(1)
+var d_bass2 = note("c1!4").s("sine").penv(24).pdecay(.06).decay(.4).sustain(0)
+
+var d_rim = sound("rim").struct( "1 1*2 - 1 - <1*2 -> - 1").room("[0 2 1]")
+var d_rim2 = d_rim.vowel("e o u i")
+var d_oh = sound("oh").struct(  "- - - - - - - 1")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+
+var _drums_intro = drumsPass(stack( d_rim,  d_kick, d_snare  ))
+var _drums1 =      drumsPass(stack( d_oh, d_rim,  d_bass1, d_bass2,  d_hats, d_kick, d_snare))  
+var _drums2 =      drumsPass(stack( d_rim, d_bass1, d_bass2  ))
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c4:major").sound("supersaw ").color("red").room(2).fm(4)
+var bassPass = (x)   => n(x).scale("c3:major").sound("gm_electric_guitar_muted").color("orange").gain(.5)
+var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
+var dugPass = (x) => n(x).fm(sine.range(1,10).slow(8))
+  .fmh(2).fmdecay(0.3).fmsustain(0)
+var buzzPass = (x) => n(x).scale("c1:major").s("sawtooth").adsr("0:1:1:.5").gain(.4)
+var saltPass = (x) => n(x).scale("c3:major").s("psaltery_pluck").gain(1.5
+                                                                     
+                                                                     
+                                                                     )
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ [0,6]
+ [0,5#]
+ [-1,3]
+ [-1,2]
+ [-2,1]
+ [-2,0]
+ [-3,-1]
+ [-3,-2]
+>`).struct("<[1 1 - 1 - <1 - - -> <1 - - - -> - ]>")
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ [0 - 0 -2 - - 3 -]
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ -
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+
+// // Buzzy bass
+var _buzz1 = buzzPass("0 - <0 [4 - - 4]> -")
+
+// // FM bell
+var bell1 = note("~ c3 ~ <c3 b2>").s("sine")
+  .fm(6).fmh(3).fmdecay(0.15).fmsustain(0)
+  .decay(0.4).sustain(0).gain(1.1)
+  .room(0.3).late(1/16)
+
+var bell2 =  note("~@3 <c5 b4>").s("sine")
+  .fm(1).fmh(5).fmdecay(0.1).fmsustain(.1)
+  .decay(0.4).sustain(.1).gain(.6)
+  .room(2).late(1/16).release(.5)
+
+var _dug1 = dugPass(note("c3 eb3 [- g3] <bb2 ->"))
+
+var _salt1 = saltPass(`<
+ [0,4]
+ [0,3]
+ [0,2]
+ [0,1#]
+>`).struct("1 - - 1")
+
+var M = 1; 
+// M = 0;
+$: arrange(
+  [M*2, stack(    
+    _drums_intro,
+    bell1,    _buzz1,    _dug1,
+  )],
+  [M*4, stack(    
+    _drums1,
+    bell1,    _buzz1,    _dug1,
+  )],
+  [1*8, stack(
+    _drums2, d_rim2,
+    bell1,    bell2,
+    _chords2,    _buzz1,    _bass1,
+    _lead2,    _dug1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords2,
+    _buzz1,    _bass1,
+    _lead2,    _dug1,
+    _salt1,
+  )],
+
+
+  
+  [M*4,silence]
+).punchcard()
+
