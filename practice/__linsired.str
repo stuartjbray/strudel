@@ -24,6 +24,10 @@ var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
 var calPass = (x)   => n(x).scale("c3:major").sound("gm_lead_3_calliope").color("green").room(2)
 var synthPass = (x)   => n(x).scale("<c3,c4>:major").sound("gm_fx_brightness, gm_flute").color("blue").release(1)
 var tunePass =  (x)   => n(x).scale("<c2,c3>:major").sound("gm_pad_bowed:2, gm_piano:2").color("cyan").gain(1.2).release(1)
+var clavPass =  (x)   => n(x).scale("c4:major").sound("gm_clavinet").color("cyan").gain(1.2).release(1)
+
+
+
 // C F
 var _chords1 = chordsPass(`<
  [0,2,4]
@@ -31,9 +35,11 @@ var _chords1 = chordsPass(`<
  [4,5#,8#]
  [0,3,5]
 >`).struct("<[- - 1 -]*2!3 [- 1*2 [- 1] [- 1]] >")
-var _chords2 = chordsPass(`<
--
+var _chords1_clav = clavPass(`<
+ - - - [2 1 2 3 4# 3 4# 6] 
+ [7 -] - - [2 1 2 3 4# 3 4# 6]  
 >`)
+
 
 var _bass1 = bassPass(`<
  [0 0 - -]
@@ -57,10 +63,9 @@ var _lead1 = leadPass(`<
  [- - [7 6] [7 -]]
  [- - [7 8] [- 9 10 11]]
 >`)
-var _lead2 = leadPass(`<
--
->`)
+var _lead2 = leadPass(`<->`)
 
+// whistle
 var _cal1 = calPass(`<
  0 5 2 4
 >`)
@@ -115,7 +120,7 @@ $: arrange(
   )],
   [M*8, stack(    
     _drums1,
-    _chords1, 
+    _chords1, _chords1_clav,
     _bass1,
     _bass1x,
     _tune1,
