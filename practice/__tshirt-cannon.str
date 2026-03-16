@@ -36,10 +36,7 @@ var _chords2 = chordsPass(`<
  [4 1# 3 1 1# 0 1 -1]
 >`)
 var _chordsPre1 = leadPass(`<[0 -] - - [-@5 0 1 -1]>`).trans(-12).cubic(.4)//.late(1/8)
-var _chords5 = chordsPass(`<
- [0,4,7] [1#,6#,8#] [4,7,10] [5,8,11]
->`).arp(`<[[0,1,2] 0 - 1 2 - 1 -] [- 0 1 2 1 <0 -> <1 -> -]>`)
-var _chords6 = leadPass(`<[0 - - 0][-1 - - -1][1 - - 1][0 - - 0]>`).cubic(.4)
+
 
 
 var _bass1 = bassPass(`<
@@ -73,6 +70,8 @@ var _lead4 = leadPass(`<
  [- 4 4 4 3 1# 1 0]
  [- 6# 6# 6# 5# 4 1# 1 ]
 >`)
+
+// ----------------------- Part 5
 var _lead5 = leadPass(`<
  [- 7 7 7 - 6 6 6][- 8 8 8 - 7 7 7 ]
  [- 10 10 10 - 8# 8# 8#][- 8 8 8 - - - - ]
@@ -80,8 +79,14 @@ var _lead5 = leadPass(`<
  [- 11# 11# 11# - 11 11 11][- 10 10 10 - 8# 8# 8#]
 >`)
 
+var _chords5 = chordsPass(`<
+ [0,4,7] [1#,6#,8#] [4,7,10] [5,8,11]
+>`).arp(`<[[0,1,2] 0 - 1 2 - 1 -] [- 0 1 2 1 <0 -> <1 -> -]>`)
+var _chords6 = leadPass(`<[0 - - 0][-1 - - -1][1 - - 1][0 - - 0]>`).cubic(.4)
+var _chords7 = leadPass(`<[0 - - 0][-1 - - -1][1 - - 1][3 - - 3]>`).cubic(.4)
+
 var M = 1;
-// M = 0;
+M = 0;
 $: arrange(
   [M*4, stack(    
     _chords1, 
@@ -123,12 +128,12 @@ $: arrange(
     _chordsPre1,
     _chords6.gain(.3).lpf(500),
   )],
-  [M*4, stack(    
+  [1*4, stack(    
     _chords5,
     _bass1, 
     _lead5,
     // _chordsPre1,
-    _chords6.gain(.5),
+    _chords7.gain(.5),
   )],
 
   
