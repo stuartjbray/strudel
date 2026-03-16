@@ -25,3 +25,20 @@ _$: note("c3").fm(3)._scope()
 $: note("c3 d f g - c f -").fm(1).fmh(2).scope().attack(.5).release(1).room(3)
 
 //   https://github.com/vakofmaya/BreathOfStrudle/blob/main/modules/Module_03_Synths_Oscillators.md
+
+
+d_bass: s("bd*4")
+d_snare: s("[- - - sd]*2")
+
+s$: solo this
+$: note("c3 g3 e3 -").s("saw") // note THEN sound, works.
+$: s("saw").set.mix(note("c3 g3 e3 -")) // otherwise note is ignored.
+$: "1 3 - 4 - 0 1 -".as("n").s("saw").scale("c3:major") // thing as "n", is like n(thing)
+
+gain applies first, then all your filters,
+postgain applies AFTER 
+
+setDefaultJoin('mix') // makes all joins do this.
+mix // applies number stuff on the right, to the left. So it restarts the sample when the number changes.
+
+fit() // stretches a sample to the cycle length.
