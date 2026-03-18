@@ -1,2 +1,3 @@
 /samples/*
 .vscode/settings.json
+output/*/**.flac
