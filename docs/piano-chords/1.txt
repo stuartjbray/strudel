@@ -5,3 +5,7 @@ Cm A#m D# A#
 Cm (c b a# a)
 Gm (g f# f e)
 A# D# A# F A#
+
+Gm (g f# f e)
+Fm D# A#
+
