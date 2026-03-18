@@ -130,3 +130,16 @@ $: arrange(
  [1,stack( pf2,  tf2,)],
  [1,silence],
 ).lpf(0).punchcard({ cycles:8, fillActive:1, fold:1, background:'#000'})
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+Made using strudel, by typing javascript. Just typing....
+
+#strudel #electronica #blippy #upbeat #algorave
+
+Video Playlist: https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu4fOB0hZu
+
+Source code: github.org/stuartbray/strudel/
