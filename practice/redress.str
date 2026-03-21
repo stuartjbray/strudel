@@ -1,0 +1,88 @@
+//@title redress
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("yamahary30_bd:8").struct( "1 - - 1 - -")
+var d2 = sound("yamahary30_bd:7").struct( "- - 1 - - <- 1*2> ")
+var d3 = sound("yamahary30_bd:9").struct( "- <1 -> - - - -")
+var d4 = sound("cr").struct(  "- - - - - - - -")
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var bassPass = (x)   => n(x).scale("c3:dorian").sound("gm_acoustic_guitar_nylon").color("orange").gain(1.4)
+var chordsPass = (x) => n(x).scale("c3:dorian").sound("gm_clarinet").color("red").release(.2)
+var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_bandoneon").color("yellow")
+var violPass= (x)   => n(x).scale("c3:dorian").sound("gm_violin").color("green")
+var vibPass= (x)   => n(x).scale("c2:dorian").sound("gm_vibraphone").color("blue").release(.2).gain(.3)
+var ocaPass= (x)   => n(x).scale("c4:dorian").sound("gm_ocarina").color("cyan").gain(.7).release(.2)
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ [0 4][6 5] [3 2][1 0]
+>`).struct("[1 [- 1] [- 1]]")
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ [4 4 3 4 4 -]
+ [5 5 3 4 4 -]
+ [2 3 4 3 3 -]
+ [1 0 -1 0 _ -]
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+var _vib1 = vibPass(`<
+ - - 3 -
+>`)
+var _viol1 = violPass(`<
+ [4 2 3 4 - [6 5]] 
+ [2 _ [3 4] 0 _ -]
+ [2 1 2 3 - 3] 
+ [1 2 3 0 - -]
+>`)
+
+var _oca1 = ocaPass(`<
+ 7 6 5 4
+>`).struct("1 [1 -]")
+
+var M = 1;
+M = 0;
+$: arrange(
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _vib1,
+    _oca1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords1, 
+    _bass1,
+    _vib1,
+    _viol1,
+    _oca1,
+  )],
+
+
+  [4,silence]
+).punchcard()
+  
