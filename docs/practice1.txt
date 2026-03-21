@@ -155,3 +155,24 @@ _$: stack(
   sound("bd").beat("1,6",8),
   sound("sd").beat("3,7",8)
 )
+
+
+
+//------------------------------  load js from another file
+const load = (urls, check) => Promise.all(urls.map(u =>
+  fetch(u).then(r => r.blob()).then(b => {
+    const s = document.createElement('script')
+    s.src = URL.createObjectURL(b)
+    document.head.appendChild(s)
+  })
+)).then(() => new Promise((res, rej) => {
+  let t = Date.now()
+  const i = setInterval(() => {
+    if (check()) { clearInterval(i); res() }
+    if (Date.now() - t > 5000) { clearInterval(i); rej('timeout') }
+  }, 50)
+}))
+await load([
+  'https://raw.githubusercontent.com/stuartjbray/strudel/master/docs/library.js',
+  'https://raw.githubusercontent.com/stuartjbray/strudel/master/docs/other.js',
+], () => typeof bassPass !== 'undefined')

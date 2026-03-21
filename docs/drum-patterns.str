@@ -11,6 +11,7 @@ var _drums_intro = stack( d1, d2, d3  ).color("white") // build up
 var _drums1 =     stack(  d1,  d2,  d3,  d4).color("white") // normal
 var _drums2 =     stack(  d1, d2  ).color("white") // break down
 
+setcpm(30)
 
 
 var breakbeat = stack(
@@ -19,14 +20,12 @@ var breakbeat = stack(
   sound("hh").struct("1*8").gain(".2 1 .2 .5"),
 )
 
-setcpm(30)
 var bangra = stack(
   sound("OberheimDMX_ht")   .struct("0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0"),
   sound("OberheimDMX_mt")   .struct("0 0 1 0 1 0 0 0 0 0 0 0 1 0 1 0"),
   sound("OberheimDMX_lt")   .struct("1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0"),
   sound("KorgDDM110_sd")    .struct("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"),
-  sound("hh")            .struct("0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1"),
-  
+  sound("hh")               .struct("0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1"),
 )
 
 var rock = stack(
