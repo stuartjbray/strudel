@@ -5,7 +5,6 @@ var jungle = stack(
   sound("hh").struct("1 0 1 1 0 1 1 0 1 0 1 1 0 1 0 1").gain(".6 1 .7 .8"),
   sound("oh").struct("0 0 0 1 0 0 0 1 0 0 0 1 0 0 1 0").gain(".5"),
 )
-
 // Afrobeats - heavy on the offbeats, percussion-led
 var afrobeats = stack(
   sound("bd").struct("1 0 0 1 0 1 0 0 1 0 0 1 0 0 1 0"),
@@ -13,6 +12,7 @@ var afrobeats = stack(
   sound("hh").struct("1 1 0 1 1 0 1 0 1 1 0 1 1 0 1 0").gain(".7 .5 1 .6"),
   sound("rim").struct("0 1 0 0 1 0 1 0 0 1 0 0 1 0 0 1").gain(".6"),
 )
+$:afrobeats
 
 // UK Garage - skippy bd, stuttered hh
 var ukg = stack(
