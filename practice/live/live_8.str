@@ -1,0 +1,13 @@
+
+setCpm(40)
+var t = "0 2 4 7 9 7 4 2"
+$: stack(
+  n(t).scale("c2:minor").s("saw").lpf(500).lpq(20),
+  n(t).scale("c3:minor").s("supersaw").delay(1).cubic(.5)
+).trans("<[0@4 2@2 3 4]/4>")
+
+
+$: stack(
+  s("[bd sd] [- bd sd -]"),
+  s("hh*16").gain(sine.range(0,3).slow(4))
+)
