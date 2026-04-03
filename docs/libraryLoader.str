@@ -1,0 +1,36 @@
+// tries to load in the library, but the scope is all barfed up.
+
+const load = (urls, check) =>
+  Promise.all(
+    urls.map(u =>
+      fetch(u)
+        .then(r => r.text())
+        .then(code => {
+          const s = document.createElement('script');
+          s.textContent = code;          // inline text, not a blob src
+          document.head.appendChild(s);
+        })
+    )
+  ).then(() =>
+    new Promise((res, rej) => {
+      let t = Date.now();
+      const i = setInterval(() => {
+        check() && (clearInterval(i), res());
+        Date.now() - t > 5e3 && (clearInterval(i), rej('timeout'));
+      }, 50);
+    })
+  );
+
+
+
+const url = 'https://raw.githubusercontent.com/stuartjbray/strudel/master/docs/library.js';
+
+const code = await fetch(url).then(r => r.text());
+console.log(code); // confirm the code looks right
+try {
+  (0, eval)(code);
+  console.log('eval ok, libraryLoaded =', typeof libraryLoaded);
+} catch(e) {
+  console.error('eval failed:', e);
+}
+
