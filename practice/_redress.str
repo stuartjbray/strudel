@@ -1,3 +1,5 @@
+
+
 //@title redress
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
@@ -7,7 +9,7 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("yamahary30_bd:8").struct( "1 - - 1 - -")
+var d1 = sound("gm_timpani:<1 2>").struct( "1 - [- 1] - - -").cubic(.6).release(1)
 var d2 = sound("yamahary30_bd:7").struct( "- - 1 - - <- 1*2> ")
 var d3 = sound("yamahary30_bd:9").struct( "- <1 -> - - - -")
 var d4 = sound("cr").struct(  "- - - - - - - -")
@@ -24,6 +26,7 @@ var leadPass = (x)   => n(x).scale("c3:dorian").sound("gm_bandoneon").color("yel
 var violPass= (x)   => n(x).scale("c3:dorian").sound("gm_violin").color("green")
 var vibPass= (x)   => n(x).scale("c2:dorian").sound("gm_vibraphone").color("blue").release(.2).gain(.3)
 var ocaPass= (x)   => n(x).scale("c4:dorian").sound("gm_ocarina").color("cyan").gain(.7).release(.2)
+var orgPass= (x)   => n(x).scale("c3:dorian").sound("organ_full, fmpiano").color("purple").gain(.7).release(.2)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -63,8 +66,16 @@ var _oca1 = ocaPass(`<
  7 6 5 4
 >`).struct("1 [1 -]")
 
+var _org1 = orgPass(`<
+ [- - - 0 2 4][[7,9]@2 [7,8] -]
+ [- - - 0 2 4][[7,8]@2 [5,7] -]
+ [- - - 2 0 4][[4,7]@2 [5,7] -]
+ [- - - 2 0 4][8 6 4 2 0 2]
+>`)
+
+
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
   [M*8, stack(    
     _drums1,
@@ -73,7 +84,7 @@ $: arrange(
     _vib1,
     _oca1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _chords1, 
     _bass1,
@@ -81,8 +92,17 @@ $: arrange(
     _viol1,
     _oca1,
   )],
+  [1*8, stack(
+    _drums1,
+    _chords1, 
+    _bass1,
+    // _vib1,
+    // _viol1,
+    // _oca1,
+    _org1,
+  )],
 
 
-  [4,silence]
+  // [4,silence]
 ).punchcard()
   

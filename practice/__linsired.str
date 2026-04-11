@@ -20,13 +20,12 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c4:major").sound("steinway").color("red").gain(.5)
 var bassPass = (x)   => n(x).scale("c2:major").sound("gm_acoustic_bass").color("orange").cubic(1.2)
-var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
+var leadPass = (x)   => n(x).scale("c3:major").sound("piano").gain(1).color("yellow")
 var calPass = (x)   => n(x).scale("c3:major").sound("gm_lead_3_calliope").color("green").room(2)
 var synthPass = (x)   => n(x).scale("<c3,c4>:major").sound("gm_fx_brightness, gm_flute").color("blue").release(1)
 var tunePass =  (x)   => n(x).scale("<c2,c3>:major").sound("gm_pad_bowed:2, gm_piano:2").color("cyan").gain(1.2).release(1)
-var clavPass =  (x)   => n(x).scale("c4:major").sound("gm_clavinet").color("cyan").gain(1.2).release(1)
-
-
+var clavPass =  (x)   => n(x).scale("c4:major").sound("gm_clavinet").color("purple").gain(.8).release(1)
+var strumPass =  (x)   => n(x).scale("c1:major").sound("strumstick").color("purple").gain(1.7)
 
 // C F
 var _chords1 = chordsPass(`<
@@ -71,10 +70,10 @@ var _cal1 = calPass(`<
 >`)
 
 var _synth1 = synthPass(`<
- [- 2 1 -]
- [- 3 2 -]
- [- 4 0 -]
- [- 5 0 -]
+ [- [- 2] - 1 ]
+ [- - 3 2 ]
+ [- [- 4] - 0 ]
+ [- - 5 0 ]
 >`).late(1/8)
 
 var _tune1 = tunePass(`<
@@ -94,42 +93,43 @@ var _tune2 = tunePass(`<
  -
 >`)
 
+var _flex1 = s("<flexatone ->").cubic(1)
+var _strum1 = strumPass(`<
+ [-@1 7]
+ [-@1 4]
+ [-@1 6#]
+ [-@1 6]
+>`).ply(2)
+
 var M = 1;
 // M = 0;
 $: arrange(
   [M*4, stack(    
-    _drums1,
-    _bass1,
-    _bass1x,
-    _lead1,
+    _drums1,    _bass1,    _bass1x,    _lead1,
+    _flex1,
   )],
   [M*8, stack(    
     _drums1,
-    _bass1,
-    _bass1x,
-    _lead1,
-    _cal1,
+    _bass1,    _bass1x,
+    _lead1,    _cal1,    
     _synth1,
   )],
   [M*8, stack(
     _drums1,
-    _chords1.trans(-12), 
-    _bass1,
-    _bass1x,
-    _synth1,
+    _bass1,    _bass1x,
+    _chords1.trans(-12),  
+    _synth1,    
   )],
   [M*8, stack(    
     _drums1,
-    _chords1, _chords1_clav,
-    _bass1,
-    _bass1x,
+    _bass1,    _bass1x,
+    _chords1, _chords1_clav, _strum1,
     _tune1,
   )],
   [M*8, stack(
     _drums1,
-    _chords1, 
-    _bass1,
-    _bass1x,
+    _bass1,    _bass1x,
+    _chords1, _strum1,
     _tune2,
   )],
   ).punchcard()
