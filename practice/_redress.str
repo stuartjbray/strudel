@@ -9,9 +9,9 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("gm_timpani:<1 2>").struct( "1 - [- 1] - - -").cubic(.6).release(1)
-var d2 = sound("yamahary30_bd:7").struct( "- - 1 - - <- 1*2> ")
-var d3 = sound("yamahary30_bd:9").struct( "- <1 -> - - - -")
+var d1 = sound("gm_timpani:<1 2>").struct( "1 - - - 1 - - -").cubic(.6).release(1)
+var d2 = sound("compurhythm1000_rim:2").struct( "- - 1 - - <- 1*2> ").room(1)
+var d3 = sound("compurhythm1000_rim").struct( "- <1 -> - - - -")
 var d4 = sound("cr").struct(  "- - - - - - - -")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up

@@ -28,7 +28,7 @@ var chordsPass = (x) => n(x).scale("c3:major").sound("bytebeat").color("red")
 var bassPass = (x)   => n(x).scale("c3:major").sound("gm_lead_8_bass_lead").color("orange")
 var leadPass = (x)   => n(x).scale("c4:major").sound("square").color("yellow").attack(.2).sus(2)
 var glockPass = (x)   => n(x).scale("c3:major").sound("gm_synth_bass_2:6").color("green").release(.8).gain(.5)
-var rumPass = (x)   => n(x).scale("c3:major").sound("steinway").color("blue")
+var rumPass = (x)   => n(x).scale("c3:major").sound("steinway").color("blue").gain(.6)
 var trillPass = (x)   => n(x).scale("c4:major").sound("steinway").color("purple")
 
 
@@ -119,27 +119,26 @@ $: arrange(
   )],
   [M*8, stack( // introduce blue and green
     _drums1,
-    _chords1,    _bass1.gain(.9),    _lead1.gain(.6),
-    _lead1x.gain(.2),
+    _chords1,    
+    _lead1.gain(.4),    _lead1x.gain(.2),
     _glock1,
     _rum1,
   )],
   [M*8, stack(
     _drums1,
-    _chords1,    _bass1,    _lead1.gain(.2),
-    _lead1x,
+    _chords1,    _bass1,
+    _lead1.gain(.2),    _lead1x,
     _glock2,
-    _rum1,
     _trill1,
   )],
   [M*8, stack(
     _drums1,
     _chords1.trans(12),
     _glock2x,
-    _rum2,
+    _rum2.gain(.4),
     _trill2,
   )],  
-  [M*8, stack(
+  [1*8, stack(
     _drums2, // Fast Drums!
     _chords1,
     _lead1.trans(0).fm("<1 6 8 12 8 6>*3").gain(.5),
@@ -148,7 +147,7 @@ $: arrange(
     _rum1,
     _trill3,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums2,
     _chords2.trans(12),
     _lead1x,
