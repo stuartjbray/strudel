@@ -25,7 +25,7 @@ var calPass = (x)   => n(x).scale("c3:major").sound("gm_lead_3_calliope").color(
 var synthPass = (x)   => n(x).scale("<c3,c4>:major").sound("gm_fx_brightness, gm_flute").color("blue").release(1)
 var tunePass =  (x)   => n(x).scale("<c2,c3>:major").sound("gm_pad_bowed:2, gm_piano:2").color("cyan").gain(1.2).release(1)
 var clavPass =  (x)   => n(x).scale("c4:major").sound("gm_clavinet").color("purple").gain(.8).release(1)
-var strumPass =  (x)   => n(x).scale("c1:major").sound("strumstick").color("purple").gain(1.7)
+var strumPass =  (x)   => n(x).scale("c1:major").sound("strumstick").color("purple").gain(1.7).release(1)
 
 // C F
 var _chords1 = chordsPass(`<
@@ -99,7 +99,7 @@ var _strum1 = strumPass(`<
  [-@1 4]
  [-@1 6#]
  [-@1 6]
->`).ply(2)
+>`).echo(8,1/8,.8).postgain(2)
 
 var M = 1;
 // M = 0;
@@ -120,13 +120,13 @@ $: arrange(
     _chords1.trans(-12),  
     _synth1,    
   )],
-  [M*8, stack(    
+  [1*8, stack(    
     _drums1,
     _bass1,    _bass1x,
     _chords1, _chords1_clav, _strum1,
     _tune1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _bass1,    _bass1x,
     _chords1, _strum1,
