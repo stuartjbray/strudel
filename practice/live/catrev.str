@@ -1,0 +1,10 @@
+let catrev = (x) => cat(x, x.rev(), x.rev(), x)
+let t = catrev(catrev(catrev("[0 2 2 0 2 0 0 2]")))
+$: stack(
+  n(t).scale("<c4 c5>:major").s("steinway")
+    .gain(.4).fast(2).color("red"),
+  n(t).scale("c4:major").s("sine")
+    .gain(.7).fm("0 1 2 3 3 2 1 0").slow(2).color("yellow"),
+  n(t).scale("c2:major").s("supersaw")
+    .gain(1.4).fm("0 1 2 3 3 2 1 0").slow(4).color("green")
+).trans("<0 2 5 7>").punchcard()
