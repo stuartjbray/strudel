@@ -1,24 +1,17 @@
 //@title dug
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
 setcpm(30)
-
 // -------------- Drums
 const drumsPass = (x) => x.color("white").bank("yamahary30");
-
 var d1 = sound("bd").struct(  "1 1 - - 1 1 - -")
 var d2 = sound("lt").struct(  "<[- - - - - 1 - 1]!3 [- - - - 1 1 - 1]>")
 var d3 = sound("rim").struct( "<[- - 1 - - - - -]!3 [- - 1 - - 1 1 -]>")
 var d4 = sound("sd").struct(  "- - - - - 1 1 -")
-
 var d1x = sound("bd").struct("1 1 1 1 - - - -")
-
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
 var _drums2 =      drumsPass(stack(  d1x, d3  ))           // break down
-
-
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:minor").sound("gm_shamisen").color("red").release(.5).gain(1.2)
 var melPass = (x)   => n(x).scale("<c3,c4>:minor").sound("gm_synth_strings_1:1, gm_sitar:2").color("orange").release(.5)
@@ -28,8 +21,6 @@ var tonePass = (x)   => n(x).scale("c3:minor").sound("gm_lead_1_square").color("
 var padPass = (x)   => n(x).scale("c3:minor").sound(" gm_slap_bass_2").color("purple").cubic(.8)
 var bassPass = (x)   => n(x).scale("c2:minor").sound("gm_slap_bass_2").color("cyan").cubic(1.5)
 var wavePass = (x)   => n(x).scale("c2:minor").sound("wt_digital").color("cyan").gain(1.4).ply(8).fm("1 8 2 3")
-
-
 // Apply pass functions to patterns
 var arp2 = "<[0 1 2 1, - - 3 -]*2>"
 // Cm D Fs4 D#
@@ -49,11 +40,9 @@ var chords2 = (`<
 var _chords0 = chordsPass(chords1).arp(`<
  [[0,1,2] - - [3 2 1 0]]
 >`)
-
 var _chords1 = chordsPass(chords1).arp(arp2).trans("<[0 12]>")
 var _chords2 = chordsPass(chords2).arp(arp2).trans("<[0 12]>")
 var _chords1x = chordsPass(chords1).arp("[- [1,2][0,3] -]")
-
 var _mel1 = melPass(`<
  [9 _ 7 - - - 7 4]
  [6 _ 7 - - - 6 7]
