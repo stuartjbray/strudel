@@ -18,22 +18,37 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red")
+var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red").room(2)
 var bassPass = (x)   => x.scale("c3:major").sound("gm_contrabass").color("orange").cubic(.2).release(.5)
-var leadPass = (x)   => n(x).scale("c4:major").sound("steinway").color("yellow")
-var padPass =  (x)   => n(x).scale("c2:major").sound("gm_fx_echoes").color("yellow")
+var leadPass = (x)   => n(x).scale("<c3,c4>:major").sound("steinway").color("yellow").gain(.6)
+var padPass =  (x)   => x.scale("c2:major").sound("gm_fx_echoes").color("green").release(1)
   
 
 
+var chords0 = "<Am F Dm Em>"
 var chords1 = "<Am Dm C Gm Dm F Am Am7>"
-var chords2 = "<A# F C A A# F A7 C>"
-var arp1 = "[0,1,2,3] [0 1,2,3]"
+var chords2 = "<A# F C A A# F D# Dm>"
+var chords3 = "<C C7>"
+
+// var arp1 = "[0,1,2,3] [0 1,2,3]"
+var arp1 = "[0 1 2 3] [2 3 0 1]"
+var arp2 = "[0 - - 0]"
+var arp3 = "2 -"
+
+var _chords0 = chordsPass(chord(chords0).voicing().arp(arp1))
 var _chords1 = chordsPass(chord(chords1).voicing().arp(arp1))
 var _chords2 = chordsPass(chord(chords2).voicing().arp(arp1))
+var _chords3 = chordsPass(chord(chords3).voicing().arp(arp1))
 
-var arp2 = "[0 - - 0]"
+var _bass0 = bassPass(chord(chords0).voicing().arp(arp2)).trans(0)
 var _bass1 = bassPass(chord(chords1).voicing().arp(arp2)).trans(0)
 var _bass2 = bassPass(chord(chords2).voicing().arp(arp2)).trans(0)
+var _bass3 = bassPass(chord(chords3).voicing().arp(arp2)).trans(0)
+
+var _pad0 = padPass(chord(chords0).voicing().arp(arp3)).trans(0)
+var _pad1 = padPass(chord(chords1).voicing().arp(arp3)).trans(0)
+var _pad2 = padPass(chord(chords2).voicing().arp(arp3)).trans(0)
+var _pad3 = padPass(chord(chords3).voicing().arp(arp3)).trans(0)
 
 var _lead1 = leadPass(`<
  [-2 -2 - 0 - -2 0 2]
@@ -50,10 +65,11 @@ var _lead2 = leadPass(`<
  [- - - - - - - 7]
  [- 5# 5# 5 5 4 3 7]
  [- 5# 5# 5 - 5 - -]
+ 
  [[1,3] - - - - 0 5 3]
- [- - - - - - - 7]
- [- 5# 5# 5 5 4 3 -]
- [5 5# 4 5 - - - -]
+ [- - - - - - - -]
+ [4 5 3 4 - 3 2 1]
+ [- - - - - 1 3 4]
 >`)
 
 // Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
@@ -61,17 +77,31 @@ var M = 1; // change to M=1 to unmute all stacks with an M.
 // M = 0;
 $: arrange(
   // Change 1 to be M to conditionally mute this stack.
+  [M*4, stack(    
+    _drums1,
+    _chords0, 
+    _bass0,
+    _pad0,
+  )],
   [M*8, stack(    
     _drums1,
     _chords1, 
-    // _bass1,
+    _bass1,
     _lead1,
+    _pad1,
   )],
   [M*8, stack(
     _drums1,
     _chords2,
-    // _bass2,
+    _bass2,
     _lead2,
+    _pad2,
+  )],  
+  [M*4, stack(
+    _drums1,
+    _chords3,
+    _bass3,
+    _pad3,
   )],  
   ).punchcard()
   
