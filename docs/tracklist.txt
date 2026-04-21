@@ -9,8 +9,11 @@ Studle 3
 3 here-sugar        y
 4 normlings         y
 5 telzebub          y
-6 cattle-hanger     n
-7 still-tennant     n
-8 tundra-calling    n
-9 funktionary       n
-10 dug              n
+
+6 cattle-hanger     y
+7 still-tennant     y
+8 tundra-calling    y
+9 funktionary       y
+10 dug              y
+
+11 sireneese        y

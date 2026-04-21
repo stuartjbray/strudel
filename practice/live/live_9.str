@@ -1,0 +1,22 @@
+
+
+
+_$: stack(
+  sound("bd*4").room(sine.range(1,3).slow(8)),
+  sound("- - bd*2 -"),
+  sound("- - - <cr ->"),
+  sound("sd*2").lpf(sine.range(500,1000).slow(6)),
+  sound("hh*8").gain(sine.range(.2,1.5).slow(8))
+).hpf("<100 300 500>/4").fast(1)
+
+
+var t = "<[<1 5> 0 2 <3 0>][<2 0> <0 2> - 1]>"
+_$: stack(
+  n(t).scale("c4:blues").s("saw").fast(2).mask("<- - - 1>"),
+  n(t).scale("c4:blues").s("saw").fast(2).mask("<- 1 - ->").rev().ply(4),
+  // n(t).scale("c3:blues").s("saw"),
+  // n(t).scale("c2:blues").s("saw").slow(2),
+
+
+  n(t).scale("c2:blues").s("gm_synth_strings_2").slow(2).cubic(1)
+).room(3)
