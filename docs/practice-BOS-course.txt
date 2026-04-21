@@ -42,3 +42,66 @@ setDefaultJoin('mix') // makes all joins do this.
 mix // applies number stuff on the right, to the left. So it restarts the sample when the number changes.
 
 fit() // stretches a sample to the cycle length.
+
+ Synths Summary
+
+Sine = pure, no harmonics → sub-bass, kick fundamentals
+Sawtooth = all harmonics → bass, pads, leads (filter it in Module 4!)
+Square = odd harmonics, hollow → stabs, retro sounds
+Triangle = soft odd harmonics → gentle leads, default sound
+Noise (white/pink/brown) = percussion, texture, atmosphere
+FM Synthesis = metallic, bell-like, percussive timbres
+Wavetables = 1000+ unique waveform shapes for organic textures
+Always use ._scope() to see what you hear
+
+ The Signal Chain:
+
+ Sound Source (oscillator or sample)
+  │
+  ├── Pitch effects (detune, penv)
+  │
+  ├── Gain + ADSR amplitude envelope
+  │
+  ├── Low-Pass Filter (lpf)
+  ├── High-Pass Filter (hpf)
+  ├── Band-Pass Filter (bpf)
+  ├── Vowel Filter (vowel)
+  │
+  ├── Coarse (sample rate reduction)
+  ├── Crush (bit crushing)
+  ├── Distort (waveshaping)
+  ├── Tremolo
+  ├── Compressor
+  ├── Pan
+  ├── Phaser
+  ├── Postgain
+  │
+  └── Sends ──→ Delay / Reverb (global, per orbit)
+
+
+
+
+
+fm = freq mod
+fmh = fm harmonics
+fmq = do the harmonic just at the start
+
+lpf = remove high freqs
+
+hpf = remove low.
+  Use Cases
+ Remove muddiness from hi-hats, claps, and percussion
+ Thin out a pad to make room for the bass
+ Buildups and transitions — sweeping HPF up creates tension
+
+ bpf = narrow range of freqs - like telephone or radio pass.
+
+ ftype 1,2,3 = what style lpf and lpq are used.
+
+ sine.range(low,high)
+ perlin.range(low,high)
+
+
+ // Thicken a bass with a detuned copy
+note("c2!4").s("sawtooth")
+  .superimpose(x => x.add(note(0.1)).gain(0.4))

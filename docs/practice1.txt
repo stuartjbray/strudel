@@ -156,9 +156,16 @@ _$: stack(
   sound("sd").beat("3,7",8)
 )
 
+// Only play every 4th cycle - 4 ways
+const mask4 = (x) => x.mask("<-@3 1>")
+$: mask4(fill)
+$: fill.mask("<-@3 1>")
+$: every(4, ()=> fill, silence)
+
 
 
 //------------------------------  load js from another file
+// But problem is that mini-notation is not respected.
 const load = (urls, check) => Promise.all(urls.map(u =>
   fetch(u).then(r => r.blob()).then(b => {
     const s = document.createElement('script')
