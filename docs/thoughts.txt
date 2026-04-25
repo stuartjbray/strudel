@@ -46,11 +46,9 @@
 
   Tasks:
   * use Slowcat to merge 2x4 loops in a 8 sized sequence.
-  * Use transpose to vary a _aaa inside the final arrange, for variety.
   * Set volume in mininotation for individual notes- eg "bd:1:4" is a loud drum.
   * Bite - chop up a pattern into x pieces and play in this order.
   * Contact people about it. More - don't give up.
-  * Get log in creds for AWS to reset password to upload snappy fingers.
 
 
   * Upload the not-shit versions on soundcloud up to youtube.
@@ -67,16 +65,6 @@
  - boogler      - y       y       y     
  - weirderer    - y       y       y     
 
->>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-Made using strudel.cc, the javascript version of TidalCycles. Created by typing lines of code. No drag and drop mouse nonsense, or actual instruments.
-#strudel #electronica #blippy #upbeat #algorave
-
-More on SoundCloud: https://soundcloud.com/stuart-j-bray
-
-Video Playlist: https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu4fOB0hZu
-
-Source code: https://bitbucket.org/stuartbray/strudel/
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 var top = n("0,1,2,3,4,5,6,7,8,9").scale("c1:major").color("#111")
