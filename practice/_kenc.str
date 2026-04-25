@@ -22,7 +22,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("steinway, supersaw ").color("red").release(1).room(2).gain(.9)
+var chordsPass = (x) => n(x).scale("c3:major").sound("steinway, supersaw ").color("red").release(1).room(2).gain(.6)
 var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
 var leadPass = (x)   => n(x).scale("c3:major").sound("gm_electric_guitar_muted").color("yellow").gain(.5)
 var chanPass = (x)   => n(x).scale("c4:major").sound("gm_lead_5_charang").color("green").release(1)

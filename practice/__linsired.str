@@ -19,13 +19,13 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c4:major").sound("steinway").color("red").gain(.5)
-var bassPass = (x)   => n(x).scale("c2:major").sound("gm_acoustic_bass").color("orange").cubic(1.2)
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_acoustic_bass").color("orange").cubic(.6)
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").gain(1).color("yellow")
 var calPass = (x)   => n(x).scale("c3:major").sound("gm_lead_3_calliope").color("green").room(2)
 var synthPass = (x)   => n(x).scale("<c3,c4>:major").sound("gm_fx_brightness, gm_flute").color("blue").release(1)
 var tunePass =  (x)   => n(x).scale("<c2,c3>:major").sound("gm_pad_bowed:2, gm_piano:2").color("cyan").gain(1.2).release(1)
 var clavPass =  (x)   => n(x).scale("c4:major").sound("gm_clavinet").color("purple").gain(.8).release(1)
-var strumPass =  (x)   => n(x).scale("c1:major").sound("strumstick").color("purple").gain(1.7).release(1)
+var strumPass =  (x)   => n(x).scale("c1:major").sound("strumstick").color("purple").gain(1.4).release(1)
 
 // C F
 var _chords1 = chordsPass(`<
@@ -99,7 +99,7 @@ var _strum1 = strumPass(`<
  [-@1 4]
  [-@1 6#]
  [-@1 6]
->`).echo(8,1/8,.8).postgain(2)
+>`).echo(8,1/8,.8).postgain(1.5)
 
 var M = 1;
 // M = 0;

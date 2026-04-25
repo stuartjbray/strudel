@@ -22,8 +22,8 @@ var chordsPass = (x) => x.scale("c3:major").sound("piano, saw").color("red").roo
 var bassPass = (x)   => x.scale("c3:major").sound("gm_contrabass").color("orange").cubic(.2).release(.5)
 var padPass =  (x)   => x.scale("c2:major").sound("gm_fx_echoes").color("green").release(1)
 
-var leadPass = (x)   => n(x).scale("<c3,c4>:major").sound("steinway").color("yellow").gain(.6)
-var dugPass = (x)   => n(x).scale("c2:major").sound("gm_slap_bass_1").color("blue").gain(1.0)
+var leadPass = (x)   => n(x).scale("<c3,c4>:major").sound("steinway").color("yellow").gain(.4)
+var dugPass = (x)   => n(x).scale("c3:major").sound("gm_electric_guitar_muted:2").color("blue").gain(1.0).room(2)
 
 
 var chords0 = "<Am F Dm Em>"
@@ -74,17 +74,15 @@ var _lead2 = leadPass(`<
 >`)
 
 var arp4 = "<[1 - - 1 - 1 1 -][1 - <1 -> - - - 1 -]>"
-var arp5 = "<[- 1 - 1 - - 1 -]>"
+var arp5 = "<[1 1 - 1 1 - <1 -> -]>"
 var _dug0 = dugPass(`< -2 -4 0 -1 >`).arp(arp5)
-var _dug1 = dugPass(`< -2 0 -1 -1 >`).arp(arp5)
+var _dug1 = dugPass(`< -2 0 2 1 >`).arp(arp5)
 var _dug2 = dugPass(`< 1 0 2 1 >`).arp(arp5)
 var _dug3 = dugPass(`< 0 -1 0 -1 >`).arp(arp5)
 
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 1; // change to M=1 to unmute all stacks with an M.
-M = 1;
+var M = 1;
+// M = 0;
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
   [M*4, stack(    
     _drums1,
     _chords0, 
@@ -102,7 +100,7 @@ $: arrange(
   )],
   [M*8, stack(
     _drums1,
-    _chords2,
+    _chords2.trans(12).gain(.2),
     _bass2,
     _lead2,
     _pad2,
@@ -110,7 +108,7 @@ $: arrange(
   )],  
   [1*4, stack(
     _drums1,
-    _chords3,
+    _chords3.trans(12).gain(.2),
     _bass3,
     _pad3,
     _dug3,
