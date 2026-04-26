@@ -7,8 +7,8 @@ setcpm(40)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "1 <- 1> - -")
-var d1x = s("bd*4")
+var d1 = sound("akaixr10_lt").struct(  "1 <- 1> - -")
+var d1x = s("akailinn_ht*4")
 var d2 = stack(
   sound("sd").struct( "- - - - 1 - - -"),
   sound("sd").struct("<-@3 [[1 1 -] <- 1> - -]>")
@@ -29,7 +29,7 @@ var _drums3 =      drumsPass(stack(  d1, d2, d3, d4, d5))  // normal
 var chordsPass = (x) => n(x).scale("c3:major").sound("bytebeat").color("red").gain(2)
 var bassPass = (x)   => n(x).scale("c3:major").sound("gm_lead_8_bass_lead").color("orange")
 var leadPass = (x)   => n(x).scale("c4:major").sound("square").color("yellow").attack(.2).sus(2)
-var glockPass = (x)   => n(x).scale("c3:major").sound("gm_synth_bass_2:6").color("green").release(.8).gain(.5)
+var glockPass = (x)   => n(x).scale("c3:major").sound("gm_synth_bass_2:6, saw").color("green").release(.4).gain(.8)
 var rumPass = (x)   => n(x).scale("c3:major").sound("steinway").color("blue").gain(.6)
 var trillPass = (x)   => n(x).scale("c4:major").sound("steinway").color("purple")
 
@@ -106,7 +106,7 @@ var _trill3 = trillPass(`<
 >`)
 
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
   [M*2, _drums1],
   [M*4, stack(    
@@ -129,14 +129,14 @@ $: arrange(
     _glock1,
     _rum1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _chords1,    _bass1,
     _lead1.gain(.2),    _lead1x,
     _glock2,
     _trill1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _chords1.trans(12),
     _glock2x,
@@ -168,10 +168,10 @@ $: arrange(
     _chords2.trans(12),
     _chords3,
     _lead1x,
-    _lead1x.trans(12).late(1/4),
+    _lead1x.trans(12), //.late(1/4),
     _rum1.trans(12),
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums3.postgain(2),
     _lead1x.trans(12),
     _glock2x,
