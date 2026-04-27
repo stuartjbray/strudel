@@ -18,21 +18,22 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c2:major").sound("gm_lead_8_bass_lead:2").color("red").release(.3).gain(.4)
+var chordsPass = (x) => n(x).scale("c2:major").sound("gm_lead_8_bass_lead:2").color("red").release(.3).gain(.4).pan(.4)
 var bassPass = (x)   => n(x).scale("c3:major").sound("gm_epiano1:5").color("orange").release(1)
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
 var padPass = (x)   => n(x).scale("c3:major").sound("gm_pad_sweep").color("green")
-var orgPass = (x)   => n(x).scale("c2:major").sound("gm_rock_organ:3").color("blue").gain(.7)
+var orgPass = (x)   => n(x).scale("c2:major").sound("gm_rock_organ:<3 2>").color("blue").gain(.7)
 
 // Apply pass functions to patterns
+var struct10 = "[-@8 1 - - 1 - <1 -> - -]/2"
 var _chords1 = chordsPass(`<
  [0  4  0 4 7 4 7 11 14 11 7 10 7 9 7 4]*2@4
  [-2 3 -2 3 5 3 5 9  11 9  5 8  5 7 5 3]*2@4
->`)
+>`).jux(x => x.struct(struct10).pan(.7))
 var _chords2 = chordsPass(`<
  [-4 1 -4 1 3 1 3 7 10 7  3 14 3 5 3 0 ]*2@4
  [-2 2 -2 2 4 2 4 5 9  5  4 12 4 6 4 -1 ]*2@4
->`) // -2 2 4 5 9 12
+>`).jux(x => x.struct(struct10).pan(.7))
 var _chords3 = chordsPass(`<
 -
 >`)
