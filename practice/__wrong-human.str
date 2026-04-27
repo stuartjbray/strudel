@@ -129,5 +129,5 @@ $: arrange(
     _bass2,
     _lead2,
   )],
-  )//.punchcard()
+  )._punchcard()
   
