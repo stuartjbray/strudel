@@ -8,7 +8,7 @@ setcpm(30)
 const drumsPass = (x) => x.color("white");
 
 var d1 = sound("9000_mt, bd").struct(             "1 - - - - 1 - -").room(1.2)
-var d2 = sound("akailinn_sd akaixr10_sd").struct( "- - 1 - - <- 1> 1 -")
+var d2 = sound("9000_sd akaixr10_sd").struct( "- - 1 - - <- 1> 1 -")
 var d3 = sound("hh").struct(                      "1*8")
 var d4 = sound("cr").struct(                      "- - <1 -> - - - - -").gain(.3)
 
@@ -19,7 +19,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 // Define pass functions for each instrument
 var chordsPass = (x) => (x).voicing().sound("piano").color("red").lpf("500 2000").gain(.5)
-var bassPass = (x)   => n(x).scale("c3:major").sound("gm_fx_soundtrack:2").color("green").gain(1).release(1)
+var bassPass = (x)   => n(x).scale("c3:major").sound("gm_fx_atmosphere:1").color("green").gain(1).release(.5)
 var leadPass = (x)   => n(x).scale("c4:major").sound("gm_banjo").color("yellow").release(.2).gain(1)
 var soloPass = (x)   => n(x).scale("c4:major").sound("steinway").color("orange").gain(.6)
 var dugPass  = (x)   => n(x).scale("c3:major").sound("gm_lead_7_fifths").color("blue").gain(.6)
@@ -28,16 +28,15 @@ var rumPass = (x)   => n(x).scale("c3:major").sound("gm_pad_sweep:7").color("pur
 
 
 // Apply pass functions to patterns
-var _chords1 = chordsPass(`<
- Am G F Fm
->`).arp("[0 1 2 3 2 1 2 3]").trans("0, -12")
-var _chords2 = chordsPass(`<
--
->`)
+var chords1 = `< Am G F Fm>`
+var chords2 = `< Am G E F>`
+
+var _chords1 = chordsPass(chords1).arp("[0 1 2 3 2 1 2 3]").trans("0, -12")
+var _chords2 = chordsPass(chords2).arp("[0 1 2 3 2 1 2 3]").trans("0, -12")
 
 var _bass1 = bassPass(`<
- 2 [1  [3 2]]
- 0 [1  [3 4]]
+ 2 [1 3]
+ 0 [- - 3 4]
 >`)
 var _bass2 = bassPass(`<
 -
@@ -66,14 +65,26 @@ var _tune1 = tunePass(`<
 >`)
 var _tune2 = tunePass(`<
  [[5,7] - [5,7] [4,6]]
- [4 6 7 2]
+ -
  [[5,7] - [5,7] [6,8]]
  -
  [[5,7] - [7] [5]]
+ -
+ -
+ -
+>`).pan(.3)
+var _tune2x = tunePass(`<
+ -
+ [4 6 7 2]
+ -
+ -
+ -
  [10 9 7 4]
  [3 4 7 4]
  -
->`)
+
+>`).pan(.7).lpf(1600)
+
 
 var _rum1 = rumPass(`<
  1 2 0 -1
@@ -86,7 +97,7 @@ $: arrange(
   // Change 1 to be M to conditionally mute this stack.
   [M*4, stack(    
     _chords1, 
-    _lead1,
+    _lead1.hpf(1500),
   )],
   [M*8, stack(    
     _drums1,
@@ -103,20 +114,20 @@ $: arrange(
     _solo1,
     _rum1,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums1,
     _chords1.gain(.4),
     _bass2,
     _lead1x,    _lead1x.trans(-12),
-    _tune2,
+    _tune2,    _tune2x,
     _solo1,
     _rum1.gain(.8),
   )],
-  [0*8, stack(
+  [1*8, stack(
     _drums1,
     _chords2,
     _bass2,
     _lead2,
   )],
-  ).punchcard()
+  )//.punchcard()
   

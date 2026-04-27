@@ -55,8 +55,12 @@ var _lead2 = leadPass(`<
 var _harm = n("<[7 5 0 - 5 3 7 -]>").scale("c3:major").s("gm_guitar_harmonics:2").ply(2).room(2)
 
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
+  [1*4, stack(    
+    _drums1,
+    _bass1,
+  )],
   [1*8, stack(    
     _drums1,
     _chords1, 
