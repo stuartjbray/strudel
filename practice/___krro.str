@@ -7,8 +7,8 @@ setcpm(40)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "1 <- 1> - -")
-var d1x = s("bd*4")
+var d1 = sound("akaixr10_lt").struct(  "1 <- 1> - -")
+var d1x = s("akailinn_ht*4")
 var d2 = stack(
   sound("sd").struct( "- - - - 1 - - -"),
   sound("sd").struct("<-@3 [[1 1 -] <- 1> - -]>")
@@ -17,17 +17,19 @@ var d2x = s("sd*3").gain(".4 .7 .3")
 var d3 = sound("oh").struct(  "- - - - - - <-@3 1> - ")
 var d4 = sound("casiorz1_ht").struct(  "1*3").gain(".7 1 .4")
 var d4x = sound("casiorz1_ht").struct(  "1*6").gain(".7 1 .4")
+var d5 = sound("hh*12").gain("[.3 1 .3]")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1, d2, d3, d4))  // normal
 var _drums2 =      drumsPass(stack(  d1x, d2x, d3, d4x,   ))           // x2
+var _drums3 =      drumsPass(stack(  d1, d2, d3, d4, d5))  // normal
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("bytebeat").color("red")
+var chordsPass = (x) => n(x).scale("c3:major").sound("bytebeat").color("red").gain(2)
 var bassPass = (x)   => n(x).scale("c3:major").sound("gm_lead_8_bass_lead").color("orange")
 var leadPass = (x)   => n(x).scale("c4:major").sound("square").color("yellow").attack(.2).sus(2)
-var glockPass = (x)   => n(x).scale("c3:major").sound("gm_synth_bass_2:6").color("green").release(.8).gain(.5)
+var glockPass = (x)   => n(x).scale("c3:major").sound("gm_synth_bass_2:6, saw").color("green").release(.4).gain(.8)
 var rumPass = (x)   => n(x).scale("c3:major").sound("steinway").color("blue").gain(.6)
 var trillPass = (x)   => n(x).scale("c4:major").sound("steinway").color("purple")
 
@@ -40,6 +42,9 @@ var _chords1 = chordsPass(`<
 var _chords2 = chordsPass(`<
  [4 3# <1 5>] -
 >`).struct("<[- 1 - 1 - 1]>")
+var _chords3 = chordsPass(`<
+ [4 3# <1 5>] -
+>`)
 
 var _bass1 = bassPass(`<
  2 3# 4 6
@@ -124,21 +129,21 @@ $: arrange(
     _glock1,
     _rum1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _chords1,    _bass1,
     _lead1.gain(.2),    _lead1x,
     _glock2,
     _trill1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _chords1.trans(12),
     _glock2x,
     _rum2.gain(.4),
     _trill2,
   )],  
-  [1*8, stack(
+  [M*8, stack(
     _drums2, // Fast Drums!
     _chords1,
     _lead1.trans(0).fm("<1 6 8 12 8 6>*3").gain(.5),
@@ -147,12 +152,32 @@ $: arrange(
     _rum1,
     _trill3,
   )],
-  [1*8, stack(
+  [M*8, stack(
+    stack(      
+    _drums2, // Fast Drums!
+    _trill3,
+    _glock3,
+    _rum1,
+    ).lpf(500),
+    _lead1x,
+    _chords1,
+    _lead1.trans(0).fm("<1 6 8 12 8 6>*3").gain(.5),
+  )],
+  [M*8, stack(
     _drums2,
     _chords2.trans(12),
+    _chords3,
     _lead1x,
+    _lead1x.trans(12), //.late(1/4),
     _rum1.trans(12),
   )],
+  [M*8, stack(
+    _drums3.postgain(2),
+    _lead1x.trans(12),
+    _glock2x,
+    _rum2.gain(.6),
+    _trill2.trans(-12),
+  )],  
 
 
   

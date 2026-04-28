@@ -105,3 +105,51 @@ hpf = remove low.
  // Thicken a bass with a detuned copy
 note("c2!4").s("sawtooth")
   .superimpose(x => x.add(note(0.1)).gain(0.4))
+
+
+
+// ---------------------------- SAMPLES
+
+  cut(1) makes everything in this group play modal - eg new sound cuts out old sound.
+  begin / end - clip the sample
+  loop / fit.
+
+  ADSR controls how volume evolves: Attack, Decay, Sustain, Release
+Short envelopes = percussive (kicks, stabs, plucks)
+Long envelopes = sustained (pads, strings, ambient)
+Pitch envelope (penv + pdecay) = the secret to kick drum design
+Filter envelope (lpenv + lpd) = the secret to bass and lead design
+Combining amplitude + filter + pitch envelopes = complete sound design
+gain controls per-event volume, velocity multiplies with gain
+compressor evens out dynamics — essential for polished mixes
+.adsr("a:d:s:r") is a convenient shorthand
+All envelope parameters can be patterned for variation
+
+// -- Spatial effects
+
+Delay is essential for Minimal Techno — a few notes + delay = full texture
+Sync delay to tempo: at 128 BPM, dotted eighth ≈ 0.35s, eighth ≈ 0.23s
+Reverb adds space — use .room() + .roomsize(), shape with .roomlp()
+Use orbits to give different elements their own reverb/delay settings
+Distortion warms up kicks and basses — .distort("1.5:.5") is a good starting point
+Bit crush (crush) and sample rate reduction (coarse) for lo-fi character
+Sidechain ducking = the Minimal Techno pump effect
+Put pad on orbit 2 → .duckorbit(2).duckattack(0.2).duckdepth(1)
+Keep low-end centered — pan only mid/high frequency elements
+jux(fn) creates stereo width by applying a function to the right channel only
+All effect parameters can be patterned with signals for evolving textures
+
+// -- Pattern manipulation
+
+Time modifiers change how patterns flow: slow, fast, rev, iter, ply, palindrome
+iter(n) is a Minimal Techno secret weapon — subtle rotation creates variation from nothing
+Swing (swingBy(1/6, 4)) adds human groove to mechanical patterns
+Random modifiers (sometimes, degradeBy, rarely) add unpredictability
+Conditional modifiers (lastOf, firstOf, when) create structured fills and breaks
+Continuous signals (sine, saw, perlin, rand) modulate any parameter for organic evolution
+.range(min, max) maps 0–1 signals to useful parameter ranges
+.slow(n) on signals controls modulation speed (higher = slower)
+stack = parallel, cat = sequential, arrange = multi-cycle structure
+superimpose plays the original + a modified copy; off adds a time-shifted modified copy
+$: patterns are the live coding equivalent — free-form, independently modifiable
+

@@ -1,0 +1,88 @@
+//@title kl47
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+var m4 = "<- - - 1>"
+var d1 = sound("sr16_bd").struct(  "1 - - - - 1 - -")
+var d2 = sound("mc303_sd").struct( "- - 1 - - - 1 -")
+var d3 = sound("rolandtr626_rim").struct(  "- - - - - - - <1 ->")
+var d4 = stack(
+  sound("tr707_bd").struct(  "1*2 - - - - [- 1] - -"),
+  sound("tr707_bd").struct(  "1 - 1 - 1 - 1*2 -").mask(m4)
+  )
+var d5 = sound("hh*8").coarse(run(0,8))
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c2:major").sound("piano, gm_harpsichord:2").color("orange").ply(2).clip(.05).rel(.5)
+var leadPass = (x)   => n(x).scale("c3:major").sound("sawtooth ").color("yellow")
+
+
+$: n("<[0 _ 2 0 - - 3 0]>").scale("c2:major").s("piano")
+
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+-
+>`)
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ [0 0 2 0]
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ [7 5 - 6] - [5 3 - 4] -
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var _harm = n("<[7 5 0 - 5 3 7 -]>").scale("c3:major").s("gm_guitar_harmonics:2").ply(2).room(2)
+
+var M = 1;
+// M = 0;
+$: arrange(
+  [1*4, stack(    
+    _drums1,
+    _bass1,
+  )],
+  [1*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+    _harm.mask(m4)
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+    _lead2,
+  )],
+  ).punchcard()
+  
