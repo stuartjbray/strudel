@@ -26,10 +26,10 @@ var _drums3 =      drumsPass(stack(  d1, d2, d3, d4, d5))  // normal
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("bytebeat").color("red").gain(2)
+var chordsPass = (x) => n(x).scale("c3:major").sound("bytebeat").color("red").gain(1.4)
 var bassPass = (x)   => n(x).scale("c3:major").sound("gm_lead_8_bass_lead").color("orange")
 var leadPass = (x)   => n(x).scale("c4:major").sound("square").color("yellow").attack(.2).sus(2)
-var glockPass = (x)   => n(x).scale("c3:major").sound("gm_synth_bass_2:6, saw").color("green").release(.4).gain(.8)
+var glockPass = (x)   => n(x).scale("c3:major").sound("gm_synth_bass_2:6, saw").color("green").release(.4).gain(.6)
 var rumPass = (x)   => n(x).scale("c3:major").sound("steinway").color("blue").gain(.6)
 var trillPass = (x)   => n(x).scale("c4:major").sound("steinway").color("purple")
 

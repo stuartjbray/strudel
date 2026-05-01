@@ -3,7 +3,8 @@
 //@url https://soundcloud.com/stuart-j-bray
 setcpm(40)
 // Library
-constructor.prototype.mask4 = function() { return this.mask("<-@3 1>") }
+var m2 = "<- 1>"; var m_2 = "<1 ->"; var m4 = "<- - - 1>"; var m_4 = "<1 1 1 ->"
+
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
@@ -12,7 +13,7 @@ var d2 = sound("sd").struct( "1 - - - - - - -")
 var d1x = sound("bd").struct( "1 - 1 - 1 - 1 - ")
 var d2x = sound("sd").struct( "1 - - - 1 - - -")
 var d3 = sound("hh").struct(  "- 1 - 1 - 1 - -")
-var d4 = sound("rolandd70_sd").struct(  "- 1 - 1 - 1 - 1").mask4()
+var d4 = sound("rolandd70_sd").struct(  "- 1 - 1 - 1 - 1").mask(m4)
 var d5= sound("rolandcompurhythm1000_sd").struct("1 1 [- 1] 1")
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up

@@ -3,7 +3,7 @@
 //@url https://soundcloud.com/stuart-j-bray
 
 setcpm(30)
-
+var m2 = "<- 1>"; var m_2 = "<1 ->"; var m4 = "<- - - 1>"; var m_4 = "<1 1 1 ->"
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 var m4 = "<- - - 1>"
@@ -40,13 +40,13 @@ var _chords2 = chordsPass(`<
 
 var _bass1 = bassPass(`<
  [0 0 2 0]
->`)
+>`).mask(m_4)
 var _bass2 = bassPass(`<
 -
 >`)
 
 var _lead1 = leadPass(`<
- [7 5 - 6] - [5 3 - 4] -
+ [7 5 - 6] - [5 3 - <4 ->] -
 >`)
 var _lead2 = leadPass(`<
 -

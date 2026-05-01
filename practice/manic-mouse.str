@@ -1,0 +1,135 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(37)
+
+var m2 = "<- 1>"; var m_2 = "<1 ->"; var m4 = "<- - - 1>"; var m_4 = "<1 1 1 ->";
+// -------------- Drums
+const drumsPass = (x) => x.color("white").bank("yamaharm50");
+
+var d1 = stack( 
+  sound("bd").struct(  "1 - 1 - 1 - 1 - ").mask(m_4), 
+  sound("bd").struct(  "- - - 1 1 1 1 - ").mask(m4) )
+var d2 = stack(
+  sound("sd").struct( " - 1 - 1 - 1 - 1").mask(m2),
+  sound("sd").struct( " - 1 1 - - 1 1 1").mask(m4))
+var d3 = sound("hh").struct(  "1*8").gain(.4)
+var d4 = sound("misc:29").struct(  "- - 1 - ").mask(m2).gain(.5)
+
+var _drums_intro = drumsPass(stack(  d1,  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+$: d4
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("gm_acoustic_guitar_nylon:2").color("red").gain("[1 .4 ]*2")
+var bassPass = (x)   => n(x).scale("c2:major").sound("piano, gm_sitar").color("orange").gain(.8)
+var bass2Pass = (x)   => n(x).scale("c3:major").sound("gm_acoustic_guitar_steel:3").color("blue").gain(1.4)
+var leadPass = (x)   => n(x).scale("c4:major").sound("gm_fx_sci_fi:4").color("yellow")
+var padPass = (x) => n(x).scale("c4:major").s("gm_pad_poly").color("green").gain(1)
+var wissPass = (x) => n(x).scale("c4:major").s("gm_lead_3_calliope").color("purple").gain(.4)
+
+
+
+var struc1 = ("[1 1 - 1 1 - 1 1]")
+var ch1 = `<
+ [-2,0,2] [-1,0,2]
+ [-2,1,3] [-2,1,2]
+ [-3,-1,1] [-2,-1,1]
+ [-3,0,2] [-3,-1,1]
+>`
+var ch2 = `<
+ [-4,-2,0] [-4,0,2]
+ [-3,-1,1] [-3,-1,2]
+ [-2,0,3] [-2,0,2]
+ [-3,-1,1] [-3#,-1,1]
+>`
+var _chords1 = chordsPass(ch1).struct(struc1)
+var _chords2 = chordsPass(ch2).struct(struc1)
+
+var _bassRun1 = bass2Pass(`<
+ [- - - - - -2 -1 0 ]
+ [- - - - - 0 -1 -2 ]
+ [- - - - - 0 1 2 ]
+ [- - - - - 2 1 0 ]
+>`).trans(-12)
+
+var _bass1 = bassPass(`<
+ [-2 -2 -2 -2 -2 -2 -1 0]
+ [1 1 1 1 1 1 0 -1]
+ [-3 -3 -3 -3 -3 -3 -2 -1]
+ [-1 -1 -1 -1 -1 -1 -2 -3]
+>/2`)
+var _bass2 = bassPass(`<
+ [-4 -4 -4 -4 -4 -4 -3 -2]
+ [-1 -1 -1 -1 -1 -1 0 1]
+ [-2 -2 -2 -2 -2 -2 -3 -4]
+ [1 1 1 1 1 1 - -]
+>/2`)
+
+var _lead1 = leadPass(`<
+ [5 4# 6 5 2 3 1 2]
+ [0 -2 -1 0 1 2 0 -1]
+ [5 4# 6 5 2 3 1 2]
+ [10 9 8 7 6 5 4 3]
+>`)
+var _lead2 = leadPass(`<
+ [5 4# 6 5 2 3 1 2]
+ [10 8 9 7 5 6 7 8]
+ [5 4# 6 5 2 3 1 2]
+ <[- [5,7] - [5,7] - [5,7] - [4,8] ]
+  [- [7,9] - [7,9] - [6,8] [6,8] -] >
+>`)
+
+var padArp = "[- 2 1 <2 ->]"
+var _pad1 = padPass(ch1).arp(padArp)
+var _pad2 = padPass(ch2).arp(padArp)
+
+var _wiss1 = wissPass(`<
+ 3 2 1 0
+>`).struct("[1 - - 1]")
+var _wiss2 = wissPass(`<
+ 3 2 4 3 
+>`).struct("[1 - - 1]")
+
+var M = 1;
+// M = 0;
+$: arrange(
+  [M*2, stack(    
+    _drums_intro,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _bassRun1,
+    _chords1, 
+    _bass1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2, 
+    _bassRun1,
+    _bass2,
+  )],
+  [1*8, stack(    
+    _drums1,
+    _bassRun1,
+    _chords1, 
+    _bass1,
+    _lead1,
+    _pad1,
+    _wiss1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords2, 
+    _bassRun1,
+    _bass2,
+    _lead2,
+    _pad2,
+    _wiss2,
+  )],
+
+  ).punchcard()
+  
