@@ -8,6 +8,7 @@
 
  When writing guitar it's easy to think in blocks of 4 chords, and to do intro-verse-bridge-chorus. When writing music on computer it's easy to get stuck in a loop of 2 chords over and over. Because none of the chunks you've written are in those chords and you don't want to do it again.
 
+ Split a tune up between different instruments. Hand over from one to the other.
 
  Everything is a placeholder until it isn't.
 

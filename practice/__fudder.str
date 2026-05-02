@@ -14,7 +14,7 @@ var d2 = sound("lt").struct(  "- - - - 1 - <- 1> -")
 var d3 = sound("hh").struct(  "- - - - - - - -")
 var d4 = sound("sd").struct(  "- - - - - - <-@3 1> 1").room(2).gain(.5)
 
-var d5 = sound("[linn9000_cb:1,linn9000_cb:2]").arp("<[1 - 1 - 0 0 - 1 - 1 - 1 0 - 0 -]>").mask(m4)
+var d5 = sound("[linn9000_cb:1,linn9000_cb:2]").arp("<[1 - 1 - 0 0 - 1 - 1 - 1 0 - 0 -]>").mask(m4).gain(.4)
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1, d1x,  d2,  d3,  d4))  // normal
@@ -22,12 +22,13 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c2:minor").sound("saw").color("red").pan("<[.2 .8]*4>").fm("8 4 2 0").fmh(2).room("2 0")
+var chordsPass = (x) => n(x).scale("c2:minor").sound("saw").color("red").pan("<[.2 .8]*4>").fm("8 4 2 0").fmh(2).room("2 0").gain(.6)
 var bassPass = (x)   => n(x).scale("c3:minor").sound("gm_synth_strings_1:1").color("orange").gain(1).release(.7)
 var leadPass = (x)   => n(x).scale("c3:minor").sound("gm_synth_strings_1:6").color("yellow").release(.8)
-var fluPass = (x)   => n(x).scale("c4:minor").sound("gm_flute").color("green").release(.8)
+var fluPass = (x)   => n(x).scale("c4:minor").sound("gm_flute").color("green").release(.8)//.early(1/32)
 var aahPass = (x)   => n(x).scale("c3:minor").sound("gm_synth_choir").color("blue").release(.8)
 var whistPass = (x)   => n(x).scale("c5:minor").sound("gm_whistle:4").color("cyan").gain(.7)
+var brassPass = (x)   => n(x).scale("c2:minor").sound("gm_synth_brass_2:2").color("purple").gain(.7)
 
 
 // Apply pass functions to patterns
@@ -36,11 +37,19 @@ var _chords2 = chordsPass(`< 0 5 6 1 >`).ply(8).mask("1@3 -")
 
 var _bass1 = bassPass(`<
  [0 - 1 _ _ _ 0 -1 ] -
- [3 - 3 _ _ _ 2 1 ] -
+ [2 - 3 _ _ _ 2 1 ] -
 >`)
 var _bass2 = bassPass(`<
  [3 4 - 3 2 - - -] -
  [2 - 3 _ _ _ 2 1] -
+>`)
+var _bass1x = bassPass(`<
+ [3 _ 6@6] -
+ [4 _ 7@6] -
+>`)
+var _bass2x = bassPass(`<
+ [5 _ 8@6] -
+ [6 _ 9@6] -
 >`)
 
 var _lead1 = leadPass(`<
@@ -72,30 +81,53 @@ var _whist1 = whistPass(`<
  -@3 [- 1 2 _ 3 _ 2 _]
 >`).room("<[0 2]>")
 
+var _brass4 = brassPass(`<
+ [- 7 6 _][- 8 7 _]
+ [- 9 8 _][- 10 9 _]
+>`)
+
 var M = 1;
- M = 0;
+ // M = 0;
 $: arrange(
   [M*8, stack(    
-    _drums1,    _chords1,     _bass1,     _aah1,
+    _drums1,    _bass1,     _aah1,
+    _chords1,
   )],
   [M*8, stack(
-    _drums1,    _chords2,    _bass2,     _aah2,
+    _drums1,    _bass2,     _aah2,
+    _chords2,
   )],
-  [1*8, stack(    
-    _drums1,    _chords1.gain(.7),     _bass1,    _whist1,
+  [M*8, stack(    
+    _drums1,    _chords1.gain(.4),     _bass1,    _whist1,
     _lead1, _flu1,
   )],
-  [1*8, stack(
-    _drums1,    _chords2.gain(.7),    _bass2,    _whist1,
+  [M*8, stack(
+    _drums1,    _chords2.gain(.4),    _bass2,    _whist1,
     _lead2, _flu1,
   )],
-  [1*8, stack(    
-    _drums1, d5,   _chords1.gain(.7),     _bass1,
+  [M*8, stack(    
+    _drums1, d5,   _chords1.gain(.4),     _bass1,
     _lead1, _flu1,
   )],
-  [1*8, stack(
-    _drums1, d5,   _chords2.gain(.7),    _bass2, 
+  [M*8, stack(
+    _drums1, d5,   _chords2.gain(.4),    _bass2, 
     _lead2, _flu1,
+  )],
+
+  
+  [1*8, stack(    
+    // _drums1, d5,   
+    _bass1.trans(12).gain(.7),
+    _bass1x.trans(12).gain(.7),
+    // _lead1, _flu1,
+    _brass4,
+  )],
+  [1*8, stack(
+    // _drums1, d5,   
+    _bass2.trans(12).gain(.7), 
+    _bass2x.trans(12).gain(.7),
+    // _lead2, _flu1,
+    _brass4,
   )],
   
   ).punchcard()

@@ -8,13 +8,17 @@ setcpm(30)
 const drumsPass = (x) => x.color("white");
 
 var d1 = sound("9000_mt, bd").struct(             "1 - - - - 1 - -").room(1.2)
-var d2 = sound("9000_sd akaixr10_sd").struct( "- - 1 - - <- 1> 1 -")
-var d3 = sound("hh").struct(                      "1*8")
+var d1x = sound("9000_mt, bd").struct(             "1 - - - - <1 -> - -").room(2)
+var d2 = sound("9000_sd akaixr10_sd").struct(     "- - 1 - - <- 1> 1 -").gain(.6)
+var d2x = sound("akaixr10_sd").struct(     "- - - 1 1 - - -").gain(1)
+
+var d3 = sound("hh").struct(                      "1*8").gain("[.6 .9]")
 var d4 = sound("cr").struct(                      "- - <1 -> - - - - -").gain(.3)
+var d5 = s("rolandtr909_oh").struct("- - 1 -")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+var _drums2 =      drumsPass(stack(  d1x,  d2x, d5 ))           // break down
 
 
 // Define pass functions for each instrument
@@ -39,7 +43,8 @@ var _bass1 = bassPass(`<
  0 [- - 3 4]
 >`)
 var _bass2 = bassPass(`<
--
+ 5 [4 3]
+ 2 [- - 7 6]
 >`)
 
 var _lead1 = leadPass(`<
@@ -85,16 +90,21 @@ var _tune2x = tunePass(`<
 
 >`).pan(.7).lpf(1600)
 
+var _tune4 = tunePass(`<
+ [- - - - 7@5 6 _  - 5 _ 4 _ ]
+ [- - - - 4@4 5 _ _ - - - - -]
+ [- - - - 7@5 8 _  - 4 _ - -]
+ [ 9 10 _ 8 9 _ 7 _ _ - - -]
+>/2`).trans(-12)
+
 
 var _rum1 = rumPass(`<
  1 2 0 -1
 >`).struct("[1 -]")
 
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 1; // change to M=1 to unmute all stacks with an M.
+var M = 1;
 // M = 0;
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
   [M*4, stack(    
     _chords1, 
     _lead1.hpf(1500),
@@ -108,26 +118,25 @@ $: arrange(
   [M*8, stack(
     _drums1,
     _chords1,
-    _bass2,
     _lead1x,
     _tune1,
     _solo1,
     _rum1,
   )],
-  [M*8, stack(    
+  [1*8, stack(    
     _drums1,
     _chords1.gain(.4),
-    _bass2,
     _lead1x,    _lead1x.trans(-12),
     _tune2,    _tune2x,
     _solo1,
     _rum1.gain(.8),
   )],
   [1*8, stack(
-    _drums1,
-    _chords2,
+    _drums2,
+    _chords2,    _chords2.delay(1/16),
     _bass2,
     _lead2,
+    _tune4,
   )],
-  )._punchcard()
+  ).punchcard()
   
