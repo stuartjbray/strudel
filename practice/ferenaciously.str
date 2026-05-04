@@ -10,7 +10,7 @@ const drumsPass = (x) => x.color("white");
 var d1 = sound("bd").struct(  "1 - - 1 1 - - -")
 var d2 = sound("rim").struct( "- - 1 - - - <1 -> -")
 var d3 = sound("hh").struct(  "- 1 - - - 1 - -")
-var d4 = sound("sd").struct(  "- - - - - - 1 -")
+var d4 = sound("sd").struct(  "- - - - - - 1 <1 ->")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
@@ -68,6 +68,10 @@ var M = 1; // change to M=1 to unmute all stacks with an M.
 //M = 0;
 $: arrange(
   // Change 1 to be M to conditionally mute this stack.
+  [1*4, stack(    
+    _bass1,
+    _lead1,
+  )],
   [1*8, stack(    
     _drums1,
     _chords1, 

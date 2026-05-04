@@ -1,0 +1,19 @@
+
+
+ Feature Requests
+
+ * Find and Replace that can see off the screen.
+
+ * Export to wav
+
+ * Preload all instruments
+
+ * Load in external files
+
+ * Pause / Resume
+
+ * Skip ahead to nth cycle
+
+ * Show which cycle number you are on. Then play from/to a cycle.
+
+ * Save used instruments to offline folder.

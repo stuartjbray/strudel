@@ -1,0 +1,112 @@
+//@title Starchastic
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+setcpm(40)
+// Library
+var m2 = "<- 1>"; var m_2 = "<1 ->"; var m4 = "<- - - 1>"; var m_4 = "<1 1 1 ->"
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd").struct(  "1 1 - 1 - - - -")
+var d2 = sound("sd").struct( "1 - - - - - - -")
+var d1x = sound("bd").struct( "1 - 1 - 1 - 1 - ")
+var d2x = sound("sd").struct( "1 - - - 1 - - -")
+var d3 = sound("hh").struct(  "- 1 - 1 - 1 - -")
+var d4 = sound("rolandd70_sd").struct(  "- 1 - 1 - 1 - 1").mask(m4)
+var d5= sound("rolandcompurhythm1000_sd").struct("1 1 [- 1] 1")
+
+var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1x,  d2x,  d3,  d4, d5)).gain(.7)  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c4:major").sound("piano").color("red").gain(1.2).phaser(8)
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_pick").color("orange")
+var bbassPass = (x)   => n(x).scale("c3:major").sound("gm_electric_bass_pick:2").color("orange").room(2).gain(1)
+var leadPass = (x)   => n(x).scale("c4:major").sound("gm_koto, saw").color("yellow").gain(.9).attack(0).release(.8).sustain(.4)
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ [0,2,4,7]
+ [0,3,5,7]
+ [1,3,5,7]
+ [2,4,6,7]
+>`).arp("<[0,1,2,3] [- [0,1] -[2,3]]>")
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ [2 2 3 2]*2
+ [0 0 1 0]*2
+ [4 4 5 4]*2
+ [1 1 2 1]*2
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+var _bbass1 = bbassPass(`<
+ [- 0 - 1 - - 0 -]
+ [- 0 - 2 - - -1 -]
+ [- 0 - 3 - - 0 -]
+ [- 0 - 2 - - -1 -]
+>`)
+
+
+
+var _lead1 = leadPass(`<
+ [- 7 _ 6 _  - 9 _ ]
+ -
+ [- 10 _ 9 _ - 4 _]
+ -
+>`)
+var _lead2 = leadPass(`<
+ [- 7 _ 6 7 4 2 4]
+ [- 6# _ 6 _ 4 _ -]
+ [- 5 _ 4 5 7 5 4]
+ [- 3 _ 2 _ 1# _ 0]
+ [- 7 _ 6 7 4 2 4]
+ [- 8 _ 7 8 7 9 -]
+ [10 9 7 4 2 4 7 9]
+ [- 3 _ 2 _ 1# _ 0]
+>`)
+
+var M = 1; 
+// M = 0;
+$: arrange(
+  [M*2, stack(    
+    _bbass1,
+  )],
+  [M*4, stack(    
+    _drums_intro,
+    _bass1,    _bbass1,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _bass1,    _bbass1, _bbass1.trans(12).late(1/16).gain(.2),
+  )],
+  [M*8, stack(
+    _drums1.lpf(500),
+    _chords1, 
+    _bass1,    _bbass1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1, 
+    _bass1,    _bbass1,
+    _lead1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords1.trans(-12), 
+    _bass1,    _bbass1,
+    _lead1.hpf(2000).room(2),
+    _lead2,
+  )],
+
+
+  // [M*4, silence],
+  ).punchcard()
+  

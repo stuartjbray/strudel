@@ -1,0 +1,118 @@
+//@title Seerious
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+var m2 = "<- 1>"; var m_2 = "<1 ->"; var m4 = "<- - - 1>"; var m_4 = "<1 1 1 ->"
+// -------------- Drums
+const drumsPass = (x) => x.color("white").bank("yamahary30");
+
+var d1 = sound("bd").struct(  "1 - 1 - 1 - 1 -")
+var d2 = sound("oh").struct( "- - - - - 1 - -")
+var d3 = sound("hh").struct(  "- 1 - 1 - 1 - 1")
+var d4 = stack(sound("sd").struct(  "- - 1 - - 1 - -"),
+               sound("sd").struct(  "- - 1 - - 1 1 -").mask(m4))
+
+var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => x.scale("c5:major").sound("piano, saw").color("red").room(1.4).gain(.7)
+var bassPass = (x)   => x.scale("c3:major").sound("gm_contrabass").color("orange").gain(.8).release(.5)
+var padPass =  (x)   => x.scale("c2:major").sound("gm_fx_echoes").color("green").release(1)
+var leadPass = (x)   => n(x).scale("<c3,c4>:major").sound("steinway").color("yellow").gain(.7)
+var dugPass = (x)   => n(x).scale("<c2,c3>:major").sound("gm_synth_bass_1:2").color("blue").gain(.7).room(2)
+
+
+var chords0 = "<Am F Dm Em>"
+var chords1 = "<Am Dm C Gm Dm F Am Am7>"
+var chords2 = "<A# F C A A# F D# Dm>"
+var chords3 = "<C C7>"
+
+// var arp1 = "[0,1,2,3] [0 1,2,3]"
+var arp1 = "[0 1 2 3] [2 3 0 1]"
+var arp2 = "[0 - - 0]"
+var arp3 = "2 -"
+
+var _chords0 = chordsPass(chord(chords0).voicing().arp(arp1))
+var _chords1 = chordsPass(chord(chords1).voicing().arp(arp1))
+var _chords2 = chordsPass(chord(chords2).voicing().arp(arp1))
+var _chords3 = chordsPass(chord(chords3).voicing().arp(arp1))
+
+var _bass0 = bassPass(chord(chords0).voicing().arp(arp2)).trans(0)
+var _bass1 = bassPass(chord(chords1).voicing().arp(arp2)).trans(0)
+var _bass2 = bassPass(chord(chords2).voicing().arp(arp2)).trans(0)
+var _bass3 = bassPass(chord(chords3).voicing().arp(arp2)).trans(0)
+
+var _pad0 = padPass(chord(chords0).voicing().arp(arp3)).trans(0)
+var _pad1 = padPass(chord(chords1).voicing().arp(arp3)).trans(0)
+var _pad2 = padPass(chord(chords2).voicing().arp(arp3)).trans(0)
+var _pad3 = padPass(chord(chords3).voicing().arp(arp3)).trans(0)
+
+var _lead1 = leadPass(`<
+ [-2 -2 - 0 - -2 0 2]
+ [- - - - - 0 2 4]
+ [- 3 3 2 2 1 0 4]
+ [- 3 3 2 - 2 - -]
+ [-2 -2 - 0 - -2 0 2]
+ [-]
+ [2 3 1 2 - 1 0 -1]
+ [-]
+>`)
+var _lead2 = leadPass(`<
+ [[1,3] - - - - 0 5 3]
+ [- - - - - - - 7]
+ [- 5 _ 7 5 4 3 7]
+ [- 5 _ 4 - 5 - -]
+ 
+ [[1,3] - - - - 0 5 3]
+ [- - - - - - - -]
+ [4 5 3 4 - 3 2 1]
+ [- - - - - 1 3 4]
+>`)
+
+// var arp4 = "<[1 - - 1 - 1 _ -][1 - <1 -> - - - 1 -]>"
+// var arp5 = "<[1 _ - 1 _ - <1 -> -]>"
+var arp5 = "<[1 _ - 1]>"
+var _dug0 = dugPass(`< -2 -4 0 -1 >`).arp(arp5)
+var _dug1 = dugPass(`< -2 0 2 1 >`).arp(arp5)
+var _dug2 = dugPass(`< 1 0 2 1 >`).arp(arp5)
+var _dug3 = dugPass(`< 0 -1 0 -1 >`).arp(arp5)
+
+var M = 1;
+// M = 0;
+$: arrange(
+  [M*4, stack(    
+    _drums1,
+    _chords0, 
+    _bass0,
+    _pad0,
+    _dug0,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+    _pad1,
+    _dug1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords2.trans(12).gain(.5),
+    _bass2,
+    _lead2,
+    _pad2,
+    _dug2,
+  )],  
+  [M*4, stack(
+    _drums1,
+    _chords3.trans(12).gain(.5),
+    _bass3,
+    _pad3,
+    _dug3,
+  )],  
+  ).punchcard()
+  

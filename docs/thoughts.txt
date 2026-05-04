@@ -1,5 +1,5 @@
 
- The first song you write will be bad. But the next song that you write will be bad. But the next song that you write will be bad.
+ The first song you write will be bad. But the next song that you write will be less bad, but still really bad. But the next song that you write will be bad.
  Make lots of bad songs. You'll only realise how much progress you've made, when you look back on your old songs and see they are much, much worse than the bad songs you are making now.
 
  When I noticed I was making a lot of similar structures in my songs I made a template to help me quickly start up new projects. As soon as I finished it I hated it and vowed never to use it. Because struggle is life.
@@ -8,6 +8,7 @@
 
  When writing guitar it's easy to think in blocks of 4 chords, and to do intro-verse-bridge-chorus. When writing music on computer it's easy to get stuck in a loop of 2 chords over and over. Because none of the chunks you've written are in those chords and you don't want to do it again.
 
+ Split a tune up between different instruments. Hand over from one to the other.
 
  Everything is a placeholder until it isn't.
 
@@ -41,16 +42,15 @@
 
  Sometimes I'll be working on a track, and it sounds great, and then you listen a bit more, and all of a sudden it sounds terrible, and you hate it, and you have to stop working on that track and work on something else. And then you come back later and play it, and it's beautiful again.
 
+ After you 'finish' a track, give it a week before you launch it, let it breathe a little, come back to it with fresh ears and judge if tinkering would be counter-productive.
 
   >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   Tasks:
   * use Slowcat to merge 2x4 loops in a 8 sized sequence.
-  * Use transpose to vary a _aaa inside the final arrange, for variety.
   * Set volume in mininotation for individual notes- eg "bd:1:4" is a loud drum.
   * Bite - chop up a pattern into x pieces and play in this order.
   * Contact people about it. More - don't give up.
-  * Get log in creds for AWS to reset password to upload snappy fingers.
 
 
   * Upload the not-shit versions on soundcloud up to youtube.
@@ -67,16 +67,6 @@
  - boogler      - y       y       y     
  - weirderer    - y       y       y     
 
->>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-Made using strudel.cc, the javascript version of TidalCycles. Created by typing lines of code. No drag and drop mouse nonsense, or actual instruments.
-#strudel #electronica #blippy #upbeat #algorave
-
-More on SoundCloud: https://soundcloud.com/stuart-j-bray
-
-Video Playlist: https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu4fOB0hZu
-
-Source code: https://bitbucket.org/stuartbray/strudel/
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 var top = n("0,1,2,3,4,5,6,7,8,9").scale("c1:major").color("#111")

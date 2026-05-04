@@ -5,4 +5,6 @@ Don't use arrange. Don't put everything in variables.
 Use several $: entry points.
 all => all.punchcard()
 
-randcat to pick random vars.
+Randcat to pick random vars.
+
+How to turn a static 'arrange' track into a usable template to play to an audience?

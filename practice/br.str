@@ -18,16 +18,16 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c4:major").sound("piano").color("red").cubic(.7) 
-var bassPass = (x)   => n(x).scale("c2:major").sound("gm_synth_bass_2").color("orange").cubic(.7).clip(.4).release(.3)
+var chordsPass = (x) => n(x).scale("c4:major").sound("piano").color("red").cubic(.7).hpf(1000) 
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_synth_bass_2").color("orange").cubic(.5).clip(.4).release(.3)
 var bass2Pass = (x)   => n(x).scale("c2:major").sound("gm_synth_bass_2:2").color("orange").cubic(.5) 
 var leadPass = (x)   => n(x).scale("c3:major").sound("gm_synth_bass_2").color("yellow")
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
- [5,7]*8
- [4,6]*8
+ [4,7]*8
  [2,6]*8
+ -
  [5,<9 7>]*8
 >`).struct("[1 1 - 1 1 - <1 -> -]")
 var _chords2 = chordsPass(`<
@@ -54,9 +54,14 @@ var _lead2 = leadPass(`<
 
 // Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
 var M = 1; // change to M=1 to unmute all stacks with an M.
-M = 0;
+// M = 0;
 $: arrange(
   // Change 1 to be M to conditionally mute this stack.
+  [M*4, stack(    
+    _drums1,
+    _bass1,
+    _bass1x,
+  )],
   [1*8, stack(    
     _drums1,
     _chords1, 

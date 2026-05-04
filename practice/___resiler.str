@@ -8,12 +8,12 @@ setcpm(35)
 const drumsPass = (x) => x.color("white").bank("yamaharx21");
 
 var d1 = sound("bd").struct(  "1 - - - - - - <- 1>")
-var d2 = sound("rim").struct( "- - - - - - <- 1> -")
+var d2 = sound("akaimpc60_rim").struct( "- - - - - - <- 1> -")
 var d3 = sound("lt").struct(  "- - - 1 - - - -").release(2).gain(.6)
 var d4 = sound("sd").struct(  "- - - - 1 - - -").room(1.2)
 
 var d1a = sound("bd").struct(  "1 - 1 - 1 - 1 -")
-var d2a = sound("rim").struct( "- - - - - 1 - -")
+var d2a = sound("akaimpc60_rim").struct( "- - - - - 1 - -")
 var d3a = sound("lt").struct(  "- 1 - 1 - - 1 -").release(2).gain(.6)
 var d4a = sound("sd").struct(  "- - - - 1 - - <- 1>").room(1.2)
 
@@ -143,22 +143,27 @@ $: arrange(
   )],
   [M*8, stack(
     _drums2,
-    _chords1,     _bass1,    _lead1,
-    _tune1, _tune1b,
+    _chords1.trans(12),
+    _bass1.trans(12),
+    _lead1.trans(-12),
+    _tune1,
+    _tune1b,
     _dug1,
-  ).trans(2)],
+  ).trans(2).room(1.2)],
 
-  [M*8, stack( 
+  [0*8, stack( 
     _drums2,
-    _chords4.gain(1.2),
+    _chords4.gain(.4),
     _tune4,
-    _dug4.gain(.4),
+    _dug1.trans(12),
+    _dug4.gain(.8),
   )],
-  [M*2, stack(
+  
+  [0*2, stack(
     _drums2,
-    _chords4.gain(1.2),
+    _chords4.gain(.4),
     _tune5,
-    _dug5.gain(.4),
+    _dug5.gain(.8),
   )],
 
 

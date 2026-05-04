@@ -13,3 +13,28 @@ var leadPass = (x)   => n(x).scale("c3:major").sound("gm_electric_bass_pick").co
 var tunePass = (x)   => n(x).scale("c4:major").sound("gm_soprano_sax").color("green").release(.7)
 var tune2Pass = (x)  => n(x).scale("c4:major").sound("gm_flute").color("blue").release(.7).vib(8).gain(.5)
 var dugPass = (x)    => n(x).scale("c3:major").sound("gm_electric_guitar_clean:3").color("purple").delay("0,.1").gain(.7).release(1.2).crush(5.6)
+
+
+
+
+_$: stack(
+  s("bd bd [- bd] <bd bd*2> "),
+  s("sd*2"),
+  s("hh*8").gain("<[.2 .8]>"),
+
+  s("cr cr*4").mask4()
+  
+).hpf(sine.range(500,1500).slow(8))
+
+var t = `<
+[3 0 - 2]
+[3 - 0 0]
+>`.add("<0 2>")
+
+_$: stack(
+  leadPass(t).trans("<12 24 0 0>"),
+  bassPass(t).slow(2).ply("2 4").trans("<0 12 24>"),
+  tune2Pass(t).fast(2).mask("1 - - 1 - 1 1 - 1")  
+)
+
+

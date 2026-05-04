@@ -9,8 +9,8 @@ const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bd").struct(  "1*4 - - <- [1 1 1 -]> - - - -").gain(.5)
 var d2 = sound("rim").struct( "- - - - 1 - <- 1> <- 1>")
-var d3 = sound("hh").struct(  "- 1 - 1*2 - 1 - 1*2")
-var d4 = sound("sd").struct(  "<[- - - - 1 - - -]!3 [- - - - 1 1 1*2 1]>").gain(".5@3 1")
+var d3 = sound("hh").struct(  "- 1 - 1*2 - 1 - 1*2").gain(.4)
+var d4 = sound("sd").struct(  "<[- - - - 1 - - -]!3 [- - - - 1 1 1*2 1]>").gain(".3@3 .6")
 
 var _drums_intro = drumsPass(stack( s("bd bd*2 bd*3 bd*4")  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
@@ -18,10 +18,12 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c2:major").sound("gm_electric_guitar_jazz:2").color("red").cubic(.2)
+var chordsPass = (x) => n(x).scale("c2:major").sound("gm_electric_guitar_jazz:2").color("purple").cubic(.2)
 var pipePass = (x)   => n(x).scale("c2:major").sound("gm_bandoneon").color("red").clip(.1).release(3)
 var bassPass = (x)   => n(x).scale("c2:major").sound("piano").color("orange")
 var leadPass = (x)   => n(x).scale("c5:major").sound("piano").color("yellow").gain(1.3)
+var gitPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_finger").color("green").gain(1.3)
+var liltPass = (x)   => n(x).scale("c3:major").sound("gm_bassoon").color("blue").gain(1).release(1)
 
 // Fm Am C G
 var chords1 = `<
@@ -47,7 +49,21 @@ var _lead1 = leadPass(`<
  -[0 1 2 1 0 1 2 <4 5>]
 >`)
 var _lead2 = leadPass(`<
--
+ [0 1][0 3]
+ [0 1][0 4]
+ [1 2][1 5]
+ [1 6][1 7]
+>`)
+
+var _git1 = gitPass(`<
+ 0 1 2 <3 1>
+>`)
+
+var _lilt1 = liltPass(`<
+ [7 7 - -][6 6 - -]
+ [5 5 - -][- - - -]
+ [5 5 - -][4 4 - -]
+ [3 3 - -][- - - -]
 >`)
 
 var M = 1; 
@@ -58,18 +74,22 @@ $: arrange(
     _drums1,
     _bass1,
     _chords1, 
+    _git1,
   )],
   [M*8, stack(    
     _drums1,
     _chords1, 
     _bass1,
     _lead1,
+    _git1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _chords2,
-    _bass2,
+    _bass1.trans(12),
     _lead2,
+    _git1,
+    _lilt1
   )],
   ).punchcard()
   

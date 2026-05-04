@@ -5,15 +5,16 @@
 setcpm(30)
 
 // -------------- Drums
-const drumsPass = (x) => x.color("white");
+const drumsPass = (x) => x.color("white").gain(.6);
 
 var d1 = sound("bd").struct(  "1 - - - - 1 1 - - - - -")
-var d2 = sound("rim").struct( "- - - 1 - - - - 1 - - -")
+var d2 = sound("rim").struct( "- - - 1 - - - - 1 - - -").postgain(.3)
 var d3 = sound("hh").struct(  "1 - - - - 1 1 - - 1 - -")
-var d4 = sound("oh").struct(  "1 - - - - - - - - - - -")
+var d4 = sound("rolandcompurhythm1000_mt").struct(  "1 - - - - - - - - - - -")
+var d5 = s("korgm1_rim").struct("<-@3 [- 1 1 1*2 1*2 -]>")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))  // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
@@ -37,6 +38,10 @@ var chords = `<
 >`
 var _chords1 = chordsPass(chords).arp(arp1)
 var _chords2 = chordsPass(chords).arp(arp2)
+
+var _chords3 = chordsPass(`<
+ [5,7,9] [7,9,11] [3,5,7] [4,6,8]
+>`).trans(-12).struct("[1 - - 1]")
 
 var _bass1 = bassPass(`<
  [0 [1 _ 0] 2 1]
@@ -82,16 +87,32 @@ var M = 1;
 // M = 0;
 $: arrange(
   [M*8, stack(    
-    _drums1,    _bass1,    _dug1,
+    _drums1,
+    _bass1,    _dug1,
   )],
   [M*8, stack(
-    _drums1,    _dug1,    _chords1,     _bass1,
+    _drums1,
+    _bass1,    _dug1,    _chords1,     
   )],
   [M*8, stack(    
-    _drums1,    _bass1,    _dug1,    _lead1,
+    _drums1,
+    _dug1,    _lead1,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _bass1,    _dug1,
+    _cell1,    _flut1,
   )],
   [1*8, stack(    
-    _drums1,    _bass1,    _dug1,    _cell1,    _flut1,
+    _drums1,
+    // _bass1,    _dug1,
+    // _cell1,
+    _flut1,
+    _chords3,
   )],
+
+
+
+  
   ).punchcard()
   
