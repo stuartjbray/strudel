@@ -176,3 +176,6 @@ await load([
   'https://raw.githubusercontent.com/stuartjbray/strudel/master/docs/library.js',
   'https://raw.githubusercontent.com/stuartjbray/strudel/master/docs/other.js',
 ], () => typeof bassPass !== 'undefined')
+
+Or use settings/prebake to load supporting code.
+Example on switch angel repo, but not documented.
