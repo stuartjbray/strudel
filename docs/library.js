@@ -25,11 +25,18 @@ Save to 'prebake'.
 
 */
 
-
 window.registerFunc = (name, func) => {
     strudelScope[name] = func;
     window[name] = func;  
   }
-  registerFunc('muffleIn', (pat,n) => pat.lpf(cosine.range(0,4000).slow(n*2)))
-  registerFunc('muffleOut', (pat,n) => pat.lpf(cosine.range(4000,0).slow(n*2)))
+  registerFunc('muffleIn', (pat,n) => pat.lpf(cosine.range(0,1500).slow(n*2)))
+  registerFunc('muffleOut', (pat,n) => pat.lpf(cosine.range(1500,0).slow(n*2)))
+  registerFunc('tinnyIn', (pat,n) => pat.hpf(cosine.range(0,1500).slow(n*2)))
+  registerFunc('tinnyOut', (pat,n) => pat.hpf(cosine.range(1500,0).slow(n*2)))
   
+  // mask settings.
+  
+  window.m2 = "<- 1>"; 
+  window.m_2 = "<1 ->"; 
+  window.m4 = "<- - - 1>"; 
+  window.m_4 = "<1 1 1 ->"  

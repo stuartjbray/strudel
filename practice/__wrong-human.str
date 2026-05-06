@@ -10,7 +10,8 @@ const drumsPass = (x) => x.color("white");
 var d1 = sound("9000_mt, bd").struct(             "1 - - - - 1 - -").room(1.2)
 var d1x = sound("9000_mt, bd").struct(             "1 - - - - <1 -> - -").room(2)
 var d2 = sound("9000_sd akaixr10_sd").struct(     "- - 1 - - <- 1> 1 -").gain(.6)
-var d2x = sound("akaixr10_sd").struct(     "- - - 1 1 - - -").gain(1)
+var d2x = stack(sound("akaixr10_sd").struct(     "- - - 1 1 - - -").gain(1),
+                sound("akaixr10_sd").struct(     "- - - - - 1*2 - 1*2").gain(1).mask(m4))
 
 var d3 = sound("hh").struct(                      "1*8").gain("[.6 .9]")
 var d4 = sound("cr").struct(                      "- - <1 -> - - - - -").gain(.3)
@@ -105,10 +106,10 @@ var _rum1 = rumPass(`<
 var M = 1;
 // M = 0;
 $: arrange(
-  [M*4, stack(    
+  [M*4, tinnyIn(stack(        
     _chords1, 
     _lead1.hpf(1500),
-  )],
+  ),4)],
   [M*8, stack(    
     _drums1,
     _chords1, 
@@ -138,5 +139,5 @@ $: arrange(
     _lead2,
     _tune4,
   )],
-  ).punchcard()
+  )// ._punchcard()
   
