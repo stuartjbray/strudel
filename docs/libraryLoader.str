@@ -1,3 +1,31 @@
+Save to 'prebake'.
+
+ --------------------------- Ideas for things to put in library
+[?] Bank of common instrument. But don't want ANYTHING specific which might change over time and change a track.
+
+[+] mask patterns.
+[+] lpf/hpf fade in/out
+[] colours
+
+
+
+
+
+
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c3:major").sound("gm_slap_bass_2:4").color("orange").gain(1.5).release(.3)
+var leadPass = (x)   => n(x).scale("c3:major").sound("gm_electric_bass_pick").color("yellow").release(1)
+var tunePass = (x)   => n(x).scale("c4:major").sound("gm_soprano_sax").color("green").release(.7)
+var tune2Pass = (x)  => n(x).scale("c4:major").sound("gm_flute").color("blue").release(.7).vib(8).gain(.5)
+var dugPass = (x)    => n(x).scale("c3:major").sound("gm_electric_guitar_clean:3").color("purple").delay("0,.1").gain(.7).release(1.2).crush(5.6)
+
+
+
+
+// Now we have prebake, I don't think we need this.
+
+
+
 // tries to load in the library, but the scope is all barfed up.
 
 const load = (urls, check) =>

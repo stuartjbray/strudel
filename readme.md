@@ -6,6 +6,6 @@ You can take any .str file and go to <https://strudel.cc> and paste it in and pr
 
 Plenty of tutorials on how to do strudel if you look for them.
 
-More on SoundCloud: <https://soundcloud.com/stuart-j-bray>
+More on SoundCloud: <https://soundcloud.com/stuart-j-bray>. (Audio only)
 
 Video Playlist: <https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu4fOB0hZu>

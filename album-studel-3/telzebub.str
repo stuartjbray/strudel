@@ -200,14 +200,14 @@ $: arrange(
     _lead3,
     _lead3x,
   )],
-  [M*16, stack(    
+  [1*16, tinnyOut(stack(    
     _chords3b.trans(12),
     _lead3.trans(-12),
     _lead3x,
     _synth3.trans(-12),
     _fid3.lpf(800),
-  )],
+  ),16)],
 
-  
+  [4,silence]
   ).punchcard()
   

@@ -1,10 +1,12 @@
 
-How to do live.
+How to do live?
 
 Don't use arrange. Don't put everything in variables.
-Use several $: entry points.
+Use several $: entry points. _$ = mute, s$ = solo
 all => all.punchcard()
 
 Randcat to pick random vars.
 
 How to turn a static 'arrange' track into a usable template to play to an audience?
+
+Maybe start performance with blank screen, get something going... then paste pre-built bits into it.

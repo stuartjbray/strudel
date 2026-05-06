@@ -187,3 +187,9 @@ await load([
 Or use settings/prebake to load supporting code. Have to ctrl-enter in the prebake window.
 
 
+// New funcs:
+.kb import keyboard
+.scribe - records playing to midi notes.
+ .move(); changes the previous value.
+ .mul() smooths out previous values
+ .gduck() - ghost duck, simulates a kick drum ducking a thing.
