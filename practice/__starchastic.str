@@ -15,6 +15,7 @@ var d2x = sound("sd").struct( "1 - - - 1 - - -")
 var d3 = sound("hh").struct(  "- 1 - 1 - 1 - -")
 var d4 = sound("rolandd70_sd").struct(  "- 1 - 1 - 1 - 1").mask(m4)
 var d5= sound("rolandcompurhythm1000_sd").struct("1 1 [- 1] 1")
+var d2xx = sound("linn9000_sd").struct("- 1 1 - 1 1 - 1").mask("m_4")
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1x,  d2x,  d3,  d4, d5)).gain(.7)  // normal
@@ -74,7 +75,7 @@ var _lead2 = leadPass(`<
 >`)
 
 var M = 1; 
-// M = 0;
+M = 0;
 $: arrange(
   [M*2, stack(    
     _bbass1,
@@ -84,7 +85,8 @@ $: arrange(
     _bass1,    _bbass1,
   )],
   [M*8, stack(    
-    _drums1,
+    _drums1, d2xx,
+    
     _bass1,    _bbass1, _bbass1.trans(12).late(1/16).gain(.2),
   )],
   [M*8, stack(
