@@ -27,7 +27,7 @@ $: d4
 var chordsPass = (x) => n(x).scale("c3:major").sound("gm_acoustic_guitar_nylon:2").color("red").gain("[1 .4 ]*2")
 var bassPass = (x)   => n(x).scale("c2:major").sound("piano, gm_sitar").color("orange").gain(.8)
 var bass2Pass = (x)   => n(x).scale("c3:major").sound("gm_acoustic_guitar_steel:3").color("blue").gain(1.4)
-var leadPass = (x)   => n(x).scale("c4:major").sound("gm_fx_sci_fi:4").color("yellow")
+var leadPass = (x)   => n(x).scale("c4:major").sound("gm_fx_sci_fi:4").color("yellow").gain(1.4)
 var padPass = (x) => n(x).scale("c4:major").s("gm_pad_poly").color("green").gain(1)
 var wissPass = (x) => n(x).scale("c4:major").s("gm_lead_3_calliope").color("purple").gain(.4)
 
