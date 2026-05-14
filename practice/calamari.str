@@ -1,4 +1,4 @@
-//@title  
+//@title  calamari
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -23,9 +23,9 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 // Define pass functions for each instrument
 var chordsPass = (x) => x.voicing().scale("c3:major").sound("piano").color(cols[0])
-var bassPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_pick:2").color(cols[1])
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_pick:2").color(cols[1]).gain(1.4)
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color(cols[2])
-var humPass = (x)   => n(x).scale("c3:major").sound("gm_synth_strings_2:4").color(cols[3]).rel(.5).phaser(4)
+var humPass = (x)   => n(x).scale("c3:major").sound("gm_synth_strings_2:4, square").color(cols[3]).rel(.5).phaser(4)
 
 // Apply pass functions to patterns
 var arp1 = "[1 - - 1]"
@@ -84,7 +84,7 @@ var _hum3 = humPass(`<
 >`)
 
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
   [0*2, stack(    
     _drums1,
