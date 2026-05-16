@@ -16,3 +16,9 @@ window.m_4 = "<1 1 1 ->"
 
 // colours
 window.cols = ["#ff0000","#ff8700","#ffd300","#deff0a","#a1ff0a","#0aff99","#0aefff","#147df5","#580aff","#be0aff"]
+
+$: stack(
+  n("<0 1 2 3 4 5 6 7 8 9>").slow(100),  
+  n("<0 1 2 3 4 5 6 7 8 9>").slow(10),  
+  n("<0 1 2 3 4 5 6 7 8 9>"),
+)
