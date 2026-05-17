@@ -7,6 +7,7 @@ all => all.punchcard()
 
 Randcat to pick random vars.
 
-How to turn a static 'arrange' track into a usable template to play to an audience?
-
 Maybe start performance with blank screen, get something going... then paste pre-built bits into it.
+
+How to turn a static 'arrange' track into a usable template to play to an audience?
+Take the arrange and turn it into a big stack. Then start with it all commented out.

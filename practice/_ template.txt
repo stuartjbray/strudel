@@ -44,6 +44,10 @@ var _lead2 = leadPass(`<
 -
 >`)
 
+// Cycle counter.
+$: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
+// all(x => x.rib(28,38)) // Play just the numbered cycles.
+
 // Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
 var M = 1; // change to M=1 to unmute all stacks with an M.
 // M = 0;

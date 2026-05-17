@@ -149,4 +149,30 @@ $: arrange(
 
 
 ).punchcard()
+
+
+// Live template
+_$: stack(
+  hush
+  // ,_drums_intro
+  // ,_drums1
   
+  // ,dAccent
+  // ,_chords1
+  // ,_bass1 //.trans(-12)
+  // ,_woo1
+  
+  // ,_chords2
+  // ,_bass2
+  // ,_woo2
+  
+  // ,_org_trill
+  // , _drums_intro
+
+  // ,_horn1
+  // , _org1
+  // ,_horn2
+  
+    // ,_chords1x,    _bass3,_bass3x, _didl1, _gob1
+    ,_drums1,    _chords2x,    _bass3,_bass3x, _didl2, _gob2
+)
