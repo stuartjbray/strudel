@@ -133,3 +133,12 @@ Made using strudel, by typing javascript. Just typing....
 Video Playlist: https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu4fOB0hZu
 
 Source code: github.org/stuartbray/strudel/
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    Investigate:
+ VCV, OSC, SuperDirt, TidalCycles,
+
+    Challenge:
+Live code silent movie score.
