@@ -86,7 +86,7 @@ var _chords6 = leadPass(`<[0 - - 0][-1 - - -1][1 - - 1][0 - - 0]>`).cubic(.4)
 var _chords7 = leadPass(`<[0 - - 0][-1 - - -1][1 - - 1][3 - - 3]>`).cubic(.4)
 
 var M = 1;
-M = 0;
+//M = 0;
 $: arrange(
   [M*4, stack(    
     _chords1, 
