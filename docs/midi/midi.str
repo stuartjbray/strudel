@@ -1,0 +1,32 @@
+// const cc = await midikeys('USB2.0-MIDI')
+
+// $: cc().scribe()
+const midi = await WebMidi.enable()
+const input = WebMidi.getInputByName('USB2.0-MIDI')
+
+let activeNotes = new Set()
+let capturedChords = []
+
+input.addListener('noteon', e => {
+  activeNotes.add(e.note.identifier.toLowerCase())
+  console.log('Active notes:', Array.from(activeNotes).join(' '))
+})
+
+input.addListener('noteoff', e => {
+  activeNotes.delete(e.note.identifier.toLowerCase())
+  
+  // When all notes released, save the chord
+  if (activeNotes.size === 0 && capturedChords.length === 0) {
+    // Just released - do nothing yet
+  }
+})
+
+// To capture a chord, press a key (like space) after playing
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' && activeNotes.size > 0) {
+    const chord = Array.from(activeNotes).sort().join(' ')
+    capturedChords.push(chord)
+    console.log('Captured:', chord) 
+    console.log('Full pattern:', capturedChords.join(', '))
+  }
+}) 

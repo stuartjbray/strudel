@@ -1,0 +1,111 @@
+//@title correct-nest
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+var m4 = ("<-@3 1>")
+// -------------- Drums
+const drumsPass = (x) => x.color("white").bank("yamaharm50")
+
+var d1 = sound("bd").struct(  "1 - - -  - - - -  - - 1 - - - - -  ")
+var d2 = sound("sd").struct(  "- - - -  1 - - -  - 1 - - 1 - - -  ")
+var d3 = sound("tb").struct( "- 1 - 1 - 1 - 1")
+var d4 = sound("hh").struct(  "1*4")
+
+var d1x = sound("bd").struct(  "1 - 1 -  - - - -  1 - 1 - - 1 - 1  ")
+var d2x = sound("sd").struct(  "- 1 - -  1 - - -  - 1 - - 1 - 1 -  ")
+
+
+var _drums0 = drumsPass(stack(  d1x,  d2x  ))           // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,    d4, _drums0.mask(m4)))   // normal
+var _drums2 =      drumsPass(stack(  d1,  d2,  d3,  d4, _drums0.mask(m4)))   
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red").diode(4).gain(.03)
+var leadPass = (x)   => n(x).scale("c3:major").sound("gm_pad_poly, gm_koto").color("yellow").rel(.4).gain(1.0)
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_synth_bass_2").color("orange").gain(1.3)
+var sciPass  = (x)   => n(x).scale("c4:major").sound("gm_fx_sci_fi:8").color("green").gain(.6).att(0).room(2)
+
+
+// Apply pass functions to patterns
+var chords1 = `<[0,4] [2,6] [4,8] [1,5]>/2`
+var _chords1 = chordsPass(chords1).arp("<[0 1 - -] ->")
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ 0 0
+ 2 2
+ 4 4
+ 1 1 
+>`).arp("<[1*4 - - 1]>")
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ [- [4,6] - [- [4,6]]] [- [4,5] - [- [4,5]]]
+ [- [5,8] - [- [5,7]]] [- [5,6] - [- [5,4]]]
+>`)
+var _lead2 = leadPass(`<
+ [- [0 1] 2 4] [[3# 4] 2 - -]
+ [- [4 3#] 4 -] [[3# 4] 2 - -]
+ [- 6 6 [- 4]] [7 8 6 _ - - - -]
+ [- 5 5 [- 4]] [6 5 4 3#]
+>`)
+var _lead3 = leadPass(`<
+ - [- 6 5 8 6 4 5 2]
+ - [- 6 5 8 6 - - -]
+ - [- 7 7 6 6 5 5 4]
+ - [7 6 5 4 9 8 7 6]
+>`)
+
+var _sci1 = sciPass(`<
+ 0 [6 5 4 3#]
+ 2 [6 5 4 5 ]
+ 6 [6 7 6 4]
+ 5 [6 5 4 3#]
+>`)
+var _sci2 = sciPass(`<
+ 0 [6 5 4 3#]
+ 2 [6 5 4 5 ]
+ 6 [6 7 6 4]
+ 5 [6 5 4 3#]
+>`)
+
+
+// all(x => x.rib(16,8))
+var M = 1
+// M = 0
+$: arrange(
+  [0*2, stack(    
+    _drums0,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums2,
+    _chords1,
+    _bass1,
+    _lead2,
+    _sci1,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1.trans(12), 
+    _bass1.trans(12),
+    _lead3,
+    _sci2.trans(-12),
+  )],
+  [0*8, stack(
+    _drums1,
+  )],
+  ).punchcard()
+  
