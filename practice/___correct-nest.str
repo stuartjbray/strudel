@@ -36,7 +36,7 @@ var chords1 = `<[0,2,4,7] [2,4,6,8] [4,6,8,10#] [1,3#,5,8]>/2`
 var chords2 = `<[3,5,7] [2,5,7] [4,7,8] [4,6,8]>/2`
 var _chords1 = chordsPass(chords1).arp("<[0 2 - -] ->")
 var _chords1a = chordsPass(chords1).arp("<[0 2 1 0 3 2 <1 -> <2 ->]>")
-var _chords2 = chordsPass(chords2).arp(`<[0 - [1,2] - [1,2] - 0 [1,2] - [1,2] 0 - [1,2] - <0 -> <[1,2] ->]!3 [0 1 2 1]*4>`).clip(.8)
+var _chords2 = chordsPass(chords2).arp(`<[0 - [1,2] - [1,2] - 0 [1,2] - [1,2] 0 - [1,2] - <0 -> <[1,2] ->] [0 1 2 1]*4>`).clip(.8)
 
 
 var _bass1 = bassPass(`<
@@ -83,7 +83,9 @@ var _sci3 = sciPass(`<
  [4 -]
 >/2`)
 
-  // all(x => x.rib(42,8))
+$: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
+
+  all(x => x.rib(58,16))
 var M = 1
 // M = 0
 $: arrange(
@@ -139,7 +141,7 @@ $: arrange(
   )],
   [M*8, stack(    
     _drums1,
-    _chords1.trans(12), 
+    _chords1a.trans(12), 
     _bass1.trans(12),
     _lead3,
     _sci2.trans(-12),
