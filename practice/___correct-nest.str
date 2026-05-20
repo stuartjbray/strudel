@@ -38,6 +38,21 @@ var _chords1 = chordsPass(chords1).arp("<[0 2 - -] ->")
 var _chords1a = chordsPass(chords1).arp("<[0 2 1 0 3 2 <1 -> <2 ->]>")
 var _chords2 = chordsPass(chords2).arp(`<[0 - [1,2] - [1,2] - 0 [1,2] - [1,2] 0 - [1,2] - <0 -> <[1,2] ->] [0 1 2 1]*4>`).clip(.8)
 
+var _chords4 = chordsPass(`<
+ [- - - - 6 5 6 - ]
+ [- - - - 6 5 6 - ]
+ [7 - - 6 6 - 5 -]
+ [4 5 6 - - - - - ]
+ [- - - - 6 5 6 - ]
+ [- - - - 7 8 6 - ]
+ [9 - - 8 8 - 6 -]
+ [9 10# 8 - - - - -]
+>`)
+var _chords4x = chordsPass(`<
+ [- 8 - [- 9]]
+ [- 6 - [- 4]]
+>`).echo(3,1/8,.7).trans("-12,12")
+
 
 var _bass1 = bassPass(`<
  0 0
@@ -83,9 +98,14 @@ var _sci3 = sciPass(`<
  [4 -]
 >/2`)
 
-$: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
+var _sci4 = sciPass(`<
+ 4 3# 6 7
+>`).struct("[1 -]").rel(1)
 
-  all(x => x.rib(58,16))
+
+// _$: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
+
+  // all(x => x.rib(66,16))
 var M = 1
 // M = 0
 $: arrange(
@@ -98,6 +118,7 @@ $: arrange(
     _bass1,
     _lead1,
   )],
+  
   [M*8, stack(
     _drums1,
     _chords1,
@@ -112,6 +133,7 @@ $: arrange(
     _lead3,
     _sci2.trans(-12),
   )],
+  
   [M*8, stack(
     _drums2,
     _chords1.trans(-12),
@@ -126,13 +148,15 @@ $: arrange(
     _lead3,
     _sci2.gain(1.3),
   )],
-  [M*8, stack(    
+  
+  [M*8, stack(    // Breakout
     _drums3,
     _chords2,
     _bass2,
     _sci3.trans(-12),
   )],
- [M*8, stack(
+  
+  [M*8, stack(
     _drums1,
     _chords1.trans(-12).echo(8,1/16,.9),
     _bass1.trans("0,24"),
@@ -147,6 +171,21 @@ $: arrange(
     _sci2.trans(-12),
   )],
 
-  
+  [M*8, stack(    
+    _drums1.hpf(1500),
+    _bass1,
+    _lead1,
+    _chords4,
+  )],
+  [M*8, stack(    
+    _drums1.gain(.4),
+    _bass1,
+    _lead1,
+    _chords4,
+    _chords4x,
+    _sci4,
+  )],  
+
+  [4,silence]
   ).punchcard()
   
