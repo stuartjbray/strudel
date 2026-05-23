@@ -7,10 +7,10 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white").gain(.7)
 
-var d1 = sound("yamahary30_bd").struct(  "1*2 - 1 - <1 -> <1 1*2>").room("[0 0 1 1]")
+var d1 = sound("yamahary30_bd").struct(  "1*2 - 1 - <1 -> <1 1*2>").room("[0 0 .5 0]").postgain(.6)
 var d2 = sound("yamahary30_sd").struct(  "- - - 1 - -")
-var d3 = sound("drumulator_ht").struct(    "- - - - - <- 1 1*2 1*4>")
-var d4 = sound("cr").struct(  "- - - - - -")
+var d3 = sound("drumulator_ht").struct(    "- - - - - <- 1 1*2 1>").gain(.4)
+var d4 = sound("[rm50_sh:1 mt32_sh:2]*3").struct(  "- 1 1 - <1 -> -").room(.6).postgain(.8)
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
@@ -18,15 +18,19 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
 // Define pass functions for each instrument
-var bassPass = (x)   => n(x).scale("c2:major").sound("gm_acoustic_bass").color("orange").att(0).rel(.4).gain(1.0).late("0,0.1")
-var leadPass = (x)   => n(x).scale("c3:major").sound("steinway").color("yellow").gain(.8)
-var chordsPass = (x) => n(x).scale("c4:major").sound("gm_orchestral_harp").color("red").gain(.6)//.rel(.3)
-var flutePass = (x) => n(x).scale("c4:major").sound("gm_flute gm_flute:2").color("green").gain(.7).rel(.4)
+var bassPass = (x)   => n(x).scale("c2:major").sound("kawai:5").color("orange").att(0).rel(.3).gain(1.0)
+  .pan(.7).orbit(2)
+var leadPass = (x)   => n(x).scale("c3:major").sound("steinway").color("yellow").gain(.7)
+  .pan(.3).duckattack(.7).duckdepth(.6).duckorbit(2)
+var chordsPass = (x) => n(x).scale("c4:major").sound("gm_orchestral_harp").color("red").gain(.5).rel(.3)
+  .pan(.6).orbit(2)
+var flutePass = (x) => n(x).scale("c4:major").sound("gm_flute gm_flute:2").color("green").gain(.6).rel(.4)
+  .pan(.4).orbit(2)
 
 // D
 var arp1 = `<[0 1 [- 2] [0,1,2] [ 1] [- 0]]!3 [[0 2 1  2 0 2]@3 [0,1,2] _ -]>`
-var arp1 = `<[[0,1,2] - [0,1,2]]>`
-var arpB = `<[0 _ 1 - 2 _ ]<[2 _ 1 - 0 _][[0,2] -]>>`
+var arp1 = `<[[0,1, 2] - [0,1,2]]>`
+var arpB = `<[0 _ 1 - 2 _ ][2 _ 1 - 0 0] [0 _ 1 1 2 _ ] [[0,2] -]>`
 var chords1 = `< 
  [3,5,8] [3,5#,7] [1,3,5#] [0#,2,5] 
  [2,4,7]  [[3,5,7][2,5,7]] [[1,3,5][0#,3,5]] [[-1,1,3] [-1,1,5]]
@@ -76,26 +80,20 @@ var _lead2 = leadPass(`<
 >`)
 
 var _flute1 = flutePass(`<
- [3 2 3] [5 4 5] [1][0#]
- [5# 5 4][1] [5 4 3] [0]
+ [3 2 3] [5 - [4 5]] [1][0#]
+ [5# 5 4][1 -] [5 4 3] [1 -]
  [3 2 3] [5 _ 5#] [1][0#]
 >`)
 var _flute2 = flutePass(`<
  [0 1 2][5 _ 4][5][4]
- [5# 5 4][8] [5 5# 7] [0]
+ [5# 5 4][8] [5 5# 7] [0#]
  [4 5 4] [5 _ 5#] [1][2]
 >`)
 
-
 // Cycle counter.
 // $: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
-// all(x => x.rib(8,4)) // Play just the numbered cycles.
+// all(x => x.rib(54,12)) // Play just the numbered cycles.
 // cycles: note(time.seg("1")).postgain(0)._pianoroll({labels: 1, hideInactive: 1, vertical: 1, afillActive: 0, playheadColor: '#ffffff00', stroke:0})
-
-
-
-
-
 
 var M = 1
 // M = 0;
@@ -112,7 +110,6 @@ $: arrange(
     _flute1.trans(-12),
     _bass1,
   )],
-
   
   [1*12, stack(
     _drums1,

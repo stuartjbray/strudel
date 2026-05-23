@@ -37,14 +37,16 @@ var _chords2 = chordsPass(`<
 >`)
 var _chordsPre1 = leadPass(`<[0 -] - - [-@5 0 1 -1]>`).trans(-12).cubic(.4)//.late(1/8)
 
-
-
 var _bass1 = bassPass(`<
  [0 -1] [1 0][3 4][1 _]
 >`)
 var _bass2 = bassPass(`<
  [0 1][1# 3][4 6][4 _]
 >`)
+var _bass10 = bassPass(`<
+ [0 -3][1 -2#] [1# 0][3 1]
+>`)
+
 // Gm G# F G
 var _lead1 = leadPass(`<
  [1# 1 0 -1]
@@ -79,11 +81,29 @@ var _lead5 = leadPass(`<
  [- 11# 11# 11# - 11 11 11][- 10 10 10 - 8# 8# 8#]
 >`)
 
+var arp5 = `<[0 1 2 - 0 - 1 2] [- 0 1 2 1 <0 -> <1 -> -]>`
 var _chords5 = chordsPass(`<
  [0,4,7] [1#,6#,8#] [4,7,10] [5,8,11]
->`).arp(`<[[0,1,2] 0 - 1 2 - 1 -] [- 0 1 2 1 <0 -> <1 -> -]>`)
+>`).arp(arp5)
 var _chords6 = leadPass(`<[0 - - 0][-1 - - -1][1 - - 1][0 - - 0]>`).cubic(.4)
 var _chords7 = leadPass(`<[0 - - 0][-1 - - -1][1 - - 1][3 - - 3]>`).cubic(.4)
+
+// ---------------------- Part 10
+var _chords10 = chordsPass(`<
+ [0,1#,5#]
+ [1,3,5#]
+ [1#,4,5#]
+ [3,5#,7]
+>`).arp(arp5).trans("<[0 12]>")
+
+var _lead10 = leadPass(`<
+ [0 1# 4 3][ 1# 4 7 5#][1# -2# 1# 4] [8 8# 5# 3]
+>`)
+var _chordsPre10 = leadPass(`<[1# -] - - [-@5 3 4 1]>`).trans(-12).cubic(.4)//.late(1/8)
+
+
+ // all(x => x.rib(32,4)) // Play just the numbered cycles.
+
 
 var M = 1;
 //M = 0;
@@ -132,10 +152,16 @@ $: arrange(
     _chords5,
     _bass1, 
     _lead5,
-    // _chordsPre1,
     _chords7.gain(.5),
   )],
 
+  [1*4, stack(    
+    _chords10,
+    _bass10, 
+    _lead10,
+    _chordsPre10,
+  )],
+
   
-  ).punchcard()
+  )//.punchcard()
   
