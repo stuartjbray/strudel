@@ -193,3 +193,12 @@ Or use settings/prebake to load supporting code. Have to ctrl-enter in the preba
  .move(); changes the previous value.
  .mul() smooths out previous values
  .gduck() - ghost duck, simulates a kick drum ducking a thing.
+
+
+ 
+ If your mix sounds muddy...
+ * Make sure you bass isn't too boomy, reverby or buzzy. (use a compressor if you are having to add lots of gain.)
+ * Cut back on layers, or quieten the least interesting one.
+ * Spread the layers across the octaves, transpose up the melody and down the bass.
+ * Shorten notes, (reduce 'release' or use clip or end).
+ * Use percussive samples (eg piano) instead of long sounds (eg synth).
