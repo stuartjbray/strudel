@@ -1,4 +1,4 @@
-//@title Template
+//@title manic-mouse
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -107,7 +107,7 @@ $: arrange(
     _bass1,
   )],
   [M*8, stack(
-    _drums1,
+    _drums1.mask(m_8),
     _chords2, 
     _bassRun1,
     _bass2,

@@ -9,10 +9,10 @@ var m4 = "<- - - 1>"
 const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bd").struct(  "1 - - - 1 [- 1] - -")
-var d1x = sound("bd").struct( "- - 1 - - -     - 1").room(2.5)
+var d1x = sound("bd").struct( "- - 1 - - -     - 1").room(1)
 var d2 = sound("lt").struct(  "- - - - 1 - <- 1> -")
 var d3 = sound("hh").struct(  "- - - - - - - -")
-var d4 = sound("sd").struct(  "- - - - - - <-@3 1> 1").room(2).gain(.5)
+var d4 = sound("sd").struct(  "- - - - - - <-@3 1> 1").room(1).gain(1)
 
 var d5 = sound("[linn9000_cb:1,linn9000_cb:2]").arp("<[1 - 1 - 0 0 - 1 - 1 - 1 0 - 0 -]>").mask(m4).gain(.4)
 

@@ -2,15 +2,16 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-setcpm(30)
+setcpm(36)
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white").gain(.7)
 
-var d1 = sound("yamahary30_bd").struct(  "1*2 - 1 - <1 -> <1 1*2>").room("[0 0 .5 0]").postgain(.6)
+var d1 = sound("yamahary30_bd").struct(  "1 - - 1 1 -").postgain(.6)
 var d2 = sound("yamahary30_sd").struct(  "- - - 1  <- - - 1*2> -")
-var d3 = sound("drumulator_ht").struct(    "- - - - - <- 1 1*2 1>").gain(.4)
-var d4 = sound("[rm50_sh:1 mt32_sh:2]*3").struct(  "- <- 1> 1 - <1 -> -").room(.6).rel(1).postgain(.8)
+var d3 = sound("drumulator_ht").struct(  "- - - - - <- 1 1*2 1>").gain(.4)
+var d4 = sound("[rm50_sh:1 mt32_sh:2]*4").struct(  "- - <- > 1  <1 -> <1 ->").room(.6).rel(1).postgain(.8)
+
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
@@ -20,7 +21,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 // Define pass functions for each instrument
 var bassPass = (x)   => n(x).scale("c2:major").sound("gm_koto").color("orange").gain(1.4).rel(.5) // .att(0).rel(1)
   .pan(.3).orbit(2)
-var leadPass = (x)   => n(x).scale("c3:major").sound("steinway").color("yellow").gain(.5)
+var leadPass = (x)   => n(x).scale("c3:major").sound("steinway").color("yellow").gain("<[.8 .5@7]>")
   .pan(.7).duckattack(.3).duckdepth(.2).duckorbit(2)
 var chordsPass = (x) => n(x).scale("c4:major").sound("gm_orchestral_harp").color("red").gain(.7).rel(.3)
   .pan(.6).orbit(2)
@@ -101,24 +102,18 @@ $: arrange(
   [M*2, _drums1],
   [M*12, stack(    
     _drums1.gain(.5),
-    _chords1.trans(-12),
-    _flute1,
+    _chords1.trans(-12).room(3),
+    _flute1.room(4),
   )],
-  [M*12, stack(    
-    _drums1.gain(.5),
-    _chords1,
-    _flute1.trans(-12),
-    _bass1,
-  )],
-  
-  [1*12, stack(
+
+  [M*12, stack(
     _drums1,
     _chords1.gain(.5),
     _bass1,//.trans(12),
     _lead1.trans(0),
     _flute1.trans(12),
   )],
-  [1*12, stack(    
+  [M*12, stack(    
     _drums1,
     _chords1.gain(.5),
     _bass1,//.trans(12),
@@ -137,9 +132,11 @@ $: arrange(
     _drums1,
     _chords1.trans(-12).clip(.4).ply(2), 
     _bass1,
-    _lead2.trans(12),
-    _flute2.gain(.6),
+    _lead2.trans(12).mask("<1@11 [1@2 -@1]>"),
+    _flute2.gain(.6).mask("<1@11 [1@7 -]>"),
   )],
 
+
+  [4,silence],
   ).punchcard()
   

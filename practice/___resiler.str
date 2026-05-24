@@ -142,16 +142,16 @@ $: arrange(
     _drums2,
   )],
   [M*8, stack(
-    _drums2,
+    _drums2.gain(.4),
     _chords1.trans(12),
     _bass1.trans(12),
     _lead1.trans(-12),
     _tune1,
-    _tune1b,
-    _dug1,
+    _tune1b.gain(.3),
+    _dug1.gain(.3),
   ).trans(2).room(1.2)],
 
-  [0*8, stack( 
+  [M*8, stack( 
     _drums2,
     _chords4.gain(.4),
     _tune4,

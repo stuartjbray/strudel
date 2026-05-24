@@ -95,7 +95,7 @@ $: arrange(
     _bass1,
     _kot1,
   )],
-  [M*8, stack(
+  [0*8, stack(
     _drums1,
     _chords2,
     _bass2,

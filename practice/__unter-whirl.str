@@ -1,4 +1,4 @@
-//@title BassyDrums
+//@title unter-whirl
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 setcpm(25)
@@ -130,6 +130,6 @@ $: arrange(
 
 
   
-  [M*4,silence]
+  // [M*4,silence]
 ).punchcard()
 

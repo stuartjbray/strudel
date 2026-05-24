@@ -64,6 +64,20 @@ https://github.com/geikha/tidal-drum-machines
 
 
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+How can I use my own samples?
+There are multiple ways to load your sample collection. Some methods are good for quick experimentation, some others are good to share your audio collection with other musicians:
+
+Import folders from the interface. These are stored locally in your web browser, and not uploaded.
+Serve a folder of samples locally using the strudel ‘sampler’ commandline tool. This can be most reliable method, but requires nodejs to be installed.
+Host your sound library online on the web and load them from an URL
+
+ [+] 'Import' from my samples folder WORKS! But only 'samples', not 'drum-machines' or 'synths'.
+
+
+
+* Don't need to do this.
+    npm install -g http-server
     npx http-server C:\Source_GitHub\strudel-samples -p 8000 --cors
     
