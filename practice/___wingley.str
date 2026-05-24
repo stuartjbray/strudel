@@ -8,8 +8,8 @@ setcpm(36)
 const drumsPass = (x) => x.color("white").gain(.7)
 
 var d1 = sound("yamahary30_bd").struct(  "1 - - 1 1 -").postgain(.6)
-var d2 = sound("yamahary30_sd").struct(  "- - - 1  <- - - 1*2> -")
-var d3 = sound("drumulator_ht").struct(  "- - - - - <- 1 1*2 1>").gain(.4)
+var d2 = sound("yamahary30_sd").struct(  "- - - 1 - -")
+var d3 = sound("rolandtr606_ht").struct(  "<1 -> - - - - <- 1>").postgain(.6)
 var d4 = sound("[rm50_sh:1 mt32_sh:2]*4").struct(  "- - <- > 1  <1 -> <1 ->").room(.6).rel(1).postgain(.8)
 
 
@@ -18,14 +18,15 @@ var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
-// Define pass functions for each instrument
-var bassPass = (x)   => n(x).scale("c2:major").sound("gm_koto").color("orange").gain(1.4).rel(.5) // .att(0).rel(1)
-  .pan(.3).orbit(2)
-var leadPass = (x)   => n(x).scale("c3:major").sound("steinway").color("yellow").gain("<[.8 .5@7]>")
-  .pan(.7).duckattack(.3).duckdepth(.2).duckorbit(2)
-var chordsPass = (x) => n(x).scale("c4:major").sound("gm_orchestral_harp").color("red").gain(.7).rel(.3)
+// Define pass functions for each instrument // gm_acoustic_guitar_nylon
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_synth_bass_1:4").color("orange")
+  .gain(.7).rel(.5)
+  .pan(.4)//.late("0,0.001")
+var leadPass = (x)   => n(x).scale("c3:major").sound("steinway").color("yellow").gain("<[.9 .5@7]>")
+  .pan(.6).duckattack(.3).duckdepth(.2).duckorbit(2)
+var chordsPass = (x) => n(x).scale("c4:major").sound("gm_orchestral_harp").color("red").gain(.6).rel(.3)
   .pan(.6).orbit(2)
-var flutePass = (x) => n(x).scale("c4:major").sound("gm_flute gm_flute:2").color("green").gain(.6).rel(.4).late(-0.02)
+var flutePass = (x) => n(x).scale("c4:major").sound("gm_flute gm_flute:2").color("green").gain(.8).rel(.4).late(-0.02)
   .pan(.4).orbit(2)
 
 // D
@@ -106,7 +107,7 @@ $: arrange(
     _flute1.room(4),
   )],
 
-  [M*12, stack(
+  [1*12, stack(
     _drums1,
     _chords1.gain(.5),
     _bass1,//.trans(12),
@@ -137,6 +138,6 @@ $: arrange(
   )],
 
 
-  [4,silence],
+  [M*4,silence],
   ).punchcard()
-  
+
