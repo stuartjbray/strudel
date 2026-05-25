@@ -126,13 +126,13 @@ $: arrange(
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-Made using strudel, by typing javascript. Just typing....
+Made by hand using strudel, by typing javascript.
 
-#strudel #electronica #blippy #upbeat #algorave
+#strudel #electronica #upbeat #algorave
 
 Video Playlist: https://www.youtube.com/playlist?list=PLw64hCyIy2NUqv94tSHrqLAlu4fOB0hZu
 
-Source code: github.org/stuartbray/strudel/
+Source code: github.com/stuartbray/strudel/
 
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

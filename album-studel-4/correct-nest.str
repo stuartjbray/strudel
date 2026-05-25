@@ -1,8 +1,9 @@
 //@title correct-nest
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
+// Requires strudel/docs/_prebake.js to run.
 setcpm(30)
+
 
 var m4 = ("<-@3 1>")
 // const muffleOut = (x,n) => x.lpf(cosine.range(1500,0).slow(n*2))
