@@ -10,7 +10,7 @@ const drumsPass = (x) => x.color("white").gain(.7)
 var d1 = sound("yamahary30_bd").struct(  "1*2 - 1 - <1 -> <1 1*2>").room("[0 0 .5 0]").postgain(.6)
 var d2 = sound("yamahary30_sd").struct(  "- - - 1 - -")
 var d3 = sound("drumulator_ht").struct(  "- - - - - -").gain(.1)
-var d4 = sound("[rm50_sh:1 mt32_sh:2]*3").struct(  "- 1 1 - 1 1").room(.6).postgain(.4)
+var d4 = sound("[rm50_sh:1 mt32_sh:2]*3").struct(  "- 1 1 - 1 <1 ->").room(.6).postgain(.4)
 
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
@@ -24,9 +24,9 @@ var bassPass = (x)   => n(x).scale("c2:major").sound("gm_lead_2_sawtooth:4").col
   .pan(.4)//.late("0,0.001")
 var leadPass = (x)   => n(x).scale("c3:major").sound("steinway").color("yellow").gain("<[.9 .5@7]>")
   .pan(.6).duckattack(.3).duckdepth(.2).duckorbit(2)
-var chordsPass = (x) => n(x).scale("c4:major").sound("gm_orchestral_harp").color("red").gain(.8).rel(.3)
+var chordsPass = (x) => n(x).scale("c4:major").sound("gm_orchestral_harp").color("red").gain(1).rel(.3)
   .pan(.6).orbit(2)
-var flutePass = (x) => n(x).scale("c4:major").sound("gm_flute gm_flute:2").color("green").gain(.8).rel(.4).late(-0.02)
+var flutePass = (x) => n(x).scale("c4:major").sound("gm_flute gm_flute:2").color("green").gain(.8).rel(.4).late(-0.01)
   .pan(.4).orbit(2)
 
 // D
@@ -124,14 +124,14 @@ $: arrange(
   
   [M*12, stack(
     _drums1,
-    _chords1.trans(-12).clip(.4).ply(2),
+    _chords1.trans(0).clip(.4),//.ply(2),
     _bass1,
     _lead1.trans(12),
     // _flute1.gain(.6),
   )],
   [M*12, stack(    
     _drums1,
-    _chords1.trans(-12).clip(.4).ply(2), 
+    _chords1.trans(0).clip(.4),//.ply(2), 
     _bass1,
     _lead2.trans(12).mask("<1@11 [1@2 -@1]>"),
     // _flute2.gain(.6).mask("<1@11 [1@7 -]>"),
