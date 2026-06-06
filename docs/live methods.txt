@@ -11,3 +11,31 @@ Maybe start performance with blank screen, get something going... then paste pre
 
 How to turn a static 'arrange' track into a usable template to play to an audience?
 Take the arrange and turn it into a big stack. Then start with it all commented out.
+
+
+Randomness:
+
+// chunk:
+$: s("<[bd sd]*2>").chunk(4, x => x.room(2))
+$: s("<[hh]*8>").chunk(8, x => x.ply(2))
+
+
+// chooseCycles
+
+var ch = chooseCycles("<[0 0 2 2 ]>", "< [0 4 2 0] >", "< [0 - 2 4] >", "<[- 4 0 1]>")
+var ins = chooseCycles("piano", "sine", "tri", "gm_oboe")
+$: stack(
+ // n(ch).s(ins).scale("c6:major").fast(4).gain(.4),
+ n(ch).s(ins).scale("c5:major").fast(2).gain(.3),
+ n(ch).s(ins).scale("c4:major"),
+ n(ch).s(ins).scale("c3:major").slow(2),
+ n(ch).s(ins).scale("c2:major").slow(4).ply(4),
+).degradeBy(.5).trans("< 0 0 7 7 0 0 9 7 0 9 >").rel("0 1 2 1")
+
+
+
+
+// euclid
+$: s("bd(<3 4 5 4>,8)").cubic(1.2)
+$: s("sd").euclid(3,8).gain(.7).late(1/4)
+$: s("<[hh oh]*4>").euclid(7,8).gain(.3)
