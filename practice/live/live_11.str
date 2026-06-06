@@ -1,0 +1,19 @@
+
+
+var ch = "<A C E G>"
+
+$: stack(
+  // s("bd*2 sd [ - bd sd -]@2").room("<0 1 >").cubic(2),
+  s("[hh oh rim rim]*2").cubic(2).fast(1)
+).slow(2)
+
+$: ch.voicing().s("sine").struct("<[1 - - 1]>").add("<24 12>").gain(".8")
+$: ch.voicing().s("sine").struct("<[1 1 1 - 1 - 1 1]>").trans(-12).fast(.5)
+
+_$: n("0 2 3 2").s("sine")
+  .struct("[1 - 1 1 - - 1 1]")
+  .scale("<c4>:major").cubic(.8).palindrome().echo(4, .25, .8)
+
+$: n("0 2 3 2").s("piano").fast(1)
+  .scale("<c3>:major").cubic(.2).palindrome().echo(4, .25, .8).rel(.1)
+  
