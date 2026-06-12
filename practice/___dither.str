@@ -24,8 +24,13 @@ var ch2 = `<[2,4,6]@2 [2,5,7] [2,4,6] [1,3#,5]@2 [1,4,6] [1,3#,5] [0,2,4]@2 [0#,
 var arp1 = `[0,1,2] - [0,2] _ _ [0,1,2] - -`
 var arp2 = `[0 1 2 1]*2`
 
+
+var _chords0 = chordsPass(`<
+ [-@4 7# 7 6 5#]
+>`)
 var _chords1 = chordsPass(`<
- [5,8] [5,7] [5,8] [5,7] [6,8] [6,9] [7,11 10 9 8]@2
+ [5,8] [5,7] [4,8] [4,7] [6,8] [6,9] [7,11 10 9 8]@2  
+ [5,8] [5,7] [4,8] [4,7] [6,8] -@3  
 >*2`)
 var _chords1x = chordsPass(`<
  [5,8] [5,7] [5,8] [5,7] [6,8] [6,9] [7,11 10 9 8]@2
@@ -89,6 +94,10 @@ var M = 1; // change to M=1 to unmute all stacks with an M.
 // M = 0;
 $: arrange(
   // Change 1 to be M to conditionally mute this stack.
+  
+  [M*1, stack(    
+    _chords0,
+  )],
   [M*8, stack(    
     _drums1,
     _chords1.trans(12).gain(1.2), 
@@ -161,4 +170,3 @@ $: arrange(
   [4,silence]
   
   ).punchcard()
-  
