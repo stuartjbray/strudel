@@ -7,7 +7,7 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white").bank("yamahary30").room(1);
 
-var d1 = sound("bd").struct(  "1 - - 1 - - 1 -").gain(.4).room(.7)
+var d1 = sound("bd").struct(  "1 - - 1 - - 1 -").gain(.8).room(.7)
 var d2 = stack(
   sound("rim").struct( "- - 1 - - - - -").mask(m_4),
   sound("rim").struct( "- - - 1 - 1 - 1").mask(m4)).gain(.3)

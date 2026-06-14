@@ -1,7 +1,7 @@
 //@title telzebub
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-setcpm(35)
+setcpm(38)
 // -------------- Drums
 const drumsPass = (x) => x.color("white").cubic(.4);
 var m4 = (x) => x.mask("<-@3 1>")

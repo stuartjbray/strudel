@@ -74,10 +74,60 @@ Serve a folder of samples locally using the strudel ‘sampler’ commandline to
 Host your sound library online on the web and load them from an URL
 
  [+] 'Import' from my samples folder WORKS! But only 'samples', not 'drum-machines' or 'synths'.
+ - VCSL - 4800 sounds. ('samples')
+ - DirtSamples - 2000 sounds. misc.
+ - Machines - 2600 sounds. (half of the 'drum-machines')
 
 
-
-* Don't need to do this.
+[+] Can also 'serve' them from local folder.
     npm install -g http-server
     npx http-server C:\Source_GitHub\strudel-samples -p 8000 --cors
     
+ [] How do i test by stopping the cache?
+ [] How do I get the synths and drum-machines.
+
+ For the synths - get the Midi files from here:
+ https://www.schristiancollins.com/generaluser 
+ (Strudel used v 1.471)
+
+ Use ultrabox to export the waveforms as short wavs here:
+ https://michaeleskin.com/tools/UltraBox/UltraBox_Sample_Extractor.html
+
+ Then moved them into subfolders based on the names with this PS script:
+
+ $sourceFolder = "C:\Users\stuar\Downloads\GeneralUser GS v1.472_extracted0"
+Get-ChildItem -Path $sourceFolder -Filter "*.wav" | ForEach-Object {
+    # Extract the part before the last " - "
+    $lastDash = $_.BaseName.LastIndexOf(' - ')
+    $subfolder = $_.BaseName.Substring(0, $lastDash)    
+    $destFolder = Join-Path $sourceFolder $subfolder    
+    if (-not (Test-Path $destFolder)) {
+        New-Item -ItemType Directory -Path $destFolder | Out-Null
+    }    
+    Move-Item -Path $_.FullName -Destination $destFolder
+}
+
+// And handle if they are still named with instrument name.
+ $sourceFolder = "C:\Users\stuar\Downloads\GeneralUser GS v1.472_extracted0"
+Get-ChildItem -Path $sourceFolder -Recurse -Filter "*.wav" | ForEach-Object {
+    $lastDash = $_.BaseName.LastIndexOf('-')
+    
+    if ($lastDash -eq -1) {
+        return
+    }
+    
+    $newName = $_.BaseName.Substring($lastDash + 1).Trim() + $_.Extension
+    $newPath = Join-Path $_.DirectoryName $newName
+    
+    if (Test-Path $newPath) {
+        Write-Host "SKIPPED (already exists): $($_.Name) -> $newName"
+        return
+    }
+    
+    Rename-Item -Path $_.FullName -NewName $newName
+}
+
+
+But ... even then, they are still just short wav files, without the sound repeating on having an envelope.
+
+Then you need to map from the folder name you imported, to the name of the synths themselves.

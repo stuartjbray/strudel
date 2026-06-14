@@ -2,7 +2,7 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-setcpm(30)
+setcpm(35)
 // -------------- Drums
 const drumsPass = (x) => x.color("white").bank("mc303")
  // .compressor("-20:20:10:.002:.02")

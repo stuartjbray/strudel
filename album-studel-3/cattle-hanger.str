@@ -3,7 +3,7 @@
 //@url https://soundcloud.com/stuart-j-bray
 // t
 
-setcpm(30)
+setcpm(32)
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white").bank("yamahary30");

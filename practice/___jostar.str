@@ -2,21 +2,24 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-setcpm(35)
+setcpm(37)
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white").bank("akaixr10");
 
 var d1 = stack(
   sound("bd").struct(  "1 - - 1 - - - -").room("[1 0 _ _]"),
-  sound("bd").struct(  "- - - - - 1 1 -").mask(m4))
-var d2 = sound("rim").struct( "- - - - 1 - - -")
+  sound("bd").struct(  "- - - - - 1 1 <- 1>").mask(m4))
+var d2 = sound("rim").struct( "- 1 - - 1 - - -")
 var d3 = sound("hh").struct(  "-  - - - - - - 1*2")
 var d4 = sound("sd").struct(  "- - - - 1 <1 -> - -")
+var d4x = sound("sd").struct(  " 1 - 1 - 1 - - 1").gain("[.4 .7]")
 
-var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+
+
+var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1, d2,  d3,  d4))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2, d4x  ))           // break down
 
 
 // Define pass functions for each instrument
@@ -103,11 +106,11 @@ $: arrange(
   [M*8, stack(    
     _drums1,    _chords1,     _bass1,    _lead1,
   )],
-  [M*8, stack(
-    _drums1,    _chords2,    _bass2,    _lead2,
+  [1*8, stack(
+    _drums2,    _chords2,    _bass2,    _lead2,
   )],
   [1*8, stack(
-    _drums1,    _chords3,    _bass2,    _lead2.gain(.6).trans(-12), _hum3,
+    _drums2,    _chords3,    _bass2,    _lead2.gain(.6).trans(-12), _hum3,
   )],
   ).punchcard()
   

@@ -7,10 +7,10 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "1 - - - - - - - <- 1>")
-var d2 = sound("sd").struct(  "- - - - - - 1 - -").room(2).gain(.4)
-var d3 = sound("rolandcompurhythm8000_rim").struct(  "- - 1 - - 1 - <- 1> 1 ")
-var d4 = sound("rolandd110_rim").struct(  "- - - 1 - <1 -> - - -").gain(.4)
+var d1 = sound("bd").struct(  "- - - - - - - -")
+var d2 = sound("rim").struct( "- - - - - - - -")
+var d3 = sound("hh").struct(  "- - - - - - - -")
+var d4 = sound("cr").struct(  "- - - - - - - -")
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
@@ -18,48 +18,30 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c4:major").sound("piano").color("red")
-var bassPass = (x)   => n(x).scale("c3:major").sound("gm_epiano1:2").color("orange").rel(.7).trans("0,12")
-var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var bassPass = (x)   => n(x).scale("c3:major").sound("square").color("orange")
+var leadPass = (x)   => n(x).scale("c3:major").sound("square").color("yellow").rel(.5).gain(.5)
 
 // Apply pass functions to patterns
-var arp1 = "<[1 - 1]>"
-var chords1 = `<
- [-2,0,2,4] [-1,0,1,4]
- [-4,-2,0,2] [-3,-2,-1,< 2 4>]
->`
-var chords2 = `<
- [-6,-4#,-2,0] [-5,-3,-2,-1]
- [-5,-3,-1,1] [-5,-3,-2,0]
- [-4,-2,0,2] [-3,-1,1,2]
- [-4,-2,0,2] [-3,-1,1,4]
->`
-var _chords1 = chordsPass(chords1).struct(arp1)
-var _chords2 = chordsPass(chords2).struct(arp1)
-
-var arp2 = "<[- [0 1 0] -][- [1 2 1] -]>"
-var _chords1x = chordsPass(chords1).arp(arp2).trans(-12)
-var _chords2x = chordsPass(chords2).arp(arp2).trans(-12)
+var _chords1 = chordsPass(`<
+ [0,3,5] [0,4,6] [0,5,7]  [0,2,4]
+>`).struct("[1 - <- 1> <1 ->]")
+var _chords2 = chordsPass(`<
+-
+>`)
 
 var _bass1 = bassPass(`<
- [2 _ 1 2 - - 0 _ -2]
- [2 - - 0 - - -3 - - ]
- [2 _ 1 2 - - 0 _ -2]
- [2 - - - - - - - - ]
+-
 >`)
 var _bass2 = bassPass(`<
- [-3 _ -2 - - - 2 - 0]
- [1 - - -1 - - -3 - -]
- [-5 _ -3 - - - 0 - 4]
- [2 - - 1 - - 0 - -]
- [-4 _ -2 - - 0 2 - 4]
- [1 - - -1 - - -3 - -]
- [2 _ -2 - - - 1 - 0]
- [4 - - 3 - - 2 - -]
+-
 >`)
 
 var _lead1 = leadPass(`<
--
+ [- 5 4 2 0 - 2 4 ]
+ [7 6 4 - 4 - 6 -]
+ [- 7 6 5 0 5 6 -]
+ [7 6 5 3 - 2 1 0 ]
 >`)
 var _lead2 = leadPass(`<
 -
@@ -77,14 +59,12 @@ $: arrange(
   [1*8, stack(    
     _drums1,
     _chords1, 
-    _chords1x, 
     _bass1,
     _lead1,
   )],
   [1*8, stack(
     _drums1,
     _chords2,
-    _chords2x,
     _bass2,
     _lead2,
   )],
