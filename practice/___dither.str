@@ -1,10 +1,10 @@
 //@title Dither
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-setcpm(35)
+setcpm(38)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
-var d1 = sound("bd").struct(  "1 - - - - - - <- 1>").room(1.2).gain(1)
+var d1 = sound("bd").struct(  "1 - - - - 1 - <- 1>").room(1.2).gain(1.2)
 var d2 = sound("sd").struct(  "- - -  - 1 - - -")
 var d3 = sound("hh").struct(  "1*8").gain("[.3 .6 .9 .6]")
 var d4 = sound("cr").struct(  "- - - - - - - -")
