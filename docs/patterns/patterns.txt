@@ -10,7 +10,7 @@ const morse = (n) => { // Thue-Morse sequence. Invert the input then append it.
 const morsePat = (n) => seq(...morse(n));
 
 var pat = 4
-var sp = (1/pat)*2
+var sp = (1/pat)*4
 _$:stack(
   s("bd").struct(morsePat(pat).fast(sp)), 
   s("hh").struct(morsePat(pat).invert().fast(sp)),
@@ -65,5 +65,5 @@ const lookAndSay = (iters) => { // describe what you see - eg 1211 is one 1, one
   return s;
 };
 // 1 → 11 → 21 → 1211 → 111221 ...
-$: n(seq(... lookAndSay(10))).scale("c3:major").s("piano").slow(3).punchcard()
+_$: n(seq(... lookAndSay(10))).scale("c3:major").s("piano").slow(3).punchcard()
 
