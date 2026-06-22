@@ -7,10 +7,10 @@ setcpm(35)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "- - - - - - - -")
-var d2 = sound("rim").struct( "- - - - - - - -")
-var d3 = sound("hh").struct(  "- - - - - - - -")
-var d4 = sound("cr").struct(  "- - - - - - - -")
+var d1 = sound("bd").struct(  "- - - - - - - -  - - - - - - - -")
+var d2 = sound("sd").struct(  "- - - - - - - -  - - - - - - - -")
+var d3 = sound("hh").struct(  "- - - - - - - -  - - - - - - - -")
+var d4 = sound("cr").struct(  "- - - - - - - -  - - - - - - - -")
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
