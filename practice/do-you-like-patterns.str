@@ -3,20 +3,25 @@
 //@url https://soundcloud.com/stuart-j-bray
 
 setcpm(133 / 4)
+window.m4 = "<- - - 1>"; 
+window.m_4 = "<1 1 1 ->"  
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
 var d1 = sound("yamahary30_bd").struct(  "1 - - - 1 - - -  1 - - - 1 1 1 -").gain(".3 .7")
 var d2 = sound("sd").struct(             "- - - - 1 - - -  - - - - 1 - - -")
+var d2x = sound("sd").struct(            "1 - - - 1 - - -  1 - - - 1 - - -")
 var d3 = sound("hh").struct(             "- - - - - - 1 1  - - - - - - 1 -")
 var d4 = sound("cr").struct(             "- - - - - - - -  - - - - - - - -")
+var d5 = sound("dr550_cp").struct(       "- - 1 - - 1 - -  1 - - 1 - - 1 -").gain("[1 .8 .6 .4 .2]")
+  var d6 = sound("gm_timpani:5").struct(   "<-!3 [- 1 _ _]>").cubic(2)
+
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
-
-// Special breaks
+var _drums2 =      drumsPass(stack(  d1, d2, d5.mask(m4)  ))            // break down
+var _drums3 =      drumsPass(stack(  d1, d2x, d6  ))            // break down
 
 
 
@@ -30,6 +35,8 @@ var bassPass1 =   (x) => n(x).scale("c3:major").sound("808_bass_low_hard").color
 var bassPass3 =   (x) => n(x).scale("c3:major").sound("long_color_kick").color("orange")
 var bassPass4 =   (x) => n(x).scale("c3:major").sound("slimy_808_crashout_bass").color("orange")
 var bassPass5 =   (x) => n(x).scale("c3:major").sound("ufo_hardcore_metallic_hit").color("orange")
+
+var sinPass =   (x) => n(x).scale("c2:major").trans("0,1").sound("sine").color("blue").att(.2).rel(.2).fmh(1)//.phaser(8)//.room(1)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -63,14 +70,21 @@ var ch = `<
 var _lead1 = leadPass(ch).struct("- [1 - 1 - 1 - 1 -] - 1")
 var _lead2 = leadPass(ch).struct("- 1 _ -")
 
+var _sin1 = sinPass(`<
+ [9 - 8 - 7 4 7 -]
+ [7 5 - 5 4 5 - 9]
+ [9 - 4 4 7 - 7 -]
+ [7 5 - 5 6 5 - 9]
+>`)
+
 // Cycle counter.
 // $: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
 // all(x => x.rib(28,38)) // Play just the numbered cycles.
 
 var M = 1
-M = 0;
+// M = 0;
 $: arrange(
-  [0*1, stack(
+  [M*1, stack(
     s("speech").crush(3).gain(.3),
   )],
   [M*4, stack(    
@@ -79,23 +93,21 @@ $: arrange(
   [M*8, stack(    
     _drums1,    _bass1,    _lead1,    _digs,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _chords2,
     _bass1.clip(.1).echo(4,1/16,.9),
     _lead2.trans(-12).lpf(800),
   )],
   [M*8, stack(    
-    _drums1,
-    _chords1, 
-    _bass1,
-    _lead1,
+    _drums2,
+    _sin1,
+    s("<- gm_reverse_cymbal:4 _ - >"),
   )],
-  [M*8, stack(
-    _drums1,
-    _chords2,
+  [1*8, stack(
+    _drums3,
+    _lead1,
     _bass2,
-    _lead2,
   )],
   ).punchcard()
   
