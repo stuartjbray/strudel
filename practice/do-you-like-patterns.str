@@ -4,6 +4,8 @@
 
 setcpm(133 / 4)
 window.m4 = "<- - - 1>"; 
+window.m4_8 = "<- - - 1 - - - ->"; 
+window.m8_8 = "<- - - - - - - 1>"; 
 window.m_4 = "<1 1 1 ->"  
 
 // -------------- Drums
@@ -13,15 +15,26 @@ var d1 = sound("yamahary30_bd").struct(  "1 - - - 1 - - -  1 - - - 1 1 1 -").gai
 var d2 = sound("sd").struct(             "- - - - 1 - - -  - - - - 1 - - -")
 var d2x = sound("sd").struct(            "1 - - - 1 - - -  1 - - - 1 - - -")
 var d3 = sound("hh").struct(             "- - - - - - 1 1  - - - - - - 1 -")
-var d4 = sound("cr").struct(             "- - - - - - - -  - - - - - - - -")
-var d5 = sound("dr550_cp").struct(       "- - 1 - - 1 - -  1 - - 1 - - 1 -").gain("[1 .8 .6 .4 .2]")
-  var d6 = sound("gm_timpani:5").struct(   "<-!3 [- 1 _ _]>").cubic(2)
+var d4 = sound("rm50_cp").struct(        "- - - - - - - 1  - 1 - <1 -> - - - -").gain(1.5)
+var d4a = sound("drumulator_hh").struct( "- - - - - - - 1  - - 1 - - - - -").gain(.7)
+
+// special fills
+var d5a = sound("dr550_cp").struct(      "- - 1 - - 1 - -  1 - - 1 - - 1 -").gain("[1 .8 .6 .4 .2]")
+var d5b = sound("dr550_cp").struct(      "- - 1 - 1 - - -  - - 1 - 1 - - -").gain(".5")
+var d5 = stack(
+  s("<- gm_reverse_cymbal:4 _ - >"),
+  d5a.mask(m4_8), 
+  d5b.mask(m8_8))
+
+
+
+var d6 = sound("gm_timpani:5").struct(   "<-!3 1>").cubic(1.5).rel(1)
 
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
-var _drums2 =      drumsPass(stack(  d1, d2, d5.mask(m4)  ))            // break down
-var _drums3 =      drumsPass(stack(  d1, d2x, d6  ))            // break down
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d4a))   // normal
+var _drums2 =      drumsPass(stack(  d1, d2, d5  )) 
+var _drums3 =      drumsPass(stack(  d1, d2x, d6  ))
 
 
 
@@ -67,8 +80,8 @@ var ch = `<
  [-2,0,2] 
  [-3,-1,0]
 >`
-var _lead1 = leadPass(ch).struct("- [1 - 1 - 1 - 1 -] - 1")
-var _lead2 = leadPass(ch).struct("- 1 _ -")
+var _lead1 = leadPass(ch).struct("- [1 - 1 - 1 - 1 -] - [1 -]")
+var _lead2 = leadPass(ch).struct("- 1 _ -").gain(.6)
 
 var _sin1 = sinPass(`<
  [9 - 8 - 7 4 7 -]
@@ -84,14 +97,18 @@ var _sin1 = sinPass(`<
 var M = 1
 // M = 0;
 $: arrange(
-  [M*1, stack(
-    s("speech").crush(3).gain(.3),
+  [M*2, cat(
+    s("speech").crush(3).gain(.3).late(.5), hush
   )],
   [M*4, stack(    
     _drums1,    _bass1,    _digs,
   )],
-  [M*8, stack(    
+  [M*4, stack(    
     _drums1,    _bass1,    _lead1,    _digs,
+  )],
+  [1*8, stack(    
+    _drums2,
+    _sin1,
   )],
   [M*8, stack(
     _drums1,
@@ -99,15 +116,10 @@ $: arrange(
     _bass1.clip(.1).echo(4,1/16,.9),
     _lead2.trans(-12).lpf(800),
   )],
-  [M*8, stack(    
-    _drums2,
-    _sin1,
-    s("<- gm_reverse_cymbal:4 _ - >"),
-  )],
-  [1*8, stack(
+  [M*8, stack(
     _drums3,
     _lead1,
     _bass2,
   )],
-  ).punchcard()
+  )//.punchcard()
   
