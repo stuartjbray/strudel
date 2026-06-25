@@ -45,9 +45,9 @@ var bassPass =   (x) => n(x).scale("c3:major").sound("gm_harpsichord").color("gr
 var leadPass =   (x) => n(x).scale("c4:major").sound("gm_overdriven_guitar:3").color("yellow").room(3).gain(.4)
 
 var bassPass1 =   (x) => n(x).scale("c3:major").sound("808_bass_low_hard").color("orange")
-var bassPass3 =   (x) => n(x).scale("c3:major").sound("long_color_kick").color("orange")
+var bassPass3 =   (x) => n(x).scale("c3:major").sound("long_color_kick").color("orange").gain(.6)
 var bassPass4 =   (x) => n(x).scale("c3:major").sound("slimy_808_crashout_bass").color("orange")
-var bassPass5 =   (x) => n(x).scale("c3:major").sound("ufo_hardcore_metallic_hit").color("orange")
+var bassPass5 =   (x) => n(x).scale("c3:major").sound("ufo_hardcore_metallic_hit").color("orange").gain(.6)
 
 var sinPass =   (x) => n(x).scale("c2:major").trans("0,1").sound("sine").color("blue").att(.2).rel(.2).fmh(1)//.phaser(8)//.room(1)
 
@@ -64,8 +64,8 @@ var _bass1 = bassPass(`<
  [ -2 -2 - 0 3 - 3 2][ - - - - - - -3 -3#]
 >`)
 var _bass2 = bassPass(`<
- [ -2 -2 - 0 3 - 3 2][ - - - - - - 1 0]
- [ -2 -2 - 0 3 - 3 2][ - - - - - - -3 -3#]
+ [ -2 -2 - 0 3 - - 2][ 1 0 1 2 1 0 - -]
+ [ -2 -2 - 4 3 - - 2][ 1 2 3 - 4 5 -3 -3#]
 >`)
 
 var _digs = stack(
@@ -106,20 +106,41 @@ $: arrange(
   [M*4, stack(    
     _drums1,    _bass1,    _lead1,    _digs,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums2,
     _sin1,
   )],
   [M*8, stack(
-    _drums1,
+    _drums1.mask(m_4),
     _chords2,
-    _bass1.clip(.1).echo(4,1/16,.9),
-    _lead2.trans(-12).lpf(800),
+    _bass1.clip(.1).echo(6,1/16,.9),
+    _lead2.trans(-12).lpf(500),
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums3,
-    _lead1,
+    _lead1.trans(12).gain(.4),
     _bass2,
   )],
   )//.punchcard()
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
