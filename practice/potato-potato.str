@@ -2,23 +2,27 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-setcpm(50)
+setcpm(40)
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "- - - - - - - -")
-var d2 = sound("rim").struct( "- - - - - - - -")
-var d3 = sound("hh").struct(  "- - - - - - - -")
-var d4 = sound("cr").struct(  "- - - - - - - -")
+var d1 = sound("bd").struct(  "1 - - - - <1!3 1*2> - -")
+var d2 = sound("sd").struct(  "- - 1 - - - 1 -").gain(.7)
+var d3 = sound("hh").struct(  "- 1*2 - 1 - 1 - 1")
+var d4 = sound("oh").struct(  "- - - 1 - <- 1> - -")
+var d5 = sound("ht").struct(  "1 - - - - - - <1 ->")
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5))   // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var chordsPass = (x) => stack(
+  n(x).scale("c3:major").sound("square").color("red").distort(".02 .2").fm("3 0").rel(.2),
+  n(x.ply(2)).scale("c5:major").sound("saw").color("orange").distort(".5 .2").fm("0 3").rel(.5).late(1/16).gain(.4)
+  )
 var bassPass =   (x) => n(x).scale("c3:major").sound("piano").color("orange")
 var leadPass =   (x) => n(x).scale("c3:major").sound("piano").color("yellow")
 
@@ -42,11 +46,11 @@ var ch4 = `<
 
 
 
-
-var _chords1 = chordsPass(ch1)
-var _chords2 = chordsPass(ch2)
-var _chords3 = chordsPass(ch3)
-var _chords4 = chordsPass(ch4)
+var arp1 = `<[1 - - 1]!3 [1 - [- 1] [- 1] ]>`
+var _chords1 = chordsPass(ch1.struct(arp1))
+var _chords2 = chordsPass(ch2.struct(arp1))
+var _chords3 = chordsPass(ch3.struct(arp1))
+var _chords4 = chordsPass(ch4.struct(arp1))
 
 var _bass1 = bassPass(`<
 -
