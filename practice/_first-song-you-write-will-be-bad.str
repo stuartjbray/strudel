@@ -50,7 +50,7 @@ var bassPass3 =   (x) => n(x).scale("c3:major").sound("long_color_kick").color("
 var bassPass4 =   (x) => n(x).scale("c3:major").sound("slimy_808_crashout_bass").color("orange").gain(1.4)
 var bassPass5 =   (x) => n(x).scale("c3:major").sound("ufo_hardcore_metallic_hit").color("orange").gain(.4)
 
-var sinPass =   (x) => n(x).scale("c2:major").trans("0,1").sound("sine").color("blue").gain(1.5).att(.2).rel(.2).fmh(1)//.phaser(8)//.room(1)
+var sinPass =   (x) => n(x).scale("c2:major").trans("0,1,7").sound("sine").color("blue").gain(1.5).att(.2).rel(.2).fmh(1)//.phaser(8)//.room(1)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
