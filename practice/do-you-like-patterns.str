@@ -1,0 +1,146 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(133 / 4)
+window.m4 = "<- - - 1>"; 
+window.m4_8 = "<- - - 1 - - - ->"; 
+window.m8_8 = "<- - - - - - - 1>"; 
+window.m_4 = "<1 1 1 ->"  
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("yamahary30_bd").struct(  "1 - - - 1 - - -  1 - - - 1 1 1 -").gain(".3 .7")
+var d2 = sound("sd").struct(             "- - - - 1 - - -  - - - - 1 - - -")
+var d2x = sound("sd").struct(            "1 - - - 1 - - -  1 - - - 1 - - -")
+var d3 = sound("hh").struct(             "- - - - - - 1 1  - - - - - - 1 -")
+var d4 = sound("rm50_cp").struct(        "- - - - - - - 1  - 1 - <1 -> - - - -").gain(1.5)
+var d4a = sound("drumulator_hh").struct( "- - - - - - - 1  - - 1 - - - - -").gain(.7)
+
+// special fills
+var d5a = sound("dr550_cp").struct(      "- - 1 - - 1 - -  1 - - 1 - - 1 -").gain("[1 .8 .6 .4 .2]")
+var d5b = sound("dr550_cp").struct(      "- - 1 - 1 - - -  - - 1 - 1 - - -").gain(".5")
+var d5 = stack(
+  s("<- gm_reverse_cymbal:4 _ - >"),
+  d5a.mask(m4_8), 
+  d5b.mask(m8_8))
+
+
+
+var d6 = sound("gm_timpani:5").struct(   "<-!3 1>").cubic(1.5).rel(1)
+
+
+var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d4a))   // normal
+var _drums2 =      drumsPass(stack(  d1, d2, d5  )) 
+var _drums3 =      drumsPass(stack(  d1, d2x, d6  ))
+
+
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var bassPass =   (x) => n(x).scale("c3:major").sound("gm_harpsichord").color("green").gain(1.5).rel(.2)
+var leadPass =   (x) => n(x).scale("c4:major").sound("gm_overdriven_guitar:3").color("yellow").room(3).gain(.4)
+
+var bassPass1 =   (x) => n(x).scale("c3:major").sound("808_bass_low_hard").color("orange")
+var bassPass3 =   (x) => n(x).scale("c3:major").sound("long_color_kick").color("orange").gain(.6)
+var bassPass4 =   (x) => n(x).scale("c3:major").sound("slimy_808_crashout_bass").color("orange")
+var bassPass5 =   (x) => n(x).scale("c3:major").sound("ufo_hardcore_metallic_hit").color("orange").gain(.6)
+
+var sinPass =   (x) => n(x).scale("c2:major").trans("0,1").sound("sine").color("blue").att(.2).rel(.2).fmh(1)//.phaser(8)//.room(1)
+
+// Apply pass functions to patterns
+var _chords1 = chordsPass(`<
+ -
+>`)
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+ [ -2 -2 - 0 3 - 3 2][ - - - - - - 1 0]
+ [ -2 -2 - 0 3 - 3 2][ - - - - - - -3 -3#]
+>`)
+var _bass2 = bassPass(`<
+ [ -2 -2 - 0 3 - - 2][ 1 0 1 2 1 0 - -]
+ [ -2 -2 - 4 3 - - 2][ 1 2 3 - 4 5 -3 -3#]
+>`)
+
+var _digs = stack(
+ bassPass4(`<- [- 0 ] - [- 0 ]>`),
+ bassPass3(`<- - [- 7 _ _] ->`),
+ bassPass5(`<- - - [- 0 _ _]>`),
+)
+
+var ch = `<
+ [-2,0,2] 
+ [-2,1,3] 
+ [-2,0,2] 
+ [-3,-1,0]
+>`
+var _lead1 = leadPass(ch).struct("- [1 - 1 - 1 - 1 -] - [1 -]")
+var _lead2 = leadPass(ch).struct("- 1 _ -").gain(.6)
+
+var _sin1 = sinPass(`<
+ [9 - 8 - 7 4 7 -]
+ [7 5 - 5 4 5 - 9]
+ [9 - 4 4 7 - 7 -]
+ [7 5 - 5 6 5 - 9]
+>`)
+
+// Cycle counter.
+// $: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
+// all(x => x.rib(28,38)) // Play just the numbered cycles.
+
+var M = 1
+// M = 0;
+$: arrange(
+  [M*2, cat(
+    s("speech").crush(3).gain(.3).late(.5), hush
+  )],
+  [M*4, stack(    
+    _drums1,    _bass1,    _digs,
+  )],
+  [M*4, stack(    
+    _drums1,    _bass1,    _lead1,    _digs,
+  )],
+  [M*8, stack(    
+    _drums2,
+    _sin1,
+  )],
+  [M*8, stack(
+    _drums1.mask(m_4),
+    _chords2,
+    _bass1.clip(.1).echo(6,1/16,.9),
+    _lead2.trans(-12).lpf(500),
+  )],
+  [1*8, stack(
+    _drums3,
+    _lead1.trans(12).gain(.4),
+    _bass2,
+  )],
+  )//.punchcard()
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

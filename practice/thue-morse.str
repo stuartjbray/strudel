@@ -1,0 +1,154 @@
+//@title Thue-Morse
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(30)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("<[red white!11]>");
+const morse = (n) => { // Thue-Morse sequence. Invert the input then append it.
+  let s = [0, 1];
+  for (let i = 1; i < n; i++) s = s.concat(s.map(b => b ^ 1));
+  return s;
+};
+const morsePat = (n) => seq(...morse(n));
+
+var pat = 4
+var sp = (1/pat)*4
+var dd1 = s("bd circuitstom_bd").struct(morsePat(pat).fast(sp))
+var dd2 = s("hh").struct(morsePat(pat).invert().fast(sp))
+
+var dd3 = s("akailinn_oh").struct(morsePat(pat).fast(sp)).room("[0 2 0]").gain(.5)
+
+
+var d1 = sound("sd").struct(  "1 - - - - - - -")
+var d2 = sound("rim").struct( "- - - - - - - -")
+var d3 = sound("hh").struct(  "- - - - - - - -")
+var d4 = sound("cr").struct(  "- - - - 1 - - -")
+
+var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack( d1,  dd1,  dd2,  d3,  d4))   // normal
+var _drums2 =      drumsPass(stack(  d1, dd2  ))            // break down
+var _drums3 =      drumsPass(stack(  dd3  ))            // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => x.scale("c3:major").sound("piano").color("red")
+var bassPass =   (x) => stack(
+  n(x).scale("c3:major").sound("gm_acoustic_bass").color("orange").gain(1.8).rel(.5).ply(4),
+  n(x).scale("<c2,c4>:major").sound("  gm_electric_bass_finger").color("yellow").gain(.5).rel(.5).ply(2),
+  )
+var leadPass =   (x) => n(x).scale("c4:major").sound("piano").color("cyan").gain(.6)
+var dugPass =   (x) => n(x).scale("c3:major").sound("gm_electric_bass_pick").color("green").cubic(.6).room(2)
+var wissPass =   (x) => n(x).scale("c4:major").sound("supersaw ").color("blue")
+
+
+
+var ch = "<Am F C6 [G C7]>"
+var arp1 = "0 [0,1] 1 0  [2,3] [0,1,2,3] 0 3"
+var arp2 = "0 2 2 0 3 1 1 3"
+var _chords1 = chordsPass(chord(ch).voicing().arp(arp1))
+var _chords2 = chordsPass(chord(ch).voicing().arp(arp2))
+
+
+var _bass1 = bassPass(`<
+ [0 1 -3 -2] -
+ [2 3 1 <0 ->] -
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ [0 2 2 0 2 0 0 2]
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var _dug1 = dugPass(`<
+ [0 4 4 0 4 0 0 4]
+ [0 3 3 0 3 0 0 3]
+ [0 5 5 0 5 0 0 5]
+ [0 6 6 0 6 0 0 6]
+>`)
+
+
+var _wiss1 = wissPass(`<
+ [7 6 - -]
+ [3 4 - -]
+ [6 7 - -]
+ [4 3 - -]
+>`).echo(6,1/16,.8).clip(.2)
+
+
+// Cycle counter.
+// $: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
+// all(x => x.rib(28,38)) // Play just the numbered cycles.
+
+// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
+var M = 1; // change to M=1 to unmute all stacks with an M.
+// M = 0;
+$: arrange(
+  // Change 1 to be M to conditionally mute this stack.
+  [M*2, stack(    
+    _drums1,
+  )],
+  [M*4, stack(    
+    _drums1,
+    _chords1, 
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,
+    _bass1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,
+    _bass1,
+    _lead1,
+    _dug1.lpf(800)
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1.trans(12),
+    // _bass1,
+    _lead1.trans(-12),
+    _dug1.trans(12).gain(.4)
+  )],
+  [M*8, stack(
+    _drums1.lpf(300),
+    _chords1.trans(-12),
+    _lead1.trans(-12),
+    _dug1.trans(12).gain(.4),
+    _dug1.trans(0).gain(.2).slow(2),
+  )],
+  [M*8, stack(
+    _drums2,
+    _chords2.trans(0),
+    _dug1.trans(12).gain(.2),
+    _wiss1,
+  )],
+  [M*8, stack(
+    _drums3,
+    _chords2.trans(0),
+    _dug1.trans(12).gain(.2),
+    _wiss1,
+    _wiss1.trans(-12).late(.5),
+  )],
+  [M*8, stack(
+    _wiss1.trans(-12),
+    _drums1.lpf(300),
+    _chords1.trans(-12),
+    _lead1.trans(-12),
+    _dug1.trans(12).gain(.3),
+    _dug1.trans(0).gain(.2).slow(2),
+  )],
+  [2,
+   _drums1.lpf("<[1000 800 600 400] [300 200 100 0]>")],
+  [4,silence]
+  
+  ).punchcard()
+  

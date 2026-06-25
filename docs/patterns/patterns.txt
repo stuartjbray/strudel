@@ -1,0 +1,69 @@
+
+// Some interesting integer patterns.
+// Can generate in strudel, or just copy from https://mathworld.wolfram.com/topics/OnlineEncyclopediaofIntegerSequences.html
+
+const morse = (n) => { // Thue-Morse sequence. Invert the input then append it.
+  let s = [0, 1];
+  for (let i = 1; i < n; i++) s = s.concat(s.map(b => b ^ 1));
+  return s;
+};
+const morsePat = (n) => seq(...morse(n));
+
+var pat = 4
+var sp = (1/pat)*4
+_$:stack(
+  s("bd").struct(morsePat(pat).fast(sp)), 
+  s("hh").struct(morsePat(pat).invert().fast(sp)),
+  // s("sd").struct(morsePat(pat-1).invert().fast(sp))  
+).color("<[red white!7]>")._punchcard()
+
+const walk = (bits) => { // walk up or down, starting from 0
+  let total = 0;
+  return bits.map(b => total += b === 1 ? 1 : -1);
+};
+// walk([1,0,0,1,0,1,1,0]) → [1, 0, -1, 0, -1, 0, 1, 0]
+
+// as a melody, negative degrees descend below C
+_$: n(seq(...walk(morse(4)))).scale("C:minor")
+
+// or as a transposition offset on a held note
+_$: note("c4*32").s("sine").att(.1).rel(.1)
+  .add(note(seq(...walk(morse(5))))).slow(4)._punchcard()
+
+
+
+
+const fibWord = (iters) => { // Fibonacci Word - swap out 0 for 01, and 1 for 0.
+  let s = [0];
+  for (let i = 0; i < iters; i++)
+    s = s.flatMap(c => c === 0 ? [0, 1] : [0]);
+  return s;
+};
+// fibWord(4) → 0,1,0,0,1,0,1,0
+// s("hh").struct(seq(...fibWord(5)))
+_$: stack(
+    s("bd").struct(fibWord(5)).fast(.7)
+).color("<[red white!7]>")._punchcard()
+
+
+
+
+
+const lookAndSay = (iters) => { // describe what you see - eg 1211 is one 1, one 2, and two 1s. ie 111221.
+  let s = [1];
+  for (let i = 0; i < iters; i++) {
+    const out = [];
+    let j = 0;
+    while (j < s.length) {
+      let count = 1;
+      while (j + count < s.length && s[j + count] === s[j]) count++;
+      out.push(count, s[j]);
+      j += count;
+    }
+    s = out;
+  }
+  return s;
+};
+// 1 → 11 → 21 → 1211 → 111221 ...
+_$: n(seq(... lookAndSay(10))).scale("c3:major").s("piano").slow(3).punchcard()
+
