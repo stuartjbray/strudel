@@ -3,7 +3,7 @@
 //@url https://soundcloud.com/stuart-j-bray
 
 // setcpm(133 / 4)
-setcpm(32)
+setcpm(30)
 window.m4 = "<- - - 1>"; 
 window.m4_8 = "<- - - 1 - - - ->"; 
 window.m8_8 = "<- - - - - - - 1>"; 
@@ -50,7 +50,7 @@ var bassPass3 =   (x) => n(x).scale("c3:major").sound("long_color_kick").color("
 var bassPass4 =   (x) => n(x).scale("c3:major").sound("slimy_808_crashout_bass").color("orange").gain(1.4)
 var bassPass5 =   (x) => n(x).scale("c3:major").sound("ufo_hardcore_metallic_hit").color("orange").gain(.4)
 
-var sinPass =   (x) => n(x).scale("c2:major").trans("0,1,7").sound("sine").color("blue").gain(1.5).att(.2).rel(.2).fmh(1)//.phaser(8)//.room(1)
+var sinPass =   (x) => n(x).scale("c2:major").trans("0,1,7").sound("sine").color("blue").gain(1.3).att(.2).rel(.2).fmh(1)//.phaser(8)//.room(1)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -70,7 +70,7 @@ var _bass2 = bassPass(`<
 >`)
 
 var _digs = stack(
- bassPass4(`<- [- 0 ] - [- 0 ]>`),
+ bassPass4(`<- [- 2 ] - [- 2 ]>`),
  bassPass3(`<- - [- 7 _ _] ->`),
  bassPass5(`<- - - [- 0 _ _]>`),
 )
@@ -98,14 +98,11 @@ var _sin1 = sinPass(`<
 var M = 1
 // M = 0;
 $: arrange(
-  [M*2, cat(
+  [0*2, cat(
     s("speech").crush(3).gain(.3).late(.5), hush
   )],
-  [M*4, stack(    
-    _drums1,    _bass1,    _digs,
-  )],
-  [M*4, stack(    
-    _drums1,    _bass1,    _lead1,    _digs,
+  [M*8, stack(    
+    _drums1,    _bass1,    _lead1.mask("<0@4 1@4>"),    _digs,
   )],
   [M*8, stack(    
     _drums2,
@@ -117,7 +114,7 @@ $: arrange(
     _bass1.clip(.1).echo(6,1/16,.9),
     _lead2.trans(-12).lpf(500),
   )],
-  [M*8, stack(    
+  [M*4, stack(    
     _drums2,
     _sin1,
   )],
@@ -126,10 +123,12 @@ $: arrange(
     _lead1.trans(12).gain(.4),
     _bass2,
   )],
-  [M*8, stack(    
+  [1*4, stack(    
     _drums2,
     _sin1,
   )],
+
+  [2, silence]
   ).punchcard()
   
 
