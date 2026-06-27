@@ -118,16 +118,23 @@ $: arrange(
     _drums2,
     _sin1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums3,
     _lead1.trans(12).gain(.4),
     _bass2,
   )],
-  [1*4, stack(    
+  [M*2, stack(
+    _drums1,
+  )],
+  [1*8, stack(    
     _drums2,
     _sin1,
   )],
+  [1*1, stack(
+    _drums1.lpf(cosine.range(1500,0).slow(2)),
+  )],
 
+  
   [2, silence]
   ).punchcard()
   

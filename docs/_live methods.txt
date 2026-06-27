@@ -1,5 +1,12 @@
 
 How to do live?
+ 
+3 ways to play
+ From Scratch
+ From template / hybrid
+ Composition
+
+
 
 Don't use arrange. Don't put everything in variables.
 Use several $: entry points. _$ = mute, s$ = solo

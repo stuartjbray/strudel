@@ -1,3 +1,5 @@
+// How to input midi keys and output 
+
 // const cc = await midikeys('USB2.0-MIDI')
 
 // $: cc().scribe()
