@@ -7,20 +7,22 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "1 1 - - 1 - - 1 - 1 1 - 1 - - 1")
+var d1 = sound("bd").struct(    "1 - - - 1 - - - - - 1 - 1 - - - ")
+var d1_1 = sound("bd").struct(  "- 1 - - - - - 1 - 1 - - - - - 1 ").mask("<0 1 0 1>")
+
 var d2 = sound("sd").struct(  "- - - - 1 - 1 - - 1 - - 1 - 1 1")
 var d3 = sound("oh").struct(  "- 1 - 1")
 var d4 = sound("cp").struct( "- - - - - - - - 1 - - - - - - -").gain(.4)
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
+var _drums1 =      drumsPass(stack(  d1, d1_1,  d2,  d3,  d4))   // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
 
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
-var bassPass = (x)   => n(x).scale("c3:major").sound("piano").color("orange")
-var leadPass = (x)   => n(x).scale("c4:major").sound("piano").color("yellow")
+var bassPass = (x)   => n(x).scale("c3:major").sound("sqr").color("orange")
+var leadPass = (x)   => n(x).scale("c4:major").sound("sqr").color("yellow").fm("[0 1 2 3]")
 
 var ch1 = `< [-2,0,2] [-3,-1,2] [-4,-2,2] [-3,-1,2]>`
 var ch2 = `< [0,2,4] [-2#,1,4] [-3#,0,1#] [-4,-2,0,2]>`
