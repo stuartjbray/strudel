@@ -1,13 +1,9 @@
-
-
-
 Blue
+    Bassline
+    Its easy they said, no rules.
+    The first song you write will be bad
+    you might have to write a 
 
-    First song you write'll be bad. 
-    But the next song you write will be bad.
-    But the one after that will be bad.
-    Until one day, you write a song, and listen to it, and think:
-    yeah, that's not very good.
 Green
     Thats really not very good, Thats actually painful.
     The ghost of beethoven is looking disdainful.
@@ -39,3 +35,12 @@ Blue
     Then turn off the laptop and walk away.
 
     
+
+
+Not used
+
+    First song you write'll be bad. 
+    But the next song you write will be bad.
+    But the one after that will be bad.
+    Until one day, you write a song, and listen to it, and think:
+    yeah, that's not very good.
