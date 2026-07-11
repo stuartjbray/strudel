@@ -1,8 +1,9 @@
-//@title Template
+//@title first-song-you-write-will-be-bad
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-setcpm(133 / 4)
+// setcpm(133 / 4)
+setcpm(26)
 window.m4 = "<- - - 1>"; 
 window.m4_8 = "<- - - 1 - - - ->"; 
 window.m8_8 = "<- - - - - - - 1>"; 
@@ -46,10 +47,10 @@ var leadPass =   (x) => n(x).scale("c4:major").sound("gm_overdriven_guitar:3").c
 
 var bassPass1 =   (x) => n(x).scale("c3:major").sound("808_bass_low_hard").color("orange")
 var bassPass3 =   (x) => n(x).scale("c3:major").sound("long_color_kick").color("orange").gain(.6)
-var bassPass4 =   (x) => n(x).scale("c3:major").sound("slimy_808_crashout_bass").color("orange")
-var bassPass5 =   (x) => n(x).scale("c3:major").sound("ufo_hardcore_metallic_hit").color("orange").gain(.6)
+var bassPass4 =   (x) => n(x).scale("c3:major").sound("slimy_808_crashout_bass").color("orange").gain(1.4)
+var bassPass5 =   (x) => n(x).scale("c3:major").sound("ufo_hardcore_metallic_hit").color("orange").gain(.4)
 
-var sinPass =   (x) => n(x).scale("c2:major").trans("0,1").sound("sine").color("blue").att(.2).rel(.2).fmh(1)//.phaser(8)//.room(1)
+var sinPass =   (x) => n(x).scale("c2:major").trans("0,1,7").sound("sine").color("blue").gain(1.3).att(.2).rel(.2).fmh(1)//.phaser(8)//.room(1)
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -69,7 +70,7 @@ var _bass2 = bassPass(`<
 >`)
 
 var _digs = stack(
- bassPass4(`<- [- 0 ] - [- 0 ]>`),
+ bassPass4(`<- [- 2 ] - [- 2 ]>`),
  bassPass3(`<- - [- 7 _ _] ->`),
  bassPass5(`<- - - [- 0 _ _]>`),
 )
@@ -97,49 +98,74 @@ var _sin1 = sinPass(`<
 var M = 1
 // M = 0;
 $: arrange(
-  [M*2, cat(
-    s("speech").crush(3).gain(.3).late(.5), hush
-  )],
-  [M*4, stack(    
-    _drums1,    _bass1,    _digs,
-  )],
-  [M*4, stack(    
-    _drums1,    _bass1,    _lead1,    _digs,
-  )],
   [M*8, stack(    
+    _drums1,    _bass1,    _lead1.mask("<0@4 1@4>"),    _digs,
+  )],
+  
+  // [M*2, stack(        _drums2,  )],
+  [M*4, stack(    
+    s("yskrm").slow(4).gain(2).delay(.2),
     _drums2,
     _sin1,
   )],
-  [M*8, stack(
+  [M*4, stack(
     _drums1.mask(m_4),
     _chords2,
     _bass1.clip(.1).echo(6,1/16,.9),
     _lead2.trans(-12).lpf(500),
   )],
-  [1*8, stack(
+  [M*4, stack(    
+    _drums2,
+    _sin1,
+  )],
+  [M*8, stack(
     _drums3,
     _lead1.trans(12).gain(.4),
     _bass2,
   )],
-  )//.punchcard()
+  [M*2, stack(
+    _drums1,
+  )],
+  [1*4, stack(    
+    _drums2,
+    _sin1,
+  )],
+  [1*1, stack(
+    _drums1.lpf(cosine.range(1500,0).slow(2)),
+  )],
+
+  
+  [2, silence]
+  ).punchcard()
   
 
 
+/*
+    The first song is the worst you write.
+    I break that record every night,
+    Polishin my rhymes, tryna get it right,
+    Dah de dah, something something.
 
+    Thats actually painful.
+    The ghost of beethoven is looking disdainful.
+    Earworms, nah mate, I gotta brainfull,
+    How longs this MC playin till?   
 
+    Your snare kills rabbits, man, 
+    Your clap needs cream, 
+    your hat is a fez, 
+    your cowbell as cjd,
 
+    your woodblock got fungus
+    your toms are all jerried
+    your rim is pacific
+    your bongo is um
 
-
-
-
-
-
-
-
-
-
-
-
+    Maybe you can fix it if you cut some layers.
+    Maybe if some notes don't play,
+    If you mix it down, so its all quiet
+    Turn off the laptop and walk away.
+*/
 
 
 

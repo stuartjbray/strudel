@@ -1,5 +1,12 @@
 
 How to do live?
+ 
+3 ways to play
+ From Scratch
+ From template / hybrid
+ Composition
+
+
 
 Don't use arrange. Don't put everything in variables.
 Use several $: entry points. _$ = mute, s$ = solo
@@ -11,6 +18,41 @@ Maybe start performance with blank screen, get something going... then paste pre
 
 How to turn a static 'arrange' track into a usable template to play to an audience?
 Take the arrange and turn it into a big stack. Then start with it all commented out.
+
+Practice speed typing the whole thing to get a reliable, predictable base that you can fall back on.
+Starting with a blank canvas doesn't mean starting with a blank mind. Memorise a pattern that works for you.
+
+Don't forget drums, bassline, chords, melody.
+Set up irregular offsets so things roll in and out of hearing.
+Gain with euclids.
+
+Effects to apply:
+- room, clip, echo, 
+- wt( fm, fmh )
+- vowel
+- duck(1).orbit(2).duckattack(.3)
+- chop? chunk? seg,
+
+
+
+    From Scratch
+- Drums, (bd hh sd).
+- Note Patterns (ch) 
+- Chords.
+- Remove drums
+- Remove Notes
+- Evolve chords.
+- Restore drums, build energy.
+- Silence all but chords.
+- Slow down
+
+ Tricks to try:
+ - slow to half speed, then double the drums.
+ - build energy to a creshendo. 
+ - Evolve a layer.
+ - Comment out old things so that you can bring them back.
+
+
 
 
 Randomness:

@@ -3,12 +3,13 @@
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-setcpm(30)
+setcpm(35)
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bossdr110_bd").struct(  "1 0 0 1 1 0 0 0")
+var d1x = sound("bossdr110_bd").struct( "1 0 0 1 1 0 1 0").gain(1.5)
 var d2 = sound("jd990_oh:2").struct("0 0 0 0 0 0 1 0").gain(".2 .4")
 var d3 = sound("yamahary30_ht:1").struct("1 0 0 0 1 0 0 0")
 var d4 = sound("sp12_hh:<1 2>").struct("1*8").gain("[.2 .5]*2")
@@ -21,9 +22,9 @@ var d7 = sound("yamahatg33_sd:3").struct("0 0 0 0 0 0 1 <- - - 1>").gain(.5)
 var _drums_intro = drumsPass(stack( d1, d2  ))            // start
 var _drums1 =      drumsPass(stack(  d1,  d2,  ))  // normal
 
-var _drums2 =      drumsPass(stack(  d1,  d2,  d3))  // more 
+var _drums2 =      drumsPass(stack(  d1x,  d2,  d3))  // more 
 
-var _drums3 =      drumsPass(stack(  d1, d2, d3, d4, d5, d6, d7  ))   
+var _drums3 =      drumsPass(stack(  d1x, d2, d3, d4, d5, d6, d7  ))   
 var _drums4 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
@@ -33,7 +34,7 @@ var bassPass = (x) => n(x).scale("c3:major").sound("piano").color("orange")
 var leadPass = (x) => n(x).sound("steinway").scale("c3:major").color("yellow")
 var guitPass = (x) => n(x).scale("c3:major").sound('gm_electric_guitar_jazz').color("green").gain(2)
 var danPass = (x) => n(x).scale("<c2,c3,c4>:major").sound('dantranh_vibrato').color("blue").room(2)
-var aahPass = (x) => n(x).scale("c3:major").sound("gm_choir_aahs:4, gm_synth_strings_2").color("purple").attack(1).release(.9).gain(1)
+var aahPass = (x) => n(x).scale("c3:major").sound("gm_choir_aahs:3, gm_synth_strings_2").color("purple").attack(1).release(.9).gain(1)
 
 var echoUpPass = (x) => stack(  
   x, 
@@ -131,40 +132,43 @@ var _chords10 = chordsPass(`<
 var M = 1;
 // M = 0;
 $: arrange(
-  [M*4, stack(    
-    _drums_intro,
-    _chords1,     _bass1,
-  )],
-  [M*4, stack(
-    _drums1,
-    _chords2,    _bass2,
-  )],
-  [M*4, stack(    
-    _drums1,
-    _chords1,     _bass1,    _lead1,    _guit1,
-  )],
-  [M*4, stack(
-    _drums1,
-    _chords2,    _bass2,    _lead2,    _guit2,
-  )],
-  [M*4, stack(    
-    _drums1,
-    _chords1,     _bass1,    _guit1,      _lead3,
-  )],
-  [M*4, stack(
-    _drums1,
-    _chords2,    _bass2,    _guit2,       _lead4,
-  )],
-  [M*4, stack(    
-    _drums2, d7,
-    _chords1,     _bass1,    _guit1,      _lead3,    _lead3x,
-    _aah1,
-  )],
-  [M*4, stack(
-    _drums2, d7,
-    _chords2,    _bass2,    _guit2,       _lead4,    _lead4x,
-    _aah2,
-  )],
+  // [M*4, stack(    
+  //   _drums_intro,
+  //   _chords1,     _bass1,
+  // )],
+  // [M*4, stack(
+  //   _drums1,
+  //   _chords2,    _bass2,
+  // )],
+  // [M*4, stack(    
+  //   _drums1,
+  //   _chords1,     _bass1,    _lead1,    _guit1,
+  // )],
+  // [M*4, stack(
+  //   _drums1,
+  //   _chords2,    _bass2,    _lead2,    _guit2,
+  // )],
+  // [M*4, stack(    
+  //   _drums1,
+  //   _chords1,     _bass1,    _guit1,      _lead3,
+  // )],
+  // [M*4, stack(
+  //   _drums1,
+  //   _chords2,    _bass2,    _guit2,       _lead4,
+  // )],
+  // [M*4, stack(    
+  //   _drums2, d7,
+  //   _chords1,     _bass1,    _guit1,      _lead3,    _lead3x,
+  //   _aah1,
+  // )],
+  // [M*4, stack(
+  //   _drums2, d7,
+  //   _chords2,    _bass2,    _guit2,       _lead4,    _lead4x,
+  //   _aah2,
+  // )],
+
+// SOUNDS BAD FROM HERE DOWN
+  
   [M*4, stack(    // ---------------- Part 2
     _drums3,
     _chords1,     _bass1,    _guit1,      _lead5,

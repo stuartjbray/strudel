@@ -1,0 +1,29 @@
+setcpm(20)
+_$: stack(
+  s(" bd bd [- bd] bd"),
+  s("hh*8").gain(".4 1 .5"),
+  s("[- sd]*4"),
+  
+).bank("<akaixr10!3 casiosk1>")
+
+var ch = `<
+ [0 0 - 2 0 - 4 2 ]
+>`
+
+$: stack(
+  n(ch).scale("major").s("piano").trans("12 24"),
+  n(ch).scale("major").s("square").trans("0").echo(4,1/8,.8).struct("[- 1 <- 1> 1]")
+).lpf("500 1000")
+
+var ch2 = "<Am C F G>"
+
+_$: stack(
+  chord(ch2).s("steinway").voicing()
+   .arp("[0,1,2] - - [2,3,4,5]")
+   // .arp("[0 1 2 3 4 5 6 7]")
+).gain(".8(5,8) 1")
+
+_$:stack(
+  n(ch).s("gm_lead_7_fifths").scale("major").arp("[- 1 - 1 1 - 1 -]"),
+  n(ch).s("gm_lead_7_fifths").scale("major").arp("[- 1 - 1 1 - 1 -]").trans(12).late(.5)
+).ply(4).gain(2).room(2)

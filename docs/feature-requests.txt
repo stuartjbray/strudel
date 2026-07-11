@@ -2,14 +2,13 @@
 
          Feature Requests
 
-    Can do (ish)
+      Can do (ish)
  * Export to wav
- * Pause / Resume
-
  * Load in files
     Prebake. Good for local.
     Can you point to external files?
 
+ * Pause / Resume
  * Find and Replace that can see off the screen.
  * Preload all instruments
  * Skip ahead to nth cycle

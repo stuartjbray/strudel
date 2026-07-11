@@ -28,7 +28,8 @@ var synthPass = (x)   => n(x).scale("<c3,c4>:major").sound("gm_fx_brightness, gm
 var tunePass =  (x)   => n(x).scale("<c2,c3>:major").sound("gm_pad_bowed:2, gm_piano:2").color("cyan").gain(1.2).release(1)
 var clavPass =  (x)   => n(x).scale("c4:major").sound("gm_clavinet").color("purple").gain(.8).release(1)
 var strumPass =  (x)   => n(x).scale("c1:major").sound("strumstick").color("purple").gain(1.4).release(1)
-
+var gitPass = (x)   => n(x).scale("c3:major").sound("gm_lead_8_bass_lead").color("cyan").gain(1.4)
+  
 var struct1 = "<[- - 1 -]*2!3 [- 1*2 [- 1] [- 1]] >"
 // C F
 var _chords1 = chordsPass(`<
@@ -131,8 +132,13 @@ var _strum1 = strumPass(`<
  [-@1 6]
 >`).echo(8,1/8,.8).postgain(1.5)
 
+var _git1 = gitPass(`<
+ [0 1 - 2 3 - 0 1 - 2 3 -]
+ [0 1 - -1 0 - 0 1 - 2 3 -]
+>/3`).echo(2,1/8,.8)
+
 var M = 1;
-// M = 0;
+M = 0;
 $: arrange(
   [M*4, stack(    
     _drums1,    _bass1,    _bass1x,    _lead1,
@@ -169,15 +175,17 @@ $: arrange(
     _chords2, _strum1,
     _tune2,
   )],
-  [M*4, stack(    
+  [1*4, stack(    // Back to the start
     _drums1,    _bass1,    _bass1x,    _lead1,
     _flex1,
+    _git1.postgain(.9),
   )],
-  [M*8, stack(    
+  [1*8, stack(    
     _drums3, 
     _bass1.trans(12),    _bass1x.trans(12),
     _lead1.trans(12),    _cal1.trans(12),    
     _synth1.trans(-12),
+    _git1,
   )],
   [M*4,
    _drums3.lpf(saw.range(1000,0).slow(4)),

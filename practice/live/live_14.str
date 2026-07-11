@@ -1,0 +1,32 @@
+
+setcpm(31)
+_$:stack(
+  s("bd - bd -    [- bd] - bd -"),
+  s("hh*8").gain("1 .3 1"),
+  s("[- sd]!4"),
+  // s("cr!4")
+  
+).bank("<akaixr10!3 circuitstom>")
+
+
+var ch  = `<
+ [0 2 0 - 7 4 - 0]
+ [- 0 2 4 4 7 4 -]
+ [0 4 0 - 7 - - -]
+ [7 2 0 - 0 4 - 0]
+>`
+
+$: stack(
+  n(ch).scale("major").s("piano"),
+  n(ch).scale("c2:major").s("gm_brass_section").slow(2),
+  n(ch).s("gm_pad_bowed").scale("c3:major").slow(4),
+).lpf("<1000 500 200>").gain(1.5)
+
+var ch2 = "<Am C F G>"
+
+$: stack(
+  chord(ch2).s("steinway").voicing().arp("<[0 1 2 3 4 3 2 1]>")
+   .echo(3, .1, .8 ).lpf(1000)
+   .trans("<12 0 12>")
+   .gain("<1 1 .3 1 .6 0 1 .3>")
+)//.room("<0 1 2 1>")

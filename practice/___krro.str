@@ -18,6 +18,8 @@ var d3 = sound("oh").struct(  "- - - - - - <-@3 1> - ")
 var d4 = sound("casiorz1_ht").struct(  "1*3").gain(".7 1 .4")
 var d4x = sound("casiorz1_ht").struct(  "1*6").gain(".7 1 .4")
 var d5 = sound("hh*12").gain("[.3 1 .3]")
+// var d6 = n("<- 0 - ->").scale("c4:major").s("808_bass_low_hard").gain(1.3).room(3)
+//$: d6
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1, d2, d3, d4))  // normal
@@ -65,11 +67,13 @@ var _lead2 = leadPass(`<
 >`)
 
 var _glock1 = glockPass(`<
- [- - - 4 5 6 12 _ - - - 6 11 _ - - - 6 8 _ - - - - ] /4
->`)
+ [- - - 4 _ - 8 _ - - 6 _ 9 _ - - 6 _ 8 _ - - - - ]
+ [- - - 5 _ - 7 _ - - 6 _ 4 _ - - 6 _ 1 _ - - - - ]
+> /4`)
 var _glock2 = glockPass(`<
- [- - - 2 1 2 -1 _ - - - -3 1 _ - - - -3 -1 _ - - - -] /4
->`).trans(12)
+ [- - - 2 _ 1 -1 _ - - -   -3 1 _ _ - - -3 -1 _ _ - - -] 
+ [- - - 2 _ - 4 _ 5 _ -    -3 3# _ _ - - -3 4 _ _ - - -] 
+>/4`).trans(12)
 var _glock2x = glockPass(`<
  - [5 [- 4] 2] 6 - 
  - 7 8 [6 7 8]
@@ -127,7 +131,7 @@ $: arrange(
     _glock1,
     _rum1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _chords1,    _bass1,
     _lead1.gain(.2),    _lead1x,
