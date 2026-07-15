@@ -1,0 +1,30 @@
+setcpm(33)
+$: stack(
+  s("sbd(2,8)").duck(2).duckattack(.2).duckdepth(.4),
+  s("[- sd]!2"),
+  s("hh*8").gain(".2 .8")
+).djf(slider(0.548,0,1))
+  .sometimes(x => x.bank("akaixr10"))
+  .sometimes(x => x.ply(2))
+  .sometimes(x => x.room("1.5"))
+var _t = `<
+ [0 7 0 6 0 5 4 -]
+ [0 7 0 6 0 8 7 -]
+ -
+ [5 3 2 5 3 2 - -]
+ [6 5 4 6 5 4 - -]
+ -
+>`
+_$: stack(
+  n(_t).scale("c2:major").s("piano"), //.vowel("<a e i o>"),
+  n(_t).scale("c3:major").s("piano"), //.vowel("<a e i o>").jux(rev),
+  n(_t).scale("c3:major").s("square").trans(12).late(.5), //.lpf(500).lpe(sine.range(1,4).slow(2)),
+)
+var _c = `<C C F F >`
+$: stack(
+  // chord(_c).voicing().struct("[1 1 - 1 1 - 1 -]"),
+  chord(_c).voicing().trans(0).struct("[- 1 1 - 1 1 - 1]").s("gm_banjo").ply("1 2 4"),
+  // chord(_c).voicing().arp("[0 1 2 3 4 5 6 7]").s("steinway").jux(rev),
+)
+
+all(x => x.orbit(2) )

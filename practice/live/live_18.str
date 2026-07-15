@@ -1,0 +1,37 @@
+
+setcpm(30)
+$: stack(
+  s("hh*8").gain("1 2"),
+  s("sbd(<5>,8)"),
+  s("<- - - [bd*4]>"),
+  s("[- sd]!2"),
+).lpf("1500,3000!3")
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.bank("akaixr10"))
+ .almostNever(x => x.crush(4))
+ .almostNever(x => x.room(.4))
+ // .almostNever(x => x.rev)
+
+var _t = `<
+ [4 3 0 - 0 5 0 - ]
+ [4 3 0 - 0 6 0 - ]
+ [4 3 0 - 0 7 - - ]
+ -
+>`
+ // [0 2 - 3 <2 5> 0 - 0]
+$: stack(
+  n(_t).scale("major").lpf(500).lpenv(.9).lpdepth(sine.range(500,1000))
+   .sometimes(x => x.trans("12")),
+  n(_t).scale("major").delay(1/4)
+   .sometimes(x => x.ply(4))
+   .trans(12)
+).crush(4).lpf(1500).gain(.9)
+
+var _c = `<Am C F G>`
+$: stack(
+ // chord(_c).voicing().arp("[0,1,2] 0 0 [ 2,3,4,5]").s("piano"),
+ chord(_c).voicing().arp("[0 1 2 3 4 5 6 7]").s("steinway"),
+ // chord(_c).voicing().arp("[0 2 0 3 0 4 1 -]").late(1/8).trans(12)
+).room(1).jux(rev) //.lpf(800)
+
+  all(x => x.punchcard())
