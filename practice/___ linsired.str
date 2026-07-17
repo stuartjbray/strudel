@@ -7,7 +7,7 @@ setcpm(35)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "<[1 - - - - - - <- 1>]>")
+var d1 = sound("bd").struct(  "<[1 - - - 1 - - <- 1>]>")
 var d2 = sound("rim").struct( "- - - - - - - -")
 var d3 = sound("white").struct(  "- - 1 - 1 - 1*2 -").clip("- .1 .5 .1 ")
 var d4 = sound("sd").struct(  "1 <- - - 1> - - - - - -")
@@ -133,12 +133,12 @@ var _strum1 = strumPass(`<
 >`).echo(8,1/8,.8).postgain(1.5)
 
 var _git1 = gitPass(`<
- [0 1 - 2 3 - 0 1 - 2 3 -]
- [0 1 - -1 0 - 0 1 - 2 3 -]
->/3`).echo(2,1/8,.8)
+ [- - -  2  3 - 0 1]
+ [- - - -1  0 - 0 1]
+>/2`).echo(3,1/4,.7).clip(.5)
 
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
   [M*4, stack(    
     _drums1,    _bass1,    _bass1x,    _lead1,
