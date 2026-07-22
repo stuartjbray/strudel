@@ -3,7 +3,7 @@
 //@url https://soundcloud.com/stuart-j-bray
 
 // setcpm(133 / 4)
-setcpm(30)
+setcpm(26)
 window.m4 = "<- - - 1>"; 
 window.m4_8 = "<- - - 1 - - - ->"; 
 window.m8_8 = "<- - - - - - - 1>"; 
@@ -98,17 +98,17 @@ var _sin1 = sinPass(`<
 var M = 1
 // M = 0;
 $: arrange(
-  [0*2, cat(
-    s("speech").crush(3).gain(.3).late(.5), hush
-  )],
   [M*8, stack(    
     _drums1,    _bass1,    _lead1.mask("<0@4 1@4>"),    _digs,
   )],
-  [M*8, stack(    
+  
+  // [M*2, stack(        _drums2,  )],
+  [M*4, stack(    
+    s("yskrm").slow(4).gain(2).delay(.2),
     _drums2,
     _sin1,
   )],
-  [M*8, stack(
+  [M*4, stack(
     _drums1.mask(m_4),
     _chords2,
     _bass1.clip(.1).echo(6,1/16,.9),
@@ -126,7 +126,7 @@ $: arrange(
   [M*2, stack(
     _drums1,
   )],
-  [1*8, stack(    
+  [1*4, stack(    
     _drums2,
     _sin1,
   )],
@@ -140,21 +140,32 @@ $: arrange(
   
 
 
+/*
+    The first song is the worst you write.
+    I break that record every night,
+    Polishin my rhymes, tryna get it right,
+    Dah de dah, something something.
 
+    Thats actually painful.
+    The ghost of beethoven is looking disdainful.
+    Earworms, nah mate, I gotta brainfull,
+    How longs this MC playin till?   
 
+    Your snare kills rabbits, man, 
+    Your clap needs cream, 
+    your hat is a fez, 
+    your cowbell as cjd,
 
+    your woodblock got fungus
+    your toms are all jerried
+    your rim is pacific
+    your bongo is um
 
-
-
-
-
-
-
-
-
-
-
-
+    Maybe you can fix it if you cut some layers.
+    Maybe if some notes don't play,
+    If you mix it down, so its all quiet
+    Turn off the laptop and walk away.
+*/
 
 
 

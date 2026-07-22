@@ -107,31 +107,31 @@ var _dug5 = dugPass(`<
 var M = 1; 
 // M = 0; 
 $: arrange(
-  // [M*8, stack(    
-  //   _chords1,     _bass1,    _lead1,
-  // )],
-  // [M*8, stack(
-  //   _chords1,    _bass1,    _lead1,    _tune1,
-  // )],
-  // [M*8, stack(    
-  //   _chords1,     _bass1.trans(-12),    _lead1, _tune1, _tune1a, // + blue warble
-  // )],
-  // [M*8, stack( // + drums
-  //   _drums1, 
-  //   _chords1,     _bass1,    _lead1.lpf(500), _tune1, _tune1a,
-  // )],
-  // [M*8, stack( // bassline
-  //   _drums1,
-  //   _chords1,     _bass1,    _lead1, 
-  //   _dug1,
-  // )],
+  [M*8, stack(    
+  _chords1,     _bass1,    _lead1,
+  )],
+  [M*8, stack(
+    _chords1,    _bass1,    _lead1,    _tune1,
+  )],
+  [M*8, stack(    
+    _chords1,     _bass1.trans(-12),    _lead1, _tune1, _tune1a, // + blue warble
+  )],
+  [M*8, stack( // + drums
+    _drums1, 
+    _chords1,     _bass1,    _lead1.lpf(500), _tune1, _tune1a,
+  )],
+  [M*8, stack( // bassline
+    _drums1,
+    _chords1,     _bass1,    _lead1, 
+    _dug1,
+  )],
 
-  // [M*8, stack(
-  //   _drums2,
-  //   _chords1.trans("12,24"),     
-  //   _bass1.trans("0,12"),
-  //   _dug1,
-  // )],
+  [M*8, stack(
+    _drums2,
+    _chords1.trans("12,24"),     
+    _bass1.trans("0,12"),
+    _dug1,
+  )],
   
   [M*8, stack( // ?? Add new melody
     _drums1,
