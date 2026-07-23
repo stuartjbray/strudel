@@ -1,0 +1,37 @@
+setcpm(30)
+
+$: stack(
+  s("sbd(3,8)"),
+  s("[- sd]*2"),
+  s("hh*8")
+  )
+
+var _c = "<C F Am Dm>"
+_c = "<Em C D G C C#m Bm D>"
+
+$: stack(
+  chord(_c).voicing()
+   .arp("[0,1,2] 0 1 [0,1,2]").s("sqr").trans("<0 0 12>").fm("<0 2 4 3>").fmh("<0 1 2 >")
+   .clip("<1 .5 1>").room("<0 0 1 0 2>").color("red")
+   .ply("<1 1 2 3 1 4>"),
+  
+  chord(_c).voicing().arp("<[0 0 [- 1] 0]!3 [0 1 2 3 2 1 0 -]>").s("gm_slap_bass_2").trans(-12).color("green").cubic(2),
+  
+) //.lpf(800)
+  .punchcard()
+
+var _t = `<
+ [0 2 4 - 2 <2 4> 0 -] -
+ [0 2 4 - 2 4 <0 1 2 1> -] -
+ - -
+>`
+
+_t = `<
+ [0 4 5 - 3 - 5 3]
+ [5 0 0 - - 0 0 -]
+>`
+
+_$: stack(
+  n(_t).scale("c3:major").gain(1).s("steinway"),
+  n(_t).scale("c5:major").gain(2).s("piano").fast(2).echo(3,1/4,.8),
+)
