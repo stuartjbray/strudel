@@ -18,9 +18,9 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+var chordsPass = (x) => n(x).scale("c3:major").sound("steinway").color("red").gain(.7)
 var bassPass =   (x) => n(x).scale("c3:major").sound("piano").color("orange").cubic(.8)
-var leadPass =   (x) => n(x).scale("c4:major").sound("piano").color("yellow")
+var leadPass =   (x) => n(x).scale("c4:major").sound("sqr").color("yellow").fmh("0 1 2").gain(.4)
 var aahPass =   (x) => n(x).scale("c4:major").sound("gm_choir_aahs:3").color("green").att(.4).rel(1).gain(.3)
 
 // Apply pass functions to patterns

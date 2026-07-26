@@ -1,13 +1,13 @@
 //@title krro
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
-
+// RERECORD
 setcpm(40)
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("akaixr10_lt").struct(  "1 <- 1> - -").gain(.6)
+var d1 = sound("simmonssds400_lt, bd").struct(  "1 <- 1> - -").gain(".5 1.5 _") //.late(-.05)
 var d1x = s("akailinn_ht*4")
 var d2 = stack(
   sound("sd").struct( "- - - - 1 - - -"),
@@ -140,7 +140,6 @@ $: arrange(
     _drums1,
     _chords1,    
     _lead1.gain(.4),    _lead1x.gain(.2),
-    _glock1,
     _rum1,
   )],
   [M*8, stack(
@@ -196,14 +195,14 @@ $: arrange(
     _drums3.postgain(2),
     _lead1x.trans(0).struct("[1 1 -]").gain(.7),
     _lead1x.trans(12).struct("[- 1 1]").gain(.4),
-    _rum4,
+    _rum4.gain(.7),
     _aah4,
   )],  
   [M*8, stack(
     _drums3.postgain(1),
     _lead1x.trans(0).struct("[1 1 -]").gain(.7),
     _lead1x.trans(12).struct("[- 1 1]").gain(.4),
-    _rum4.trans(12),
+    _rum4.gain(.7).trans(12),
     _aah5,
   )],  
   [M*2, stack(
