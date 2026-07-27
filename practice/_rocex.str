@@ -1,0 +1,51 @@
+setcpm(42)
+var m4 = "<-@3 1>"
+var mask4 = (x) => x.mask(m4)
+
+var d1 = s("<[bd - - - - bd - -]!3 [bd bd - -  - bd - -]>").cubic(2) //bd:4
+var d2 = s("- - rim -  <- [- rim]> - rim <- rim>").gain(".3 .5")
+var d3 = s("- - - -  - - - -") 
+var d4 = s("hh*8").gain("[.2 .4]*2")
+var d4a = mask4(s("hh").struct("1 1 - 1 1 - 1 -"))
+
+var drums1 = stack(  d1, d2, d3, d4, d4a ).bank("rolandcompurhythm1000")
+
+var wubPass = (x) => n(x).s("sbd").scale("c2:major")
+var sawPass = (x) => n(x).s("supersaw").scale("c2:major").phaser("16 8 4 2").cubic(1.2).clip(.3).rel(.5)
+var chaPass = (x) => n(x).s("gm_lead_5_charang").scale("c2:major").cubic(.7).rel(.5)
+var bassPass = (x) => n(x).s("gm_lead_8_bass_lead").scale("c4:major")
+
+var b1 = `<
+ [5 - - 7 - - 4 -]
+ [- - - - 4 - 4# -]
+ [5 - - <7 -> - - <4 -> -] -
+>`
+var b2 = `<
+ [9 - - 8 - - 9 -]
+ [- - - - 7 - 11 -]
+ [9 - - <8 -> - - <9 -> -] -
+>`
+var _cha1 = chaPass(b1)
+var _cha2 = chaPass(b2)
+var _saw1 = sawPass(b1)
+var _saw2 = sawPass(b2)
+
+var _bass1 = bassPass(`<
+ [7*8], [9*4], [11*2], [14]
+>`).clip(.5)
+
+var _wub1 = wubPass("<[0 - 0 - - 0 7 0]!2 [0 - 4 - - 0 - 7]!2>")
+
+var M = 1;
+$: arrange(
+  [0*4,stack(    drums1,     )],
+  [0*8,stack(
+    drums1,   _wub1,
+    _cha1,    _saw1,    
+    s("< long_color_kick>").n(0).scale("<c3 c4 c5>:major"),
+  )],
+  [M*8,stack(
+    drums1,   _wub1,
+    _bass1,    _cha2,    _saw2,    
+  )],
+)
