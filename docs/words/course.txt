@@ -4,6 +4,8 @@
 
  You don't need to remember any technical terms to make music.
 
+ If you don't have a keyboard to hand: https://www.onlinepianist.com/virtual-piano
+
  Simplest chord to learn is probably C.
  $: n("c,e,g").scale("c:major")
 
@@ -32,6 +34,8 @@
 
  Then use .arp to make it more interesting.
   .arp("[0 1 2 3 2 1 0 1]")
+ or
+  .arp("[0,1,2] - 0 [0,2]")
 
  You can transpose chords to play the same thing higher up. This is the same chord 3 different ways.
  c e g 
@@ -46,9 +50,22 @@
  Do a second chord by changing one or two notes.
  Go back and forth.
  Hum something over the top of it.
- Do a loop of 2 or 4 chords.
+ Get a loop of 4 chords that sound nice.
 
  Then do some different chords for a chorus.
+
+ Cliches are good:
+
+ 12 bar blues: 
+   1 1 1 1 
+   4 4 1 1
+   5 4 1 5
+ 
+ Jazz: 2 5 1
+
+ Descending bassline: 7 6 5 4 3 3# 4
+
+ 1 6 2 5: D Bm Em A
 
 
 
