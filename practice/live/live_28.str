@@ -1,0 +1,43 @@
+setcpm(40)
+$: s("sbd*4")
+
+$: stack(
+  s("bd [- bd - -]"),
+  s("<- - - [bd bd - bd bd - bd -]>"),
+  s("- rim - rim"),
+  s("hh*8").gain(".2 .6 .3")
+).bank("compurhythm1000")
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.room(.5))
+
+var _t = `<
+ [0 0 - 2 <4 5 6 5> 2 0 -] 
+>`
+
+$: stack(
+  n(_t).s("gm_acoustic_guitar_nylon").scale("c2:major")
+   .mask("1 1 - 1 -"),
+  n(_t).s("gm_acoustic_guitar_steel").scale("c3:major").late(1/4)
+   .mask("1 1 1 - 1 -"),
+  n(_t).s("gm_acoustic_guitar_acoustic").scale("c4:major").late(2/4)
+   .mask("1 - 1 -"),
+  n(_t).s("gm_acoustic_guitar_nylon").scale("c3:major").late(3/4).cubic(.9)
+   .mask("1 1 1 -"),
+).sometimes(x => x.ply(2))
+ .sometimes(x => x.clip(.5))
+ .sometimes(x => x.rel(1))
+ // .sometimes(x => x.trans("-12 12"))
+
+var _c = `<Am C F G>`
+$: stack(
+  chord(_c).voicing()
+   .arp("[0 1 2 3 4 5 6 7]")
+   .s("sqr").fm("0 2 4").fmh("<1 2>").rel(1).clip(.3),
+  chord(_c).voicing()
+   .arp("[0,1,2] 0 1 [2,4]")
+   .s("sqr").fm("0 2 4").fmh("<1 2>").late(1/4).trans(-12).mask("<1 - 1 >")
+)
+  .sometimes(x => x.ply(2))
+  .sometimes(x => x.trans(12))
+  .sometimes(x => x.lpf(500))
+ .gain(.2)

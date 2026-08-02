@@ -97,8 +97,8 @@ var _lead3 = leadPass(`<
 >`)
 
 var _wiss1 = wissPass(`<
- [7 6 5 6 5 4 3 4]
- [3 2 1 2 1 0 -1 0]
+ [7 6 5 6 5 _ - -]
+ [3 2 1 2 1 _ - -]
 >`)
 var _wiss2 = wissPass(`<
  - - [3 4 4 3 5 6 6 5] -

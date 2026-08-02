@@ -1,0 +1,39 @@
+// proper funky guit patterns
+
+var _t = `<
+ [ 0 0 6 2 - 4 <3 4 5 4> -]
+>`
+
+_$: s("sbd").struct("1 1 - 1").gain(.6)
+_$: stack(
+  s("bd - - bd - bd - - "),
+  s("- - rim - - - rim - "),
+  s("hh*8").gain(".2 .5 .3")
+).bank("compurhythm1000").postgain(.5).ply(2)
+
+_$: stack(
+  n(_t).scale("c2:major").s("gm_acoustic_guitar_nylon")
+   .mask("- 1 1 - 1"),
+  n(_t).scale("c3:major").s("gm_acoustic_guitar_steel").late(1/4)
+   .mask("1 1 - 1 -"),
+  n(_t).scale("c4:major").s("gm_acoustic_guitar_steel").late(2/4)
+   .mask("1 1 - 1"),
+  n(_t).scale("c5:major").s("gm_acoustic_guitar_steel").late(3/4)
+   .mask("1 - 1 - -"),
+).gain(.6)
+   .sometimes(x => x.ply(2))
+   .sometimes(x => x.room(.5))
+   .sometimes(x => x.trans(-12))
+   .sometimes(x => x.lpf(1000))
+
+var _c = `<Am C F G>`
+_$: stack(
+  chord(_c).voicing()
+   // .arp("[0,1,2] 0 - 1")
+   .arp("[0 1 2 3 4 5 6 7]")
+  .s("steinway").gain(.2)
+  .jux(rev),
+   // .clip(.4).ply(3)
+  chord(_c).voicing().arp("0 0 1 -")
+  .trans(-12).s("sqr").clip(.2).rel(1).gain(.3)
+).gain(.1)

@@ -1,0 +1,48 @@
+setcpm(40)
+$: stack(
+  s("bd [- bd - -]"),
+  s("- rim - rim")
+   .sometimes(x => x.ply(2))
+   .sometimes(x => x.room(1.2)),
+  s("hh*8").gain(".3 .6")
+   .sometimes(x => x.gain(.2))
+).bank("compurhythm1000")
+
+_$: stack(
+  s("sbd - - sbd - - sbd -"),
+  // s("sbd - - - - sbd - -"),
+  s("<- - - [sbd sbd - sbd sbd - sbd -]>")
+)
+
+// var _n = `<[0 0 7 2 0 - <4 5 6 5> -]>`
+var _n = `<
+  [0 2 0 - <4 2> 2 - -] 
+>`
+_$: stack(
+  n(_n).s("saw").scale("c2:major")
+   .sometimes(x => x.coarse(2))
+   .sometimes(x => x.ply(2))
+   .sometimes(x => x.lpf(1000))
+   .sometimes(x => x.trans(12))
+   .mask("<1 - 1 1 - 1 - 1>"),
+  
+  n(_n).s("saw").scale("c3:major").slow(2).clip(.2).echo(4,1/8,.8)
+   .mask("<- - 1 - 1 1 - 1 - 1>"),
+  n(_n).s("piano").scale("c4:major").slow(1).ply(4)
+   .mask("<1 1 - - >"),
+  n(_n).s("piano").scale("c5:major").slow(1).ply(4).late(1/8)
+   .mask("<- 1 1 - 1 - 1>"),
+
+  n(_n).s("gm_electric_bass_finger").arp("0*8").scale("c2:major").cubic(.9)
+).ply(2).gain(.2)
+var _c = `< G C Am F>`
+$: stack(
+  chord(_c).voicing()
+   .arp("<[0 0 2 0 0 0 <2 -> <1 ->] ->")
+   .s("sqr").fm("1 2 4").fmh("<2 3>")
+   .trans("-12 0"),
+  
+  chord(_c).voicing()
+   .s("gm_rock_organ")
+   .arp("[0,1,2] [0 0 4 0] 1 [0,4]").cubic("1 .5 1.2")
+)
