@@ -1,0 +1,26 @@
+setcpm(40)
+
+$: stack(
+  s("bd - - - - bd - -"),
+  s("- rim - rim"),
+  s("<- - - [- - [rim - - rim] -]>"),
+  s("hh*8").gain(".3.7 .3")
+)
+var _c = `<Am C F G>`
+$: stack(
+  chord(_c).voicing()
+   .arp("[0,2] 0 1 2")
+   .sometimes(x => x.ply(2))
+   .sometimes(x => x.trans(12))
+   .sometimes(x => x.fast(2)),
+  chord(_c).voicing().arp("0 0 - 0 0 - 0 -").s("steinway").mask("<-@8 1@4>"),
+  chord(_c).voicing().arp("0 1 2 4  0 3 2 0").s("steinway").mask("<-@4 1@8>").trans(-12).gain(.3)
+)
+// var _t = `<[ 0 4 <7 8 9 8> 4 - - 0 4]>`
+var _t = `<[ 0 2 0 4   2 1 0 1] ->`
+$: stack(
+  n(_t).s("sqr").scale("c2:major").fm("3 2 1").fm("<2 3 4 5>"),
+  n(_t).s("sqr").scale("c3:major").late(1/4),
+  n(_t).s("sqr").scale("c4:major").fast(2).mask("<- - 1 ->"),
+  n(_t).s("supersaw").scale("c5:major").fast(2).mask("<- 1 - 1>"),
+)
