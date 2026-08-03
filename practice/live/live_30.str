@@ -1,0 +1,37 @@
+
+setcpm(36)
+
+$: s("sbd*4") //.cubic(1)
+$: stack(
+  s("bd - - -  - bd - -"),
+  s("<- - - [bd bd - bd  bd - bd -]>"),
+  s("rim*4").gain(2),
+  s("hh*8").gain(".3 .6 .3")
+).bank("compurhythm1000")
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.room(1))
+ .gain(.5)
+var _t = `<
+ [7 6 5 0   <4 5 6 4> 3 - <2 3 4 3> ]
+>`
+$: stack(
+  n(_t).scale("c2:major").s("sqr").gain(.7).fm("0 2 3").fmh("<2 0>")
+   .mask("1 1 -"),
+  n(_t).scale("c3:major").s("sqr").gain(.7).fm("0 2 3").fmh("<2 0>").late(1/4)
+   .mask("- 1 1 -"),
+  n(_t).scale("c4:major").s("sqr").gain(.7).fm("0 2 3").fmh("<2 0>").late(2/4)
+   .mask("1 1 - 1"),
+  n(_t).scale("c5:major").s("sqr").gain(.7).fm("0 2 3").fmh("<2 0>").late(2/4)
+   .mask("1 1 - 1"),
+  
+)
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.clip(.5))
+ .sometimes(x => x.lpf(500))
+
+var _c = `<Am C F G>`
+$: stack(
+  chord(_c).voicing()   .arp("0 - 1 0 - 0 2 -").trans(-12).cubic(2).s("piano").clip(.5),
+  chord(_c).voicing()   .arp("[0 1 2 3 4 5 6 7]").trans(12).s("steinway"), //.jux(rev),
+  chord(_c).voicing().arp("[0 - - 0]").s("gm_lead_3_calliope").gain(2).trans("-12, 12").rel(0).ply(2).clip(.4)
+)
