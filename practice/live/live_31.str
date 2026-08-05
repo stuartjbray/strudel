@@ -1,0 +1,36 @@
+setcpm(40)
+$: s("sbd*4")
+$: stack(
+  s("bd - [- bd] -"),
+  s("hh*8").gain(".2 .7 .2")
+)
+
+var _t = `<
+ [0 4 4 0 4 4 0 4]
+ [0 4# 4# 0 4# 4 3 2]
+ [2 4 4 2  0 -1 0 1 ]
+ [0 7 7 0 7 7 0 0 ]
+ 
+>`
+
+$: stack(
+ n(_t).s("piano").scale("c3:blues")
+   // .sometimes(x => x.trans(-1))
+   .sometimes(x => x.distort(2))
+   .sometimes(x => x.phaser(2))
+   .sometimes(x => x.clip(.5)),
+ n(_t).s("piano").scale("c4:blues").late(1/4),
+ n(_t).s("piano").scale("c5:blues").late(2/4)
+)
+
+var _c =`<Am C F G>`
+$:stack(
+  chord(_c).voicing()
+   .arp("0 1 2 0 1 2 0 1")   .cubic(1).fm("1 2").fmh("<2 4>"),
+  chord(_c).voicing().arp("[0,1,2]*8")
+   // .trans("0 1 2 0 1 2 0 1")   
+  .cubic(1).fm("1 2").fmh("<2 4>").lpf(400).
+
+  chord(_c).voicing().arp("0 ").s("gm_lead_3_calliope").trans("0, -12").ply(4)
+)// .gain(.2)
+//all(x => x.hpf(8000))
