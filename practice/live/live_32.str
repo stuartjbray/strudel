@@ -1,0 +1,38 @@
+
+// $: s("sbd*4")
+$: stack(
+  s("bd - - -  - bd - -"),
+  s("<- - -[bd bd - bd bd  - bd -]>").cubic(1),
+  s("- rim - rim"),
+  s("hh*8").gain(".3 .7 .3")
+).bank("compurhythm1000")
+ .sometimes(x => x.clip(.2))
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.room(1))
+
+var _t = `<
+ [0 0 4 4 0 2 0 3]
+ [4 4 0 2 0 3 - 1]
+>`
+ // [0 0 <5 6 7 6> 0 3 2 - 1]
+
+$: stack(
+  n(_t).scale("c2:major").s("gm_slap_bass_1").fm("2 4").fmh("<0 2>").gain(.5).late(0) .mask("1 - 1 1 "),
+  n(_t).scale("c3:major").s("gm_slap_bass_1").fm("2 4").fmh("<0 2>").gain(.5).late(1/4) .mask("1 - 1 - 1"),
+  n(_t).scale("c4:major").s("gm_slap_bass_1").fm("2 4").fmh("<0 2>").gain(.5).late(2/4).mask("1 - 1 1 -"),
+  n(_t).scale("c4:major").s("gm_slap_bass_1").fm("2 4").fmh("<0 2>").gain(.5).late(3/4).mask("1 1 - 1"),
+)
+  .sometimes(x => x.clip(.5))
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.room(1))
+ // .sometimes(x => x.fast(2))
+.gain(1.7).distort(1)
+
+var _c = `<Am C F G>`
+$: stack(
+ chord(_c).voicing()   .arp("[0 1 2 3 4 5 6 7]").s("steinway"),
+ chord(_c).voicing()   .arp("[0,1,2] 0 0 2 ").s("piano").trans(12).late(1/2),
+  
+ chord(_c).voicing()   .arp("<0 0 0 2 >").s("gm_pad_warm").gain(2),
+)//.gain(.5)
+ // all(x => x.lpf(100))
