@@ -26,6 +26,15 @@ var _drums3 =      drumsPass(stack(  d1, d2, d7,  d2xx.mask("<0@3 1>")  ))
 
 var _drums_outro = drumsPass( s("bd,sd,cr").struct("<[1 1 1 - - - - -][- - - - 1 1 1 -]>") )
 
+
+$: stack(
+  // _drums1,
+  // _drums2,
+  //_drums3,
+)
+
+
+
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c4:major").sound("steinway").color("red").gain(.7) //.phaser(8)
 var bassPass = (x)   => n(x).scale("c2:major").sound("gm_electric_bass_pick").color("orange").gain(1.3)
@@ -122,23 +131,24 @@ $: arrange(
     _bbass1.distort(1.5),
   )],
   [M*4, stack(    
-    _drums_intro,
+    // _drums_intro,
     _bass1,    _bbass1.distort(.8),
     _wiss1.mask("<~ ~ 1 1>").gain(.2).clip(.5),
   )],
   [M*8, stack(    
-    _drums1, d2xx,    
+    // _drums1, d2xx,    
     _bass1,    _bbass1, _bbass1.trans(12).late(1/16).gain(.2),
   )],
   [M*8, stack(
-    _drums1.lpf(500),
+    // _drums1.lpf(500),
     _chords1,     _bass1,    _bbass1,    _wiss2,
   )],
   [M*8, stack(
-    _drums1,    _chords1,     _bass1,    _bbass1,    _lead1,
+    // _drums1,    
+    _chords1,     _bass1,    _bbass1,    _lead1,
   )],
   [M*8, stack(
-    _drums1,
+    // _drums1,
     _chords1.trans(-12), 
     _bass1,    _bbass1,
     _lead1.hpf(1500).room(1.5),
@@ -149,27 +159,30 @@ $: arrange(
     _bbass1,
   )],
   [M*8, stack(
-    _drums2,
+    // _drums2,
     _chords1.trans(-12).s("piano"), 
     _bass1.trans(12),
     _lead3,
   )],  
   [M*8, stack(
-    _drums1,    _chords1,     _bass1,        _bbass1,    _lead1,    _lead2,
+    // _drums1,    
+    _chords1,     _bass1,        _bbass1,    _lead1,    _lead2,
   )],
   [M*8, stack(
-    _drums3,    _chords4, 
+    // _drums3,    
+    _chords4, 
     _bass2,        _bass2.trans(12).late(1/16),    
     _bbass2,    _bbass2.trans(12).late(1/8),
   )],
   [M*8, stack(
-    _drums1, d7,
+    // _drums1, d7,
     _bass1.s("steinway").trans(24).gain(.4),    
     _lead1.trans(-12),
     _lead2,
   )],
   [M*2, stack(
-    _bass6,    _chords6,    _drums_outro,
+    _drums_outro,
+    _bass6,    _chords6,    
   )],
   
 
