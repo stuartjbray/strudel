@@ -1,4 +1,4 @@
-setcpm(38)
+setcpm(34)
 $:s ("sbd*4")
 $: stack(
   s("bd [- bd - -]"),
@@ -26,7 +26,7 @@ $: stack(
   chord(_c).voicing().s("gm_acoustic_guitar_steel")   .arp("[0 1 2 3 4 5 6 7 ]"),
   chord(_c).voicing().s("gm_acoustic_guitar_steel")   .arp("[0 1 2 3 ]").rel(2).trans(12)
    .sometimes(x => x.ply(2)),
- chord(_c).voicing().s("  gm_lead_3_calliope").arp(0).gain(1.3).trans(-12),
- chord(_c).voicing().s("  gm_lead_3_calliope").arp(0).gain(1.3).struct("1 - 1 - 1 1 - 1")
-).gain(.7)
+ chord(_c).voicing().s("supersaw").arp(0).gain(1.3).trans(12),
+ chord(_c).voicing().s("supersaw").arp("0 1 0 1 0 1").gain(1.3).trans(-24).struct("1 - 1 - 1 1 - 1").gain(2).ply(2)
+)//.gain(1)
 // all(x => x.hpf(5000))
