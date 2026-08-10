@@ -87,10 +87,10 @@ $: s("<[hh oh]*4>").euclid(7,8).gain(.3)
 
  8 mins - from scratch.
  2 - krro - do own drums.
- 2 - starchastic
  2 - jostar - leadPass riffing
+ 2 - starchastic - leadPass,
+ 2 - bosphorok - crashes a little
 
- 2 - bosphorok - dugPass
 
  - cattle hangar
  - telzebub
