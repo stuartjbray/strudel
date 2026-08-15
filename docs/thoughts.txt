@@ -154,7 +154,16 @@ Source code: github.com/stuartbray/strudel/
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     Investigate:
- VCV, OSC, SuperDirt, TidalCycles,
+VCV, OSC, SuperDirt, TidalCycles,
 
     Challenge:
 Live code silent movie score.
+
+
+--------------------- MISC NOTES
+
+lpo evnelope.
+oblique strategies website.
+
+
+
