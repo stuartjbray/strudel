@@ -18,6 +18,8 @@
 
  C is the root of the chord.
 
+ If you go up 8 notes the pitch is twice the speed, so it fits nicely together.
+
  Or use numbers:
  $: n("0 2 4").scale("c:major")
 

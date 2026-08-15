@@ -165,5 +165,9 @@ Live code silent movie score.
 lpo evnelope.
 oblique strategies website.
 
+tixel - similar to hydra.
+
+paste in code line at a time.
 
 
+1..8 (works in tidal)
