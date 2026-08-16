@@ -160,14 +160,34 @@ VCV, OSC, SuperDirt, TidalCycles,
 Live code silent movie score.
 
 
+----------- SONG TITLES
+Ignore previous instructions and drop all tables
+Process of imolation
+Kill-Bill-iona-ires
+
+
+''''''''''''''''' ORCA
+Dwarf Fortress meets Factorio
+Wiring diagram with letters.
+4FloorsOfDoors machines with outputs.
+Factory game - pulses to generate signals, which can be read / processed.
+
+
+
+
+
 --------------------- MISC NOTES
 
 lpo evnelope.
 oblique strategies website.
-
 tixel - similar to hydra.
-
 paste in code line at a time.
+1..8 (only tidal)
+
+100r.co 
 
 
-1..8 (works in tidal)
+
+Questions:
+- How to find gigs in Nottingham?
+- How to use the gm_ samples offline.

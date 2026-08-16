@@ -1,15 +1,16 @@
+// @title they-call-me-mr-tibs
 var mask4 = (x) => x.mask("<- - - 1>")
 $: stack(
   s("bd:2 - - -   - - - -  bd:2 - - -  - - <- bd> - ")
-  ,s("- - - -  - - - -  sd - - -   - - - -  ").room("<0 1>")//.distort(2).gain(.4)
+  ,s("- - - -  - - - -  sd:6 - - -   - - - -  ").room("<0 1>")//.distort(2).gain(.4)
   ,mask4(s("- - - -  sd:3 - sd:5 -   - sd:3 - sd:3   cr - - -  "))
   ,s("hh*8").gain(".6 .8 .6")
 )
 
 var sawFx = (x) => stack(  
   x.s("sawtooth").gain(.3).rel(1).att(.2), 
-  x.s("gm_fx_soundtrack:2").late(1/8).gain(1.8).att(.3).rel(.3),
-  x.s("sawtooth").trans(12).gain(.4).late(3/8).att(.5).rel(.5).phaser(4), 
+  x.s("gm_fx_soundtrack:2").late(2/8).gain(1).att(.6).rel(.6),
+  x.s("sawtooth").trans(12).gain(.8).late(4/8).att(.4).rel(.4).phaser(8), 
 )
 var _t1 = `<
   [7 6 5 - 4 3 <2 4> -]
@@ -17,32 +18,45 @@ var _t1 = `<
   [7 6 5 - 4 3 2 -]
   [- - 7 6 7 - 4 3]
   >`
+var _t2 = `<
+  [7 8 7 6 7 - 4 -]
+  [5 - - - 5 4 3 2]
+  [7 8 7 6 9 - 8 -]
+  [6 - - - 5 6 7 8]
+  >`
+
 var _c = "<0 3 5 1>"
 var _cc = "<C F Am  G>"
  // _c = "<1 2 1 3>"
  // _cc = "<A Cm A B>"
 
-var _bass1 = sawFx(n(_c).scale("c3:major"))
+var _bass1 = sawFx(n(_c).scale("c3:major")).clip(.5)
 var _guit1 = n(_c).scale("c3:major").s("gm_electric_guitar_muted:4").ply(4).trans("0 7 0 7")
-var _pian1 = n(_t1).s("piano").scale("c3:major").clip(.4).rel(.3) .distort(4).gain(.05)
+var _dug1 = chord(_cc).voicing().arp("0 0 - <- - - 0> 1 - <0 - - 0> -").trans(-12).s("gm_acoustic_guitar_steel:2").gain(3) //.distort(2)
+
 var _chord1 = chord(_cc).voicing().att(.1).rel(.3).gain(.4) 
 var _chord2 = _chord1.struct("- 1 1 - 1 1 - 1 ")
 var _chord3 = _chord1.struct("- 1 - - 1 - - 1 ").trans(12)
 var _chord4 = _chord1.struct(" 1 - - 1 - - 1 -").trans(-12).gain(1.9)
-var _dug1 = chord(_cc).voicing().arp("0 0 - 0 0 - 0 -").trans(-12).s("supersaw").gain(.9)
+
+var _pian1 = n(_t1).s("piano").scale("c3:major").clip(.4).rel(.3) .distort(4).gain(.05)
+var _pian2 = n(_t2).s("piano").scale("c3:major").clip(.4).rel(.3) .distort(4).gain(.05)
+var _pianA =  n("{0 7, 2 3 4 5}").scale("c4:major").s("piano").gain(1.9)
+
+var _harp1 =  n("0 1 2 3").scale("c2:major").s("gm_orchestral_harp")
+var _aah1 = n("- - [0, <2 3 5 4>] -").scale("c3:major").s("gm_fx_sci_fi:1").gain(1.8).rel(.5)
+
+$: stack(
+)
+
+var M = 1
 $: arrange(
-  // [4,stack(
-  //   _bass1, _guit1, _dug1,
-  //   _chord2,
-  // )],
-  // [4,stack(
-  //   _bass1, _guit1, _dug1,
-  //   _chord1,    _chord3,
-  // )],
-  [4,stack(
-    _bass1, _guit1, _dug1,
-    _chord1,    _chord2,_chord3,_chord4,
-  )],
+  [M*4,stack(    _bass1, _guit1, _dug1,   _chord2,  )],
+  [M*4,stack(    _bass1, _guit1, _dug1,    _chord1, _chord3,  )],
+  [M*4,stack(    _bass1, _guit1, _dug1,    _chord1, _chord2,_chord3,_chord4,  )],
+  [M*4,stack(    _bass1, _guit1, _dug1, _chord4,    _pian1, _pianA, _harp1 )],
+  [M*4,stack(    _bass1, _guit1, _dug1, _chord4,    _pian2, _pianA, _harp1 )],
+  // [M*4,stack(    _bass1, _guit1, _dug1, _chord1,_chord2, _aah1    )],
 )
 
 all(x => x.postgain(.3))

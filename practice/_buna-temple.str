@@ -3,6 +3,7 @@
 //@url https://soundcloud.com/stuart-j-bray
 
 setcpm(30)
+var mask4 = (x) => x.mask("<- - - 1>")
 
 // -------------- Drums
 const drumsPass = (x) => x.color("white").gain(.6);
@@ -10,10 +11,11 @@ const drumsPass = (x) => x.color("white").gain(.6);
 var d2 = sound("sd").struct(  "- - 1 - - - 1 - - - 1 - - - 1 -")
 var d1 = sound("akaixr10_lt ").struct(  "1 - - 1 - - - - - 1 - - 1 - - -").room(.8)
 var d3 = sound("d70_cp").struct(  "- - - - - <- 1> - 1 - - - - - - - -")
-var d4 = sound("bd").struct(  "1 1 - 1 1 <1 -> - - - - - - - - - -")
+var d4 = sound("<bd bd:3>").struct(  "1 1 - 1 1 <1 -> - - - - - - - - - -")
+var d4_ = mask4(s("sbd").struct("1 1 - 1 1 - 1 -"))
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d4_))  // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 
@@ -23,7 +25,9 @@ var bassPass = (x)   => n(x).scale("c2:major").sound("gm_electric_guitar_clean:2
 var leadPass = (x)   => n(x).scale("c4:major").sound("gm_lead_2_sawtooth").color(cols[2])
 var sqrPass = (x)   => n(x).scale("c3:major").sound("sqr").color(cols[3])
 var kotPass = (x)   => n(x).scale("c4:major").sound("gm_koto").color(cols[4])
+var violPass = (x)   => n(x).scale("c4:major").sound("gm_violin").color(cols[5]).gain(1)
 
+  
 
 
 
@@ -63,11 +67,31 @@ var _sqr1 = sqrPass(`<
 >`)
 
 var _kot1 = kotPass(`<
- [7 6 7 5 -@8]
- [6 5 6 4 -@8]
- [- [3,5] - [3,6] - [3,7] - -]
- [[[2,4] [1,3]] [2,4] - [0,4]]
+ [- 7 - - 7 - 6 5 ]
+ [- 5# - 5# - 4 - - ]
+ [- 5 - - 5 - 4 3]
+ [- 4# - 3 - - - -]
+>`).trans("-24,0").echo(3,1/16,.9)
+
+var rise1 = `< - [-@4 0 1 2 5]>` 
+var _sqr2 = stack(
+  sqrPass(rise1).trans(-12),
+  sqrPass(rise1).trans(0) .late(0.5),
+  sqrPass(rise1).trans(12).late(1.0).gain(.9),
+  sqrPass(rise1).trans(24).late(1.5).gain(.5),
+  sqrPass(rise1).trans(36).late(2.0).gain(.2),
+  sqrPass(rise1).trans(48).late(2.0).gain(.1),
+  )
+
+var _viol1 = violPass(`<
+ - [ - [[0,2] - [1,3] - ] ]
+ - [ - [[1,3] - [0,2] - ] ]
 >`)
+var _viol2 = violPass(`<
+ - [ - [7 6 - 5 4 - 3 - 2 ] ]
+ - [ - [2 1 - 2 4 - 3 - 2 ] ]
+>`).trans(0).rel(1)
+
 
 var M = 1;
 // M = 0;
@@ -82,18 +106,21 @@ $: arrange(
     _bass1,
     _lead1.clip(.7).ply(4).trans(-12),
     _sqr1,
+    _viol1,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums1,
     _chords2,
     _bass2,
     _lead1.clip(.6).echo(4,1/4,.5),
+    _viol2,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums1,
     _chords1, 
     _bass1,
     _kot1,
+    _sqr2,
   )],
   [0*8, stack(
     _drums1,
