@@ -1,0 +1,28 @@
+setcpm(30)
+$: stack(
+  s("bd(5,8)"),
+  s("[- sd]*2"), //.room("<0 0 [0 2] 0>"),
+  s("hh*8").gain("[.5 .9 .6]").sometimes(x => ply(2))
+).bank("akaixr10")
+
+var _t = `<
+ [<7 0 6 0>  - 2 0 4 - <2 3 4 3> 0]
+ -
+
+>`
+ // [0 3 4 <7 8 9 8> -  2 0 4]
+$: stack(
+  n(_t).scale("c5:major").s("piano").fast(2).jux(rev),
+  n(_t).scale("c4:major").s("piano"),
+  n(_t).scale("c3:major").s("sqr").slow(2)//.fm("<0 1 2 3 4 5 6>").fmh("4 2 1")
+)
+var _c =`<Am C F G>`
+
+$: stack(
+ chord(_c).voicing()
+  .arp("<[0 1 2 3 4 5 6 7]>").jux(rev)
+  // .arp("<[0,1,2] 0 1 [0,1,2,3]>")
+)
+
+
+  all(x => x.punchcard())
