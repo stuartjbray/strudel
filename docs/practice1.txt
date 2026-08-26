@@ -202,3 +202,13 @@ Or use settings/prebake to load supporting code. Have to ctrl-enter in the preba
  * Spread the layers across the octaves, transpose up the melody and down the bass.
  * Shorten notes, (reduce 'release' or use clip or end).
  * Use percussive samples (eg piano) instead of long sounds (eg synth).
+
+
+  Variants on the built in drums:
+  hh:1 hh:2 
+
+  Chop out the same random 50% each time, using rib as a seed.
+  s("hh*16").degradeBy(.5).rib(2,1)
+
+  Pitch up the sample: 
+  s("hh*8").speed("1 1.5 2 1")

@@ -1,0 +1,45 @@
+setcpm(30)
+$: stack(
+ s("bd bd [- bd] bd ").cubic(.6),
+  s("[- sd] [- sd] "),
+  s("hh*8").gain(".3 .9 .3"),
+).rel(1).duck(1).orbit(2).duckattack(.4).duckdepth(.2)
+
+var _t = `<
+ [0 - - 2 <4 5 6 5> 3 - < 3 2>]
+>`
+var _t2 = `< - 
+ [0 4 - <6 7> 3 2 0 -]
+>`
+ // [- 4 2 <6 7> 3 2 0 <2 3>]
+ // [0 2 - - 0 <3 4 5 4> 2 -]
+
+$: stack(
+   n(_t).scale("<c2, c3>:major").sound("gm_lead_8_bass_lead ") //.clip(.5).rel(.5).ply(2)
+   .fm("<0 1 2 4>").gain(".7 1(7,8)"),
+  // n(_t).scale("major").sound("sqr").fm("0 1 2 4").gain("1(3,8)"),
+  // n(_t).scale("<c4:major>").sound("sqr").late(1/4).gain("1(5,8)"),
+  n(_t2).scale("<c3:major>").sound("sqr").late(2/4).gain(".3(5,8)"),
+  n(_t2).scale("<c4:major>").sound("tri").late(1/4).gain("2"),
+  n(_t2).scale("<c5:major>").sound("piano").gain("2"),
+
+  // n(_t).s("gm_shamisen").scale("c3:major").rel(2).cubic(1.3),
+  // n(_t).s("gm_lead_2_sawtooth").scale("c3:major").rel(2).cubic(.1),
+  
+  // n(_t).s("gm_soprano_sax").scale("c4:major").late(1/4).gain(2)
+).room(1)
+//.lpf(1900).trans(2)
+
+var _c =`< Am C F G>`
+// var _c =` < D A C G >`
+
+$: stack(
+  chord(_c).voicing().s("supersaw").scale("c2:major")
+   .arp("<[[0,1,2] [- 0] 0 [ 2,3,4,5,6]]>")
+   // .gain("1(3,8)")
+   // .arp("<[0 1 0 2 0 3 2]>")
+  // .struct("<[1 - - 1]!3 [1 [- 1*2] 1 -]>")
+)
+  //.jux(rev()).hpf(800)
+  //.clip(.4).ply(4)
+// .struct("[- 1]*4")//.trans("<-12 0>")

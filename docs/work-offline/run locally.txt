@@ -125,3 +125,20 @@ Get-ChildItem -Path $sourceFolder -Recurse -Filter "*.wav" | ForEach-Object {
 But ... even then, they are still just short wav files, without the sound repeating on having an envelope.
 
 Then you need to map from the folder name you imported, to the name of the synths themselves.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
+
+ From course - asking lucy - 
+ - Strudel can use soundfonts, currently there is a baked in string in the code pointing at:
+https://github.com/felixroos/webaudiofontdata
+ - You could download that archive, then change it point it at your local one.
+
+ load sound font - is a function that exists.
+ 
+ A few clues on soundfonts in strudel 
+ here: https://codeberg.org/uzu/strudel/pulls/139 and 
+ here: https://codeberg.org/uzu/strudel/pulls/183
+
+ the soundfonts package in strudel: https://codeberg.org/uzu/strudel/src/branch/main/packages/soundfonts
+
+

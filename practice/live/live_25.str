@@ -1,0 +1,48 @@
+
+// keep it simple, start with a nice bass
+// then drums - start low energy.
+
+
+setcpm(33)
+var _b = `<
+ <
+  [0 - <5 4> - 2 <0 0 7> - <4 5 6 5>],
+  [7 - 0 -],
+  [- 9 - <10 9 8 7>]
+ >
+>`
+ // [4 4 2 -  0 - 0 <7 6 8 6>]!4
+$: stack(
+ n(_b).scale("c2:major").s("gm_electric_guitar_jazz"),
+ n(_b).scale("c3:major").s("gm_electric_guitar_muted").ply(2).rel(1).room(.5).gain(1).late(1/4)
+).gain(.3)
+
+$: stack(
+  // s("sbd - - -  - sbd - -").gain(.3),
+)
+$: stack(
+  s("bd - - bd  - bd - bd").gain(.5),
+  s("- - rim -  - - rim -").gain(.5),
+  s("hh*4").gain(".2"), // .6 .3 .4"),
+  // s("cr oh hh cr ").gain(.3),
+  // s("hh*8").room(1).gain(.3)
+).bank("compurhythm1000").postgain(.3)
+
+var _c = `<C Am F G>`
+$: stack(
+  chord(_c).voicing()
+   .arp("[0,1,2] 0 1 [0,4]")
+   .s("piano"),
+
+  n(_c).s("gm_lead_3_calliope").scale("c4:major").arp(0),
+
+  n(`<
+   [0 7 6 5 4 3 - - ]
+   [0 7 3 3 - 0 2 0]
+   - -
+  >`).s("sqr").scale("c3:major")
+   .sometimes(x => x.ply(2))
+   .sometimes(x => x.room(2))
+   .sometimes(x => x.fm(2))
+   .sometimes(x => x.fmh(2))
+).gain(.05)

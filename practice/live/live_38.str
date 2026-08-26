@@ -1,0 +1,28 @@
+
+$:s("sbd*4")
+$: stack(
+  s("bd [- bd - - ]"),
+  s("- rim - rim"),
+  s("hh*8").gain(".2 .5 .2")
+).bank("compurhythm1000")
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.clip(.2))
+ .sometimes(x => x.lpf(400))
+var _t = `[0 0 7 0 - <4 5 6 5> 0 -]`
+$: stack(
+  n(_t).scale("c2:major").s("saw").fm("0 2").fmh("<1 2 3>"),
+  n(_t).scale("c3:major").s("saw").fm("0 2").fmh("<1 2 3>").late(1/4),
+  n(_t).scale("c4:major").s("saw").fm("0 2").fmh("<1 2 3>").late(2/4),
+  n(_t).scale("c5:major").s("saw").fm("0 2").fmh("<1 2 3>").late(3/4),
+).gain(.8)
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.lpf(500))
+var _c = `<Am C F G>`
+$: stack(
+ chord(_c).voicing(),
+ chord(_c).voicing().arp("[0 1 2 1]").s("steinway")
+).gain(.9)
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.clip(.2))
+
+// all(x => x.hpf(5500))

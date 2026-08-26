@@ -1,0 +1,31 @@
+
+$: s("sbd*4")
+$: stack(
+  s("bd - bd   [- bd] - bd  - -"),
+  s("- rim - rim"),
+  s("<- - -[rim*3 rim*2]>"),
+  s("<- - - [bd*4]>"),
+  s("hh*4").gain(".5 .8")
+).bank("compurhythm1000")
+
+var _t = `<
+ [0 0 7 0 <6 7 8 7> 5 2 5]
+>`
+$: stack(
+  n(_t).scale("c3:major").s("piano"),
+  n(_t).scale("c4:major").s("piano").late(1/4),
+  n(_t).scale("c5:major").s("piano").late(2/4),
+  n(_t).scale("c6:major").s("piano").late(3/4),
+)
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.lpf(500))
+ .sometimes(x => x.rev)
+ .sometimes(x => x.clip(.5))
+
+var _c = `<Am C F G>/2`
+$: stack(
+  chord(_c).voicing().arp("0 0 2 0 - 0 2 0").rel(1).trans(-12).s("gm_acoustic_guitar_nylon"),
+// chord(_c).voicing().arp("0 1 2 3 4 5 6 7").rel(1).trans(0).s("gm_distortion_guitar"),
+  chord(_c).voicing().arp("[0,1,2] 0 - 1").rel(1).trans(12).s("gm_acoustic_guitar_steel"),
+  chord(_c).voicing().arp("0 _ - 1").rel(1).trans("0 12").s("gm_lead_3_calliope"),
+).cubic("1 .5 _ _ ").fast(2).hpf(1000)
