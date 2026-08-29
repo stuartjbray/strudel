@@ -1,7 +1,9 @@
-//@title jostar
+//@title       If they are not meant to be eaten, why are they made of shareholder-meat?
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 setcpm(37)
+window.cols = ["#ff0000","#ff8700","#ffd300","#deff0a","#a1ff0a","#0aff99","#0aefff","#147df5","#580aff","#be0aff"]
+
 // -------------- Drums
 const drumsPass = (x) => x.color("white").bank("drumulator"); //akaixr10
 var d1 = stack(

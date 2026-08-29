@@ -28,10 +28,10 @@ $: d4
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:major").sound("gm_acoustic_guitar_nylon:2").color("red").gain("[1 .4 ]*2")
 var bassPass = (x)   => n(x).scale("c2:major").sound("piano, gm_sitar").color("orange").gain(.8)
-var bass2Pass = (x)   => n(x).scale("c3:major").sound("gm_acoustic_guitar_steel:3").color("blue").gain(1.4)
+var bass2Pass = (x)   => n(x).scale("c3:major").sound("gm_acoustic_guitar_steel:3").color("blue").gain(2)
 var leadPass = (x)   => n(x).scale("c4:major").sound("gm_fx_sci_fi:4").color("yellow").gain(1.4)
-var padPass = (x) => n(x).scale("c4:major").s("gm_pad_poly").color("green").gain(1)
-var wissPass = (x) => n(x).scale("c4:major").s("gm_lead_3_calliope").color("purple").gain(.4)
+var padPass = (x) => n(x).scale("c3:major").s("gm_pad_poly").color("green").gain(3)
+var wissPass = (x) => n(x).scale("c5:major").s("gm_lead_3_calliope").color("purple").gain(1).phaser(8)
 
 
 
@@ -86,7 +86,7 @@ var _lead2 = leadPass(`<
 >`)
 
 var padArp = "[- 2 1 <2 ->]"
-var _pad1 = padPass(ch1).arp(padArp)
+var _pad1 = padPass(ch1).arp(padArp) 
 var _pad2 = padPass(ch2).arp(padArp)
 
 var _wiss1 = wissPass(`<
@@ -97,7 +97,7 @@ var _wiss2 = wissPass(`<
 >`).struct("[1 - - 1]")
 
 var M = 1;
-// M = 0;
+M = 0;
 $: arrange(
   [M*2, stack(    
     _drums_intro,

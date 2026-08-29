@@ -1,0 +1,45 @@
+//@title dark-cello
+setcpm(22)
+$: stack(
+  s("bd:2 - [- bd] sd"),
+  s("< - - - [- [- - bd - bd bd:3 - bd ]]>"),
+)
+var cellPass = (x) => n(x).scale("c3:major").s("gm_cello").rel(.7)
+var bassPass = (x) => n(x).scale("c2:major").s("gm_electric_guitar_clean").gain(1).distort(.8).rel(.1)
+var tinkPass = (x) => n(x).scale("c4:major").s("gm_fx_rain:5").gain(.4).att(.4).rel(.4)
+var brassPass = (x) => n(x).scale("c4:major").s("gm_brass_section").att(.3).rel(.3)
+var pianPass = (x) => n(x).scale("c4:major").s("piano")
+
+var _cell1 = cellPass(`<
+ [2 _ - -1  - - - -   <5 4 3# 4> _ - -    -2 -1 1 2]
+>`)
+var _bass1 = bassPass(`<
+ [2 - - 2] [1 - - 1][0# - - 0#][0 -]
+>`)
+var _tink1 = tinkPass(`<
+ 7 <6 8> <5 9> 4
+>`).struct("<[- 1 _ - ]>")
+var _brass1 = brassPass(`<
+ -1 1 5 4
+>`).struct("<[- 1]>")
+var _pian1 = pianPass(`<
+  - - - [5 4 3# 4 3# 2 1 -]
+>`)
+var _pian2 = pianPass(`<
+ [0,2,5 ] - - [[2,4]*2 - [1,3#]*2 - ]
+>`)
+
+
+$: arrange(
+  [4,stack(    _cell1,    _bass1,  )],
+  [4,stack(    _cell1,    _bass1, _tink1, _brass1,  )],
+  [4,stack(    _cell1,    _bass1, _tink1, _brass1, _pian1 )],
+  [4,stack(    _cell1,    _bass1,  _brass1, _pian2 )],
+)
+var _c = `<Am C F G>`
+_$: stack(
+ chord(_c).voicing(),
+ chord(_c).voicing().arp("[0 1 2 3 4 5 6 7]").s("piano"),
+ chord(_c).voicing().arp("[0  - 1 0 - 1 - - ]").s("steinway").trans(-12),  
+)
+

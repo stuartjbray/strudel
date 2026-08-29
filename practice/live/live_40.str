@@ -1,0 +1,27 @@
+setcpm(33)
+$: stack(
+  s("bd rim [- bd] [rim,sd]"),
+  // s("sbd*4").gain(4),
+  s("<- - - [bd(5,8)]>").gain(1.2),
+  s("hh*8").gain(".3 .6 .3")
+).bank("compurhythm1000")
+var _t = "[0 7 7 0 - 2 <4 5 6 5> 1]"
+$: stack(
+  n(_t).scale("c:major").s("saw").fm("<0 1 2 3 4>").trans(0).late(0),
+  n(_t).scale("c:major").s("saw").fm("<0 1 2 3 4>").trans(12).late(0.25),
+  n(_t).scale("c:major").s("saw").fm("<0 1 2 3 4>").trans(24).late(0.5),
+  n(_t).scale("c:major").s("saw").fm("<0 1 2 3 4>").trans(36).late(0.75),
+)
+ .sometimes(x => x.clip(.5))
+ .sometimes(x => x.ply(2))
+ .sometimes(x => x.lpf(1000))
+ // .gain(.5)
+
+var _c = "<Am C F G>"
+$: stack(
+  chord(_c).voicing(),
+  chord(_c).voicing().s("piano").arp("[0 1 2 3 4 5 6 7]").gain(2),
+  chord(_c).voicing().s("gm_acoustic_guitar_steel").arp("[0 0 - 1 - 0 - 1]").distort(2),
+  chord(_c).voicing().s("gm_acoustic_guitar_steel").arp("[0 0 - 1 - 0 - 1]").gain(4).late(.5).trans(12),
+)
+// all(x => x.hpf(5000))
