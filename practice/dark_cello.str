@@ -34,7 +34,7 @@ $: arrange(
   [4,stack(    _cell1,    _bass1,  )],
   [4,stack(    _cell1,    _bass1, _tink1, _brass1,  )],
   [4,stack(    _cell1,    _bass1, _tink1, _brass1, _pian1 )],
-  [4,stack(    _cell1,    _bass1,  _brass1, _pian2 )],
+  [4,stack(    _cell1,    _bass1,  _brass1, _pian1.trans(-12), _pian2 )],
 )
 var _c = `<Am C F G>`
 _$: stack(
