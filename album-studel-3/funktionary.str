@@ -1,8 +1,8 @@
-//@title funktionary-attack
+//@title funktionary
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
-setcpm(35)
+setcpm(32)
 // -------------- Drums
 const drumsPass = (x) => x.color("white").bank("mc303")
  // .compressor("-20:20:10:.002:.02")
@@ -16,19 +16,19 @@ var d6 = sound("hh").struct(  "1 1 <1 1*2> 1").late(1/8).gain(.5)
 var d7 = sound("sh").struct(  "- - 1 -")
 var dAccent = s("-@3 [-@2 mc303_misc:<4 5> -]").color("blue").room(2).gain(.2)
 
-var _drums_intro = drumsPass(stack( s("sd bd sd bd sd bd sd - "), s("-@3 misc:3")  ))            
+var _drums_intro = drumsPass(stack( s("sd bd sd bd sd bd sd - ").gain(".5 1 1.5 2.5"), s("-@3 misc:3")  ))            
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4, d5, d6, d7))
 var _drums2 =      drumsPass(stack(  d1, d2  ))           
 
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c4:major").sound("gm_electric_guitar_muted:4").color("red").release(.5)
-var bassPass = (x)   => n(x).scale("c2:major").sound("gm_slap_bass_1:3").color("orange").cubic(1)
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_slap_bass_1:3").color("orange").cubic(.7).distort(1.5)
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
 var wooPass = (x)   => stack(
   n(x).scale("c4:major").sound("gm_synth_strings_2").color("yellow").release(2).gain(.8),
   n(x).scale("c4:major").sound("gm_lead_2_sawtooth").color("yellow").adsr(0,.1,0,0).gain(.3).vib(32),
-  ).late(-.001)
+  ).late(-.005)
 var hornPass = (x)   => n(x).scale("c4:major").sound("gm_french_horn").color("yellow").release(1).cubic(.5)
 var orgPass = (x)   => n(x).scale("c5:major").sound("sine, saw").color("green").release(1).gain(.2)
 var didlPass = (x)   => n(x).scale("c4:major").sound("saw").color("purple")
@@ -147,7 +147,7 @@ $: arrange(
     _drums1,    _chords2x,    _bass3,_bass3x, _didl2, _gob2,
   )],
 
-
+  [4,silence]
 ).punchcard()
 
 
