@@ -22,7 +22,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c4:major").sound("gm_electric_guitar_muted").color("red").phaser(1).gain(1)
-var bassPass =   (x) => n(x).scale("c3:major").sound("sine").color("orange").clip(.2).cubic(.3)
+var bassPass =   (x) => n(x).scale("c3:major").sound("sine").color("orange").clip(.2).cubic(.1)
 var leadPass =   (x) => n(x).scale("c3:major").sound("gm_koto:[1 2]").color("yellow")
 var guitPass =   (x) => n(x).scale("c3:major").sound("gm_distortion_guitar").color("green")
 
@@ -38,7 +38,7 @@ var _chords2 = chordsPass(`<
 -
 >`)
 
-var _bass1 = bassPass(_c).arp("0 0 1 0 0 0 2 0")
+var _bass1 = bassPass(_c).arp("0 0 1 0 <0 -> <0 -> <2 -> <0 ->").trans("0,12")
 var _bass2 = bassPass(`<
 -
 >`)
@@ -64,25 +64,19 @@ var M = 1; // change to M=1 to unmute all stacks with an M.
 M = 0;
 $: arrange(
   // Change 1 to be M to conditionally mute this stack.
-  // [1*1, _drums_intro],
+  [1*1, _drums_intro],
+  [1*4, stack(    
+    _drums1,
+    _bass1,
+    _chords1, 
+    // _lead1,
+  )],
   [1*8, stack(    
     _drums1,
     _chords1, 
     _bass1,
     _lead1,
     _guit1,
-  )],
-  [M*8, stack(
-    _drums1,
-    _chords2,
-    _bass2,
-    _lead2,
-  )],
-  [M*8, stack(    
-    _drums1,
-    _chords1, 
-    _bass1,
-    _lead1,
   )],
   [M*8, stack(
     _drums1,
