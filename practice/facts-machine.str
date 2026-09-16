@@ -1,0 +1,83 @@
+//@title facts-machine
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(28)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white")
+ .late("[0 .04]*4") // make it bounce
+ .bank("compurhythm1000")
+
+var d1 = sound("bd").struct(  "1 - - - - - - -  - - - - - - 1 -")
+var d2 = sound("sd").struct(  "- - - - - - - -  1 - - - - - - -")
+var d3 = sound("hh").struct(  "1*4")
+var d4 = sound("rim").struct(  "- - - - 1 - - -  - - - - 1 - - -")
+
+var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
+  .distort(3).gain(".2 .06 .06 ") 
+var bassPass =   (x) => n(x).scale("c3:major").sound("piano").color("orange")
+var leadPass =   (x) => n(x).scale("c3:major").sound("piano").color("yellow")
+
+var _c = `<
+ [4,6,8] [3#,6,8] [2,4,6] [1#,4,6]
+ [0,2,4,7]@2 [1,3#,5,8]@2
+>`
+var arp1 = `<[0 1 2 1]!4 [0 1 2 1][3 2 1 2] [0 1 2 1][3 - - -]>`
+var _chords1 = chordsPass(_c).arp(arp1)
+ .fast(2)
+ .late("[0 .04]*4") // make it bounce
+
+var _chords2 = chordsPass(`<
+-
+>`)
+
+var _bass1 = bassPass(`<
+-
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var M = 1;
+M = 0;
+$: arrange(
+  [1*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+    _lead2,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords2,
+    _bass2,
+    _lead2,
+  )],
+  ).punchcard()
+  
