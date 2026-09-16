@@ -21,7 +21,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color("red")
-var bassPass = (x)   => n(x).sound("gm_synth_bass_2").color("orange")
+var bassPass = (x)   => n(x).scale("c2:major").sound("gm_synth_bass_2").color("orange")
 var leadPass = (x)   => n(x).scale("c3:major").sound("piano").color("yellow")
 
 // Apply pass functions to patterns

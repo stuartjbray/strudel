@@ -62,34 +62,34 @@ var _bud1 = budPass(`<
 
 var _pian1 = pianPass(`<
  [0 0 - - 1# 0 - - ]
- [0 0 - 0 <3 1#> _ <- 4> _ ]
+ [0 0 - 0 3 _ _ 4 ]
+ [0 0 - - 1# 0 - - ]
+ [0 0 - - 1# _ 4 _ ]
 >`).trans(-24)
 
 var _pian2 = pianPass(`<
- [4 - 3 1# 3 1# - 3   - 1# - 0 -@4]
+ [4 3 - 1# 3 1# - <4 3>   - 1# - 0 -@4]
  [3 - 3 1# 3 1# - <4 0>   - - - -  - - - - ]
->`)
+>`).trans(12)
 
 var M = 1;
 // M = 0;
 $: arrange(
-  [M*1, _drums_intro,
-  ],
+  [M*1, _drums_intro,  ],
   [M*4, stack(    
     _drums1,
     _bass1,    _chords1, 
   )],
   [M*8, stack(    
     _drums1,
-    _chords1,     _bass1,    _lead1,    _guit1,
+    _chords1,     _bass1,    _lead1,    _guit1,  _pian1,
   )],
   [M*8, stack(
     _drums1,
-    _chords1,     _bass1,    _lead1,    _guit1,    _bud1, _pian1,
+    _chords1,     _bass1,    _lead1,    _guit1,    _bud1,  _pian1,
   )],
   [1*8, stack(
     _drums1,
-    // _chords1,    //    _guit1,
     _bass1,    _lead1,
     _bud1,    _bud1.late(1/2).trans(12),
     _pian1,    _pian2,
