@@ -50,7 +50,6 @@ var _bass1a = bassPass(`<
 >`)
 
 var _wub1 = wubPass("<[0 - 0 - - 0 7 0]!2 [0 - 4 - - 0 - 7]!2>")
-var chord1 = 
 
 var M = 0;
 $: arrange(
@@ -67,4 +66,4 @@ $: arrange(
     _cha2,    
     _saw2,    
   )],
-)
+).punchcard()

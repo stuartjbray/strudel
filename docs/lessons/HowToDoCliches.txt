@@ -38,4 +38,6 @@ var p = stack(
 $: p.spectrum()
 
 
-------------- Drops
+------------- Swing
+ Every other note is a bit late. Makes it bouncy.
+.late("[0 .04]*4")
