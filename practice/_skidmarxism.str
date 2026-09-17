@@ -58,6 +58,12 @@ var _chords2 = chordsPass(`<
  [-4 -2 0 -2 -4 - - -]
  [-4 -1 0 -1 -4 - - -]
 >`)
+var _chords3 = chordsPass(`<
+ - -
+ [- [0, 5#] [0, 4] -] 
+ [- [0, 2]  [0, 3] -]
+>`)
+
 
 var _bass0 = stack(
   bassPass(`< [-3*16] [ -3 -2# 0 - 2*2 0 -2# 0] >`).postgain(sine.range(1,2).fast(2)) .clip("<[.3 .4 .5 .6 .7 .8 .9 1] 1>") .pan(0),
@@ -73,8 +79,10 @@ var _bass2 = bassPass(`<
  [4 3 1# -2 4# 4 1# 0]
 >`).postgain("1 2 1")
 var _bass3 = bassPass(`<
- [-]
->`)
+ - [3 2 0 -2#   0 -2# -4 _   -4 -2# 0 -2#  0 2 3 _ ] 
+ [- 0 - 0 - 0 - - ]
+ [- 0 - -2# - -2# - - ]
+>`).rel(.2)
 
 
 var _lead1 = leadPass(`<
@@ -85,7 +93,7 @@ var _lead2 = leadPass(`<
 >`)
 
 var M = 1;
-// M = 0;
+M = 0;
 $: arrange(
   [M*2, stack(    
     _bass0,
@@ -110,6 +118,8 @@ $: arrange(
   )],
   [1*8, stack(
     _drums2,
+    _chords3, 
+    _bass3,
   )],
-  ).punchcard()
+  )//.punchcard()
   
