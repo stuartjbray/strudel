@@ -23,17 +23,12 @@ var d2x = sound("sd").struct(  "<0 - 0 1>".pick([
   "1 - - 1 - - 1 -  - - - 1 - - 1 -".gain("1 3 1"),
   "- 1 - - 1 1 - -  - - 1 - 1 - 1 -"  
 ]))
-
 var d3 = sound("hh").struct(  "- - 1 - - - - -  - 1 - 1 - 1 - -")
 var d3x = sound("hh").struct("1 - - - 1 - - -  1 - - 1 - - 1 -")
-
 var d4 = sound("cr").struct(  "- - - - 1 - - -  - - - - 1 - - -").speed("1 1.1").clip("4 2")
-
 var d9 = sound ("[sd  - - <- sd>] [sd,bd]")
 var d8 = sound("cr*8").clip("1 .5 .5 .5  1 <.5 0> <.5 0> 1 ").gain(".5 .8 .4")
-
 var d10 = sound("[cr hh cr -  cr hh cr - cr hh cr - - - cr cr]/2, [sd!6 - [sd sd]]/2").speed("[.5 .8]*2")
-
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
@@ -41,20 +36,15 @@ var _drums2 =      drumsPass(stack(  d1x, d2x  ))            // break down
 var _drums3 =      drumsPass(stack(  d3x, d4.gain(.5)  ))            
 var _drums4 =      drumsPass(stack(  d8, d9  ))            
 
-
 window.cols = ["#ff0000","#ff8700","#ffd300","#deff0a","#a1ff0a","#0aff99","#0aefff","#147df5","#580aff","#be0aff"]
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color(cols[0]).gain(1.7)
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color(cols[0]).gain(1.4)
 var bassPass =   (x) => n(x).scale("c3:major").sound("gm_acoustic_guitar_steel:<1,2>").color(cols[1]).cubic(1.3).gain(.4)
-var gain1 = ".6 1.3 .6"
-
 var leadPass =   (x) => n(x).scale("c4:major").sound("steinway").color(cols[2])
 var guitPass =   (x) => n(x).scale("c3:major").sound("gm_acoustic_guitar_nylon").color(cols[3])
-var padPass =   (x) => n(x).scale("c4:major").sound("gm_accordion").color(cols[4]).gain(.4).rel(.3).att(.1)
-
-
-// all(x => x.late("[0 0.04]*4"))
+var padPass =   (x) => n(x).scale("c4:major").sound("gm_accordion").color(cols[4]).gain(.5).rel(.3).att(.1)
+var gain1 = ".7 1.3 .7"
 
 var _c1 = `< [0,2,4] [0,3,5] [0,4,5#] [0,3,5] >`
 
@@ -73,12 +63,10 @@ var _chords2 = chordsPass(`<
 >`)
 var _chords3 = chordsPass(_c1).arp("- [0,1,2] - [0,1,2] - <[0,1,2] -> - - ").trans("0 12 0 0")
 
-
 var _bass0 = stack(
   bassPass(`< [-3*16] [ -3 -2# 0 - 2*2 0 -2# 0] >`).postgain(sine.range(1,2).fast(2)) .clip("<[.3 .4 .5 .6 .7 .8 .9 1] 1>") .pan(0),
   bassPass(`< [-3*16] [ -3 -2# 0 - 2*2 0 -2# 0] >`).postgain(sine.range(2,1).fast(2)) .clip("<[1 .9 .8 .7 .6 .5 .4 .3] 1>") .pan(1)
   )
-
 var _bass1 = bassPass(`<
  [ -3 -2# 0 - <<1# 2> -> 0 -2# 0]
 >`).postgain(gain1)
@@ -89,17 +77,14 @@ var _bass2 = bassPass(`<
  [4 3 1# -2 4# 4 1# 0]
 >`).postgain(gain1)
 var _bass3 = bassPass(`<
- - [3 2 0 -2#   0 -2# -4 _   -4 -2# 0 -2#  0 2 3 _ ] 
+ - [3 2 0 -2#   0 -2# -4 -4   -4*2 -2# 0 -2#  0 2 3 _ ] 
 >`).rel(.2)
-
 var _bass1x = bassPass(`<
  [- 0 -2# -3 1# 0 -2# -]
  [- 3 1# 3 3# 3 1# 0 ]
  [- 0 -2# -3 1# 0 -2# -]
  [4 3 1# 0 -2# -3 -4 -6#]
 >`).postgain(gain1)
-
-
 
 var _lead1 = leadPass(`<
  - - [- - - 5# 5# <5 7> 5 -] -
@@ -110,18 +95,16 @@ var _lead2 = leadPass(`<
 var _lead3 = leadPass(`<
 [- - - - - 3 4 4#]
 [- - 8# - - 1# 3 4]
-[- - 8 - - 1 1# 1]
+[- - - 8 - 1 1# 1]
 [- - 7 - - 0 1 1#]
 >`)
 
 var _guit1 = guitPass(`<
  [- [0,2] [0,2] [0,2] _ [0,1] [0,1] _ ]
- [- [0,3] [0,3] [0,3] _ [-1,1] _ - ]
+ [- [0,3] [0,3] [0,3] _ <[-1,1] -> _ - ]
  [ 2 0 3 0 4 0 2# _]
- [- 5# 5# 5# - 5 5 _]
+ [- 5# 5# 5# - <5 -> <5 -> _]
 >`).trans(24).cubic(.2)
-
-
 
 var _pad1 = padPass(`<
  [- - <2 3 -2 -3> 0]
@@ -137,7 +120,7 @@ $: arrange(
     _bass0,
   )],
   [M*8, stack(    
-    _drums1,    _chords1,     _bass1,    _lead1, _pad1,
+    _drums1,    _chords1,     _bass1,    _lead1,
   )],
   [M*8, stack(
     _drums1,    _chords2,    _bass2,    _lead2, _pad2,
