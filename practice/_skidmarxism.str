@@ -45,13 +45,13 @@ var _drums4 =      drumsPass(stack(  d8, d9  ))
 window.cols = ["#ff0000","#ff8700","#ffd300","#deff0a","#a1ff0a","#0aff99","#0aefff","#147df5","#580aff","#be0aff"]
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color(cols[0]).gain(1.5)
+var chordsPass = (x) => n(x).scale("c3:major").sound("piano").color(cols[0]).gain(1.7)
 var bassPass =   (x) => n(x).scale("c3:major").sound("gm_acoustic_guitar_steel:<1,2>").color(cols[1]).cubic(1.3).gain(.4)
 var gain1 = ".6 1.3 .6"
 
 var leadPass =   (x) => n(x).scale("c4:major").sound("steinway").color(cols[2])
 var guitPass =   (x) => n(x).scale("c3:major").sound("gm_acoustic_guitar_nylon").color(cols[3])
-var padPass =   (x) => n(x).scale("c4:major").sound("gm_accordion").color(cols[4]).gain(.5).rel(.3).att(.1)
+var padPass =   (x) => n(x).scale("c4:major").sound("gm_accordion").color(cols[4]).gain(.4).rel(.3).att(.1)
 
 
 // all(x => x.late("[0 0.04]*4"))
