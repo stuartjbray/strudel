@@ -5,16 +5,17 @@
 setcpm(36)
 
 // -------------- Drums
-const drumsPass = (x) => x.color("white");
+const drumsPass = (x) => x.color("white").bank("compurhythm1000");
 
-var d1 = sound("bd").struct(  "1 - - - - - - <1 ->")
-var d2 = sound("rim").struct( "- - - 1 - <- 1> - -")
-var d3 = sound("hh").struct(  "1 - 1 - 1 <- 1> 1 -").gain("[.3 1]*2")
+var d1 = sound("bd").struct(  "1 - - - - - - <1 ->").room(1).cubic("1.2 0")
+var d2 = sound("rim").struct( "- - - 1 - <- 1> - -").speed("1 .95")
+var d3 = sound("hh").struct(  "1 - 1 - 1 <- 1> 1 -").gain("[.2 .7]*2")
 var d4 = sound("oh").struct(  "- - - - - - <- 1> - ")
+var d5 = sound("- sd - [- sd], <- - - [sd*4]>").cubic(".5 1")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+var _drums1 =      drumsPass(stack(  d1, d2,  d3,  d4 ))  // normal
+var _drums2 =      drumsPass(stack(  d1, d2,  d3,  d4, d5  )) 
 
 
 // Define pass functions for each instrument
@@ -128,22 +129,22 @@ $: arrange(
   )],
 
   [M*8, stack(    
-    _drums1,    _chords1.trans(12),     _bass1,    _lead1,    _dug1,
+    _drums2,    _chords1.trans(12),     _bass1,    _lead1,    _dug1,
   )],
   
   [M*8, stack(
-    _drums1,
+    _drums2,
     stack(
       _chords2.trans(12),    _bass2,    _lead1,_lead1a,
     ).mask("<1@7 0>"),
     _leadDown,
   )],
   [M*8, stack(
-    _drums1,
+    _drums2,
     _chords4,
   )],
   [1*8, stack(
-    _drums1,
+    _drums2,
     _chords4,_chords4a,
     _rum4,
     _pad1.trans(-12),

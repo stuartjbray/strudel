@@ -87,8 +87,8 @@ var _chords4 = chordsPass(`<
  [1,3,5]
 >`).struct("[1 - - 1]")
 var _tune4 = tune2Pass(`<
- [- 7 8 _] [- -] [- 8 7 _] [ -]
- [- 6 7 _] [- -] [- 8 7 _] [ -]
+ [- - - -] [- -] [- 8 - 7] [ -]
+ [- 4 - 6] [- -] [- 8 - 7] [ -]
 >`)
 var _tune5 = tune2Pass(`<
  - [-2 -1 0 1] 
@@ -138,19 +138,17 @@ $: arrange(
     _tune1, _tune1a,
     _dug1.room(2).trans(-12),
   )],
-  [M*2, stack(
+  [1*2, stack(
     _drums2,
   )],
-  [M*8, stack(
+  [1*8, stack(
     _drums2.gain(.4),
     _chords1.trans(12),
     _bass1.trans(12),
-    _lead1.trans(-12),
     _tune1,
     _tune1b.gain(.3),
     _dug1.gain(.3),
   ).trans(2).room(1.2)],
-
   [1*8, stack( 
     _drums2,
     _chords4.gain(1),
