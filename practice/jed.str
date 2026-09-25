@@ -10,6 +10,8 @@ var ch2 = `<
 
 
 $: stack(
-  n(ch1).scale("c2:major").sound("piano"),
+  s("<[oh - hh [- hh] oh - hh [- hh]] >").speed("1 .94"),
+  s("[bd [- - - bd]] bd:3"),
+  n(ch1).scale("c2:major").sound("steinway"),
   n(ch2).scale("c3:major").sound("piano")
 )
