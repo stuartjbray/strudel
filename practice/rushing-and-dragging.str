@@ -4,13 +4,10 @@
 
 setcpm(30)
 
+var swing = (x) => x.late("[0 0.02]*8")
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("bd").struct(  "- - - - - - - -  - - - - - - - -")
-var d2 = sound("sd").struct(  "- - - - - - - -  - - - - - - - -")
-var d3 = sound("hh").struct(  "- - - - - - - -  - - - - - - - -")
-var d4 = sound("cr").struct(  "- - - - - - - -  - - - - - - - -")
 
 var d_bd_1 = "<0 1 2 3 4!100>".pick([
   "1 - - -  - - - -  - - - -  - - - - ",
@@ -18,28 +15,44 @@ var d_bd_1 = "<0 1 2 3 4!100>".pick([
   "1 - - -  - - 1 1  - - - -  - - - - ",
   "1 - - -  - - 1 1  - - - -  - 1 - - ",
 ])
-var d_bd_2 = "[1,1] - - -  1 - 1 1  - - - -  - 1 - 1 "
+var d_bd_2 = "[1,1] - - -  1 - 1 1  - - - -  - 1 - 1 ".gain("4 1!7")
 
+var d1a = s("alesissr16_bd").struct(d_bd_1)
+var d1b = s("alesissr16_bd").struct(d_bd_2)
+var d2 = s("alesissr16_sd, alesissr16_cr").struct(        "-  1  ").speed("<1 1.1>").clip("<1 0.3>")
+var d2a = s("mc303_rim").struct("- 1").room("<1 2>")
+var d3 = swing(s("[alesissr16_oh alesissr16_hh]*8").struct( "1*16").gain(sine.range(.1,.4)))
+
+var d_rim_1 = s("mpc60_rim").struct("<0 0 0 1>".pick(["- 1 - 1", swing("- 1*3 1*3 1*3")])).speed("[1 .8]*6").room(2).gain(.4)
 var _drums_intro = stack(
-  s("bd").struct(d_bd_1),
-  s("sd, cr").struct(        "- - - -  - - - -  1 - - -  - - - - "),
-  s("[oh hh]*8").struct( "1*16").gain(sine.range(.3,.7)),
-).bank("<alesissr16 9000>")
+  d1a,
+  d2,
+  d3,
+)
 var _drums1 = stack(
-  s("bd").struct(d_bd_2),
-  s("sd, cr").struct(        "- - - -  - - - -  1 - - -  - - - - "),
-  s("[oh hh]*8").struct( "1*16").gain(sine.range(.2,.5)),
-).bank("<alesissr16 9000>")
+  d1b,
+  d2,
+  d3,
+)
+var _drums2 = stack(
+  d1b,
+  d2a,
+  d3,
+)
+var _drums3 = stack(
+  d1b,
+  d_rim_1,
+  d3,
+)
 
-var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
 
 
 // Define pass functions for each instrument
-var chordsPass = (x) => n(x).scale("c2:major").sound("gm_electric_bass_finger:2").color("red").att(.2).rel(.8)
-var bassPass =   (x) => n(x).scale("c3:major").sound("gm_electric_bass_finger:3").color("orange").att(.4)
-var leadPass =   (x) => n(x).scale("c3:major").sound("piano").color("yellow")
+var chordsPass = (x) => n(x).scale("c2:major").sound("gm_electric_bass_finger:2").color("red").att(0).rel(.8)
+var bassPass =   (x) => n(x).scale("c3:major").sound("gm_electric_bass_finger:3").color("orange").att(0)
+var leadPass =   (x) => n(x).scale("c3:major").sound("wt_digital").color("yellow").fm("[0 1 2 3]").fmh("4 3 2 1")
 
-all(x => x.late("[0 0.03]*8"))
+
 
 // Apply pass functions to patterns
 var _c = `<
@@ -51,51 +64,43 @@ var _c2 = `<
 var _chords1 = chordsPass(_c).trans("<0!4 12!4>")
 var _chords2 = chordsPass(_c2)
 
-var _bass1 = bassPass(_c).struct("1  - 1")
+var _bass1 = bassPass(_c).struct("1 _ - 1")
 var _bass2 = bassPass(_c2)
 
 var _lead1 = leadPass(`<
--
+ [0 1 - 2]
+ [0 4 1 -]
+ [4 2 - 1]
+ [0 4 1 -]
 >`)
 var _lead2 = leadPass(`<
 -
 >`)
 
-// Cycle counter.
-// $: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
-// all(x => x.rib(28,38)) // Play just the numbered cycles.
-
-// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
-var M = 1; // change to M=1 to unmute all stacks with an M.
-M = 0;
+var M = 1;
+// M = 0;
 $: arrange(
-  // Change 1 to be M to conditionally mute this stack.
   [M*4, stack(    
     _drums_intro,
-  )],
-  [1*8, stack(    
-    _drums1,
-    _chords1, 
-    _bass1,
-    _lead1,
-  )],
-  [1*8, stack(
-    _drums1,
-    _chords2,
-    _bass2,
-    _lead2,
   )],
   [M*8, stack(    
     _drums1,
     _chords1, 
     _bass1,
-    _lead1,
   )],
   [M*8, stack(
-    _drums1,
+    _drums2, 
     _chords2,
     _bass2,
-    _lead2,
+    _lead1,
+  )],
+  [M*8, stack(    
+    _drums3,
+    _chords1, 
+    _bass1,
+    _lead1,
+    _lead1.fast(2).trans(-12),
+    _lead1.late(.25).trans(12),
   )],
   ).punchcard()
   
