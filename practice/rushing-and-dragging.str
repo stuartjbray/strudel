@@ -19,7 +19,7 @@ var d_bd_2 = "[1,1] - - -  1 - 1 1  - - - -  - 1 - 1 ".gain("4 1!7")
 
 var d1a = s("alesissr16_bd").struct(d_bd_1)
 var d1b = s("alesissr16_bd").struct(d_bd_2)
-var d2 = s("alesissr16_sd, alesissr16_cr").struct(        "-  1  ").speed("<1 1.1>").clip("<1 0.3>")
+var d2 = s("alesissr16_sd, alesissr16_cr").struct(        "-  1  ").speed("<1 1.1>").clip("<1 0.5>")
 var d2a = s("mc303_rim").struct("- 1").room("<1 2>")
 var d3 = swing(s("[alesissr16_oh alesissr16_hh]*8").struct( "1*16").gain(sine.range(.1,.4)))
 
@@ -89,13 +89,13 @@ $: arrange(
     _bass1,
   )],
   [M*8, stack(
-    _drums2, 
+    _drums3, 
     _chords2,
     _bass2,
     _lead1,
   )],
   [M*8, stack(    
-    _drums3,
+    _drums2,
     _chords1, 
     _bass1,
     _lead1,
