@@ -7,8 +7,8 @@ setcpm(30)
 // -------------- Drums
 const drumsPass = (x) => x.color("white");
 
-var d1 = sound("9000_mt, bd").struct(             "1 - - - - 1 - -").room(.7)
-var d1x = sound("9000_mt, bd").struct(             "1 - - - - <1 -> - -").room(1)
+var d1 = sound("9000_mt, bd").struct(             "1 - - - - 1 - -").room(.3)
+var d1x = sound("9000_mt, bd").struct(             "1 - - - - <1 -> - -").room(.5)
 var d2 = sound("9000_sd akaixr10_sd").struct(     "- - 1 - - <- 1> 1 -").gain(.6)
 var d2x = stack(sound("akaixr10_sd").struct(     "- - - 1 1 - - -").gain(1),
                 sound("akaixr10_sd").struct(     "- - - - - 1*2 - 1*2").gain(1).mask(m4))
@@ -34,7 +34,7 @@ var rumPass = (x)   => n(x).scale("c3:major").sound("gm_pad_sweep:7").color("pur
 
 // Apply pass functions to patterns
 var chords1 = `< Am G F Fm>`
-var chords2 = `< Am G E F>`
+var chords2 = `< Am G Em <F D>>`
 
 var _chords1 = chordsPass(chords1).arp("[0 1 2 3 2 1 2 3]").trans("0, -12")
 var _chords2 = chordsPass(chords2).arp("[0 1 2 3 2 1 2 3]").trans("0, -12")
@@ -134,10 +134,10 @@ $: arrange(
   )],
   [1*8, stack(
     _drums2,
-    _chords2,    _chords2.delay(1/16),
+    _chords2, 
     _bass2.trans("0,12"),
     _lead2,
     _tune4.trans("0,12"),
   )],
-  )//.punchcard()
+  ).punchcard()
   
