@@ -1,0 +1,135 @@
+//@title rumburger
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(35)
+
+// -------------- Drums
+const drumsPass = (x) => x.color("white").bank("compurhythm1000");
+
+var d1 = sound("bd").struct(  "1 - - - - - 1 -  - - - - <1 - 1 1> - <- - - 1> <- - - 1>")
+var d2 = sound("sd").struct(  "- - - - - - - -  1 - - - - - - -")
+var d3 = sound("hh").struct(  "- - 1 - - - - -  - - <1 -> - - - - -")
+var d4 = sound("oh").struct(  "- - - - - - - -  1 - - - - - - -").gain(.4)
+
+var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("gm_epiano1:3").color("red")
+var bassPass =   (x) => n(x).scale("c3:major").sound("steinway").color("orange").gain(.5)
+var leadPass =   (x) => n(x).scale("c4:major").sound("gm_acoustic_guitar_steel:2").color("yellow").cubic(.7).rel(.3)
+var saxPass =   (x) => n(x).scale("c4:major").sound("gm_alto_sax:<1,2>").color("green").rel(.2)
+var guitPass =   (x) => n(x).scale("c3:major").sound("gm_distortion_guitar").color("blue").gain(.8).rel(.4).lpf(500).cubic(.7)
+
+var _chords_in = chordsPass(`<
+ [1 8 1 1  8 1*2 8 1]
+>`)
+var _chords1 = chordsPass(`<
+ [1 3 5 1 3 5*2 1 3] [1 3 5 1 2 [4 5] 6 2]
+ [3 5 7 3 5 [7 5] 3 5] [3 5 7 5 2 [4 4#] 6 2]
+>`)
+var _chords2 = chordsPass(`<
+-
+>`)
+var _chords1_7 = chordsPass(`<
+ [1 3 5 8   8 10*2 12 14] [1 3 5 8  2 4*2 6 9]
+ [3 5 7 9  10 12*2 14 16] [3 5 7 9  4 6*2 9 11]
+>`)
+
+var _bass_in = bassPass(`<
+ [1 8 1 1 8 1 1 8]
+>`)
+var _bass1 = bassPass(`<
+ [1 - - 1 - - 1 -] [1 - - 1 0 - - 0 ]
+ [3 - - 3 - - 3 -] [3 - - 3 4 - 4 - ]
+ [1 - - 1 - - 1 -] [1 - - 1 0 - - 0 ]
+ [-2 - - -2 - - -2 -] [-3 - - -3 0 - 0 - ]
+>`)
+var _bass2 = bassPass(`<
+-
+>`)
+
+var _lead1 = leadPass(`<
+ [- 8 7 5] [[4 3] 4 - 0] [5 _ _ 7 5 _ - - ] -
+ [- 8 7 5] [[4 3] 4 - 3] [0 ] -
+>`)
+var _lead2 = leadPass(`<
+ [- 8 7 5] [9 7 5 2 -1 2 4 6]
+ [3 2 3 4 4# 4 4# 5] [7 7# 7 6 7 _ _ _]
+ [- 8 7 5] [10 11 10 9 10 - - -] 
+ [7 8 7 6 7 - - -] [5 5# 5 3 5 - - -]
+>`)
+
+var _lead3 = leadPass(`<
+ [- - 8 7 - 8 - 5] -
+ [- - 3 4 - 3 - 5] -
+>`)
+var _sax1 = saxPass(`<
+ 1 - - [[3,5] [4,6]]
+ 5 - - [[3,5] [4,6]]
+>`)
+var _sax2 = saxPass(`<
+ 1 - - [[3,5] [4,6]]
+ 5 - - [[3,5] [4,6]]
+>`)
+var _sax3 = saxPass(`<
+ - [3 2 1 <0 2>] <1 3> -
+>`)
+
+var _guit1 = guitPass(`<
+ [- 1] 0 [- -2] [- <-3 0>]
+>`)
+var _guit2 = guitPass(`<
+ [3 -] [- - 4 _] [5 -] [- - 6 _ ]
+ [7 -] [- - 6 _] [5 -] [- - 4 _ ]
+>`).trans(-12).rel(.2).room(2)
+
+var M = 1;
+// M = 0;
+$: arrange(
+  [M*1, stack(
+    _chords_in, _bass_in,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _sax1.trans(-12).rel(.5).room(2),
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1, 
+    _bass1,
+    _lead1,
+    _sax1,
+    _guit1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,
+    _bass1,
+    _lead2,
+    _sax2,
+    _guit1,
+  )],
+  [1*8, stack(    
+    _drums1,
+    _chords1_7, 
+    
+    _bass1,
+    _lead3,
+    _sax3,
+    _guit2,
+  )],
+  // [M*8, stack(
+  //   _drums1,
+  //   _chords2,
+  //   _bass2,
+  //   _lead2,
+  // )],
+  // [M*2,silence]
+  ).punchcard()
+  

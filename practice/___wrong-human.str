@@ -37,7 +37,7 @@ var rumPass = (x)   => n(x).scale("c3:major").sound("gm_pad_sweep:7, gm_lead_1_s
 
 // Apply pass functions to patterns
 var chords1 = `< Am G F Fm>`
-var chords2 = `< Am G E F>`
+var chords2 = `< Am G Em <F D>>`
 
 var _chords1 = chordsPass(chords1).arp("[0 1 2 3 2 1 2 3]").trans("0, -12")
 var _chords2 = chordsPass(chords2).arp("[0 1 2 3 2 1 2 3]").trans("0, -12")
@@ -142,7 +142,7 @@ $: arrange(
   )],
   [M*8, stack(
     _drums2,
-    _chords2,    _chords2.delay(1/16),
+    _chords2, 
     _bass2.trans("0,12"),
     // _lead2,
     _tune4.trans("0,12"),
