@@ -7,7 +7,6 @@ How to do live?
  Composition
 
 
-
 Don't use arrange. Don't put everything in variables.
 Use several $: entry points. _$ = mute, s$ = solo
 all => all.punchcard()
