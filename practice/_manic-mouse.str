@@ -14,13 +14,13 @@ var d1 = stack(
   sound("bd").struct(  "1 - 1 - 1 - 1 - ").mask(m_4), 
   sound("bd").struct(  "- - - 1 1 1 1 - ").mask(m4) )
 var d2 = stack(
-  sound("sd").struct( " - 1 - 1 - 1 - 1").mask(m2),
-  sound("sd").struct( " - 1 1 - - 1 1 1").mask(m4))
+  sound("sd:2").struct( " - 1 - 1 - 1 - 1").mask(m2),
+  sound("sd:2").struct( " - 1 1 - - 1 1 1").mask(m4))
 var d3 = sound("hh").struct(  "1*8").gain(.4)
 var d4 = sound("misc:29").struct(  "- - 1 - ").mask(m2).gain(.5)
 
-var _drums_intro = drumsPass(stack(  d1,  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))  // normal
+var _drums_intro = drumsPass(stack(  d1.rib(2,2)  ))            // build up
+var _drums1 =      drumsPass(stack(  d1, d2,  d3,  d4))  // normal
 var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
 
 $: d4
@@ -30,8 +30,8 @@ var chordsPass = (x) => n(x).scale("c3:major").sound("gm_acoustic_guitar_nylon:2
 var bassPass = (x)   => n(x).scale("c2:major").sound("piano, gm_sitar").color("orange").gain(.8)
 var bass2Pass = (x)   => n(x).scale("c3:major").sound("gm_acoustic_guitar_steel:3").color("blue").gain(2)
 var leadPass = (x)   => n(x).scale("c4:major").sound("gm_fx_sci_fi:4").color("yellow").gain(1.4)
-var padPass = (x) => n(x).scale("c3:major").s("gm_pad_poly").color("green").gain(3)
-var wissPass = (x) => n(x).scale("c5:major").s("gm_lead_3_calliope").color("purple").gain(1).phaser(8)
+var padPass = (x) => n(x).scale("c3:major").s("gm_pad_poly").color("green").gain(2).att(.1)
+var wissPass = (x) => n(x).scale("c4:major").s("gm_lead_3_calliope").color("purple").gain(.8).phaser(4)
 
 
 
@@ -85,7 +85,7 @@ var _lead2 = leadPass(`<
   [- [7,9] - [7,9] - [6,8] [6,8] -] >
 >`)
 
-var padArp = "[- 2 1 <2 ->]"
+var padArp = "<[- 2 1 2] [- 2 1 _]>"
 var _pad1 = padPass(ch1).arp(padArp) 
 var _pad2 = padPass(ch2).arp(padArp)
 
@@ -97,7 +97,7 @@ var _wiss2 = wissPass(`<
 >`).struct("[1 - - 1]")
 
 var M = 1;
-M = 0;
+// M = 0;
 $: arrange(
   [M*2, stack(    
     _drums_intro,
@@ -107,12 +107,14 @@ $: arrange(
     _bassRun1,
     _chords1, 
     _bass1,
+    _pad1,
   )],
   [M*8, stack(
     _drums1.mask(m_8),
     _chords2, 
     _bassRun1,
     _bass2,
+    _pad2,
   )],
   [1*8, stack(    
     _drums1,

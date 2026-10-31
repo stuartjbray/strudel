@@ -9,7 +9,7 @@ setcpm(30)
 // -------------- Drums
 var d1 = sound("bd").struct(  "1 - - - 1 - - -")
 var d1a = sound("AkaiLinn_bd").struct(  "1 - - <- 1> 1 - - -").distort(1)
-var d1b = sound("emusp12_bd").struct(  "1*4").gain(".6 .8 1 .8")
+var d1b = sound("emusp12_bd").struct(  "1 1 [- 1 - -] 1").gain(".6 .8 1 .8").speed("1 .9 .8 .7")
 
 var d2 = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 0 0")
 var d2a = sound("AkaiMPC60_rim").struct("0 0 1 0 0 0 1 0")
@@ -88,7 +88,7 @@ var __beat2 = stack( _chords2, _base2, _baseB2, _lead2)
 var __beat3 = stack( _chords3, _base3, _baseB3, _lead3)
 var __beat4 = stack( _chords4, _base4, _baseB4, _lead4)
 
-var M = 0;
+var M = 1;
 $: arrange(
   [M*4, stack(    _drums_intro,      __beat1  )],
   [M*4, stack(    _drums_intro, d3a, __beat2  )],
