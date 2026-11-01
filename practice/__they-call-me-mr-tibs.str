@@ -1,12 +1,14 @@
 // @title they-call-me-mr-tibs
 setcpm(33)
-var mask4 = (x) => x.mask("<- - - 1>")
-$: stack(
+var mask4 = (x) => x.mask("<-@3 1>")
+var mask8 = (x) => x.mask("<-@7 1>")
+var _d1 = stack(
   s("bd:2 - - -   - - - -  bd:2 - - -  - - <- bd> - ")
   ,s("- - - -  - - - -  rolandd70_sd - - -   - - - -  ").room("<0 1>").distort(1).gain(.4)
   ,mask4(s("- - - -  rolandd70_sd - rolandd70_sd -   - rolandd70_sd - rolandd70_sd   cr - - -  ").speed("[1 .95]*4"))
   ,s("hh*8").gain(".6 .8 .6")
 )
+var _d2 = stack(_d1, s("<- [ - [- - rolandd70_sd rolandd70_sd*2 ]]!2 - >"))
 
 var sawFx = (x) => stack(  
  x.s("sawtooth").gain(.3).rel(1).att(.2), 
@@ -85,19 +87,19 @@ var _aah1 = n("- - [0, <2 3 5 4>] -").scale("c3:major").s("gm_fx_sci_fi:1").gain
 
 var M = 1
 $: arrange(
-  [M*4,stack(    _bass1, _guit1, _dug1,)],
-  [M*4,stack(    _bass1, _guit1, _dug1,  _chord2,  )],
-  [M*4,stack(    _bass1, _guit1, _dug1,  _chord1, _chord3,  )],
-  [M*4,stack(    _bass1, _guit1, _dug1,  _chord1, _chord2,_chord3,_chord4,  )],
+  [M*4,stack(   _d1, _bass1, _guit1, _dug1,)],
+  [M*4,stack(   _d1,  _bass1, _guit1, _dug1,  _chord2,  )],
+  [M*4,stack(   _d1,  _bass1, _guit1, _dug1,  _chord1, _chord3,  )],
+  [M*4,stack(   _d2,  _bass1, _guit1, _dug1,  _chord1, _chord2,_chord3,_chord4,  )],
   
-  [M*4,stack(    _bass1, _guit1.gain(1.5),   _aah1, _pian0    )],
-  [M*4,stack(    _bass1, _guit1,   _chord4,   _pian1, _pianA, _harp1 )],
-  [M*4,stack(    _bass1, _guit1,   _chord4,   _pian2, _pianA, _harp1 )],
+  [M*4,stack(   _d1,  _bass1, _guit1.gain(1.5),   _aah1, _pian0    )],
+  [M*4,stack(   _d1,  _bass1, _guit1,   _chord4,   _pian1, _pianA, _harp1 )],
+  [M*4,stack(   _d2,  _bass1, _guit1,   _chord4,   _pian2, _pianA, _harp1 )],
   
-  [M*4,stack(     _guit1,   _chord2.lpf(1000), _aah1, _pian0, _pian3, _pian4,    )],
-  [M*4,stack(     _guit1,   _chord2.lpf(800), _aah1, _pian0, _pian3, _pian4, _pian5,    )],
-  [M*4,stack(     _guit1,   _chord2.lpf(600), _aah1, _pian4, _pian6.trans(12),    )],
-  [1*4,stack(     _guit1,   _chord2.lpf(400), _aah1, _pian3.trans(12), _pian6, _pian7.trans(24).gain(.1),    )],
+  [M*4,stack(   _d1,  _guit1,   _chord2.lpf(1000), _aah1, _pian0, _pian3, _pian4,    )],
+  [M*4,stack(   _d1,  _guit1,   _chord2.lpf(800), _aah1, _pian0,  _pian3, _pian4, _pian5,    )],
+  [M*4,stack(   _d1,  _guit1,   _chord2.lpf(600), _aah1, _pian4,  _pian6.trans(12),    )],
+  [1*4,stack(   _d2,  _guit1,   _chord2.lpf(400), _aah1, _pian3.trans(12), _pian6, _pian7.trans(24).gain(.1),    )],
 )
 
 all(x => x.postgain(.8).punchcard())
