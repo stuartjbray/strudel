@@ -86,7 +86,7 @@ var _guit4 = guitPass(`<
 
 var _chord1 = chord(_cc).voicing().att(.1).rel(.3).gain(.4) 
 var _chord2 = _chord1.struct("- 1 1 - 1 1 - 1 ").gain(.5)
-var _chord3 = _chord1.struct("- 1 - - 1 - - 1 ").trans(12).gain(.4)
+var _chord3 = _chord1.struct("- 1 - - 1 - - 1 ").trans(12).gain(.4).clip(.4)
 var _chord4 = _chord1.struct("1 - - 1 - - 1 - ").trans(-12).gain(.3)
 
 var _pian0 = pianPass(_t0)
@@ -104,7 +104,7 @@ var _aah1 = n("- - [0, <2 3 5 4>] -").scale("c3:major").s("gm_fx_sci_fi:1").gain
 
 var M = 1
 $: arrange(
-  [M*2,stack(   _d3, _pian6 )],
+  [M*2,stack(   _d3, _pian6.hpf(1000) )],
   [M*4,stack(   _d1, _bass1, _guit1, _dug1,)],
   [M*4,stack(   _d1,  _bass1, _guit1, _dug1,  _chord2,  )],
   [M*4,stack(   _d1,  _bass1, _guit1, _dug1,  _chord1, _chord3,  )],
@@ -120,20 +120,20 @@ $: arrange(
   [M*4,stack(   _d2,  _guit1,   _chord2.lpf(800).trans(-12).gain(.4), _aah1, _pian3.trans(12), _pian6, _pian7.trans(24).gain(.1),    )],
 
   [M*4,stack(   _d1,  _bass1, _guit1.gain(1.5),   _aah1, _pian0    )],
-  [M*4,stack(   _d1,  _bass1, _guit2, _guit3, _dug1,    )],
-  [M*4,stack(   _d3, _guit2, _guit3, _dug1, _pian3   )], // --------------- less drums
-  [M*4,stack(   _d3, _guit2.trans(-12), _guit3, _dug1, _pian4   )],
+  [M*4,stack(   _d1,  _bass1, _guit2.gain(2), _guit3, _dug1, _pian0    )],
+  [M*4,stack(   _d3, _guit2, _guit3.gain(2), _dug1, _pian3   )], // --------------- less drums
+  [M*4,stack(   _d3, _guit2.trans(-12), _guit3.gain(2), _dug1, _pian4   )],
   [M*4,stack(   _d3, _guit2.trans(-12), _guit4.gain(1), _dug1, _pian4, _pian4.trans(12).late(1/8) )],
 
-  [M*4,stack(   _d1,  _guit1, _guit4.trans(12),   _chord2.lpf(800), 
+  [M*4,stack(   _d1,  _guit1, _guit4.trans(12),   _chord2.lpf(300), 
                 _aah1, _pian0, _pian3, _pian4,  )],
-  [M*4,stack(   _d1,  _guit1, _guit4.trans(12),   _chord2.lpf(800), 
+  [M*4,stack(   _d1,  _guit1, _guit4.trans(12),   _chord2.lpf(300), 
                 _aah1, _pian0,  _pian3, _pian4, _pian5,    )],
   [M*4,stack(   _d1,  _guit1, _guit3.trans(12),   
-                _chord2.lpf(800).trans(-12).gain(.4), _chord3.trans(12).gain(.1),
+                _chord2.lpf(500).trans(-12).gain(.4), _chord3.trans(12).gain(.2),
                 _aah1, _pian4,  _pian6.trans(12),    )],
   [M*4,stack(   _d2,  _guit1, _guit3.trans(12),   
-                _chord2.lpf(800).trans(-12).gain(.4), _chord3.trans(12).gain(.1),
+                _chord2.lpf(500).trans(-12).gain(.4), _chord3.trans(12).gain(.2),
                 _aah1, _pian3.trans(12), _pian6, _pian7.trans(24).gain(.1),    )],
 
   
