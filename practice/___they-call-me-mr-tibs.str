@@ -54,7 +54,7 @@ var _t7 = `<
  [- 3 2 0] [3 2 0 -]
 >`
 var _tOut = `<
- [- 0 2 4 [4 5] 4 2 -] [7 6 4 - 8 7 6 -] [0,4,7]
+ [- 0 2 4 [4 5] 4 2 -] [2 1 0 -2 3 2 1 -2] 0
 >`
 var _c = "<0 3 5 1>"
 var _cc = "<C F Am G>"
@@ -142,11 +142,11 @@ $: arrange(
   [M*4,stack(   _d2,  _guit1, _guit3.trans(12),   
                 _chord2.lpf(500).trans(-12).gain(.4), _chord3.trans(12).gain(.2),
                 _aah1, _pian3.trans(12), _pian6, _pian7.trans(24).gain(.1),    )],
-  [M*3,stack(   _d3, _pianOut.hpf(1000) )],
+  [M*3,stack(   _d3.gain(sine.range(0,1).slow(3).mask("<1 1 0 0>")), _pianOut.hpf(1000) )],
   [M*4,silence],
 
   
 )
 
-// all(x => x.postgain(.8).punchcard())
+ all(x => x.postgain(.8).punchcard())
 
