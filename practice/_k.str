@@ -1,0 +1,151 @@
+//@title Template
+//@by Stuart Bray
+//@url https://soundcloud.com/stuart-j-bray
+
+setcpm(35)
+
+var m7 = "<-@7 1>"
+var m_7 = "<1@7 ->"
+window.cols = ["#ff0000","#ff8700","#ffd300","#deff0a","#a1ff0a","#0aff99","#0aefff","#147df5","#580aff","#be0aff"]
+// -------------- Drums
+const drumsPass = (x) => x.color("white");
+
+var d1 = sound("bd:2").struct(  "1 - - - - - 1 -  1 - - - - - - -")
+var d2 = sound("sd:1").struct(  "- - - - - - - -  - - <1 -> - <- 1> - - -").speed("<.8 1.2>")
+var d2_a = sound("- sd sd - - sd sd -").speed("1.2 .8")
+var d3 = sound("compurhythm1000_hh").struct(  "1 1 1 1 1 1 1 1").gain("<[1 .4@3 1 .4@3]!3 [1 1 1 0 0 1 1 1]>")
+var d3_a = sound("compurhythm1000_hh").struct(  "1 1 1 1 1 1 1 1").gain(".7 .3 .3 .7 .7 .3 .7 .3")
+var d4 = sound("rim").struct(  "- - - - 1 - - -  - - <- 1> - 1 - - -")
+
+var _drums_intro = drumsPass(stack(  d3.mask(m_7), d2_a.mask(m7)  ))            // build up
+var _drums1 =      drumsPass(stack(  d1,  d2,  d3_a,  d4, d2_a.mask(m7)))   // normal
+var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
+
+
+// Define pass functions for each instrument
+var chordsPass = (x) => n(x).scale("c3:major").sound("gm_synth_brass_2:2").color(cols[0])
+var rithPass = (x) => n(x).scale("c4:major").sound("gm_reed_organ:4").gain(.7).color(cols[1])
+var bellPass = (x) => n(x).scale("c4:major").sound("gm_tubular_bells:4").gain(.7).color(cols[2]).gain(1.3).rel(.3)
+
+var bassPass =   (x) => n(x).scale("c3:major").sound("gm_acoustic_guitar_steel").color(cols[3]).distort(1).gain(.7)
+var leadPass =   (x) => n(x).scale("c3:major").sound("piano").color(cols[4])
+var wissPass =   (x) => n(x).scale("c3:major").sound("gm_guitar_harmonics:3").color(cols[5]).rel(.2)
+
+var zedPass =    (x) => n(x).scale("c2:major").sound("sqr").color(cols[6])
+
+// Apply pass functions to patterns
+var _chords0 = chordsPass(`<
+ -@7 [- 4 5# 7 8# 7 5# 7 ]
+>`)
+var chordsArp = "<[0,1,2][<[- 0] -> [- 0] [0,1,2] 0]>"
+var _chords1 = chordsPass(`<
+ [5,7,9]!2
+ [4#,7,8]!2
+ [4,7,9]!2
+ [3,5,7]!2
+>`).arp(chordsArp)
+var _chords2 = chordsPass(`<
+ [0,[1# 2@14 1#],4] _
+ [1#,[3# 4@15],5#] _
+ [4, [5 5#@15],8] _
+ [3, [4# 5@14 4#],7] _
+>`)
+// 1-1-11-1--------
+var _bass1 = bassPass(`<
+ [-2 - -2 - 0 -2 - -2][-]
+ [-3# - -3# - 0 -3# - -3#][-]
+ [-3 - -3 - 0 -3 - -3][-]
+ [-4 - -4 - 0 -4 - -4][-]
+>`)
+var _bass2 = bassPass(`<
+ [-3 - -3 -2# -2# -3 - -3][-]
+ [0 - 0 -3 1# 0 - 0][-]
+ [-3 - -3 - -2# -3 -4 -3][-]
+ [-4 - -4 -2 -2 -4 - -4][-]
+>`)
+
+var _lead1 = leadPass(`<
+-
+>`)
+var _lead2 = leadPass(`<
+-
+>`)
+
+var _rith1 = rithPass(`<
+ [0,2] [0,3 2]
+ [1,3] [1,4 3]
+ [2,4] [2,5 4]
+ [-2,0] [-2,1 0]
+>`).struct("<[- - 1 - - - 1 1]!3 [- 1 1 - - 1 1 1]>")
+var _rith1a = rithPass(`<
+ [0,2] [0,3 2]
+ [-1,1] [-1,2 1 ]
+ [-2,0] [-2,2 0]
+ [-4,0] [-4,2 1]
+>`).struct("<[- - 1 - - - 1 1]!3 [- 1 1 - - 1 1 1]>")
+
+var _bell1 = bellPass(`<
+ [4 5#]
+ [4 3]
+ [4 <5# 7>]
+ [3 [ 2 0]]
+>`).struct(`<
+ [- - 1 - - - 1 -]
+ [- - 1 - - - - 1]
+ [- - 1 - - - 1 -]
+ [- 1 1 - - 1 - 1]
+ >`)
+
+var _wiss1 = wissPass(`<
+ [3 2 1 2 1 0 2 _] -
+ [1 2 1 3 2 1 2 _] -
+ [4 3 2 3 2 1 2 _] -
+ [7 6 5 4 3 2 1 0] -
+>`)
+
+var _zed1 = zedPass(`<
+ 7 5# [4 3] [5# 8]
+>`).struct("[- - 1 - - <- 1> - <1 -> ]").rel(.4)
+var _zed1a = zedPass(`<
+ 7 5# [4 3] [5# 8]
+>`).struct("[- - 1 - - <- 1> - <1 -> ]").fm(8).clip(.3)
+
+
+
+
+// Cycle counter.
+// $: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
+ // all(x => x.rib(48,8)) // Play just the numbered cycles.
+
+// Mute indicator - to quickly skip to area of interest. Toggle lines by changing M to 0 or 1.
+var M = 1; // change to M=1 to unmute all stacks with an M.
+// M = 0;
+$: arrange(
+  // Change 1 to be M to conditionally mute this stack.
+  [M*8, stack(    
+    _drums_intro,
+    _bass1,    _chords0,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords1,     _bass1,    _lead1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,    _bass1,    _rith1,
+  )],
+  [M*8, stack(
+    _drums1,
+    _chords1,    _bass1,    _rith1a,    _wiss1,
+  )],
+  [M*8, stack(    
+    _drums1,
+    _chords2,     _bass2,    _lead1,    _bell1,
+  )],
+  [1*8, stack(
+    _drums1,
+    _chords2,     _bass2,    _lead1,    _bell1.hpf(1500), 
+    _zed1,_zed1a,
+  )],
+  ).punchcard()
+  
