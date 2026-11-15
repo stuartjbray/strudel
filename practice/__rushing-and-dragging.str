@@ -63,6 +63,8 @@ var _c2 = `<
 >`
 var _chords1 = chordsPass(_c).trans("<0!4 12!4>")
 var _chords2 = chordsPass(_c2)
+var _chords3 = chordsPass(_c).trans(0).arp("[0 1 2 <1 ->]*2").cubic(1)
+var _chords4 = _chords3.late(1/4).trans(12)
 
 var _bass1 = bassPass(_c).struct("1 _ - 1")
 var _bass2 = bassPass(_c2)
@@ -77,8 +79,10 @@ var _lead2 = leadPass(`<
 -
 >`)
 
+
+
 var M = 1;
-// M = 0;
+M = 0;
 $: arrange(
   [M*4, stack(    
     _drums_intro,
@@ -101,6 +105,17 @@ $: arrange(
     _lead1,
     _lead1.fast(2).trans(-12),
     _lead1.late(.25).trans(12),
+  )],
+  [1*8, stack(    
+    _drums2,
+    _chords3,     _chords4, 
+    _bass1.trans(24),
+  )],
+  [1*8, stack(    
+    _drums2,
+    _chords3,     //_chords4, 
+    _bass1.trans(12).gain(.8),
+    _lead1.ply(2).clip(.5).gain(2),
   )],
   ).punchcard()
   
