@@ -11,7 +11,7 @@ var d1 = sound("bd").struct(  "1 - - - - - - <1 ->").room(1).cubic("1.2 0")
 var d2 = sound("rim").struct( "- - - 1 - <- 1> - -").speed("1 .95")
 var d3 = sound("hh").struct(  "1 - 1 - 1 <- 1> 1 -").gain("[.2 .7]*2")
 var d4 = sound("oh").struct(  "- - - - - - <- 1> - ")
-var d5 = sound("- sd - [- sd], <- - - [sd*4]>").cubic(".5 1")
+var d5 = sound("- sd - [- sd], <- - >").cubic(".5 1")
 
 var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
 var _drums1 =      drumsPass(stack(  d1, d2,  d3,  d4 ))  // normal
