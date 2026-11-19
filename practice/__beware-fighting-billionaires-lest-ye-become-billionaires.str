@@ -1,4 +1,4 @@
-//@title rumburger
+//@title beware-fighting-billionaires-lest-ye-become-billionaires
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -10,16 +10,20 @@ const drumsPass = (x) => x.color("white").bank("compurhythm1000");
 var d1 = sound("bd").struct(  "1 - - - - - 1 -  - - - - <1 - 1 1> - <- - - 1> <- - - 1>")
 var d2 = sound("sd").struct(  "- - - - - - - -  1 - - - - - - -")
 var d3 = sound("hh").struct(  "- - 1 - - - - -  - - <1 -> - - - - -")
+var d3x = sound("hh").struct(  "1*8").gain(".2 .8 .2")
 var d4 = sound("oh").struct(  "- - - - - - - -  1 - - - - - - -").gain(.4)
+var d4x = sound("oh*8").gain(".2 .4 .6 .8")
+var d4x2 = sound("<- oh*8>").gain("1.3 .6 .4 .2")
 
 var _drums_intro = drumsPass(stack(  d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1,  d2,  d3,  d4))   // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
+var _drums1 =      drumsPass(stack(  d1, d2,  d3,  d4))   // normal
+var _drums2 =      drumsPass(stack(  d1, d2, d3x  ))
 
 
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:major").sound("gm_epiano1:3").color("red")
 var bassPass =   (x) => n(x).scale("c3:major").sound("steinway").color("orange").gain(.5)
+var bass2Pass =   (x) => n(x).scale("c3:major").sound("gm_slap_bass_1").color("orange").gain(1.5).rel(.3)
 var leadPass =   (x) => n(x).scale("c4:major").sound("gm_acoustic_guitar_steel:2").color("yellow").cubic(.7).rel(.3)
 var saxPass =   (x) => n(x).scale("c4:major").sound("gm_alto_sax:<1,2>").color("green").rel(.2)
 var guitPass =   (x) => n(x).scale("c3:major").sound("gm_distortion_guitar").color("blue").gain(.8).rel(.4).lpf(500).cubic(.7)
@@ -31,13 +35,23 @@ var _chords1 = chordsPass(`<
  [1 3 5 1 3 5*2 1 3] [1 3 5 1 2 [4 5] 6 2]
  [3 5 7 3 5 [7 5] 3 5] [3 5 7 5 2 [4 4#] 6 2]
 >`)
-var _chords2 = chordsPass(`<
--
->`)
 var _chords1_7 = chordsPass(`<
  [1 3 5 8   8 10*2 12 14] [1 3 5 8  2 4*2 6 9]
  [3 5 7 9  10 12*2 14 16] [3 5 7 9  4 6*2 9 11]
 >`)
+var _c1 = `<[1,3,5][1,4,6][3,5,7][2,5,7,7#]>`
+var _chords2 = chordsPass(_c1).arp("[0 - - [1,2] _ - [1,2] _]")
+ // [1 [3,5] - -] [1 [4,6] - -] [3 [5,7] - -] [2 [5,<7 7#>] - -]
+// sad descending
+var _c4 = `<
+ [1,3,5,5#] [0,2,5,5#] [-1,1,3] [-2#,1,3]
+>`
+var _c5 = `<
+ [-2,0,2][-2,0,2] [[1,3,5#] [0#,3,5]] [[0,3,5] [-1,1,5]]
+ [-3,0,2] [-3#,0,2] [-2,0,2] [-2#,0,4]
+>`
+var _chords4 = chordsPass(_c4).arp("<[0 1 2 [- 3]][0 1 [0 1 2 _] 3]>")
+var _chords5 = chordsPass(_c5).arp("<[0 <- - 0 0 -@4>, 0 1 2 1 0 1 2 _]>")
 
 var _bass_in = bassPass(`<
  [1 8 1 1 8 1 1 8]
@@ -48,8 +62,17 @@ var _bass1 = bassPass(`<
  [1 - - 1 - - 1 -] [1 - - 1 0 - - 0 ]
  [-2 - - -2 - - -2 -] [-3 - - -3 0 - 0 - ]
 >`)
-var _bass2 = bassPass(`<
--
+var _bass2 = bass2Pass(`<
+ [1 - - [3,5] - - [3,5] -] [1 - - 1 0 - - 0 ]
+ [3 - - [5,7] - - [5,7] -] [3 - - 3 4 - 4 - ]
+ [1 - - [3,5] - - [3,5] -] [1 - - 1 0 - - 0 ]
+ [3 - - [5,7] - - [5,7] -] [[3,5,7] [2,5,7#]]
+>`)
+var _bass5 = bassPass(`<
+ [1 [3,8]!2 - -@4] - 
+ [1 [3,9]!2 - -@4] - 
+ [3 [5,10]!2 - - [5#,10]!2  -] - 
+ [- [4,12]!2 - - [5,11]!2 -] [- [5#,9]!2 - - - - -]
 >`)
 
 var _lead1 = leadPass(`<
@@ -67,6 +90,14 @@ var _lead3 = leadPass(`<
  [- - 8 7 - 8 - 5] -
  [- - 3 4 - 3 - 5] -
 >`)
+var _lead4 = leadPass(`<
+ [- <8 5> [- 7] 5] [[4 3] 4 - -]
+ [- 8 [- 7] <5 8>] [[3 2] 3 - -]
+ [- 3 4 [- 3]] [2 [- 5] - -] [1 [- 5] - -] [1 [- 0] - -]
+>`)
+
+
+
 var _sax1 = saxPass(`<
  1 - - [[3,5] [4,6]]
  5 - - [[3,5] [4,6]]
@@ -78,6 +109,14 @@ var _sax2 = saxPass(`<
 var _sax3 = saxPass(`<
  - [3 2 1 <0 2>] <1 3> -
 >`)
+var _sax4 = saxPass(`<
+ - [- 3 _ 2] 1 -
+ - [- 3 _ 2] [-1 0#] [4 _ 3 _ ]
+>`).trans(-12)
+var _sax5 = saxPass(`<
+ [-@4 2 _ _ 1] 2 [- - 3 4][5 4 3 1] 
+ [4@3 -] [4#@3 1] [5@3 2] [5#@3 -]
+>`)
 
 var _guit1 = guitPass(`<
  [- 1] 0 [- -2] [- <-3 0>]
@@ -87,49 +126,57 @@ var _guit2 = guitPass(`<
  [7 -] [- - 6 _] [5 -] [- - 4 _ ]
 >`).trans(-12).rel(.2).room(2)
 
-var M = 1;
-// M = 0;
+var _guit4 = guitPass(`<
+ 1 0 -1 -2#
+>`)
+
+var M = 1
+// M = 0
 $: arrange(
   [M*1, stack(
     _chords_in, _bass_in,
   )],
   [M*8, stack(    
     _drums1,
-    _chords1, 
-    _bass1,
+    _chords1,     _bass1,
     _sax1.trans(-12).rel(.5).room(2),
   )],
   [M*8, stack(    
     _drums1,
-    _chords1, 
-    _bass1,
-    _lead1,
-    _sax1,
-    _guit1,
+    _chords1,     _bass1,    _lead1,    _sax1,    _guit1,
   )],
   [M*8, stack(
     _drums1,
-    _chords1,
-    _bass1,
-    _lead2,
-    _sax2,
-    _guit1,
+    _chords1,    _bass1,    _lead2,    _sax2,    _guit1,
   )],
-  [1*8, stack(    
+  [M*8, stack(    
     _drums1,
-    _chords1_7, 
-    
-    _bass1,
-    _lead3,
-    _sax3,
-    _guit2,
+    _chords1_7,     _bass1,    _lead3,    _sax3,    _guit2,
   )],
-  // [M*8, stack(
-  //   _drums1,
-  //   _chords2,
-  //   _bass2,
-  //   _lead2,
-  // )],
-  // [M*2,silence]
-  ).punchcard()
+  [M*1, stack(
+    _chords_in, _bass_in,
+  )],
+  [M*16, stack(
+    _drums2,
+    _chords2,
+    _bass1.mask("[1 - - <- 1>]").trans(-12),
+    _bass2.trans(-12),
+    _lead1.trans(-12),
+  )],
+  [M*1, d4x],
+  [M*16, stack(
+    _drums2, d4x2,
+    _chords4,    _lead4,    _guit4,    _sax4,
+  )],
+  [1*16, stack(
+    _bass5,
+    _drums1, 
+    _chords5,
+    _sax5,
+    // _lead4,    _guit4,    
+  )],
+
+
+  [M*2,silence]
+).punchcard()
   
