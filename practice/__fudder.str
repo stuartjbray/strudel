@@ -10,15 +10,19 @@ const drumsPass = (x) => x.color("white");
 
 var d1 = sound("bd").struct(  "1 - - - 1 [- 1] - -")
 var d1x = sound("bd").struct( "- - 1 - - -     - 1").room(1)
+var d1y = sound("oberheimdmx_mt").struct("- 1 - 1").speed("1 .9")
+
 var d2 = sound("lt").struct(  "- - - - 1 - <- 1> -")
-var d3 = sound("hh").struct(  "- - - - - - - -")
+var d3 = sound("hh").struct(  "- 1 - 1 - 1 - 1")
+var d3x = sound("- oh - <oh [oh - - oh]>").gain(.9).clip(".3 .5")
 var d4 = sound("sd").struct(  "- - - - - - <-@3 1> 1").room(1).gain(1)
 
 var d5 = sound("[linn9000_cb:1,linn9000_cb:2]").arp("<[1 - 1 - 0 0 - 1 - 1 - 1 0 - 0 -]>").mask(m4).gain(.4)
 
-var _drums_intro = drumsPass(stack( d1, d2  ))            // build up
-var _drums1 =      drumsPass(stack(  d1, d1x,  d2,  d3,  d4))  // normal
-var _drums2 =      drumsPass(stack(  d1, d2  ))           // break down
+var _drums_intro = drumsPass(stack(  d1, d2  ))         
+var _drums1 =      drumsPass(stack(  d1, d1x,  d2,  d3,   d4))  
+var _drums2 =      drumsPass(stack(  d1, d1x,  d2,  d3, d3x,  d4))  
+var _drums3 =      drumsPass(stack(  d1, d1y,  d2,  d3, d3x,  d4))  
 
 
 // Define pass functions for each instrument
@@ -89,28 +93,28 @@ var _brass4 = brassPass(`<
 var M = 1;
  // M = 0;
 $: arrange(
-  [M*8, stack(    
+  [M*4, stack(    
     _drums1,    _bass1,     _aah1,
     _chords1,
   )],
-  [M*8, stack(
+  [M*4, stack(
     _drums1,    _bass2,     _aah2,
     _chords2,
   )],
   [M*8, stack(    
-    _drums1,    _chords1.gain(.4),     _bass1,    _whist1,
+    _drums2,    _chords1.gain(.4),     _bass1,    _whist1,
     _lead1, _flu1,
   )],
   [M*8, stack(
-    _drums1,    _chords2.gain(.4),    _bass2,    _whist1,
+    _drums2,    _chords2.gain(.4),    _bass2,    _whist1,
     _lead2, _flu1,
   )],
   [M*8, stack(    
-    _drums1, d5,   _chords1.gain(.4),     _bass1,
+    _drums3, d5,   _chords1.gain(.4),     _bass1,
     _lead1, _flu1,
   )],
   [M*8, stack(
-    _drums1, d5,   _chords2.gain(.4),    _bass2, 
+    _drums3, d5,   _chords2.gain(.4),    _bass2, 
     _lead2, _flu1,
   )],
 
