@@ -1,4 +1,4 @@
-//@title Template
+//@title queix
 //@by Stuart Bray
 //@url https://soundcloud.com/stuart-j-bray
 
@@ -20,7 +20,7 @@ var _drums2 =      drumsPass(stack(  d1, d2  ))            // break down
 // Define pass functions for each instrument
 var chordsPass = (x) => n(x).scale("c3:major").sound("gm_church_organ").color("red").att(.3).rel(.3)
 var bassPass =   (x) => n(x).scale("c3:major").sound("gm_rock_organ:3").trans(-12).color("orange").cubic(1).att(.7).rel(.3)
-var leadPass =   (x) => n(x).scale("c3:major").sound("piano").color("yellow")
+var leadPass =   (x) => n(x).scale("c3:major").sound("steinway").color("yellow")
 
 // Apply pass functions to patterns
 var _chords1 = chordsPass(`<
@@ -32,12 +32,14 @@ var _chords1 = chordsPass(`<
 var _chords2 = chordsPass(`<
  [-2#,1,3] [-2#,1,2] 
  [-1,1,4] [-1,1,3]
->`)
-var _chords3 = chordsPass(`<
  [1,3,5] [1,3,5]
  [1,4,6] [1,4,7]
+>`)
+var _chords3 = chordsPass(`<
  [0,3,5] [[0,2,4] [0,2,5]]
  [-1,1,3] [-2#,1,3]
+ [-1,1,4] [-1,1,3]
+ [0,2,5] [0,2,4]
 >`)
 
 var _bass1 = bassPass(`<
@@ -45,18 +47,32 @@ var _bass1 = bassPass(`<
 >/2`)
 var _bass2 = bassPass(`<
  -2# _ -1 _
+ -2# _ -1 _
 >`)
 var _bass3 = bassPass(`<
- -2# _ -1 _
  0 _ -1 -2#
+ -1 _ 0 2
 >`)
 
+var arpBracks = "<[[0,1,2] - - [0,1,2]]>"
 var _lead1 = leadPass(`<
--
->`)
+ [1,3,5]
+ [-2,1,3 ]
+ [-1,1,4 ]
+ [0,2,4 ]
+>/2`).arp(arpBracks)
 var _lead2 = leadPass(`<
--
->`)
+ [-2#,1,3]
+ [-1,1,4]
+ [1,3,5]
+ [1,4,6]
+>/2`).arp(arpBracks)
+var _lead3 = leadPass(`<
+ [0,3,5]
+ [-1,1,3]
+ [-1,1,4]
+ [0,2,5]
+>/2`).arp(arpBracks)
 
 // Cycle counter.
 // $: stack(   n("<0 1 2 3 4 5 6 7 8 9>").slow(100),    n("<0 1 2 3 4 5 6 7 8 9>").slow(10),    n("<0 1 2 3 4 5 6 7 8 9>") )
@@ -67,13 +83,13 @@ var M = 1; // change to M=1 to unmute all stacks with an M.
 M = 0;
 $: arrange(
   // Change 1 to be M to conditionally mute this stack.
-  [M*8, stack(    
+  [1*8, stack(    
     _drums1,
     _chords1, 
     _bass1,
     _lead1,
   )],
-  [1*4, stack(
+  [1*8, stack(
     _drums1,
     _chords2,
     _bass2,
@@ -83,7 +99,7 @@ $: arrange(
     _drums1,
     _chords3, 
     _bass3,
-    _lead1,
+    _lead3,
   )],
   [M*8, stack(
     _drums1,
