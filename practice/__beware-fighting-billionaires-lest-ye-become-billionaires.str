@@ -9,8 +9,8 @@ const drumsPass = (x) => x.color("white").bank("compurhythm1000");
 
 var d1 = sound("bd").struct(  "1 - - - - - 1 -  - - - - <1 - 1 1> - <- - - 1> <- - - 1>")
 var d2 = sound("sd").struct(  "- - - - - - - -  1 - - - - - - -")
-var d3 = sound("hh").struct(  "- - 1 - - - - -  - - <1 -> - - - - -")
-var d3x = sound("hh").struct(  "1*8").gain(".2 .8 .2")
+var d3 = sound("hh").struct(  "- - 1 - - - - -  - - <1 -> - - - - -").speed("[1 .8]")
+var d3x = sound("hh").struct(  "1*8").gain(".2 .8 .2").speed("[.8 1]")
 var d4 = sound("oh").struct(  "- - - - - - - -  1 - - - - - - -").gain(.4)
 var d4x = sound("oh*8").gain(".2 .4 .6 .8")
 var d4x2 = sound("<- oh*8>").gain("1.3 .6 .4 .2")
