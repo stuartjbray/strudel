@@ -38,7 +38,7 @@ var _saw2 = dSawPass(`<
 var _saw3 = dSawPass(`<
  5 5# <4 7> 5,
  -2 -2# <-3 0> <-2 1>
->`).arp("[1 [- <1 - 1 ->]]").cubic(.6).rel(.2)
+>`).arp("[1 [- <1 - 1 ->]]").cubic(.4).rel(.2)
 var _saw4 = dSawPass(`<
  5 <4 5#> 3 2
 >`).trans(12).arp("<[1 -] [1 - 1 - 1 - 1 -]>")
@@ -112,15 +112,15 @@ $: arrange(
     _saw2,
     _saw2.late(1/4).trans(12),
   )], 
-  [M*8, stack(    _d1.bank("mc303"), _d2,    _saw1,    _saw3, _saw4, _saw5, _g1,  )],
-  [M*8, stack( // happy
+  [1*8, stack(    _d1.bank("mc303"), _d2,    _saw1,    _saw3.clip(.1), _saw4, _saw5, _g1,  )],
+  [1*8, stack( // happy
     _d2, _p1.trans(12), _bass1.lpf(400), _e2, _g1,
   )], 
-  [M*8, stack( 
+  [1*8, stack( 
     _d2, _p1.trans(0), _bass1.lpf(400), _e2.trans(-12).gain(1.2), _g1.trans(12),
     _saw1
   )], 
-  [M*8, stack(
+  [1*8, stack(
     _d1, _d2, _d3,
     _saw2,
     _saw2.late(1/4).trans(12),
@@ -128,7 +128,7 @@ $: arrange(
     _e1, _g1.trans(12),
     _v1,
   )], 
-  [M*8, stack(
+  [1*8, stack(
     _d1, _d2.ply(2),
     _saw5.mask("[0 1]!4").trans(-12).cubic(.8),
     _saw5.mask("[1 0]!4").trans(0).cubic(.4),

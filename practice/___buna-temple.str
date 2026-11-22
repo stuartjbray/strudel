@@ -108,7 +108,7 @@ $: arrange(
     _sqr1,
     _viol1,
   )],
-  [1*8, stack(
+  [M*8, stack(
     _drums1,
     _chords2,
     _bass2,
@@ -122,11 +122,12 @@ $: arrange(
     _kot1,
     _sqr2,
   )],
-  [0*8, stack(
-    _drums1,
-    _chords2,
-    _bass2,
-    _lead2,
+  [M*8, stack(
+    _drums1.lpf(500),
+    _bass1,
+    _bass1.trans(12).gain(.5).late(.5),
+    _kot1,
+    _sqr2.rev().gain(.5).mask("[1 -]"),    
   )],
   ).punchcard()
   

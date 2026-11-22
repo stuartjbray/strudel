@@ -8,7 +8,7 @@ setcpm(35)
 const drumsPass = (x) => x.color("white").bank("compurhythm1000");
 
 var d1 = sound("bd").struct(  "1 - - - - - 1 -  - - - - <1 - 1 1> - <- - - 1> <- - - 1>")
-var d2 = sound("sd").struct(  "- - - - - - - -  1 - - - - - - -")
+var d2 = sound("sd").struct(  "- - - - - - - -  1 - - - - - - -").echo("<1 4>", 1/64, .6) 
 var d3 = sound("hh").struct(  "- - 1 - - - - -  - - <1 -> - - - - -").speed("[1 .8]")
 var d3x = sound("hh").struct(  "1*8").gain(".2 .8 .2").speed("[.8 1]")
 var d4 = sound("oh").struct(  "- - - - - - - -  1 - - - - - - -").gain(.4)
@@ -27,6 +27,9 @@ var bass2Pass =   (x) => n(x).scale("c3:major").sound("gm_slap_bass_1").color("o
 var leadPass =   (x) => n(x).scale("c4:major").sound("gm_acoustic_guitar_steel:2").color("yellow").cubic(.7).rel(.3)
 var saxPass =   (x) => n(x).scale("c4:major").sound("gm_alto_sax:<1,2>").color("green").rel(.2)
 var guitPass =   (x) => n(x).scale("c3:major").sound("gm_distortion_guitar").color("blue").gain(.8).rel(.4).lpf(500).cubic(.7)
+var oohPass =   (x) => n(x).scale("c3:major").sound("gm_voice_oohs:3").color("cyan").gain(.8)
+
+
 
 var _chords_in = chordsPass(`<
  [1 8 1 1  8 1*2 8 1]
@@ -69,10 +72,10 @@ var _bass2 = bass2Pass(`<
  [3 - - [5,7] - - [5,7] -] [[3,5,7] [2,5,7#]]
 >`)
 var _bass5 = bassPass(`<
- [1 [3,8]!2 - -@4] - 
- [1 [3,9]!2 - -@4] - 
- [3 [5,10]!2 - - [5#,10]!2  -] - 
- [- [4,12]!2 - - [5,11]!2 -] [- [5#,9]!2 - - - - -]
+ [1 3 8 - -@4] 5# 
+ [1 3 9 - -@4] 11 
+ [3 5 10 - - 5# 10 -] 8 
+ [- 4 12 - 5 11 - -] [10 5# 9 - 4 3 2 1]
 >`)
 
 var _lead1 = leadPass(`<
@@ -130,6 +133,23 @@ var _guit4 = guitPass(`<
  1 0 -1 -2#
 >`)
 
+var _guit5 = guitPass(`<
+ 1 2 3 5
+ 2 3 5# 4
+>`).cubic(1)
+
+
+
+var _ooh1 = oohPass(`<
+ -@3 [ [[5,7]*4] [[6,8]*3] ]
+ 5 - [ [[3,5]*3]  [[4,6]*2] ] -
+>`).gain(1)
+var _ooh2 = oohPass(`<
+ [3 2 3 4 3 2 1 -] [5 4 5 5# 7 5# 7 -]
+ [9 8 9 10 11 10 11 - ] [4 5 5# 7]
+>`).clip(.4)
+
+
 var M = 1
 // M = 0
 $: arrange(
@@ -160,20 +180,17 @@ $: arrange(
     _drums2,
     _chords2,
     _bass1.mask("[1 - - <- 1>]").trans(-12),
-    _bass2.trans(-12),
+    _bass2.trans(0),
     _lead1.trans(-12),
+    _ooh1,
   )],
   [M*1, d4x],
   [M*16, stack(
     _drums2, d4x2,
-    _chords4,    _lead4,    _guit4,    _sax4,
+    _chords4,    _lead4,    _guit4,    _sax4, _ooh2,
   )],
-  [1*16, stack(
-    _bass5,
-    _drums1, 
-    _chords5,
-    _sax5,
-    // _lead4,    _guit4,    
+  [M*16, stack(
+    _bass5,    _drums1,     _chords5,    _sax5,    _guit5,    
   )],
 
 
