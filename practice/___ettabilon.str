@@ -37,8 +37,8 @@ var _saw2 = dSawPass(`<
 >`).trans(12)
 var _saw3 = dSawPass(`<
  5 5# <4 7> 5,
- -2 -2# <-3 0> <-2 1>
->`).arp("[1 [- <1 - 1 ->]]").cubic(.4).rel(.2)
+ -2 -2# <-3 0> <-2 <1 -1>>
+>`).arp("[1 [- <1 - 1 ->]]").cubic(.2).rel(.2).phaser(2)
 var _saw4 = dSawPass(`<
  5 <4 5#> 3 2
 >`).trans(12).arp("<[1 -] [1 - 1 - 1 - 1 -]>")
