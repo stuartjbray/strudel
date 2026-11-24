@@ -23,22 +23,34 @@ var dSawPass = (x) => stack(
  n(x).s("saw").fm(2).fmh(3).lpf(500),
  n(x).s("saw").rel(.5).gain(.3).hpf(1000),
 ).scale("c3:major").color("red")
+var dSawPass2 = (x) => stack(
+ n(x).s("saw").fm("<1 2 3 4>").fmh("<3 2 1>").lpf(800),
+).scale("c3:major").color("blue")
+var dSawPass3 = (x) => stack(
+ n(x).s("saw").fm("<4 6 8>").clip(.2).rel(.2).cubic(1).hpf(800).phaser(3),
+).scale("c3:major").color("blue")
+
 var pPass = (x) => n(x).s("gm_electric_bass_finger").scale("c4:major").color("orange")
 var ePass = (x) => n(x).s("gm_clavinet").scale("c4:major").color("yellow")
 var gPass = (x) => n(x).s("gm_distortion_guitar").scale("c3:major").color("green")
 var vPass = (x) => n(x).s("gm_lead_7_fifths").scale("c3:major").color("cyan")
 
 
+var arp1 = "<[ 1 _ -    <1 -> _ _ - - ]!7 [- 1]>"
 var _saw1 = dSawPass(`<
  [1 1 1 1 1 - 1 -][1 - 1 - 1 2 3 4]
 >`)
 var _saw2 = dSawPass(`<
  [3 - - 2 - - 4 -][3 2 1 - 5 - <5 5#> -]
 >`).trans(12)
-var _saw3 = dSawPass(`<
- 5 5# <4 7> 5,
- -2 -2# <-3 0> <-2 <1 -1>>
->`).arp("[1 [- <1 - 1 ->]]").cubic(.2).rel(.2).phaser(2)
+var __s3 = `<
+ -2 -2# -3   -2 
+ -2 -2# -3   1
+ -2 -2# 0    -2 
+ -2 -2# 0    1
+>`
+var _saw3 = stack(  dSawPass2(__s3).arp(arp1),  dSawPass3(__s3).arp(arp1).echo(3,1/8,.6))
+
 var _saw4 = dSawPass(`<
  5 <4 5#> 3 2
 >`).trans(12).arp("<[1 -] [1 - 1 - 1 - 1 -]>")
@@ -86,10 +98,11 @@ var M = 1
 $: arrange(
   [M*2, stack(    _saw1  )],
   [M*8, stack(    _d1,    _saw1,    _saw2,    _saw3,  )],
-  [M*8, stack(    _d1,    _saw1,    _saw3, _saw4, _saw5  )],
+  [M*8, stack(    _d1,    _saw1,    _saw3.trans(12).gain(.5), _saw4, _saw5  )],
   [M*8, stack(
     _d1.ply("1 2"),
-    _saw1, _saw3.trans(12), _saw4.trans(12), _saw5.trans(-24)
+    _e2,
+    _saw1, _saw4.trans(12), _saw5.trans(-24)
   )],
   [M*8, stack(
     _d1.rev().hpf(1000),
@@ -97,7 +110,7 @@ $: arrange(
     _bass1.clip(.4).mask("[1 - - 1]")
   )], 
   [M*8, stack(
-    _d1, _saw1,_saw3.gain(.4), _saw4.trans(-12),     _p1, _bass1.clip(.4).ply(2)
+    _d1, _saw1,_saw3.gain(.2), _saw4.trans(-12),     _p1, _bass1.clip(.4).ply(2)
   )], 
   [M*16, stack( // gradual build up.
     _d1, _d2, 
@@ -105,14 +118,16 @@ $: arrange(
     _saw1.trans(12).gain("[0 .2 .4 [.6 0]]/16").late(1/8),
     _saw5.mask("[1 -]").trans(-12),
   )], 
-  [M*8, stack(    _d1.bank("mc303"),    _saw1,    _saw2,    _saw3,  _e1, )],
-  [M*8, stack(    _d1.bank("mc303"),    _saw1,    _saw3, _saw4, _saw5, _e1,  )],
+  [M*8, stack(    _d1.bank("mc303"),    _saw1,    _saw2,    _saw3.gain(.4),  _e1, )],
+  [M*8, stack(    _d1.bank("mc303"),    _saw1,    _saw3.gain(.4), _saw4, _saw5, _e1,  )],
   [M*8, stack(
     _d2, _d3,
     _saw2,
     _saw2.late(1/4).trans(12),
   )], 
-  [1*8, stack(    _d1.bank("mc303"), _d2,    _saw1,    _saw3.clip(.1), _saw4, _saw5, _g1,  )],
+  [1*8, stack(    _d1.bank("mc303"), _d2,    _saw1,                      _saw4, _saw5, _g1,  
+                  _saw3.clip(.1), _saw3.clip(.1).trans(12).late(1/4).gain(.2), 
+             )],
   [1*8, stack( // happy
     _d2, _p1.trans(12), _bass1.lpf(400), _e2, _g1,
   )], 

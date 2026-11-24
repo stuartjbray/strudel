@@ -118,7 +118,7 @@ var _sax4 = saxPass(`<
 >`).trans(-12)
 var _sax5 = saxPass(`<
  [-@4 2 _ _ 1] 2 [- - 3 4][5 4 3 1] 
- [4@3 -] [4#@3 1] [5@3 2] [5#@3 -]
+ [4@3 -] [4#@3 -] [5@3 -] [5#@3 -]
 >`)
 
 var _guit1 = guitPass(`<
@@ -135,7 +135,7 @@ var _guit4 = guitPass(`<
 
 var _guit5 = guitPass(`<
  1 2 3 5
- 2 3 5# 4
+ 4 3 5 5#
 >`).cubic(1)
 
 
@@ -145,13 +145,13 @@ var _ooh1 = oohPass(`<
  5 - [ [[3,5]*3]  [[4,6]*2] ] -
 >`).gain(1)
 var _ooh2 = oohPass(`<
- [3 2 3 4 3 2 1 -] [5 4 5 5# 7 5# 7 -]
- [9 8 9 10 11 10 11 - ] [4 5 5# 7]
+ [- 1 2 3 4 _  - -] [- 3 4 5 5# _ - - ]
+ [- 7 8 9 10 - - - ] <[4 5 5# 7][7 5# 5 4]>
 >`).clip(.4)
 
 
 var M = 1
-// M = 0
+M = 0
 $: arrange(
   [M*1, stack(
     _chords_in, _bass_in,
@@ -189,11 +189,11 @@ $: arrange(
     _drums2, d4x2,
     _chords4,    _lead4,    _guit4,    _sax4, _ooh2,
   )],
-  [M*16, stack(
+  [1*16, stack( // section 5!
     _bass5,    _drums1,     _chords5,    _sax5,    _guit5,    
   )],
 
 
   [M*2,silence]
-).punchcard()
+)//.punchcard()
   
