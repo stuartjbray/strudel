@@ -36,7 +36,7 @@ var gPass = (x) => n(x).s("gm_distortion_guitar").scale("c3:major").color("green
 var vPass = (x) => n(x).s("gm_lead_7_fifths").scale("c3:major").color("cyan")
 
 
-var arp1 = "<[ 1 _ -    <1 -> _ _ - - ]!7 [- 1]>"
+var arp1 = "<[ 1 _ -    <1 -> _ _ - - ]!7 [-]>"
 var _saw1 = dSawPass(`<
  [1 1 1 1 1 - 1 -][1 - 1 - 1 2 3 4]
 >`)
@@ -44,10 +44,8 @@ var _saw2 = dSawPass(`<
  [3 - - 2 - - 4 -][3 2 1 - 5 - <5 5#> -]
 >`).trans(12)
 var __s3 = `<
- -2 -2# -3   -2 
- -2 -2# -3   1
- -2 -2# 0    -2 
- -2 -2# 0    1
+ -2 -2# <-3 0> -2 
+ -2 -2# <-3 1> -
 >`
 var _saw3 = stack(  dSawPass2(__s3).arp(arp1),  dSawPass3(__s3).arp(arp1).echo(3,1/8,.6))
 
@@ -101,7 +99,7 @@ $: arrange(
   [M*8, stack(    _d1,    _saw1,    _saw3.trans(12).gain(.5), _saw4, _saw5  )],
   [M*8, stack(
     _d1.ply("1 2"),
-    _e2,
+    _e2.gain(1.5), _g1,
     _saw1, _saw4.trans(12), _saw5.trans(-24)
   )],
   [M*8, stack(
@@ -112,13 +110,14 @@ $: arrange(
   [M*8, stack(
     _d1, _saw1,_saw3.gain(.2), _saw4.trans(-12),     _p1, _bass1.clip(.4).ply(2)
   )], 
-  [M*16, stack( // gradual build up.
+  [M*16, stack( // ------------------ gradual build up.
     _d1, _d2, 
     _saw1.room(2).gain("[.2 .4 .6 .8]/16"),
     _saw1.trans(12).gain("[0 .2 .4 [.6 0]]/16").late(1/8),
     _saw5.mask("[1 -]").trans(-12),
   )], 
-  [M*8, stack(    _d1.bank("mc303"),    _saw1,    _saw2,    _saw3.gain(.4),  _e1, )],
+  // ------------------ Poppy!
+  [M*8, stack(    _d1.bank("mc303"),    _saw1,    _saw2,    _saw3.gain(.4),  _e1, )], 
   [M*8, stack(    _d1.bank("mc303"),    _saw1,    _saw3.gain(.4), _saw4, _saw5, _e1,  )],
   [M*8, stack(
     _d2, _d3,
@@ -128,7 +127,7 @@ $: arrange(
   [1*8, stack(    _d1.bank("mc303"), _d2,    _saw1,                      _saw4, _saw5, _g1,  
                   _saw3.clip(.1), _saw3.clip(.1).trans(12).late(1/4).gain(.2), 
              )],
-  [1*8, stack( // happy
+  [1*8, stack( // ------------------  happy
     _d2, _p1.trans(12), _bass1.lpf(400), _e2, _g1,
   )], 
   [1*8, stack( 
@@ -161,6 +160,6 @@ $: arrange(
     silence
   )], 
   
-).punchcard()
+)//.punchcard()
 
 
